@@ -1,0 +1,1025 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6E093129-7E8C-4117-9179-3CC62E8DD0B1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Nube</RootNamespace>
+    <AssemblyName>Nube</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Nube Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.MahApps, Version=0.0.7.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.MahApps.0.0.8\lib\net45\MaterialDesignThemes.MahApps.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=2.2.0.725, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.2.2.0.725\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Reporting.WinForms.v11.1.0.0.0\lib\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Reporting.WinForms.v11.1.0.0.0\lib\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Reporting.WinForms.v11.1.0.0.0\lib\Microsoft.ReportViewer.WinForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Reporting.WinForms.v11.1.0.0.0\lib\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>bin\Debug\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AccountGroup.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AlterViewMaster.cs" />
+    <Compile Include="AppLib.cs" />
+    <Compile Include="ArrearPostDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArrearPostMaster.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArrearPreDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ArrearPreMaster.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bank.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CountrySetup.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="dtproperty.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventHistory.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExceptionLogging.cs" />
+    <Compile Include="FeesDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FeesMaster.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="frmBackUpDB.xaml.cs">
+      <DependentUpon>frmBackUpDB.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmHomeMaster.xaml.cs">
+      <DependentUpon>frmHomeMaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmHomeMembership.xaml.cs">
+      <DependentUpon>frmHomeMembership.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmHomeReports.xaml.cs">
+      <DependentUpon>frmHomeReports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmLogin.xaml.cs">
+      <DependentUpon>frmLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.xaml.cs">
+      <DependentUpon>frmMain.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmMemberCard.xaml.cs">
+      <DependentUpon>frmMemberCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmMemberHistory.xaml.cs">
+      <DependentUpon>frmMemberHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmResignReceipt.xaml.cs">
+      <DependentUpon>frmResignReceipt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserPrevilage.xaml.cs">
+      <DependentUpon>frmUserPrevilage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserRights.xaml.cs">
+      <DependentUpon>frmUserRights.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmUserType.xaml.cs">
+      <DependentUpon>frmUserType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="frmWelcome.xaml.cs">
+      <DependentUpon>frmWelcome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="JSonHelper.cs" />
+    <Compile Include="Ledger.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LedgerReport.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoginHistory.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERBANK.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERBANKBRANCH.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERCITY.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERGUARDIAN.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERMEMBER.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERMEMBERTYPE.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERNAMESETUP.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERNOMINEE.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERNUBEBRANCH.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERRACE.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERRELATION.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERRESIGNSTATU.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmBankSetup.xaml.cs">
+      <DependentUpon>frmBankSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmBranchSetup.xaml.cs">
+      <DependentUpon>frmBranchSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmCitySetup.xaml.cs">
+      <DependentUpon>frmCitySetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmCountrySetup.xaml.cs">
+      <DependentUpon>frmCountrySetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmMonthEndClosing.xaml.cs">
+      <DependentUpon>frmMonthEndClosing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmNameSetup.xaml.cs">
+      <DependentUpon>frmNameSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmNUBEBranch.xaml.cs">
+      <DependentUpon>frmNUBEBranch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmPersonTitleSetup.xaml.cs">
+      <DependentUpon>frmPersonTitleSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmReasonSetup.xaml.cs">
+      <DependentUpon>frmReasonSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmRelationSetup.xaml.cs">
+      <DependentUpon>frmRelationSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmSalutationSetup.xaml.cs">
+      <DependentUpon>frmSalutationSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmStateSetup.xaml.cs">
+      <DependentUpon>frmStateSetup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmUserAccounts.xaml.cs">
+      <DependentUpon>frmUserAccounts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MasterSetup\frmYearEnd.xaml.cs">
+      <DependentUpon>frmYearEnd.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERSTATE.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERSTATU.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MemberTransfer.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Message.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Message.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\UserPrevilage.cs" />
+    <Compile Include="NameTitleSetup.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NoFormate.cs" />
+    <Compile Include="NubeAccountBankConcilation.xaml.cs">
+      <DependentUpon>NubeAccountBankConcilation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="nubebfsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>nubebfsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="NUBEDATA.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NUBEDATA.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NUBEDATA.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NUBEDATA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NUBEDATA.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Payment.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Product.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Purchase.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseOrder.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseOrderDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseReturn.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PurchaseReturnDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Receipt.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmActiveMemberReport.xaml.cs">
+      <DependentUpon>frmActiveMemberReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmAnnualStatement.xaml.cs">
+      <DependentUpon>frmAnnualStatement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmBankReport.xaml.cs">
+      <DependentUpon>frmBankReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmBranchAdviceList.xaml.cs">
+      <DependentUpon>frmBranchAdviceList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmBranchReport.xaml.cs">
+      <DependentUpon>frmBranchReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmBranchStatisticsReport.xaml.cs">
+      <DependentUpon>frmBranchStatisticsReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmBranchStatusReport.xaml.cs">
+      <DependentUpon>frmBranchStatusReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmCityStateReport.xaml.cs">
+      <DependentUpon>frmCityStateReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmComparitionReport.xaml.cs">
+      <DependentUpon>frmComparitionReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmCountryReports.xaml.cs">
+      <DependentUpon>frmCountryReports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmDefaultMemberReport.xaml.cs">
+      <DependentUpon>frmDefaultMemberReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmFeeReport.xaml.cs">
+      <DependentUpon>frmFeeReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmFinancialHalfShareReport.xaml.cs">
+      <DependentUpon>frmFinancialHalfShareReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmHalfShareReport.xaml.cs">
+      <DependentUpon>frmHalfShareReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmMonthlyStatement.xaml.cs">
+      <DependentUpon>frmMonthlyStatement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmNUBEBranchReport.xaml.cs">
+      <DependentUpon>frmNUBEBranchReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmReasonReport.xaml.cs">
+      <DependentUpon>frmReasonReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmRelationReport.xaml.cs">
+      <DependentUpon>frmRelationReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmResignedMemberReport.xaml.cs">
+      <DependentUpon>frmResignedMemberReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmSalutationReport.xaml.cs">
+      <DependentUpon>frmSalutationReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmStateReport.xaml.cs">
+      <DependentUpon>frmStateReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmStruckOffMemberReport.xaml.cs">
+      <DependentUpon>frmStruckOffMemberReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\frmTitleReport.xaml.cs">
+      <DependentUpon>frmTitleReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\NubeBankStatisticstoBranch.xaml.cs">
+      <DependentUpon>NubeBankStatisticstoBranch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RESIGNATION.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sale.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesOrder.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesOrderDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesReturn.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalesReturnDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SalutationSetup.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SetupDocument.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Staff.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusModify.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StockGroup.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StockReport.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaxMaster.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEMPVIEWMASTERMEMBER.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmArrearDueList.xaml.cs">
+      <DependentUpon>frmArrearDueList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmArrearPost16.xaml.cs">
+      <DependentUpon>frmArrearPost16.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmArrearPre16.xaml.cs">
+      <DependentUpon>frmArrearPre16.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmFeesEntry.xaml.cs">
+      <DependentUpon>frmFeesEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmLevy.xaml.cs">
+      <DependentUpon>frmLevy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmMemberQuery.xaml.cs">
+      <DependentUpon>frmMemberQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmMemberRegistration.xaml.cs">
+      <DependentUpon>frmMemberRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmResingation.xaml.cs">
+      <DependentUpon>frmResingation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmTDF.xaml.cs">
+      <DependentUpon>frmTDF.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmTransfer.xaml.cs">
+      <DependentUpon>frmTransfer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tran_Start.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitOfMeasurement.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserAccount.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="USERMASTER.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPrevilage.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserType.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewAnnualStatement.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBankBranchAdvice.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBranchMonthlyStatement.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedger.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedgerGroup.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedgerJournal.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedgerOpening.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedgerPayment.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedgerPurchase.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedgerReceipt.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLedgerReport.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMasterMember.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMemberLastPaidDate.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMemberTotalMonthsDue.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWNOMINEE.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchase.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchaseDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchaseOrder.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchaseOrderDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchaseReturn.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchaseReturnDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewPurchaseSearch.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewReceipt.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSale.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSalesDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSalesOrder.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSalesOrderDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSalesReturn.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewSalesReturnDetail.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewStockGroup.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewStockReport.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewTrialBalance.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Page Include="frmBackUpDB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmHomeMaster.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmHomeMembership.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmHomeReports.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmLogin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="frmMemberCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmMemberHistory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmResignReceipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmUserPrevilage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmUserRights.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmUserType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmWelcome.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmBankSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmBranchSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmCitySetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmCountrySetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmMonthEndClosing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MasterSetup\frmNameSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmNUBEBranch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmPersonTitleSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmReasonSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmRelationSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmSalutationSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmStateSetup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmUserAccounts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MasterSetup\frmYearEnd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="NubeAccountBankConcilation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmActiveMemberReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmAnnualStatement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\frmBankReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmBranchAdviceList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmBranchReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmBranchStatisticsReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmBranchStatusReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\frmCityStateReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmComparitionReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\frmCountryReports.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmDefaultMemberReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmFeeReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\frmFinancialHalfShareReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reports\frmHalfShareReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmMonthlyStatement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmNUBEBranchReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmReasonReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmRelationReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmResignedMemberReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmSalutationReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmStateReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmStruckOffMemberReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmTitleReport.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\NubeBankStatisticstoBranch.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmArrearDueList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transaction\frmArrearPost16.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmArrearPre16.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmFeesEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmLevy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmMemberQuery.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmMemberRegistration.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmResingation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmTDF.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmTransfer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Message.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Message.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\AnnualStatementSummary.rdlc" />
+    <EmbeddedResource Include="Reports\BranchStatusReport.rdlc" />
+    <EmbeddedResource Include="Reports\CityReport.rdlc" />
+    <EmbeddedResource Include="Reports\ComparitionReport.rdlc" />
+    <EmbeddedResource Include="Reports\frmActiveMemberReport.rdlc" />
+    <EmbeddedResource Include="Reports\HalfShare.rdlc" />
+    <EmbeddedResource Include="Reports\MemberReport.rdlc" />
+    <EmbeddedResource Include="Reports\MonthlyStatement.rdlc" />
+    <EmbeddedResource Include="Reports\AnnualStatememnt.rdlc" />
+    <EmbeddedResource Include="Reports\NUBEActiveMember.rdlc" />
+    <EmbeddedResource Include="Reports\NUBEBranchAdviceList.rdlc" />
+    <EmbeddedResource Include="Reports\NUBEBranchMemberReport.rdlc" />
+    <EmbeddedResource Include="Reports\ResignReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptBankReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptBranchAdviceList.rdlc" />
+    <EmbeddedResource Include="Reports\rptBranchReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptBranchStaticsReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptBranchStaticsReportNubeBranch.rdlc" />
+    <EmbeddedResource Include="Reports\rptCityState.rdlc" />
+    <EmbeddedResource Include="Reports\rptCountryReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptNubeBranchSetup.rdlc" />
+    <EmbeddedResource Include="Reports\rptReasonReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptRelationReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptResign.rdlc" />
+    <EmbeddedResource Include="Reports\rptSalutationReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptStateCity.rdlc" />
+    <EmbeddedResource Include="Reports\rptStateDetails.rdlc" />
+    <EmbeddedResource Include="Reports\rptStateReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptTitleReport.rdlc" />
+    <EmbeddedResource Include="Reports\StateReport.rdlc" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="nubebfsDataSet.xsc">
+      <DependentUpon>nubebfsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="nubebfsDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>nubebfsDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="nubebfsDataSet.xss">
+      <DependentUpon>nubebfsDataSet.xsd</DependentUpon>
+    </None>
+    <EntityDeploy Include="NUBEDATA.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NUBEDATA.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="NUBEDATA.edmx.diagram">
+      <DependentUpon>NUBEDATA.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\ActivityIcon.png" />
+    <Resource Include="Image\add.png" />
+    <Resource Include="Image\Background.jpg" />
+    <Resource Include="Image\BalanceSheet.png" />
+    <Resource Include="Image\DeleteIcon.png" />
+    <Resource Include="Image\edit.png" />
+    <Resource Include="Image\excel.png" />
+    <Resource Include="Image\excelcon.png" />
+    <Resource Include="Image\GeneralLedger.png" />
+    <Resource Include="Image\home.png" />
+    <Resource Include="Image\Logo.png" />
+    <Resource Include="Image\page 2.jpg" />
+    <Resource Include="Image\PaymentRep.png" />
+    <Resource Include="Image\PDF.png" />
+    <Resource Include="Image\Print.png" />
+    <Resource Include="Image\Remove.png" />
+    <Resource Include="Image\Search.png" />
+    <Resource Include="Image\Trial Balance.png" />
+    <Resource Include="Image\Voucher.png" />
+    <Resource Include="Image\Welcome.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Background1.jpg" />
+    <Resource Include="Image\Background2.png" />
+    <Resource Include="Image\Backgroundold.jpg" />
+    <Resource Include="Image\blue 2.png" />
+    <Resource Include="Image\green 2.png" />
+    <Resource Include="Image\M1.jpg" />
+    <Resource Include="Image\M2.jpg" />
+    <Resource Include="Image\page-2_0000_Insurance.png" />
+    <Resource Include="Image\page-2_0001_Accounts.png" />
+    <Resource Include="Image\page-2_0002_Membership.png" />
+    <Resource Include="Image\page-2_0003_Layer-6.png" />
+    <Resource Include="Image\page-2_0004_Layer-5.png" />
+    <Resource Include="Image\page-2_0005_Layer-2.png" />
+    <Resource Include="Image\page-2_0006_Layer-3-copy-2.png" />
+    <Resource Include="Image\page-2_0007_Layer-4.png" />
+    <Resource Include="Image\page-2_0008_Layer-3-copy.png" />
+    <Resource Include="Image\page-2_0009_Layer-3.png" />
+    <Resource Include="Image\red 2.png" />
+    <Resource Include="Image\software page bck 2.png" />
+    <Resource Include="Image\MAIN_PAGE.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Nube Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="NUBEDATA.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NUBEDATA.edmx</DependentUpon>
+      <LastGenOutput>NUBEDATA.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="NUBEDATA.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NUBEDATA.edmx</DependentUpon>
+      <LastGenOutput>NUBEDATA.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

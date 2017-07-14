@@ -1,0 +1,27 @@
+﻿<Window x:Class="Nube.frmWelcome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        Title="NUBE 2.0" HorizontalContentAlignment="Right"  Height="600" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen" Closing="Window_Closing">   
+    <Window.Background>
+        <ImageBrush ImageSource="Image/MAIN_PAGE.jpg"/>
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Image x:Name="image" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150" Source="Image/Logo.png" MouseUp="image_MouseUp" MouseEnter="image_MouseEnter"  />
+        </Grid>
+    </Grid>
+</Window>

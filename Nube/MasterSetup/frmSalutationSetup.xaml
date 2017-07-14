@@ -1,0 +1,60 @@
+﻿<metro:MetroWindow 
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1" 
+    x:Class="Nube.MasterSetup.frmSalutationSetup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.MasterSetup"
+        mc:Ignorable="d"
+         Title="Salutation Setup" Tag="SalutationSetup" Height="700" Width="1200"  WindowState="Maximized"  Closing="MetroWindow_Closing" WindowStartupLocation="CenterScreen" Icon="/Nube;component/Image/Logo.png">
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="640"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="50">
+                <TextBlock x:Name="lblHeading" FontWeight="Bold" Text="SALUTATION SETUP" TextAlignment="Center" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Margin="0,13" Width="790"></TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TextBox x:Name="txtName" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="443,30,485,560" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Salutation Name"  Width="252"/>
+            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Margin="405,115,700,495" VerticalAlignment="Center" Width="75" Height="30" Click="btnSave_Click"/>
+            <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Center" Margin="510,115,595,495" VerticalAlignment="Center" Width="75" Height="30" Click="btnDelete_Click"/>
+            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="609,115,496,495" VerticalAlignment="Center" Width="75" Height="30" Click="btnClear_Click"/>
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Center" Margin="820,115,285,495" VerticalAlignment="Center" Width="75" Height="30" Click="btnBack_Click"/>
+            <Button x:Name="btnPrint" Content="Print" HorizontalAlignment="Center" Margin="710,115,395,495" VerticalAlignment="Center" Width="75" Height="30" Click="btnPrint_Click"/>
+            <Button x:Name="btnSearch" ToolTip="Search"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="65" Height="36"   Margin="720,44,395,560"  Click="btnSearch_Click">
+                <materialDesign:PackIcon Kind="AccountSearch" Height="25" Width="40" Foreground="{DynamicResource PrimaryHueLightBrush}"  />
+            </Button>
+            <DataGrid x:Name="dgvTitle" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" Height="374" Width="520"  CanUserSortColumns="True"  AutoGenerateColumns="False" Margin="375,170,285,96" MouseDoubleClick="dgvTitle_MouseDoubleClick" SelectionChanged="dgvTitle_SelectionChanged">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Effect>
+                    <DropShadowEffect/>
+                </DataGrid.Effect>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Id" Width="50" Binding="{Binding Id }" Visibility="Hidden" IsReadOnly="True"  />
+                    <DataGridTextColumn Header="Salutation"  FontWeight="Bold" Width="500" Binding="{Binding Salutation }" IsReadOnly="True"  />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

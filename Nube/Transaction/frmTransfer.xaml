@@ -1,0 +1,110 @@
+﻿<metro:MetroWindow 
+     xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+    x:Class="Nube.Transaction.frmTransfer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.Transaction"
+        mc:Ignorable="d"
+        Title="Member Transfer" Tag="MemberTransfer" Height="800" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen" WindowState="Maximized" >
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="630"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="51" >
+                <TextBox x:Name="txtHeading" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="41" TextWrapping="Wrap" Text="MEMBER TRANSFER ENTRY" VerticalAlignment="Top" FontSize="18" Margin="465,0,0,0" />
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TextBox x:Name="txtMemberType" HorizontalAlignment="Left" Height="40" Margin="70,11,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Member Type" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="96" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtMemberNo" HorizontalAlignment="Left" Height="40" Margin="198,11,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Membership" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="137" FontWeight="Bold" KeyDown="txtMemberNo_KeyDown"/>
+            <TextBox x:Name="txtMemberName" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="354,11,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Member Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="214" IsReadOnly="True" />
+            <Label x:Name="label_Copy" FontWeight="Bold" Content="DOB" HorizontalAlignment="Left" Margin="604,25,0,0" VerticalAlignment="Top" Width="36"/>
+            <DatePicker x:Name="dtpDOB" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date Of Birth" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="645,21,0,0" VerticalAlignment="Top" Width="117" FontSize="14" IsEnabled="False" />
+            <TextBox x:Name="txtAge" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="768,9,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Age" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="47" IsReadOnly="True"/>
+            <TextBox x:Name="txtGender" HorizontalAlignment="Left" Height="40" Margin="70,64,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Gender" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="96" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtOldIC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="198,64,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="NRIC-O" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="122" IsReadOnly="True"/>
+            <TextBox x:Name="txtNewIC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="354,64,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="NRIC-N" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="214" IsReadOnly="True"/>
+            <Label x:Name="label_Copy1" FontWeight="Bold" Content="DOJ" HorizontalAlignment="Left" Margin="604,76,0,0" VerticalAlignment="Top" Width="36"/>
+            <DatePicker x:Name="dtpDOJ" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date Of Joining" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="640,72,0,0" VerticalAlignment="Top" Width="126" FontSize="14" IsEnabled="False" />
+
+            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="1009,25,0,0" VerticalAlignment="Top" Width="92" Click="btnSave_Click" />
+            <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" Margin="1009,78,0,0" VerticalAlignment="Top" Width="92" Click="btnHome_Click" />
+            <Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Left" Margin="869,25,0,0" VerticalAlignment="Top" Width="92" Click="btnSelect_Click"/>
+            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="869,78,0,0" VerticalAlignment="Top" Width="92" Click="btnClear_Click" />
+
+            <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="498" Margin="70,156,0,20"/>
+            <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="496" Margin="604,156,0,20" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.172"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="0.747"/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Label x:Name="label_Copy2" FontWeight="Bold" Content="Bank" HorizontalAlignment="Left" Margin="95,191,0,0" VerticalAlignment="Top" Width="53"/>
+            <TextBox x:Name="txtBankCode" HorizontalAlignment="Left" Height="40" Margin="153,177,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Bank Code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="87" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtBankName" HorizontalAlignment="Left" Height="40" Margin="245,177,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Bank Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="290" FontWeight="Bold" IsReadOnly="True"/>
+            <Label x:Name="label_Copy3" FontWeight="Bold" Content="Branch" HorizontalAlignment="Left" Margin="95,236,0,0" VerticalAlignment="Top" Width="53"/>
+            <TextBox x:Name="txtBranchCode" HorizontalAlignment="Left" Height="40" Margin="153,222,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Branch Code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="87" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtBranchName" HorizontalAlignment="Left" Height="40" Margin="245,222,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Branch Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="290" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtAddress1" HorizontalAlignment="Left" Height="40" Margin="95,267,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="440" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtAddress2" HorizontalAlignment="Left" Height="40" Margin="95,312,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address 2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="440" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtAddress3" HorizontalAlignment="Left" Height="40" Margin="95,357,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address 3" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="440" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCity" HorizontalAlignment="Left" Height="40" Margin="95,402,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="City" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="225" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtZipCode" HorizontalAlignment="Left" Height="40" Margin="338,402,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Postal Code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="197" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtState" HorizontalAlignment="Left" Height="40" Margin="95,447,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="State" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="225" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCountry" HorizontalAlignment="Left" Height="40" Margin="338,447,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Country" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="197" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtPhoneNo" HorizontalAlignment="Left" Height="40" Margin="131,492,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Phone No" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="189" FontWeight="Bold" IsReadOnly="True"/>
+            <materialDesign:PackIcon Kind="Phone" Foreground="{Binding ElementName=txtPhoneNo, Path=BorderBrush}" Margin="95,497,0,0" Height="31" Width="31"/>
+            <TextBox x:Name="txtMobileNo" HorizontalAlignment="Left" Height="40" Margin="374,492,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Mobile No" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="161" FontWeight="Bold" IsReadOnly="True"/>
+            <materialDesign:PackIcon Kind="Phone" Foreground="{Binding BorderBrush, ElementName=txtMobileNo}" Margin="338,497,0,0" Height="31" Width="31"/>
+            <materialDesign:PackIcon Kind="Email" Foreground="{Binding ElementName=txtEmail, Path=BorderBrush}" Margin="95,547,0,0" Height="31" Width="28" RenderTransformOrigin="0.571,3.097"/>
+            <TextBox x:Name="txtEmail" HorizontalAlignment="Left" Height="40" Margin="131,538,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="404" FontWeight="Bold" IsReadOnly="True"/>
+            <Label x:Name="label_Copy4" FontWeight="Bold" Content="Bank" HorizontalAlignment="Left" Margin="635,183,0,0" VerticalAlignment="Top" Width="53"/>
+            <Label x:Name="label_Copy5" FontWeight="Bold" Content="Branch" HorizontalAlignment="Left" Margin="635,238,0,0" VerticalAlignment="Top" Width="53"/>
+            <TextBox x:Name="txtCAddress1" HorizontalAlignment="Left" Height="40" Margin="635,267,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="440" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCAddress2" HorizontalAlignment="Left" Height="40" Margin="635,312,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address 2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="440" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCAddress3" HorizontalAlignment="Left" Height="40" Margin="635,357,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address 3" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="440" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCCity" HorizontalAlignment="Left" Height="40" Margin="635,402,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="City" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="225" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCZipCode" HorizontalAlignment="Left" Height="40" Margin="878,402,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Postal Code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="197" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCState" HorizontalAlignment="Left" Height="40" Margin="635,447,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="State" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="225" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCCountry" HorizontalAlignment="Left" Height="40" Margin="878,447,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Country" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="197" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtCPhoneNo" HorizontalAlignment="Left" Height="40" Margin="671,492,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Phone No" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="189" FontWeight="Bold" IsReadOnly="True"/>
+            <materialDesign:PackIcon Kind="Phone" Foreground="{Binding BorderBrush, ElementName=txtPhoneNo}" Margin="635,497,0,0" Height="31" Width="31"/>
+            <TextBox x:Name="txtCMobileNo" HorizontalAlignment="Left" Height="40" Margin="914,492,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Mobile No" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="161" FontWeight="Bold" IsReadOnly="True"/>
+            <materialDesign:PackIcon Kind="Phone" Foreground="{Binding BorderBrush, ElementName=txtMobileNo}" Margin="878,497,0,0" Height="31" Width="31"/>
+            <materialDesign:PackIcon Kind="Email" Foreground="{Binding BorderBrush, ElementName=txtEmail}" Margin="635,547,0,0" Height="31" Width="28" RenderTransformOrigin="0.571,3.097"/>
+            <TextBox x:Name="txtCEmail" HorizontalAlignment="Left" Height="40" Margin="671,538,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="404" FontWeight="Bold" IsReadOnly="True"/>
+            <ComboBox x:Name="cmbBranchName" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="775,236,0,0" VerticalAlignment="Top" Width="260" IsEditable="True" materialDesign:HintAssist.Hint="Branch Name"  materialDesign:HintAssist.HintOpacity=".26" SelectionChanged="cmbBranchName_SelectionChanged" />
+            <ComboBox x:Name="cmbBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="775,183,0,0" VerticalAlignment="Top" Width="260" IsEditable="True" materialDesign:HintAssist.Hint="Bank Name"  materialDesign:HintAssist.HintOpacity=".26" SelectionChanged="cmbBankName_SelectionChanged" />
+            <ComboBox x:Name="cmbBankCode" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="693,183,0,0" VerticalAlignment="Top" Width="69" IsEditable="True" materialDesign:HintAssist.Hint="Bank Code"  materialDesign:HintAssist.HintOpacity=".26" SelectionChanged="cmbBankCode_SelectionChanged" />
+            <ComboBox x:Name="cmbBranchCode" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="693,236,0,0" VerticalAlignment="Top" Width="69" IsEditable="True" materialDesign:HintAssist.Hint="Branch Code"  materialDesign:HintAssist.HintOpacity=".26" SelectionChanged="cmbBranchCode_SelectionChanged" />
+            <Button x:Name="btnSetBank" ToolTip="Add Bank" Background="Transparent" BorderBrush="Transparent"  HorizontalAlignment="Left" Margin="1043,165,0,0" VerticalAlignment="Top" Width="60" Height="50" Click="btnSetBank_Click" >
+                <materialDesign:PackIcon Kind="Settings" Height="19" Width="20" Foreground="{DynamicResource PrimaryHueLightBrush}"  />
+            </Button>
+
+            <Button x:Name="btnSetBranch" ToolTip="Add Branch" Background="Transparent" BorderBrush="Transparent"  HorizontalAlignment="Left" Margin="1043,226,0,0" VerticalAlignment="Top" Width="60" Height="50" Click="btnSetBranch_Click" >
+                <materialDesign:PackIcon Kind="Settings" Height="19" Width="20" Foreground="{DynamicResource PrimaryHueLightBrush}"  />
+            </Button>
+            <ProgressBar x:Name="progressBar1" HorizontalAlignment="Left" Height="26" Margin="70,115,0,0" VerticalAlignment="Top" Width="1031" Visibility="Hidden"/>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

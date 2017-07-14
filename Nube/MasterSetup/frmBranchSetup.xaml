@@ -1,0 +1,152 @@
+﻿<metro:MetroWindow 
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1" 
+    x:Class="Nube.MasterSetup.frmBranchSetup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.MasterSetup"
+        mc:Ignorable="d"
+        Title="Bank Branch Setup" Height="700" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized" Tag="BankBranchSetup">
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1180*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="640*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="50">
+                <TextBlock x:Name="lblHeading" FontWeight="Bold" Text="BANK BRANCH SETUP" TextAlignment="Center" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Margin="0,13" Width="790"></TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <TabControl x:Name="TCBranchSetup" HorizontalAlignment="Left" Height="581" Margin="10,10,0,-26"  VerticalAlignment="Top" Width="1150" FontSize="14" Background="Transparent" BorderBrush="{StaticResource AccentColorBrush}" >
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid Name="Panel">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Panel" Property="Background" Value="White" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+                <TabItem Header="Search Details" FontSize="16" FontWeight="Bold" >
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*"/>
+                            <ColumnDefinition Width="109*"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox x:Name="cmbBrBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="25,11,800,497" materialDesign:HintAssist.Hint="Bank Name" VerticalAlignment="Center" Width="265" Height="36" materialDesign:HintAssist.HintOpacity="0.25" Grid.Column="1" SelectionChanged="cmbBrBankName_SelectionChanged"/>
+                        <ComboBox x:Name="cmbBranchSrch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="325,11,420,497" materialDesign:HintAssist.Hint="Branch" VerticalAlignment="Center" Width="345" Height="36" materialDesign:HintAssist.HintOpacity="0.25" Grid.Column="1"/>
+
+                        <Button x:Name="btnSearch" ToolTip="Search"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="65" Height="30" Click="btnSearch_Click"  Margin="675,17,350,497" Grid.Column="1" >
+                            <materialDesign:PackIcon Kind="AccountSearch" Height="25" Width="40" Foreground="{DynamicResource PrimaryHueLightBrush}"  />
+                        </Button>
+                        <Button x:Name="btnBack1" Content="Back" HorizontalAlignment="Center" Margin="870,17,145,497" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnBack_Click"/>
+                        <Button x:Name="btnPrint" Content="Print" HorizontalAlignment="Center" Margin="770,17,245,497" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnPrint_Click"/>
+                        <Button x:Name="btnClearGd" Content="Clear" HorizontalAlignment="Center" Margin="965,17,50,497" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnClearGd_Click"/>
+
+                        <DataGrid x:Name="dgvBranch" HorizontalAlignment="Center" VerticalAlignment="Center" Height="466" Width="860"  CanUserSortColumns="True"  AutoGenerateColumns="False" Margin="85,69,145,9" Grid.Column="1" MouseDoubleClick="dgvBranch_MouseDoubleClick" SelectionChanged="dgvBranch_SelectionChanged">
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="FontWeight" Value="Bold" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Effect>
+                                <DropShadowEffect/>
+                            </DataGrid.Effect>
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="Id" Width="50" Binding="{Binding BANKBRANCH_CODE }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Branch" FontWeight="Bold" Width="350" Binding="{Binding BANKBRANCH_NAME }" IsReadOnly="True"  />
+                                <DataGridTextColumn Header="BANKBRANCH_USERCODE" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_USERCODE }" Visibility="Hidden" IsReadOnly="True"  />
+                                <DataGridTextColumn Header="BANK_CODE" FontWeight="Bold" Width="150" Binding="{Binding BANK_CODE }" Visibility="Hidden" IsReadOnly="True"  />
+                                <DataGridTextColumn Header="Bank" FontWeight="Bold" Width="150" Binding="{Binding BANK_USERCODE }" IsReadOnly="True"  />
+                                <DataGridTextColumn Header="BANKBRANCH_ADDRESS1" FontWeight="Bold" Width="200" Binding="{Binding BANKBRANCH_ADDRESS1 }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_ADDRESS2" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_ADDRESS2 }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_ADDRESS3" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_ADDRESS3 }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_PHONE1" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_PHONE1 }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_PHONE2" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_PHONE2 }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_EMAIL" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_EMAIL }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_CITY_CODE" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_CITY_CODE }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_STATE_CODE" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_STATE_CODE }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_ZIPCODE" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_ZIPCODE }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="NUBE_BRANCH_CODE" FontWeight="Bold" Width="150" Binding="{Binding NUBE_BRANCH_CODE }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="NUBE Branch" FontWeight="Bold" Width="200" Binding="{Binding NUBE_BRANCH_NAME }" IsReadOnly="True" />
+                                <DataGridTextColumn Header="Is Head Office" FontWeight="Bold" Width="150" Binding="{Binding HEAD_QUARTER }" IsReadOnly="True" />
+                                <DataGridTextColumn Header="HEAD_QUARTERS" FontWeight="Bold" Width="150" Binding="{Binding HEAD_QUARTERS }" Visibility="Hidden" IsReadOnly="True" />
+                                <DataGridTextColumn Header="BANKBRANCH_COUNTRY" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_COUNTRY }" Visibility="Hidden" IsReadOnly="True" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                </TabItem>
+                <TabItem Header="Branch Details" FontWeight="Bold" FontSize="14" TabIndex="1">
+                    <Grid>
+                        <ComboBox x:Name="cmbBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="285,10,315,502" materialDesign:HintAssist.Hint="Bank Name" VerticalAlignment="Center" Width="540" Height="32" materialDesign:HintAssist.HintOpacity="0.25"/>
+                        <TextBox x:Name="txtBranchCode" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,43,730,453" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Branch Code"  Width="125" MaxLength="4"/>
+                        <TextBox x:Name="txtBranchName" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="415,43,315,453" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Branch Name"  Width="410"/>
+                        <TextBox x:Name="txtAddress1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,97,585,399" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Address 1"  Width="270"/>
+                        <TextBox x:Name="txtAddress2" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,153,585,343" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Address 2"  Width="270"/>
+                        <TextBox x:Name="txtAddress3" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,208,585,288" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Address 3"  Width="270"/>
+                        <materialDesign:PackIcon Kind="Phone" Foreground="{Binding ElementName=txtPhone, Path=BorderBrush}" Margin="573,117,0,0" Height="31" Width="31"/>
+                        <TextBox x:Name="txtPhone" FontWeight="Bold" HorizontalAlignment="Center" Height="50" Margin="613,98,315,398" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Primary Number" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="212" MaxLength="11" TextChanged="txtPhone_TextChanged"/>
+                        <materialDesign:PackIcon Kind="Phone" Foreground="{Binding ElementName=txtPhone, Path=BorderBrush}" Margin="575,164,0,0" Height="31" Width="31"/>
+                        <TextBox x:Name="txtMobile" FontWeight="Bold" HorizontalAlignment="Center" Height="50" Margin="613,153,315,343" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Secondary Number" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="212" MaxLength="14" TextChanged="txtMobile_TextChanged"/>
+                        <materialDesign:PackIcon Kind="Email" Foreground="{Binding ElementName=txtEmail, Path=BorderBrush}" Margin="578,228,0,0" Height="31" Width="28" RenderTransformOrigin="0.571,3.097"/>
+                        <TextBox x:Name="txtEmail" FontWeight="Bold" HorizontalAlignment="Center" Height="50" Margin="613,207,315,289" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" Width="212"/>
+                        <ComboBox x:Name="cmbCity" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="285,269,585,245" materialDesign:HintAssist.Hint="City" VerticalAlignment="Center" Width="270" Height="30" materialDesign:HintAssist.HintOpacity="0.25" RenderTransformOrigin="0.5,0.5">
+                            <ComboBox.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform AngleX="1.909"/>
+                                    <RotateTransform/>
+                                    <TranslateTransform X="-0.467"/>
+                                </TransformGroup>
+                            </ComboBox.RenderTransform>
+                        </ComboBox>
+                        <TextBox x:Name="txtPostalCode" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,306,585,190" TextWrapping="Wrap"  VerticalAlignment="Center" materialDesign:HintAssist.Hint="Postal Code"  Width="270"/>
+                        <ComboBox x:Name="cmbNUBEBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="585,266,315,245" materialDesign:HintAssist.Hint="NUBE Branch" VerticalAlignment="Center" Width="240" Height="33" materialDesign:HintAssist.HintOpacity="0.25"/>
+                        <ComboBox x:Name="cmbState" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="285,359,585,147" materialDesign:HintAssist.Hint="State" VerticalAlignment="Center" Width="270" Height="38" materialDesign:HintAssist.HintOpacity="0.25"/>
+                        <ComboBox x:Name="cmbCountry" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="585,359,315,147" materialDesign:HintAssist.Hint="Country" VerticalAlignment="Center" Width="240" Height="38" materialDesign:HintAssist.HintOpacity="0.25"/>
+                        <CheckBox x:Name="ckbHeadOffice" Content="Head Office" HorizontalAlignment="Center" Margin="710,413,325,109" VerticalAlignment="Center" Width="105" Height="22"/>
+                        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Margin="380,444,690,72" VerticalAlignment="Center" Width="70" Height="28" Click="btnSave_Click"/>
+                        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Center" Margin="480,444,585,72" VerticalAlignment="Center" Width="75" Height="28" RenderTransformOrigin="1,0.5" Click="btnDelete_Click" />
+                        <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="581,444,485,72" VerticalAlignment="Center" Width="74" Height="28" Click="btnClear_Click" />
+                        <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Center" Margin="675,443,395,73" VerticalAlignment="Center" Width="70" Height="28" Click="btnBack_Click"/>
+
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Grid>
+
+    </Grid>
+</metro:MetroWindow>

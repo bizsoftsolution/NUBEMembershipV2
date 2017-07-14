@@ -1,0 +1,55 @@
+﻿<metro:MetroWindow 
+    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+    x:Class="Nube.frmHomeMaster"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        Title="Master SETUP" Height="650" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen">
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <metro:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </metro:MetroWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="157*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="185*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,0,10" >
+            <Image x:Name="image" HorizontalAlignment="Center" Height="121"  VerticalAlignment="Center" Width="120" Source="/Nube;component/Image/Logo.png" Margin="327,25,328,452"/>
+            <Label x:Name="lblFoot" Content="MASTER SETUP" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="230" Background="{DynamicResource PrimaryHueLightBrush}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18.667" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}" Margin="271,152,274,406"/>
+            <Button x:Name="btnStateSetup" Content="State Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="15,440,530,118" Click="btnStateSetup_Click" Tag="State Setup" />
+            <Button x:Name="btnRelationSetup" Content="Relation Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="525,309,20,249" Click="btnRelationSetup_Click" Tag="Relation Setup"  />
+            <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="395,500,150,57" Click="btnHome_Click" />
+            <Button x:Name="btnRefresh" Content="Refresh - Data" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="145,500,400,57" Click="btnRefresh_Click" />
+            <Button x:Name="btnUserRights" Content="User Rights" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="545,9,0,549" Click="btnUserRights_Click" Tag="User Rights"/>
+            <Button x:Name="btnReasonSetup" Content="Reason Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="15,373,530,185" Click="btnReasonSetup_Click" Tag="Reason Setup"  />
+            <Button x:Name="btnCountry" Content="Country Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="545,94,0,464" Click="btnCountry_Click" Tag="Country Setup" />
+            <Button x:Name="btnCity" Content="City Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="525,373,20,185" Click="btnCitySetup_Copy_Click" Tag="City Setup" />
+            <Button x:Name="btnBank" Content="Bank Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="15,247,530,311" Click="btnBank_Click" Tag="Bank Setup" />
+            <Button x:Name="btnBranch" Content="Branch Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="270,247,275,311" Click="btnBranch_Click" Tag="Branch Setup" />
+            <Button x:Name="btnNUBEBranch" Content="NUBE Branch Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="525,247,20,311" Click="btnNUBEBranch_Click" Tag="NUBE Branch Setup" />
+            <Button x:Name="btnPersonTitle" Content="Person Title Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="15,309,530,249" Click="btnPersonTitle_Click" Tag="Person Title Setup" />
+            <Button x:Name="btnSalutation" Content="Salutation Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="270,309,275,249" Click="btnSalutation_Click" Tag="Salutation Setup" />
+            <Button x:Name="btnNameSetup" Content="Name Setup" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="270,373,275,185" Click="btnNameSetup_Click" Tag="Name Setup" />
+            <Button x:Name="btnMonthEndClosing" Content="Month End" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="270,440,275,118" Click="btnMonthEndClosing_Click" Tag="MMonthEnd" />
+            <Button x:Name="btnYearEndClosing" Content="Year End" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="525,440,20,118" Click="btnYearEndClosing_Click" Tag="MYearEnd" />
+            <Button x:Name="btnUserAccount" Content="User Account" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="15,9,530,549" Click="btnUserAccount_Click" Tag="User Accounts"/>
+
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

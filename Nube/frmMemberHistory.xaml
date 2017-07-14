@@ -1,0 +1,117 @@
+﻿<metro:MetroWindow
+                  xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+    x:Class="Nube.frmMemberHistory"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        Title="Member History" Height="700" Width="1100" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen">
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1080"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="630"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="51" >
+                <TextBox x:Name="txtHeading" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" HorizontalAlignment="Center" Height="41" Margin="301,0,350,0" TextWrapping="Wrap" Text="Member History" VerticalAlignment="Top" Width="439" FontSize="18"/>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+
+
+            <TextBox x:Name="txtMemberName" IsReadOnly="True"  FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="158,15,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Member Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="txtBankName" IsReadOnly="True"  FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="413,15,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Bank Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="145"/>
+            <TextBox x:Name="txtBranchkName" IsReadOnly="True" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="578,15,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Branch Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="265"/>
+
+            <TextBox x:Name="txtType" IsReadOnly="True"  FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="413,65,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Type" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="145"/>
+            <TextBox x:Name="txtMemberID" IsReadOnly="False"  FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="19,15,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Membership" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="109" KeyDown="txtMemberID_KeyDown"/>
+            <TextBox x:Name="txtMonthlySub" IsReadOnly="True"  FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="19,65,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Monthly Subs" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="109"/>
+            <TextBox x:Name="txtMonthlyBF" IsReadOnly="True"  FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="158,65,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Monthly BF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="235"/>
+            <TextBox x:Name="txtStatus" IsReadOnly="True" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="578,65,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Status" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="125"/>
+            <TextBox x:Name="txtLastPaymentDate" IsReadOnly="True" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="728,65,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Last Payment Date" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" />
+            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="858,67,0,0" VerticalAlignment="Top" Width="75" Click="btnSearch_Click" Height="36" />
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="998,67,0,0" VerticalAlignment="Top" Width="75" Click="btnBack_Click" Height="36"/>
+
+            <DataGrid x:Name="dgvDetails" HorizontalAlignment="Left" IsReadOnly="True" AutoGenerateColumns="False" Margin="11,150,0,0" VerticalAlignment="Top" Height="460" Width="1069" >
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Effect>
+                    <DropShadowEffect/>
+                </DataGrid.Effect>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="S.NO" FontWeight="Bold" Width="50" Binding="{Binding RNO}"/>
+                    <DataGridTextColumn Header="MEMBER_CODE" FontWeight="Bold" Width="60" Visibility="Hidden" Binding="{Binding MEMBER_CODE}"/>
+                    <DataGridTextColumn Header="History Date" FontWeight="Bold" Width="120" Binding="{Binding HDATE,StringFormat=\{0:MMM-yyyy\}}"/>
+                    <DataGridTextColumn Header="Subs.Paid" FontWeight="Bold" Width="100" Binding="{Binding SUBPAID}"/>
+                    <DataGridTextColumn Header="BF Paid" FontWeight="Bold" Width="100" Binding="{Binding BFPAID}"/>
+                    <DataGridTextColumn Header="Mon.Paid" FontWeight="Bold" Width="100"  Binding="{Binding MONTHPAID}"/>
+                    <DataGridTextColumn Header="Last Payment Date" FontWeight="Bold" Width="120" Binding="{Binding LDATE,StringFormat=\{0:MMM-yyyy\}}"/>
+                    <DataGridTextColumn Header="Tot.Mon.Paid" Width="120" FontWeight="Bold" Binding="{Binding TOTALMONTHPAID}"/>
+                    <DataGridTextColumn Header="Tot.Mon.Due" FontWeight="Bold" Width="100" Binding="{Binding TOTALMONTHDUE}"/>
+                    <DataGridTextColumn Header="Default Mon." FontWeight="Bold" Width="100" Visibility="Hidden" Binding="{Binding DEFAULTINGMONTHS}"/>
+                    <DataGridTextColumn Header="Subs.Due" FontWeight="Bold" Width="160" Visibility="Hidden" Binding="{Binding SUBSCRIPTIONDUE}"/>
+                    <DataGridTextColumn Header="BF Due" FontWeight="Bold" Width="110" Visibility="Hidden" Binding="{Binding BFDUE}"/>
+                    <DataGridTextColumn Header="Acc Subs" FontWeight="Bold" Width="130" Binding="{Binding ACCSUBS}"/>
+                    <DataGridTextColumn Header="Acc BF" FontWeight="Bold" Width="120" Binding="{Binding ACCBF}"/>
+                    <DataGridTextColumn Header="Acc Benefit" FontWeight="Bold" Width="50" Visibility="Hidden" Binding="{Binding ACCBENEFIT}"/>
+                    <DataGridTextColumn Header="CurrentYTDSubs" FontWeight="Bold" Width="100" Visibility="Hidden" Binding="{Binding CURRENT_YTDSUBSCRIPTION}"/>
+                    <DataGridTextColumn Header="Current YTD BF" FontWeight="Bold" Width="100" Visibility="Hidden" Binding="{Binding CURRENT_YTDBF}" />
+                    <DataGridTextColumn Header="Status" FontWeight="Bold" Width="100" Visibility="Hidden" Binding="{Binding MEMBERSTATUS}" />
+
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!--<DataGrid x:Name="dgvDetails" HorizontalAlignment="Left" IsReadOnly="True" AutoGenerateColumns="False" Margin="40,219,0,0" VerticalAlignment="Top" Height="412" Width="1195" >
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="S.NO" FontWeight="Bold" Width="60" Binding="{Binding RNO}"/>
+                <DataGridTextColumn Header="History Date" FontWeight="Bold" Width="120" Binding="{Binding HistoryDate,StringFormat=\{0:dd-MMM-yyyy\}}"/>
+                <DataGridTextColumn Header="Subs.Paid" FontWeight="Bold" Width="80" Binding="{Binding SubscriptionPaid}"/>
+                <DataGridTextColumn Header="BF Paid" FontWeight="Bold" Width="80" Binding="{Binding BFPaid}"/>
+                <DataGridTextColumn Header="Mon.Paid" FontWeight="Bold" Width="80"  Binding="{Binding TOTAL_MONTHS}"/>
+                <DataGridTextColumn Header="Last Payment" Width="200" FontWeight="Bold" Binding="{Binding LASTPAYMENTDATE,StringFormat=\{0:dd-MMM-yyyy\}}"/>
+                <DataGridTextColumn Header="Tot.Mon.Paid" Width="100" FontWeight="Bold" Binding="{Binding TOTALMONTHSPAID}"/>
+                <DataGridTextColumn Header="Tot.Mon.Due" FontWeight="Bold" Width="100" Binding="{Binding TOTALMONTHSDUE}"/>
+                <DataGridTextColumn Header="Default Mon." FontWeight="Bold" Width="100" Binding="{Binding DEFAULTINGMONTHS}"/>
+                <DataGridTextColumn Header="Subs.Due" FontWeight="Bold" Width="120" Binding="{Binding SUBSCRIPTIONDUE}"/>
+                <DataGridTextColumn Header="BF Due" FontWeight="Bold" Width="110" Binding="{Binding BFDUE}"/>
+                <DataGridTextColumn Header="Acc Subs" FontWeight="Bold" Width="110" Binding="{Binding ACCSUBSCRIPTION}"/>
+                <DataGridTextColumn Header="Acc BF" FontWeight="Bold" Width="110" Binding="{Binding ACCBF}"/>
+                <DataGridTextColumn Header="Acc Benefit" FontWeight="Bold" Width="50" Binding="{Binding ACCBENEFIT}"/>
+                <DataGridTextColumn Header="CurrentYTDSubs" FontWeight="Bold" Width="100" Binding="{Binding CURRENT_YDTSUBSCRIPTION}"/>
+                <DataGridTextColumn Header="Current YTD BF" FontWeight="Bold" Width="100" Binding="{Binding CURRENT_YDTBF}" />
+                <DataGridTextColumn Header="Status" FontWeight="Bold" Width="100" Binding="{Binding Status}" />
+            
+            </DataGrid.Columns>
+        </DataGrid>-->
+            <DatePicker x:Name="dtpDOJ" IsEnabled="False" FontWeight="Bold" materialDesign:HintAssist.Hint="DOJ" HorizontalAlignment="Left" Margin="908,23,0,0" VerticalAlignment="Top" Width="125"/>
+            <Label x:Name="label" FontWeight="Bold" Content="DOJ" Margin="861,22,187,0" VerticalAlignment="Top"/>
+            <ProgressBar x:Name="progressBar1" HorizontalAlignment="Left" Height="19" Margin="11,116,0,0" VerticalAlignment="Top" Width="1069"/>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

@@ -1,0 +1,63 @@
+﻿<metro:MetroWindow 
+     xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+    x:Class="Nube.frmLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        Title="NUBE Login" Height="600" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" >
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="115"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <Image x:Name="image" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150" Source="Image/Logo.png" />
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
+            <materialDesign:PackIcon Kind="Account" Height="26" Width="26" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="25,29,299,145"  />
+            <TextBlock Text="User Id" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="14.667" FontWeight="Bold" Margin="60,0,220,145" Width="70"/>
+            <TextBox x:Name="txtUserId" Height="35" Foreground="{DynamicResource PrimaryHueDarkBrush}"  FontSize="14.667" FontWeight="Bold" Margin="138,23,38,142" KeyDown="txtUserId_KeyDown">
+                <TextBox.CommandBindings>
+                    <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute"/>
+                    <CommandBinding Command="Copy" CanExecute="CommandBinding_CanExecute" />
+                </TextBox.CommandBindings>
+            </TextBox>
+            <materialDesign:PackIcon Kind="Key" Height="24" Width="24" Foreground="{DynamicResource PrimaryHueDarkBrush}"  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="24,80,302,96"   />
+            <TextBlock Text="Password" Foreground="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14.667" FontWeight="Bold" Margin="53,81,214,101" Width="83" />
+            <PasswordBox x:Name="txtPassword" Height="35" Foreground="{DynamicResource PrimaryHueDarkBrush}"  FontSize="14.667" FontWeight="Bold" Margin="138,68,38,97" KeyDown="txtPassword_KeyDown">
+                <PasswordBox.CommandBindings>
+                    <CommandBinding Command="Paste" CanExecute="CommandBinding_CanExecute"/>
+                    <CommandBinding Command="Copy" CanExecute="CommandBinding_CanExecute" />
+                </PasswordBox.CommandBindings>
+            </PasswordBox>
+            <Button x:Name="btnLogin" Content="Login" Foreground="{DynamicResource PrimaryHueLightBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="35" FontSize="19" FontWeight="Bold" Margin="12,158,0,0" Click="btnLogin_Click" />
+            <Button x:Name="btnClear" Content="Clear" Foreground="{DynamicResource PrimaryHueLightBrush}" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Height="35" FontSize="19" FontWeight="Bold" Margin="127,158,0,0" Click="btnClear_Click" />
+            <Button x:Name="btnHome" Content="Exit" Foreground="{DynamicResource PrimaryHueLightBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="35" FontSize="19" FontWeight="Bold"  Margin="242,158,0,0"  Click="btnHome_Click"/>
+        </Grid>
+        <Grid Grid.Row="4" Grid.ColumnSpan="3"/>
+        <Rectangle Fill="{DynamicResource PrimaryHueDarkBrush}" Height="40" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0" Grid.ColumnSpan="3" Grid.Row="4"/>
+        <Label x:Name="lblFoot" Content="NATIONAL UNION OF BANK EMPLOYEES" HorizontalAlignment="Center"  VerticalAlignment="Top" Height="40" Width="391" Background="{DynamicResource PrimaryHueLightBrush}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18.667" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}" Margin="200,0,199,0" Grid.Row="4" Grid.ColumnSpan="3" />
+        <ProgressBar x:Name="progressBar1" Grid.Column="1" HorizontalAlignment="Left" Height="30" Margin="10,30,0,0" Grid.Row="2" VerticalAlignment="Top" Width="330"/>
+        <Border BorderBrush="Black" BorderThickness="1" Grid.Column="1" HorizontalAlignment="Left" Height="100" Margin="170,89,0,-149" Grid.Row="4" VerticalAlignment="Top" Width="100"/>
+        <Label x:Name="lblSucessful" Visibility="Hidden" Content="Label" Grid.Column="2" HorizontalAlignment="Left" Margin="115,70,0,0" Grid.Row="3" VerticalAlignment="Top"/>
+
+
+    </Grid>
+</metro:MetroWindow>

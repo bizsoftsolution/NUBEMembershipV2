@@ -1,0 +1,98 @@
+﻿<metro:MetroWindow
+                  xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+    x:Class="Nube.Transaction.frmArrearPre16"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.Transaction"
+        mc:Ignorable="d"
+        Title="Arrear Pre-16" Tag="ArrearPre-16" Height="700" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized" >
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg"/>
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="640"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="51" >
+                <TextBox x:Name="txtHeading" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="41" TextWrapping="Wrap" Text="ARREAR PRE 16" VerticalAlignment="Top" FontSize="18" Margin="520,0,0,0" />
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="985" Margin="97,15,0,420"/>
+            <TextBox x:Name="txtMemberType" HorizontalAlignment="Left" Height="40" Margin="116,45,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Member Type" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="135" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtMemberNo" HorizontalAlignment="Left" Height="40" Margin="266,45,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Membership" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="147" FontWeight="Bold" KeyDown="txtMemberNo_KeyDown" />
+            <TextBox x:Name="txtMemberName" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="426,45,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Member Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="290" IsReadOnly="True" />
+            <Label x:Name="label_Copy" FontWeight="Bold" Content="DOB" HorizontalAlignment="Left" Margin="730,59,0,0" VerticalAlignment="Top" Width="44"/>
+            <DatePicker x:Name="dtpDOB" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="DOB" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="774,55,0,0" VerticalAlignment="Top" Width="106" FontSize="14" IsEnabled="False" />
+            <TextBox x:Name="txtAge" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="895,45,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Age" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" IsReadOnly="True"/>
+            <TextBox x:Name="txtOldIC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="730,90,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="NRIC-O" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="150" IsReadOnly="True"/>
+            <TextBox x:Name="txtNewIC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="895,90,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="NRIC-N" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="162" IsReadOnly="True"/>
+            <DatePicker x:Name="dtpDOJ" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Joining Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="150,145,0,0" VerticalAlignment="Top" Width="111" FontSize="14" IsEnabled="False" />
+            <TextBox x:Name="txtGender" HorizontalAlignment="Left" Height="40" Margin="116,90,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Gender" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="135" FontWeight="Bold" IsReadOnly="True"/>
+            <Label x:Name="label_Copy1" FontWeight="Bold" Content="DOJ" HorizontalAlignment="Left" Margin="116,149,0,0" VerticalAlignment="Top" Width="34"/>
+            <TextBox x:Name="txtRace" HorizontalAlignment="Left" Height="45" Margin="957,40,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Race" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="100" FontWeight="Bold" IsReadOnly="True"/>
+            <Label x:Name="label_Copy2" FontWeight="Bold" Content="Bank" HorizontalAlignment="Left" Margin="266,104,0,0" VerticalAlignment="Top" Width="55"/>
+            <TextBox x:Name="txtBankCode" HorizontalAlignment="Left" Height="40" Margin="326,90,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Bank Code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="87" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtBankName" HorizontalAlignment="Left" Height="40" Margin="426,90,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Bank Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="290" FontWeight="Bold" IsReadOnly="True"/>
+            <Label x:Name="label_Copy3" FontWeight="Bold" Content="Branch" HorizontalAlignment="Left" Margin="266,149,0,0" VerticalAlignment="Top" Width="55"/>
+            <TextBox x:Name="txtBranchCode" HorizontalAlignment="Left" Height="40" Margin="326,135,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Branch Code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="85" FontWeight="Bold" IsReadOnly="True"/>
+            <TextBox x:Name="txtBranchName" HorizontalAlignment="Left" Height="40" Margin="426,135,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Branch Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="290" FontWeight="Bold" IsReadOnly="True"/>
+            <Label x:Name="label_Copy4" FontWeight="Bold" Content="Balance Due" HorizontalAlignment="Left" Margin="730,149,0,0" VerticalAlignment="Top" Width="85"/>
+            <TextBox x:Name="txtBalanceDue" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="820,135,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Due" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="60" IsReadOnly="True"/>
+            <TextBox x:Name="txtLastPaymentDate" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="895,134,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Last Payment Date" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="162" IsReadOnly="True"/>
+            <DataGrid x:Name="dgArrearPre" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" ItemsSource="{Binding TestBinding}" Margin="263,257,0,0" VerticalAlignment="Top" Height="288" Width="472" CellEditEnding="dgArrearPre_CellEditEnding">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Effect>
+                    <DropShadowEffect/>
+                </DataGrid.Effect>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Year" FontWeight="Bold" Width="80" Binding="{Binding YEAR}" />
+                    <DataGridComboBoxColumn Header="Month" Width="80" x:Name="MONTH" TextBinding="{Binding MONTH}"
+                    SelectedValueBinding="{Binding MONTH, Mode=TwoWay}"  
+                    DisplayMemberPath="{Binding MONTH}" >
+                        <DataGridComboBoxColumn.EditingElementStyle>
+                            <Style TargetType="ComboBox">
+                                <Setter Property="IsEditable" Value="True"/>
+                                <EventSetter Event="SelectionChanged" Handler="GridComboBoxChangeEvent" />
+                                <!--<Setter Property="Text" Value="{Binding ObjectText}"/>
+                            <Setter Property="IsSynchronizedWithCurrentItem" Value="True" />-->
+                            </Style>
+                        </DataGridComboBoxColumn.EditingElementStyle>
+                    </DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="Amount" FontWeight="Bold" Width="100" Binding="{Binding AMOUNT }" />
+                    <DataGridTextColumn Header="B F" FontWeight="Bold" Width="100" Binding="{Binding BF}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="100" Binding="{Binding SUBSCRIPTION }" IsReadOnly="True" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBox x:Name="txtSubscription" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="631,548,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Subscription" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="94"/>
+            <TextBox x:Name="txtBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="544,548,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="BF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="80"/>
+            <TextBox x:Name="txtAmount" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="445,548,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Amount" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="80"/>
+            <Label x:Name="label_Copy5" FontWeight="Bold" Content="Total Amount" HorizontalAlignment="Left" Margin="348,560,0,0" VerticalAlignment="Top" Width="92"/>
+            <Button x:Name="btnEditOldDue" Content="Edit Old Due" HorizontalAlignment="Left" Margin="828,315,0,0" VerticalAlignment="Top" Width="132" Click="btnEditOldDue_Click" />
+            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="930,375,0,0" VerticalAlignment="Top" Width="92" Click="btnClear_Click" />
+            <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" Margin="930,442,0,0" VerticalAlignment="Top" Width="92" Click="btnHome_Click" />
+            <Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Left" Margin="773,375,0,0" VerticalAlignment="Top" Width="92" Click="btnSelect_Click" />
+            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="773,442,0,0" VerticalAlignment="Top" Width="92" Click="btnSave_Click" />
+
+
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

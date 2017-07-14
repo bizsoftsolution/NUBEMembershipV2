@@ -1,0 +1,29 @@
+﻿<metro:MetroWindow
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1" 
+    
+        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+    x:Class="Nube.frmMemberCard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        Title="Member Card" Height="600" Width="1100" Icon="/Nube;component/Image/Logo.png" WindowState="Normal" WindowStartupLocation="CenterScreen">
+    <Grid Margin="10,0,190,49">
+      
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="35" Margin="310,85,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
+        <TextBox x:Name="txtBank" HorizontalAlignment="Left" Height="35" Margin="310,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
+        <TextBox x:Name="txtAddress" HorizontalAlignment="Left" Height="90" Margin="485,165,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="510"/>
+        <TextBox x:Name="txtBankID" HorizontalAlignment="Left" Height="35" Margin="685,278,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
+        <TextBox x:Name="txtICNO" HorizontalAlignment="Left" Height="35" Margin="685,318,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
+        <TextBox x:Name="txtDateOfJoining" HorizontalAlignment="Left" Height="35" Margin="685,354,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
+        <TextBox x:Name="txtMemberNo" HorizontalAlignment="Left" Height="35" Margin="685,394,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="375"/>
+        <WindowsFormsHost HorizontalAlignment="Center" Height="457" VerticalAlignment="Center" Width="800"  Margin="0,5">
+            <rv:ReportViewer x:Name="ReportViewer"/>
+        </WindowsFormsHost>
+    </Grid>
+</metro:MetroWindow>

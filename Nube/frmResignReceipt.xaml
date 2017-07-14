@@ -1,0 +1,40 @@
+﻿<metro:MetroWindow
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1" 
+     xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+    x:Class="Nube.frmResignReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        Title="RESIGNATION REPOR" Height="700" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Normal" WindowStartupLocation="CenterScreen">
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="640"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="50">
+                <TextBlock x:Name="lblHeading" FontWeight="Bold" Text="RESIGNATION REPORT" TextAlignment="Center" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Margin="0,13" Width="790"></TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Column="1"  Grid.Row="1">
+            <WindowsFormsHost HorizontalAlignment="Center" Height="575" VerticalAlignment="Center" Width="1130" Margin="25,20,25,45">
+                <rv:ReportViewer x:Name="ReportViewer"/>
+            </WindowsFormsHost>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

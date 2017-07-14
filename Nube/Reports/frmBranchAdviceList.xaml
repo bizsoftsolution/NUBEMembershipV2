@@ -1,0 +1,101 @@
+﻿<metro:MetroWindow
+          xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1" 
+    
+        x:Class="Nube.frmBranchAdviceList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+   
+        Title="Branch Advice List"  Height="750" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized" WindowStartupLocation="CenterScreen" Closing="MetroWindow_Closing">
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="690"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="51" >
+                <TextBox x:Name="txtHeading" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="41" Margin="417,0,0,0" TextWrapping="Wrap" Text="Branch Advice List" VerticalAlignment="Top" Width="439" FontSize="18"/>
+            </materialDesign:Card>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="1" >
+            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="355,21,734,647" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="91"/>
+            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="465,18,395,644" VerticalAlignment="Center" Width="320" Height="28"/>
+            <Button x:Name="btnSearch" FontWeight="Bold" Content="Search" HorizontalAlignment="Center" Margin="595,59,500,599" VerticalAlignment="Center" Width="85" Height="32" Click="btnSearch_Click"/>
+            <Button x:Name="btnBack" FontWeight="Bold" Content="Back" HorizontalAlignment="Center" Margin="845,59,260,598" VerticalAlignment="Center" Width="75" Height="33" RenderTransformOrigin="0.42,1.356" Click="btnBack_Click"/>
+            <Button x:Name="btnClear" FontWeight="Bold"  Content="Clear" HorizontalAlignment="Center" Margin="720,60,370,598" VerticalAlignment="Center" Width="90" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
+            <DatePicker x:Name="dtpDate" FontWeight="Bold" HorizontalAlignment="Center" Margin="465,65,605,600" VerticalAlignment="Center" Width="110" Height="25"/>
+            <Label x:Name="lblMonth" FontWeight="Bold" FontSize="14" Content="Month" HorizontalAlignment="Center" Margin="360,64,745,600" VerticalAlignment="Center" Width="75" Height="26" RenderTransformOrigin="0.5,0.5">
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0.534"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Grid Margin="0,0,0,10" HorizontalAlignment="Left" Width="1170">
+                <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="555" Margin="0,100,-15,25"  VerticalAlignment="Center" Width="1185" FontSize="14" Background="Transparent" BorderBrush="{StaticResource AccentColorBrush}">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Grid Name="Panel">
+                                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Panel" Property="Background" Value="White" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="New Member Details" FontSize="14" FontWeight="Bold">
+                        <Grid Margin="0,0,0,-6">
+                            <WindowsFormsHost HorizontalAlignment="Left" Height="474" Margin="0,10,0,0" VerticalAlignment="Top" Width="1179">
+                                <rv:ReportViewer x:Name="NewMemberReport"></rv:ReportViewer>
+                            </WindowsFormsHost>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Resign Member Details" FontSize="16" FontWeight="Bold">
+                        <Grid>
+                            <WindowsFormsHost HorizontalAlignment="Left" Height="468" Margin="0,10,0,0" VerticalAlignment="Top" Width="1179">
+                                <rv:ReportViewer x:Name="ResignMemberReport"></rv:ReportViewer>
+                            </WindowsFormsHost>
+
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>
