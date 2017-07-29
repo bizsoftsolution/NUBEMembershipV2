@@ -13,6 +13,8 @@ namespace Nube
     {
         public static void ViewMemberTotalMonthsDue(int i = 0)
         {
+
+            // testing
             //int iMonth = 12 + i;
 
             //string str = " ALTER VIEW [dbo].[ViewTotalMonthsDue]\r" +
