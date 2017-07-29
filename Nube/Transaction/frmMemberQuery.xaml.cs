@@ -36,17 +36,17 @@ namespace Nube.Transaction
         {
             InitializeComponent();
             sFormName = sForm_Name;
-            btnSearch.Focus();            
+            btnSearch.Focus();
 
             if (AppLib.dtMemberQuery.Rows.Count > 0)
             {
                 dtMember = AppLib.dtMemberQuery.Copy();
                 dgvDetails.ItemsSource = dtMember.DefaultView;
             }
-            else
-            {
-                FormLoad();
-            }
+            //else
+            //{
+            //    FormLoad();
+            //}
         }
 
         #region"BUTTON EVENTS"

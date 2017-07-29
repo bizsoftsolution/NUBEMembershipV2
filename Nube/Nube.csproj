@@ -473,9 +473,6 @@
     <Compile Include="TaxMaster.cs">
       <DependentUpon>NUBEDATA.tt</DependentUpon>
     </Compile>
-    <Compile Include="TEMPVIEWMASTERMEMBER.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
-    </Compile>
     <Compile Include="Transaction\frmArrearDueList.xaml.cs">
       <DependentUpon>frmArrearDueList.xaml</DependentUpon>
     </Compile>
@@ -507,6 +504,9 @@
       <DependentUpon>frmTransfer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tran_Start.cs">
+      <DependentUpon>NUBEDATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TVMASTERMEMBER.cs">
       <DependentUpon>NUBEDATA.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfMeasurement.cs">

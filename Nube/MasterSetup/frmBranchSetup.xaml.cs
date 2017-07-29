@@ -250,11 +250,12 @@ namespace Nube.MasterSetup
                     cmbNUBEBranch.SelectedValue = Convert.ToInt32(drv["NUBE_BRANCH_CODE"]);
                     cmbState.SelectedValue = Convert.ToInt32(drv["BANKBRANCH_STATE_CODE"]);
                     ckbHeadOffice.IsChecked = Convert.ToBoolean(drv["HEAD_QUARTERS"]);
+                    txtPostalCode.Text= drv["BANKBRANCH_ZIPCODE"].ToString();
 
-                    TCBranchSetup.TabIndex =1;
+                    TCBranchSetup.TabIndex = 1;
                     TCBranchSetup.SelectedIndex = 1;
                     //txtBranchName.Focus();
-                                     
+
                 }
             }
             catch (Exception ex)
@@ -305,6 +306,10 @@ namespace Nube.MasterSetup
                     cmbBranchSrch.SelectedValuePath = "BANKBRANCH_CODE";
                     cmbBranchSrch.DisplayMemberPath = "BANKBRANCH_NAME";
 
+                    cmbUserCode.ItemsSource = mbr;
+                    cmbUserCode.SelectedValuePath = "BANKBRANCH_CODE";
+                    cmbUserCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
+
                     using (SqlConnection conn = new SqlConnection(connStr))
                     {
                         dtBank.Rows.Clear();
@@ -329,6 +334,40 @@ namespace Nube.MasterSetup
                             dgvBranch.ItemsSource = dtBank.DefaultView;
                         }
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+        }
+
+        private void cmbUserCode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                decimal dBrnkCode = Convert.ToDecimal(cmbUserCode.SelectedValue);
+                if (dBrnkCode != 0)
+                {
+                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANKBRANCH_CODE == dBrnkCode).FirstOrDefault();
+                    cmbBranchSrch.SelectedValue = mbr.BANKBRANCH_CODE;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+        }
+
+        private void cmbBranchSrch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                decimal dBrnkCode = Convert.ToDecimal(cmbBranchSrch.SelectedValue);
+                if (dBrnkCode != 0)
+                {
+                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANKBRANCH_CODE == dBrnkCode).FirstOrDefault();
+                    cmbUserCode.SelectedValue = mbr.BANKBRANCH_CODE;
                 }
             }
             catch (Exception ex)
@@ -475,11 +514,13 @@ namespace Nube.MasterSetup
             cmbState.Text = "";
             cmbBrBankName.Text = "";
             cmbBranchSrch.Text = "";
+            cmbUserCode.Text = "";
             LoadWindow();
         }
 
+
         #endregion
 
-      
+
     }
 }

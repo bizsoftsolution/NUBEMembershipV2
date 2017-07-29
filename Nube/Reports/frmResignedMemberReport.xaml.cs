@@ -126,23 +126,30 @@ namespace Nube
             {
                 MemberReport.Reset();
                 DataTable dt = getData();
+
                 if (dt.Rows.Count > 0)
                 {
-                    ReportDataSource masterData = new ReportDataSource("Resign", dt);
+                    if (chkSimple.IsChecked == true)
+                    {
+                        dgvResigned.ItemsSource = dt.DefaultView;
+                    }
+                    else
+                    {
+                        ReportDataSource masterData = new ReportDataSource("Resign", dt);
 
-                    MemberReport.LocalReport.DataSources.Add(masterData);
-                    MemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptResign.rdlc";
-                    ReportParameter RP = new ReportParameter("TotalMember", dt.Rows.Count.ToString());
-                    MemberReport.LocalReport.SetParameters(RP);
+                        MemberReport.LocalReport.DataSources.Add(masterData);
+                        MemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptResign.rdlc";
+                        ReportParameter RP = new ReportParameter("TotalMember", dt.Rows.Count.ToString());
+                        MemberReport.LocalReport.SetParameters(RP);
 
-                    MemberReport.RefreshReport();
-                    LoadBankReport();
+                        MemberReport.RefreshReport();
+                        LoadBankReport();
+                    }
                 }
                 else
                 {
                     MessageBox.Show("No Records Found!");
                 }
-
             }
             catch (Exception ex)
             {
@@ -173,7 +180,6 @@ namespace Nube
 
         private DataTable getData()
         {
-            Wqry();
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(connStr))
             {
@@ -186,76 +192,126 @@ namespace Nube
                 //{
                 //    qry = "RESIGNED='1'";
                 //}
-                if (!string.IsNullOrEmpty(dtpFromDate.Text))
+                if (chkSimple.IsChecked == true)
                 {
-                    if (!string.IsNullOrEmpty(qry))
+                    if (!string.IsNullOrEmpty(dtpFromDate.Text))
                     {
-                        qry = qry + string.Format(" AND MONTH(VOUCHER_DATE) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(VOUCHER_DATE) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        qry = qry + string.Format(" RG.RESIGNATION_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
                     }
-                    else
+                    if (Convert.ToInt32(cmbBank.SelectedValue) != 0)
                     {
-                        qry = qry + string.Format(" MONTH(VOUCHER_DATE) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(VOUCHER_DATE) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        decimal dBankCode = Convert.ToDecimal(cmbBank.SelectedValue);
+                        var st = (from x in db.MASTERBANKs where x.BANK_CODE == dBankCode || x.HEADER_BANK_CODE == dBankCode select x).ToList();
+                        if (st != null)
+                        {
+                            DataTable dtBank = AppLib.LINQResultToDataTable(st);
+                            string str = "";
+                            foreach (DataRow dr in dtBank.Rows)
+                            {
+                                if (string.IsNullOrEmpty(str))
+                                {
+                                    str = dr["BANK_CODE"].ToString();
+                                }
+                                else
+                                {
+                                    str = str + "," + dr["BANK_CODE"].ToString();
+                                }
+                                if (Convert.ToInt32(dr["HEADER_BANK_CODE"]) > 0)
+                                {
+                                    str = str + "," + dr["HEADER_BANK_CODE"].ToString();
+                                }
+                            }
+                            qry = qry + " AND MM.BANK_CODE IN (" + str + ") ";
+                        }
                     }
-                }
-                if (!string.IsNullOrEmpty(cmbReasonBranch.Text))
-                {
-                    if (!string.IsNullOrEmpty(qry))
-                    {
-                        qry = qry + string.Format(" AND RESIGNSTATUS_CODE=" + cmbReasonBranch.SelectedValue);
-                    }
-                    else
-                    {
-                        qry = qry + string.Format(" RESIGNSTATUS_CODE=" + cmbReasonBranch.SelectedValue);
-                    }
-                }
 
-                if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(txtMemberNoTo.Text))
+                    string strg = "SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME,MM.SEX,\r" +
+                                 "CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE ISNULL(MM.ICNO_OLD,'') END NRIC,\r" +
+                                 "MM.BANK_USERCODE+'/'+MM.BRANCHUSERCODE BANK,RG.RESIGNATION_DATE,ST.RESIGNSTATUS_NAME,MM.LASTPAYMENT_DATE,RG.CLAIMER_NAME\r" +
+                                 "FROM RESIGNATION RG(NOLOCK)\r" +
+                                 "LEFT JOIN VIEWMASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE=RG.MEMBER_CODE\r" +
+                                 "LEFT JOIN MASTERRESIGNSTATUS ST(NOLOCK) ON ST.RESIGNSTATUS_CODE=RG.RESIGNSTATUS_CODE\r" +
+                                 "WHERE" + qry;
+                    cmd = new SqlCommand(strg, con);
+                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    adp.SelectCommand.CommandTimeout = 0;
+                    adp.Fill(dt);
+                    qry = "";
+                }
+                else
                 {
-                    if (!string.IsNullOrEmpty(qry))
+                    Wqry();
+                    if (!string.IsNullOrEmpty(dtpFromDate.Text))
                     {
-                        qry = qry + string.Format(" AND MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND MONTH(VOUCHER_DATE) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(VOUCHER_DATE) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" MONTH(VOUCHER_DATE) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(VOUCHER_DATE) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
                     }
-                    else
+                    if (!string.IsNullOrEmpty(cmbReasonBranch.Text))
                     {
-                        qry = qry + string.Format(" MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND RESIGNSTATUS_CODE=" + cmbReasonBranch.SelectedValue);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" RESIGNSTATUS_CODE=" + cmbReasonBranch.SelectedValue);
+                        }
                     }
 
-                }
-                else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text))
-                {
-                    if (!string.IsNullOrEmpty(qry))
+                    if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(txtMemberNoTo.Text))
                     {
-                        qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoFrom.Text);
-                    }
-                    else
-                    {
-                        qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoFrom.Text);
-                    }
-                }
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                        }
 
-                else if (!string.IsNullOrEmpty(txtMemberNoTo.Text))
-                {
-                    if (!string.IsNullOrEmpty(qry))
-                    {
-                        qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoTo.Text);
                     }
-                    else
+                    else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text))
                     {
-                        qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoTo.Text);
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                        }
                     }
-                }
 
-                cmd = new SqlCommand("SELECT * FROM VIEWRESIGNREPORT(NOLOCK) WHERE " + qry + " order by MEMBER_NAME", con);
-                SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                adp.SelectCommand.CommandTimeout = 0;
-                adp.Fill(dt);
-                int i = 0;
-                foreach (DataRow row in dt.Rows)
-                {
-                    row["RNO"] = i + 1;
-                    i++;
+                    else if (!string.IsNullOrEmpty(txtMemberNoTo.Text))
+                    {
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoTo.Text);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoTo.Text);
+                        }
+                    }
+
+                    cmd = new SqlCommand("SELECT * FROM VIEWRESIGNREPORT(NOLOCK) WHERE " + qry + " order by MEMBER_NAME", con);
+                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    adp.SelectCommand.CommandTimeout = 0;
+                    adp.Fill(dt);
+                    int i = 0;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        row["RNO"] = i + 1;
+                        i++;
+                    }
+                    qry = "";
                 }
-                qry = "";
             }
             return dt;
         }

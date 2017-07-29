@@ -19,5 +19,6 @@ namespace Nube
         public string BANK_USERCODE { get; set; }
         public Nullable<decimal> DELETED { get; set; }
         public Nullable<decimal> MERGED { get; set; }
+        public decimal HEADER_BANK_CODE { get; set; }
     }
 }

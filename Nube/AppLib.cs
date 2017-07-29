@@ -28,11 +28,11 @@ namespace Nube
         public static string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["NUBEBFS"].ConnectionString;
         public static string connstatus = System.Configuration.ConfigurationManager.ConnectionStrings["NUBESTATUS"].ConnectionString;
         public static List<UserPrevilage> lstUsreRights = new List<UserPrevilage>();
-        public static List<TEMPVIEWMASTERMEMBER> lstViewMasterMember = new List<TEMPVIEWMASTERMEMBER>();
-        
+        public static List<TVMASTERMEMBER> lstTVMasterMember = new List<TVMASTERMEMBER>();
+
         public static DataTable dtMemberQuery = new DataTable();
         public static DataTable dtAnnualStatement = new DataTable();
-        public static nubebfsEntity db = new nubebfsEntity();        
+        public static nubebfsEntity db = new nubebfsEntity();
 
         public static void CheckIsNumeric(TextCompositionEventArgs e)
         {
@@ -50,7 +50,7 @@ namespace Nube
             {
                 ExceptionLogging.SendErrorToText(ex);
             }
-        }              
+        }
 
         public static void EventHistory(string FormName = "", int Event = 0, string OldData = "", string NewData = "", string TblName = "", string Remarks = "")
         {
@@ -68,7 +68,6 @@ namespace Nube
 
                 db.EventHistories.Add(eh);
                 db.SaveChanges();
-
             }
             catch (Exception ex)
             {
@@ -78,9 +77,8 @@ namespace Nube
 
         public static int MonthDiff(this DateTime date1, DateTime date2)
         {
-            return (int)Math.Abs(date1.Subtract(date2).Days / (365.25 / 12));
+            return (int)((date1.Year - date2.Year) * 12) + (date1.Month - date2.Month);
         }
-
 
         public static DataTable LINQResultToDataTable<T>(IEnumerable<T> Linqlist)
         {
@@ -123,7 +121,5 @@ namespace Nube
             return dt;
         }
 
-
     }
-
 }

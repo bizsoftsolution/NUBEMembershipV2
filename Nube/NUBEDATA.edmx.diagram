@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4dc4fbca749e4c8d9012345f12aa9712" Name="Diagram1" ZoomLevel="40">
+      <Diagram DiagramId="4dc4fbca749e4c8d9012345f12aa9712" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="nubebfsModel.AccountGroup" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.ArrearPostDetail" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.ArrearPostMaster" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="nubebfsModel.FeesDetail" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.FeesMaster" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.LoginHistory" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="nubebfsModel.MASTERBANK" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.MASTERBANKBRANCH" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.MASTERCITY" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.MASTERGUARDIAN" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
@@ -96,8 +95,9 @@
         <EntityTypeShape EntityType="nubebfsModel.MASTERNAMESETUP" Width="1.5" PointX="3.375" PointY="28.75" />
         <EntityTypeShape EntityType="nubebfsModel.VIEWNOMINEE" Width="1.5" PointX="16.375" PointY="28.75" />
         <EntityTypeShape EntityType="nubebfsModel.MASTERMEMBER" Width="1.5" PointX="5.375" PointY="29.75" />
+        <EntityTypeShape EntityType="nubebfsModel.TVMASTERMEMBER" Width="1.5" PointX="28.375" PointY="17.75" />
         <EntityTypeShape EntityType="nubebfsModel.ViewMasterMember" Width="1.5" PointX="22.375" PointY="25.75" />
-        <EntityTypeShape EntityType="nubebfsModel.TEMPVIEWMASTERMEMBER" Width="1.5" PointX="28.375" PointY="17.75" />
+        <EntityTypeShape EntityType="nubebfsModel.MASTERBANK" Width="1.5" PointX="3.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -37,6 +37,10 @@ namespace Nube.Reports
                 cmbBank.ItemsSource = bank;
                 cmbBank.SelectedValuePath = "BANK_CODE";
                 cmbBank.DisplayMemberPath = "BANK_NAME";
+
+                lblFilterOption.Visibility = Visibility.Collapsed;
+                rbtUnion.Visibility = Visibility.Collapsed;
+                rbtSeparate.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
             {
@@ -108,6 +112,19 @@ namespace Nube.Reports
                 cmbBranch.ItemsSource = branch;
                 cmbBranch.SelectedValuePath = "BANKBRANCH_CODE";
                 cmbBranch.DisplayMemberPath = "BANKBRANCH_NAME";
+
+                if (Convert.ToInt32(cmbBank.SelectedValue) != 0)
+                {
+                    lblFilterOption.Visibility = Visibility.Visible;
+                    rbtUnion.Visibility = Visibility.Visible;
+                    rbtSeparate.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lblFilterOption.Visibility = Visibility.Collapsed;
+                    rbtUnion.Visibility = Visibility.Collapsed;
+                    rbtSeparate.Visibility = Visibility.Collapsed;
+                }
             }
             catch (Exception ex)
             {
@@ -146,7 +163,7 @@ namespace Nube.Reports
             {
                 if (!string.IsNullOrEmpty(dtpDate.Text.ToString()))
                 {
-                    sWhere = string.Format(" WHERE FD.FEEYEAR={0} AND FD.FEEMONTH={1} ", Convert.ToDateTime(dtpDate.SelectedDate).Year, Convert.ToDateTime(dtpDate.SelectedDate).Month);
+                    sWhere = string.Format(" WHERE FD.FEEYEAR={0} AND FD.FEEMONTH={1}  AND FD.STATUS<>'ARREAR ENTRY'", Convert.ToDateTime(dtpDate.SelectedDate).Year, Convert.ToDateTime(dtpDate.SelectedDate).Month);
                 }
 
                 if (rbtnActive.IsChecked == true)
@@ -163,41 +180,70 @@ namespace Nube.Reports
                 }
             }
 
-
             if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
             {
                 if (!string.IsNullOrEmpty(sWhere))
                 {
                     sWhere = sWhere + " AND MM.NUBEBANCHNAME='" + cmbNubeBranch.Text + "' ";
                 }
-                else
-                {
-                    sWhere = sWhere + " MM.NUBEBANCHNAME='" + cmbNubeBranch.Text + "' ";
-                }
             }
 
-            if (!string.IsNullOrEmpty(cmbBank.Text))
+            decimal dBankCode = Convert.ToDecimal(cmbBank.SelectedValue);
+
+            if (!string.IsNullOrEmpty(cmbBank.Text) && (dtpDate.SelectedDate <= Convert.ToDateTime("31/MAR/2016").Date))
             {
-                if (!string.IsNullOrEmpty(sWhere))
+                sWhere = sWhere + " AND FD.BANK_CODE=" + dBankCode;
+            }
+            else if (!string.IsNullOrEmpty(cmbBank.Text) && rbtSeparate.IsChecked == true && (dtpDate.SelectedDate > Convert.ToDateTime("31/MAR/2016").Date))
+            {
+                var st = (from x in db.MASTERBANKs where x.BANK_CODE == dBankCode && x.HEADER_BANK_CODE == 0 select x).ToList();
+                if (st.Count > 0)
                 {
-                    sWhere = sWhere + " AND MM.BANK_NAME='" + cmbBank.Text + "' ";
+                    sWhere = sWhere + " AND FM.BANKID IN (" + cmbBank.SelectedValue + ")";
+                    var exp = (from x in db.MASTERBANKs where x.HEADER_BANK_CODE == dBankCode select x).FirstOrDefault();
+                    if (exp != null)
+                    {
+                        sWhere = sWhere + " AND MM.BANK_CODE NOT IN (" + exp.BANK_CODE.ToString() + ") ";
+                    }
                 }
                 else
                 {
-                    sWhere = sWhere + " MM.BANK_NAME='" + cmbBank.Text + "' ";
+                    sWhere = sWhere + " AND MM.BANK_CODE IN (" + cmbBank.SelectedValue + ")";
+                }
+            }
+            else if (!string.IsNullOrEmpty(cmbBank.Text) && rbtUnion.IsChecked == true)
+            {
+                var st = (from x in db.MASTERBANKs where x.BANK_CODE == dBankCode || x.HEADER_BANK_CODE == dBankCode select x).ToList();
+                if (st != null)
+                {
+                    DataTable dtBank = AppLib.LINQResultToDataTable(st);
+                    string str = "";
+                    foreach (DataRow dr in dtBank.Rows)
+                    {
+                        if (string.IsNullOrEmpty(str))
+                        {
+                            str = dr["BANK_CODE"].ToString();
+                        }
+                        else
+                        {
+                            str = str + "," + dr["BANK_CODE"].ToString();
+                        }
+                        if (Convert.ToInt32(dr["HEADER_BANK_CODE"]) > 0)
+                        {
+                            str = str + "," + dr["HEADER_BANK_CODE"].ToString();
+                        }
+                    }
+                    sWhere = sWhere + " AND FM.BANKID IN (" + str + ") ";
+                }
+                else
+                {
+                    sWhere = sWhere + " AND FM.BANKID=" + cmbBank.SelectedValue + " ";
                 }
             }
 
             if (!string.IsNullOrEmpty(cmbBranch.Text))
             {
-                if (!string.IsNullOrEmpty(sWhere))
-                {
-                    sWhere = sWhere + " AND MM.BRANCHNAME='" + cmbBranch.Text + "' ";
-                }
-                else
-                {
-                    sWhere = sWhere + " MM.BRANCHNAME='" + cmbBranch.Text + "' ";
-                }
+                sWhere = sWhere + " AND MM.BRANCHNAME='" + cmbBranch.Text + "' ";
             }
 
             DataTable dt = new DataTable();
@@ -206,20 +252,23 @@ namespace Nube.Reports
                 string str = "";
                 if (dtpDate.SelectedDate <= Convert.ToDateTime("31/MAR/2016").Date)
                 {
-                    str = " SELECT '' NO,0 DETAILID,0 FEEID,FD.MEMBER_CODE,ISNULL(MM.MEMBER_ID,0)MEMBERID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME, " +
-                           " (FD.TOTALBF_AMOUNT+FD.TOTALSUBCRP_AMOUNT) TOTALAMOUNT,'' DEPT,FD.TOTALBF_AMOUNT AMOUNTBF,0 AMOUNTINS,TOTALSUBCRP_AMOUNT AMTSUBS,'' REASON " +
-                           " FROM FEE_STATUS FD(NOLOCK) " +
-                           " LEFT JOIN TEMPVIEWMASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBER_CODE " + sWhere +
+                    str = " SELECT '' NO,0 DETAILID,0 FEEID,FD.MEMBER_CODE,ISNULL(MM.MEMBER_ID,0)MEMBERID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME, \r" +
+                           " CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,\r" +
+                           " (FD.TOTALBF_AMOUNT+FD.TOTALSUBCRP_AMOUNT) TOTALAMOUNT,'' DEPT,FD.TOTALBF_AMOUNT AMOUNTBF,0 AMOUNTINS,TOTALSUBCRP_AMOUNT AMTSUBS,'' REASON \r" +
+                           " FROM FEE_STATUS FD(NOLOCK) \r" +
+                           " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBER_CODE \r" + sWhere +
                            " ORDER BY MM.MEMBER_NAME ";
                 }
                 else
                 {
-                    str = " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME, " +
-                           " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON " +
-                           " FROM FEESDETAILS FD(NOLOCK) " +
-                           " LEFT JOIN TEMPVIEWMASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE " + sWhere +
+                    str =  " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID, \r"+
+                           " ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC, \r" +
+                           " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON \r" +
+                           " FROM FEESDETAILS FD(NOLOCK) \r" +
+                           " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID=FD.FEEID \r" +
+                           " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE \r" + sWhere +
                            " ORDER BY MM.MEMBER_NAME ";
-                }
+                    }
 
                 SqlCommand cmd = new SqlCommand(str, conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

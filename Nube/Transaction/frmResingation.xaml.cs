@@ -40,6 +40,7 @@ namespace Nube.Transaction
             {
                 FormFill();
             }
+            LoadTempViewMaster();
         }
 
         #region BUTTON EVENTS
@@ -68,7 +69,7 @@ namespace Nube.Transaction
                 {
                     if (MessageBox.Show("Total Amount is " + txtRegTotalAmount.Text + ". \r Sure to Resign ?", "Resign Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        MASTERMEMBER mm = (from mas in db.MASTERMEMBERs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
+                        var mm = (from mas in db.MASTERMEMBERs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
                         var OldData = new JSonHelper().ConvertObjectToJSon(mm);
                         if (mm != null)
                         {
@@ -85,7 +86,7 @@ namespace Nube.Transaction
                             RESIGNATION rsg = new RESIGNATION();
                             rsg.MEMBER_CODE = dMember_Code;
                             rsg.RESIGNATION_DATE = dtpRegResignDate.SelectedDate;
-                            //rsg.RESIGNSTATUS_CODE = iStatusCode;
+                            rsg.RESIGNSTATUS_CODE = iStatusCode;
                             rsg.ICNO_OLD = mm.ICNO_OLD;
                             rsg.ICNO = mm.ICNO_NEW;
                             if (!string.IsNullOrEmpty(cmbRegClaimer.Text))
@@ -104,7 +105,7 @@ namespace Nube.Transaction
                             rsg.TOTALARREARS = Convert.ToDecimal(txtTotalMonthsDueSubs.Text);
                             rsg.USER_CODE = Convert.ToDecimal(AppLib.iUserCode);
                             rsg.ENTRY_DATE = DateTime.Now.Date;
-                            //rsg.ENTRY_TIME = DateTime.Now.TimeOfDay.ToString();
+                            rsg.ENTRY_TIME = string.Format(@"{0:hh\:mm\:ss}", DateTime.Now.TimeOfDay).ToString();
                             rsg.CURRENTDATE = DateTime.Now;
                             rsg.VOUCHER_DATE = dtpRegVData.SelectedDate;
                             rsg.SERVICE_YEAR = Convert.ToDecimal(txtRegServiceYear.Text);
@@ -204,52 +205,7 @@ namespace Nube.Transaction
         {
             try
             {
-                if (dMember_Code != 0)
-                {
-                    int iBenefitAmt = 0;
-                    decimal dReason = Convert.ToDecimal(cmbRegReason.SelectedValue);
-                    int iTotalmonth = Convert.ToInt32(dtpRegResignDate.SelectedDate.Value.Subtract(dtpDOJ.SelectedDate.Value).Days / (365.25 / 12));
-                    //if (dReason != 0 && Convert.ToDecimal(txtTotalMonthsDueBF.Text) <= 0)
-                    if (dReason != 0)
-                    {
-                        var rr = (from d in db.MASTERRESIGNSTATUS where d.RESIGNSTATUS_CODE == dReason select d).FirstOrDefault();
-                        if (rr != null)
-                        {
-                            if (rr.IsBenefitValid == true)
-                            {
-                                //int iTotalmonth = Convert.ToInt32(((Convert.ToDateTime(dtpRegResignDate.SelectedDate).Year - Convert.ToDateTime(dtpDOJ.SelectedDate).Year) * 12) + Convert.ToDateTime(dtpRegResignDate.SelectedDate).Month - Convert.ToDateTime(dtpDOJ.SelectedDate).Month);
-
-                                int iBenefitYrs = Convert.ToInt32(txtRegBenefitYear.Text);
-                                if ((Convert.ToInt32(txtTotalMonthPaidSubs.Text) + 3) >= iTotalmonth && iBenefitYrs >= rr.MinimumYear)
-                                {
-                                    int AmtPerYear1 = Convert.ToInt32(rr.AmtPerYear1);
-                                    int AmtPerYear2 = Convert.ToInt32(rr.AmtPerYear2);
-
-                                    iBenefitAmt = Convert.ToInt32((AmtPerYear1) + ((iBenefitYrs - 5) * AmtPerYear2));
-                                }
-                            }
-                        }
-                        if (iBenefitAmt < rr.MinimumRefund)
-                        {
-                            iBenefitAmt = Convert.ToInt32(rr.MinimumRefund);
-                        }
-                        if (iBenefitAmt > rr.MaximumRefund)
-                        {
-                            iBenefitAmt = Convert.ToInt32(rr.MaximumRefund);
-                        }
-                    }
-
-                    if (!string.IsNullOrEmpty(txtRegBenefits.Text))
-                    {
-                        iBenefitAmt = Convert.ToInt32(iBenefitAmt + Convert.ToDecimal(txtRegBenefits.Text));
-                    }
-
-                    //txtRegBenefits.Text = iBenefitAmt.ToString();
-                    //txtRegContributedMonths.Text = iTotalmonth.ToString();
-                    txtRegSubTotal.Text = iBenefitAmt.ToString();
-                    //txtRegBenefits.Text = iBenefitAmt.ToString();
-                    fTotal();
-                }
+                BenefitCalculation();
             }
             catch (Exception ex)
             {
@@ -279,13 +235,16 @@ namespace Nube.Transaction
                 TimeSpan ts = Convert.ToDateTime(dtpRegResignDate.SelectedDate) - Convert.ToDateTime(dtpDOJ.SelectedDate);
                 int iSerYear = Convert.ToInt32(ts.Days) / 365;
                 txtRegServiceYear.Text = iSerYear.ToString();
-                int totalMonths = Convert.ToInt32(dtpRegResignDate.SelectedDate.Value.Subtract(dtpDOJ.SelectedDate.Value).Days / (365.25 / 12));
+                int totalMonths = AppLib.MonthDiff(dtpRegResignDate.SelectedDate.Value, dtpDOJ.SelectedDate.Value) + 1;
+                //txtRegContributedMonths.Text = totalMonths.ToString();
                 txtRegAmount.Text = (totalMonths * 3).ToString();
+                //txtRegBFContribution.Text = (totalMonths * 3).ToString();
                 if (iSerYear > 0)
                 {
                     txtTotalMonthsDueSubs.Text = (totalMonths - Convert.ToInt32(txtTotalMonthPaidSubs.Text)).ToString();
-                    txtTotalMonthsDueBF.Text = (totalMonths - Convert.ToInt32(txtTotalMonthsDueBF.Text)).ToString();
+                    txtTotalMonthsDueBF.Text = (totalMonths - Convert.ToInt32(txtTotalMonthPaidBF.Text)).ToString();
                 }
+                BenefitCalculation();
             }
         }
 
@@ -520,7 +479,26 @@ namespace Nube.Transaction
             cmbPaymode.Text = "";
             txtRegSubTotal.Text = "";
             iStatusCode = 0;
+            txtRegServiceYear.Text = "";
+            txtRegBenefits.Text = "";
+            txtRegSubTotal.Text = "";
             FormLoad();
+        }
+
+        void LoadTempViewMaster()
+        {
+            //try
+            //{
+            //    if (AppLib.lstTVMasterMember.Count == 0)
+            //    {
+            //        var lstMM = (from x in db.TVMASTERMEMBERs select x).ToList();
+            //        AppLib.lstTVMasterMember = lstMM;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ExceptionLogging.SendErrorToText(ex);
+            //}
         }
 
         void FormLoad()
@@ -658,6 +636,7 @@ namespace Nube.Transaction
                     adp.Fill(dtResign);
                 }
 
+                //var status = (from x in AppLib.lstTVMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
                 var status = (from x in db.ViewMasterMembers where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 if (status != null)
@@ -832,15 +811,15 @@ namespace Nube.Transaction
 
                     int iSerYear = Convert.ToInt32(ts.Days) / 365;
                     txtRegServiceYear.Text = iSerYear.ToString();
-                    int totalMonths = ((Convert.ToDateTime(status.LASTPAYMENT_DATE).Year - Convert.ToDateTime(status.DATEOFJOINING).Year) * 12) + Convert.ToDateTime(status.LASTPAYMENT_DATE).Month - Convert.ToDateTime(status.DATEOFJOINING).Month;
+                    int totalMonths = Convert.ToInt32(status.LASTPAYMENT_DATE.Value.Subtract(status.DATEOFJOINING.Value).Days / (365.25 / 12));
 
                     txtRegAmount.Text = (totalMonths * 3).ToString();
                     txtServicePeriod.Text = iSerYear.ToString();
-                    txtRegBenefits.Text = qry.ACCBENEFIT == null ? "0" : qry.ACCBENEFIT.ToString();
+                    //txtRegBenefits.Text = qry.ACCBENEFIT == null ? "0" : qry.ACCBENEFIT.ToString();
 
                     if (qry.RESIGNED == 1)
                     {
-                        lblStatus.Content = "MEMBER IS ALREADY RESIGN";
+                        lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
                     }
 
                     txtEntranceFee.Text = qry.ENTRANCEFEE.ToString();
@@ -878,25 +857,25 @@ namespace Nube.Transaction
 
                     if (status.RESIGNED == 1 || status.MEMBERSTATUSCODE == 6)
                     {
-                        lblStatus.Content = "MEMBER IS ALREADY RESIGN";
+                        lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
                     }
                     else
                     {
                         if (status.MEMBERSTATUSCODE == 1)
                         {
-                            lblStatus.Content = "Active Member";
+                            lblStatus.Content = "Active Member; " + status.TOTALMOTHSDUE + " Arrears Pending";
                         }
                         else if (status.MEMBERSTATUSCODE == 2)
                         {
-                            lblStatus.Content = "Defaulter; Arrears Pending";
+                            lblStatus.Content = "Defaulter; " + status.TOTALMOTHSDUE + " Arrears Pending";
                         }
                         else if (status.MEMBERSTATUSCODE == 3)
                         {
-                            lblStatus.Content = "Struck Off; Arrears Pending";
+                            lblStatus.Content = "Struck Off; " + status.TOTALMOTHSDUE + " Arrears Pending";
                         }
                         else if (status.MEMBERSTATUSCODE == 6)
                         {
-                            lblStatus.Content = "MEMBER IS ALREADY RESIGN";
+                            lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
                         }
                     }
                 }
@@ -943,8 +922,8 @@ namespace Nube.Transaction
                         txtRegClaimerName.Text = dtResign.Rows[i]["CLAIMER_NAME"].ToString();
                         txtRegContributedMonths.Text = dtResign.Rows[i]["MONTHS_CONTRIBUTED"].ToString();
                         txtRegBFContribution.Text = dtResign.Rows[i]["ACCBF"].ToString();
-                        txtRegBenefits.Text = qry.ACCBENEFIT.ToString();
-                        txtRegAmount.Text = qry.ACCBENEFIT.ToString();
+                        txtRegBenefits.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
+                        txtRegAmount.Text = dtResign.Rows[i]["ACCBF"].ToString();
                         txtRegSubTotal.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
                         txtRegPaymode.Text = dtResign.Rows[i]["CHEQUENO"].ToString();
                         dtpRegChequeDate.Text = dtResign.Rows[i]["CHEQUEDATE"].ToString();
@@ -976,7 +955,45 @@ namespace Nube.Transaction
             //txtRegSubTotal.Text = (iBFContri + iBenefits).ToString();
         }
 
-        #endregion
+        void BenefitCalculation()
+        {
+            if (dMember_Code != 0)
+            {
+                int iBenefitAmt = 0;
+                decimal dReason = Convert.ToDecimal(cmbRegReason.SelectedValue);
+                int iTotalmonth = AppLib.MonthDiff(dtpRegResignDate.SelectedDate.Value, dtpDOJ.SelectedDate.Value) + 1;
 
+                if (dReason != 0)
+                {
+                    var rr = (from d in db.MASTERRESIGNSTATUS where d.RESIGNSTATUS_CODE == dReason && d.IsBenefitValid == true select d).FirstOrDefault();
+                    if (rr != null)
+                    {
+                        int iBenefitYrs = Convert.ToInt32(txtRegServiceYear.Text);
+                        if ((Convert.ToInt32(txtTotalMonthPaidSubs.Text) + 3) >= iTotalmonth && iBenefitYrs >= rr.MinimumYear)
+                        {
+                            int AmtPerYear1 = Convert.ToInt32(rr.AmtPerYear1);
+                            int AmtPerYear2 = Convert.ToInt32(rr.AmtPerYear2);
+
+                            iBenefitAmt = Convert.ToInt32((AmtPerYear1) + ((iBenefitYrs - 5) * AmtPerYear2));
+
+                            if (iBenefitAmt < rr.MinimumRefund)
+                            {
+                                iBenefitAmt = Convert.ToInt32(rr.MinimumRefund);
+                            }
+                            if (iBenefitAmt > rr.MaximumRefund)
+                            {
+                                iBenefitAmt = Convert.ToInt32(rr.MaximumRefund);
+                            }
+                        }
+                    }
+                }
+                txtRegBenefits.Text = iBenefitAmt.ToString();
+                //txtRegContributedMonths.Text = iTotalmonth.ToString();
+                txtRegSubTotal.Text = iBenefitAmt.ToString();
+                fTotal();
+            }
+        }
+
+        #endregion
     }
 }

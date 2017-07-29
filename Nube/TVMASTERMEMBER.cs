@@ -12,7 +12,7 @@ namespace Nube
     using System;
     using System.Collections.Generic;
     
-    public partial class TEMPVIEWMASTERMEMBER
+    public partial class TVMASTERMEMBER
     {
         public decimal MEMBER_CODE { get; set; }
         public string MEMBER_NAME { get; set; }
@@ -87,5 +87,6 @@ namespace Nube
         public string TDF { get; set; }
         public System.DateTime RESIGNATION_DATE { get; set; }
         public System.DateTime ENTRY_DATE { get; set; }
+        public Nullable<System.DateTime> VOUCHER_DATE { get; set; }
     }
 }

@@ -23,17 +23,17 @@ namespace Nube
     public partial class frmMemberHistory : MetroWindow
     {
         string connStr = AppLib.connstatus;
-        nubebfsEntity dbBFS = new nubebfsEntity();       
+        nubebfsEntity dbBFS = new nubebfsEntity();
         string sFormName = "";
         public frmMemberHistory(string FormN = "")
         {
             InitializeComponent();
-            sFormName = FormN;          
+            sFormName = FormN;
         }
         public void FormLoad(decimal id, DateTime doj, string bank, string branch, string monBF, string monSub, string Type)
         {
             try
-            {                
+            {
                 InitializeComponent();
                 txtBankName.Text = bank;
                 txtBranchkName.Text = branch;
@@ -50,14 +50,14 @@ namespace Nube
                     txtMemberName.Text = vm.MEMBER_NAME.ToString();
                     txtStatus.Text = vm.MEMBERSTATUS.ToString();
                     txtLastPaymentDate.Text = string.Format("{0:MMM-yyyy}", vm.LASTPAYMENT_DATE);
-                }                                       
+                }
             }
             catch (Exception ex)
             {
                 ExceptionLogging.SendErrorToText(ex);
             }
         }
-     
+
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             if (sFormName == "MEMBER QUERY")
@@ -71,7 +71,7 @@ namespace Nube
                 Transaction.frmMemberRegistration frm = new Transaction.frmMemberRegistration();
                 this.Close();
                 //frm.ShowDialog();
-            }           
+            }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -141,9 +141,21 @@ namespace Nube
                 if (e.Key == Key.Enter && !string.IsNullOrEmpty(txtMemberID.Text))
                 {
                     decimal dMemberId = Convert.ToDecimal(txtMemberID.Text);
-                    var mm = (from x in dbBFS.MASTERMEMBERs where x.MEMBER_ID == dMemberId select x).FirstOrDefault();
+                    var mm = (from x in dbBFS.TVMASTERMEMBERs where x.MEMBER_ID == dMemberId select x).FirstOrDefault();
+
                     if (mm != null)
                     {
+                        txtBankName.Text = mm.BANK_USERCODE;
+                        txtBranchkName.Text = mm.BRANCHNAME;
+                        dtpDOJ.SelectedDate = mm.DATEOFJOINING;
+                        txtType.Text = mm.MEMBERTYPE_NAME;
+                        txtMonthlyBF.Text = mm.MONTHLYBF.ToString();
+                        txtMonthlySub.Text = mm.MONTHLYSUBSCRIPTION.ToString();
+                        txtMemberName.Text = mm.MEMBER_NAME.ToString();
+                        txtStatus.Text = mm.MEMBERSTATUS.ToString();
+                        txtLastPaymentDate.Text = string.Format("{0:MMM-yyyy}", mm.LASTPAYMENT_DATE);
+
+
                         using (SqlConnection con = new SqlConnection(AppLib.connStr))
                         {
                             progressBar1.Minimum = 1;
@@ -167,7 +179,7 @@ namespace Nube
                             {
                                 progressBar1.Value = 9;
                                 System.Windows.Forms.Application.DoEvents();
-                                dgvDetails.ItemsSource = dt.DefaultView;                               
+                                dgvDetails.ItemsSource = dt.DefaultView;
                             }
                             else
                             {
@@ -180,6 +192,15 @@ namespace Nube
                     }
                     else
                     {
+                        txtBankName.Text = "";
+                        txtBranchkName.Text = "";
+                        dtpDOJ.Text = "";
+                        txtType.Text = "";
+                        txtMonthlyBF.Text = "";
+                        txtMonthlySub.Text = "";
+                        txtMemberName.Text = "";
+                        txtStatus.Text = "";
+                        txtLastPaymentDate.Text = "";
                         MessageBox.Show("No Data Found", "Invalid Membership");
                         progressBar1.Visibility = Visibility.Hidden;
                     }

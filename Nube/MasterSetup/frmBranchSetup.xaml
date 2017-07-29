@@ -31,7 +31,7 @@
             </materialDesign:Card>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <TabControl x:Name="TCBranchSetup" HorizontalAlignment="Left" Height="581" Margin="10,10,0,-26"  VerticalAlignment="Top" Width="1150" FontSize="14" Background="Transparent" BorderBrush="{StaticResource AccentColorBrush}" >
+            <TabControl x:Name="TCBranchSetup" HorizontalAlignment="Left" Height="600" Margin="10,10,0,0"  VerticalAlignment="Top" Width="1150" FontSize="14" Background="Transparent" BorderBrush="{StaticResource AccentColorBrush}" >
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -63,17 +63,20 @@
                             <ColumnDefinition Width="5*"/>
                             <ColumnDefinition Width="109*"/>
                         </Grid.ColumnDefinitions>
-                        <ComboBox x:Name="cmbBrBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="25,11,800,497" materialDesign:HintAssist.Hint="Bank Name" VerticalAlignment="Center" Width="265" Height="36" materialDesign:HintAssist.HintOpacity="0.25" Grid.Column="1" SelectionChanged="cmbBrBankName_SelectionChanged"/>
-                        <ComboBox x:Name="cmbBranchSrch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="325,11,420,497" materialDesign:HintAssist.Hint="Branch" VerticalAlignment="Center" Width="345" Height="36" materialDesign:HintAssist.HintOpacity="0.25" Grid.Column="1"/>
+                        <TextBlock x:Name="lblBank" TextAlignment="Right" HorizontalAlignment="Center" Margin="231,18,777,521" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="28" Width="86" Grid.Column="1"/>
+                        <TextBlock x:Name="lblBranch" TextAlignment="Right" HorizontalAlignment="Center" Margin="61,68,947,471" TextWrapping="Wrap" Text="Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="28" Width="86" Grid.Column="1"/>
+                        <ComboBox x:Name="cmbBrBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="342,10,407,521" materialDesign:HintAssist.Hint="Bank Name" VerticalAlignment="Center" Width="345" Height="36" materialDesign:HintAssist.HintOpacity="0.25" Grid.Column="1" SelectionChanged="cmbBrBankName_SelectionChanged"/>
+                        <ComboBox x:Name="cmbUserCode" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="162,64,820,467" materialDesign:HintAssist.Hint="Branch UserCode" VerticalAlignment="Center" Width="112" Height="36" materialDesign:HintAssist.HintOpacity="0.25" Grid.Column="1" SelectionChanged="cmbUserCode_SelectionChanged"/>
+                        <ComboBox x:Name="cmbBranchSrch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="299,64,450,467" materialDesign:HintAssist.Hint="Branch" VerticalAlignment="Center" Width="345" Height="36" materialDesign:HintAssist.HintOpacity="0.25" Grid.Column="1" SelectionChanged="cmbBranchSrch_SelectionChanged"/>
 
-                        <Button x:Name="btnSearch" ToolTip="Search"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="65" Height="30" Click="btnSearch_Click"  Margin="675,17,350,497" Grid.Column="1" >
+                        <Button x:Name="btnSearch" ToolTip="Search"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="65" Height="30" Click="btnSearch_Click"  Margin="674,67,355,470" Grid.Column="1" >
                             <materialDesign:PackIcon Kind="AccountSearch" Height="25" Width="40" Foreground="{DynamicResource PrimaryHueLightBrush}"  />
                         </Button>
-                        <Button x:Name="btnBack1" Content="Back" HorizontalAlignment="Center" Margin="870,17,145,497" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnBack_Click"/>
-                        <Button x:Name="btnPrint" Content="Print" HorizontalAlignment="Center" Margin="770,17,245,497" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnPrint_Click"/>
-                        <Button x:Name="btnClearGd" Content="Clear" HorizontalAlignment="Center" Margin="965,17,50,497" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnClearGd_Click"/>
+                        <Button x:Name="btnBack1" Content="Back" HorizontalAlignment="Center" Margin="854,67,165,470" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnBack_Click"/>
+                        <Button x:Name="btnPrint" Content="Print" HorizontalAlignment="Center" Margin="764,67,255,470" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnPrint_Click"/>
+                        <Button x:Name="btnClearGd" Content="Clear" HorizontalAlignment="Center" Margin="949,67,70,470" VerticalAlignment="Center" Width="75" Height="30" Grid.Column="1" Click="btnClearGd_Click"/>
 
-                        <DataGrid x:Name="dgvBranch" HorizontalAlignment="Center" VerticalAlignment="Center" Height="466" Width="860"  CanUserSortColumns="True"  AutoGenerateColumns="False" Margin="85,69,145,9" Grid.Column="1" MouseDoubleClick="dgvBranch_MouseDoubleClick" SelectionChanged="dgvBranch_SelectionChanged">
+                        <DataGrid x:Name="dgvBranch" HorizontalAlignment="Center" VerticalAlignment="Center" Height="445" Width="1015"  CanUserSortColumns="True"  AutoGenerateColumns="False" Margin="42,122,37,0" Grid.Column="1" MouseDoubleClick="dgvBranch_MouseDoubleClick" SelectionChanged="dgvBranch_SelectionChanged">
                             <DataGrid.ColumnHeaderStyle>
                                 <Style TargetType="{x:Type DataGridColumnHeader}">
                                     <Setter Property="FontWeight" Value="Bold" />
@@ -87,7 +90,7 @@
 
                                 <DataGridTextColumn Header="Id" Width="50" Binding="{Binding BANKBRANCH_CODE }" Visibility="Hidden" IsReadOnly="True" />
                                 <DataGridTextColumn Header="Branch" FontWeight="Bold" Width="350" Binding="{Binding BANKBRANCH_NAME }" IsReadOnly="True"  />
-                                <DataGridTextColumn Header="BANKBRANCH_USERCODE" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_USERCODE }" Visibility="Hidden" IsReadOnly="True"  />
+                                <DataGridTextColumn Header="User Code" FontWeight="Bold" Width="150" Binding="{Binding BANKBRANCH_USERCODE }" Visibility="Visible" IsReadOnly="True"  />
                                 <DataGridTextColumn Header="BANK_CODE" FontWeight="Bold" Width="150" Binding="{Binding BANK_CODE }" Visibility="Hidden" IsReadOnly="True"  />
                                 <DataGridTextColumn Header="Bank" FontWeight="Bold" Width="150" Binding="{Binding BANK_USERCODE }" IsReadOnly="True"  />
                                 <DataGridTextColumn Header="BANKBRANCH_ADDRESS1" FontWeight="Bold" Width="200" Binding="{Binding BANKBRANCH_ADDRESS1 }" Visibility="Hidden" IsReadOnly="True" />
@@ -112,7 +115,7 @@
                 <TabItem Header="Branch Details" FontWeight="Bold" FontSize="14" TabIndex="1">
                     <Grid>
                         <ComboBox x:Name="cmbBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="285,10,315,502" materialDesign:HintAssist.Hint="Bank Name" VerticalAlignment="Center" Width="540" Height="32" materialDesign:HintAssist.HintOpacity="0.25"/>
-                        <TextBox x:Name="txtBranchCode" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,43,730,453" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Branch Code"  Width="125" MaxLength="4"/>
+                        <TextBox x:Name="txtBranchCode" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,43,730,453" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="User Code"  Width="125" MaxLength="4"/>
                         <TextBox x:Name="txtBranchName" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="415,43,315,453" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Branch Name"  Width="410"/>
                         <TextBox x:Name="txtAddress1" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,97,585,399" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Address 1"  Width="270"/>
                         <TextBox x:Name="txtAddress2" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" Margin="285,153,585,343" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Address 2"  Width="270"/>

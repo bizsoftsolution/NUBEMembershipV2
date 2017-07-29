@@ -42,6 +42,7 @@
             <DatePicker x:Name="dtpToDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="847,45,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
             <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="860,124,238,538" VerticalAlignment="Center" Width="82" Height="28" Click="btnSearch_Click"/>
             <CheckBox x:Name="chkPrint" Content="Benefit Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="540,82,0,0" VerticalAlignment="Top" Height="20" Width="118"/>
+            <CheckBox x:Name="chkSimple" Content="Simple Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="976,82,0,0" VerticalAlignment="Top" Height="20" Width="118"/>
             <Button x:Name="btnExit" Content="Back" HorizontalAlignment="Center" Margin="1080,124,18,538" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click" />
 
             <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="147,78,708,584" VerticalAlignment="Center" Width="325" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
@@ -80,6 +81,28 @@
                         </Setter>
                     </Style>
                 </TabControl.Resources>
+                <TabItem Header="Simple Report" FontSize="14">
+                    <DataGrid x:Name="dgvResigned" HorizontalAlignment="Left" Height="430" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center"   Width="1140" Margin="10,0,0,0" >
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="S.No" FontWeight="Bold" Width="50" Binding="{Binding RNO}"/>
+                            <DataGridTextColumn Header="Membership No" FontWeight="Bold" Width="200" Binding="{Binding MEMBER_ID}"/>
+                            <DataGridTextColumn Header="Member Name" FontWeight="Bold" Width="250" Binding="{Binding MEMBER_NAME}" />
+                            <DataGridTextColumn Header="Gender" FontWeight="Bold" Width="150" Binding="{Binding SEX}"/>
+                            <DataGridTextColumn Header="NRIC" FontWeight="Bold" Width="150" Binding="{Binding NRIC}"/>
+                            <DataGridTextColumn Header="BANK" FontWeight="Bold" Width="150"  Binding="{Binding BANK}"/>
+                            <DataGridTextColumn Header="Resignation Date" Width="150" FontWeight="Bold" Binding="{Binding RESIGNATION_DATE}"/>
+                            <DataGridTextColumn Header="Reason" Width="150" FontWeight="Bold" Binding="{Binding RESIGNSTATUS_NAME}"/>
+                            <DataGridTextColumn Header="Last Payment Date" Width="150" FontWeight="Bold" Binding="{Binding LASTPAYMENT_DATE}"/>
+                            <DataGridTextColumn Header="Claimer Name" Width="150" FontWeight="Bold" Binding="{Binding CLAIMER_NAME}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
                 <TabItem Header="Member Report" FontSize="14">
                     <WindowsFormsHost HorizontalAlignment="Left" Height="465" Margin="10,8,0,0" VerticalAlignment="Top" Width="1138">
                         <rv:ReportViewer x:Name="MemberReport"></rv:ReportViewer>

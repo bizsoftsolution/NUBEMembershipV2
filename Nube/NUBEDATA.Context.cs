@@ -36,7 +36,6 @@ namespace Nube
         public virtual DbSet<FeesDetail> FeesDetails { get; set; }
         public virtual DbSet<FeesMaster> FeesMasters { get; set; }
         public virtual DbSet<LoginHistory> LoginHistories { get; set; }
-        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
         public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         public virtual DbSet<MASTERCITY> MASTERCITies { get; set; }
         public virtual DbSet<MASTERGUARDIAN> MASTERGUARDIANs { get; set; }
@@ -116,7 +115,8 @@ namespace Nube
         public virtual DbSet<MASTERNAMESETUP> MASTERNAMESETUPs { get; set; }
         public virtual DbSet<VIEWNOMINEE> VIEWNOMINEEs { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
         public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
-        public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
+        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
     }
 }

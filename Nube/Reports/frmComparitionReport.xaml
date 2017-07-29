@@ -33,21 +33,27 @@
             </materialDesign:Card>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Center" Margin="138,30,909,596" VerticalAlignment="Center" Width="133" Height="24"/>
-            <DatePicker x:Name="dtpToDate" HorizontalAlignment="Center" Margin="377,28,670,598" VerticalAlignment="Center" Width="133" Height="24"/>
-            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="592,24,277,598" VerticalAlignment="Center" Width="311" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
-            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="330,70,490,548" VerticalAlignment="Center" Width="360" Height="27" />
-            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="721,70,379,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnSearch_Click"/>
-            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="821,70,279,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnClear_Click"/>
-            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Center" Margin="931,70,169,548" VerticalAlignment="Center" Width="80" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnBack_Click"/>
-            <TextBlock x:Name="lblDate2" TextAlignment="Right" HorizontalAlignment="Center" Margin="45,32,1047,596" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="88"/>
-            <TextBlock x:Name="lblToDate" TextAlignment="Right" HorizontalAlignment="Center" Margin="286,30,825,598" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="69"/>
+            <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Center" Margin="340,30,707,596" VerticalAlignment="Center" Width="133" Height="24"/>
+            <DatePicker x:Name="dtpToDate" HorizontalAlignment="Center" Margin="579,28,468,598" VerticalAlignment="Center" Width="133" Height="24"/>
+            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="781,24,88,598" VerticalAlignment="Center" Width="311" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
+            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="230,72,590,550" VerticalAlignment="Center" Width="360" Height="28" />
 
-            <TextBlock x:Name="lblBank" TextAlignment="Right" HorizontalAlignment="Center" Margin="552,30,593,598" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="35"/>
-            <TextBlock x:Name="lblBankBranch1" TextAlignment="Right" HorizontalAlignment="Center" Margin="229,76,865,552" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="86"/>
-            <TextBlock x:Name="lblType" TextAlignment="Right" HorizontalAlignment="Center" Margin="933,31,211,597" TextWrapping="Wrap" Text="Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="36"/>
-            <RadioButton x:Name="rbtnPaid" Content="PAID" HorizontalAlignment="Left" Margin="974,34,0,0" IsChecked="True" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbtnUnPaid" Content="UNPAID" HorizontalAlignment="Left" Margin="1027,34,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="781,70,319,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnSearch_Click"/>
+            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="881,70,219,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnClear_Click"/>
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Center" Margin="991,70,109,548" VerticalAlignment="Center" Width="80" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnBack_Click"/>
+            <TextBlock x:Name="lblDate2" TextAlignment="Right" HorizontalAlignment="Center" Margin="243,32,849,596" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="88"/>
+            <TextBlock x:Name="lblToDate" TextAlignment="Right" HorizontalAlignment="Center" Margin="488,30,623,598" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="69"/>
+
+            <TextBlock x:Name="lblBank" TextAlignment="Right" HorizontalAlignment="Center" Margin="741,30,404,598" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="35"/>
+            <StackPanel Orientation="Horizontal" >
+                <Label x:Name="lblFilterOption" Content="Filter Option" FontWeight="Bold" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="90" Height="24" Margin="20,27,0,0"/>
+                <RadioButton x:Name="rbtUnion" FontWeight="Bold" Content="Union"  IsChecked="True" Margin="0,35,0,0" />
+                <RadioButton x:Name="rbtSeparate" FontWeight="Bold" Content="Separate" Margin="0,35,0,0"   />
+            </StackPanel>
+            <TextBlock x:Name="lblBankBranch1" TextAlignment="Right" HorizontalAlignment="Center" Margin="129,76,965,552" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="86"/>
+            <TextBlock x:Name="lblType" TextAlignment="Right" HorizontalAlignment="Center" Margin="606,73,538,555" TextWrapping="Wrap" Text="Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="36"/>
+            <RadioButton x:Name="rbtnPaid" Content="PAID" HorizontalAlignment="Left" Margin="647,76,0,0" IsChecked="True" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbtnUnPaid" Content="UNPAID" HorizontalAlignment="Left" Margin="700,76,0,0" VerticalAlignment="Top"/>
 
             <!--<TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="537" VerticalAlignment="Top" Width="1160" FontSize="14" Background="Transparent" Margin="10,93,0,0" >
                 <TabControl.Resources>

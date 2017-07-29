@@ -50,16 +50,16 @@ namespace Nube.Transaction
             FormLoad();
             bIsUpdate = false;
 
+            LoadTempViewMaster();
+
             if (dMember_Code != 0)
             {
                 FormFill();
                 bIsUpdate = true;
             }
-            LoadTempViewMaster();
+           
         }
-
-
-
+        
         #region "BUTTON EVENTS"
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
@@ -310,7 +310,7 @@ namespace Nube.Transaction
                                     }
                                 }
                             }
-                            MessageBox.Show("Updated Sucessfully");
+                            MessageBox.Show("Updated Sucessfully");                           
                             fNew();
                         }
                     }
@@ -439,7 +439,7 @@ namespace Nube.Transaction
                                 }
                             }
                         }
-                        MessageBox.Show("Saved Sucessfully");
+                        MessageBox.Show("Saved Sucessfully");                       
                         fNew();
                     }
                 }
@@ -1091,18 +1091,18 @@ namespace Nube.Transaction
 
         void LoadTempViewMaster()
         {
-            try
-            {
-                if (AppLib.lstViewMasterMember.Count == 0)
-                {                                       
-                    var lstMM = (from x in db.TEMPVIEWMASTERMEMBERs select x).ToList();
-                    AppLib.lstViewMasterMember = lstMM;
-                }
-            }
-            catch (Exception ex)
-            {
-                ExceptionLogging.SendErrorToText(ex);
-            }
+            //try
+            //{
+            //    if (AppLib.lstTVMasterMember.Count == 0)
+            //    {
+            //        var lstMM = (from x in db.TVMASTERMEMBERs select x).ToList();
+            //        AppLib.lstTVMasterMember = lstMM;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    ExceptionLogging.SendErrorToText(ex);
+            //}
         }
 
         void LoadFundDetails()
@@ -1169,13 +1169,13 @@ namespace Nube.Transaction
                 cmbBankName.SelectedValuePath = "BANK_CODE";
                 cmbBankName.DisplayMemberPath = "BANK_NAME";
 
-                //cmbBranchCode.ItemsSource = db.MASTERBANKBRANCHes.ToList();
-                //cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
-                //cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
+                cmbBranchCode.ItemsSource = db.MASTERBANKBRANCHes.ToList();
+                cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
+                cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
 
-                //cmbBranchName.ItemsSource = db.MASTERBANKBRANCHes.ToList();
-                //cmbBranchName.SelectedValuePath = "BANKBRANCH_CODE";
-                //cmbBranchName.DisplayMemberPath = "BANKBRANCH_NAME";
+                cmbBranchName.ItemsSource = db.MASTERBANKBRANCHes.ToList();
+                cmbBranchName.SelectedValuePath = "BANKBRANCH_CODE";
+                cmbBranchName.DisplayMemberPath = "BANKBRANCH_NAME";
 
                 cmbMemberType.ItemsSource = db.MASTERMEMBERTYPEs.ToList();
                 cmbMemberType.SelectedValuePath = "MEMBERTYPE_CODE";
@@ -1297,10 +1297,9 @@ namespace Nube.Transaction
                            }
                          ).FirstOrDefault();
 
+                //var status = (from x in AppLib.lstTVMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
-                var status = (from x in AppLib.lstViewMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
-
-                //var status = (from x in db.ViewMasterMembers where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                var status = (from x in db.ViewMasterMembers where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 //var status = (from x in db.TEMPVIEWMASTERMEMBERs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
@@ -1520,15 +1519,15 @@ namespace Nube.Transaction
                     {
                         if (status.MEMBERSTATUSCODE == 1)
                         {
-                            lblStatus.Content = "Active Member";
+                            lblStatus.Content = "Active Member; " + status.TOTALMOTHSDUE + " Arrears Pending";
                         }
                         else if (status.MEMBERSTATUSCODE == 2)
                         {
-                            lblStatus.Content = "Defaulter; Arrears Pending";
+                            lblStatus.Content = "Defaulter; " + status.TOTALMOTHSDUE + " Arrears Pending";
                         }
                         else if (status.MEMBERSTATUSCODE == 3)
                         {
-                            lblStatus.Content = "Struck Off; Arrears Pending";
+                            lblStatus.Content = "Struck Off; " + status.TOTALMOTHSDUE + " Arrears Pending";
                         }
                         else if (status.MEMBERSTATUSCODE == 6)
                         {
