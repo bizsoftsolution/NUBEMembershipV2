@@ -254,7 +254,7 @@ namespace Nube
                                      " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
                                      " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
                                      " ISNULL(SEX,'')SEX,DATEOFJOINING \r" +
-                                     " FROM TEMPVIEWMASTERMEMBER MM(NOLOCK) " +
+                                     " FROM VIEWMASTERMEMBER MM(NOLOCK) " +
                                      " WHERE " + qry +
                                      " ORDER BY MEMBER_NAME", con);
                 }
@@ -272,7 +272,7 @@ namespace Nube
                                                          " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
                                                          " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
                                                          " ISNULL(SEX,'')SEX,DATEOFJOINING\r" +
-                                                         " FROM TEMPVIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
+                                                         " FROM VIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
                                                          " ORDER BY MEMBER_NAME", con);
                 }
 
@@ -291,7 +291,7 @@ namespace Nube
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 SqlCommand cmd;
-                cmd = new SqlCommand("SELECT * FROM TEMPVIEWMASTERMEMBER(NOLOCK)  WHERE " + qry + " ORDER BY MEMBER_NAME", con);
+                cmd = new SqlCommand("SELECT * FROM VIEWMASTERMEMBER(NOLOCK)  WHERE " + qry + " ORDER BY MEMBER_NAME", con);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 adp.Fill(dt);
                 qry = "";
@@ -303,11 +303,11 @@ namespace Nube
         {
             if (sForm_Name == "NewMemberReport" && !string.IsNullOrEmpty(dtpFromDate.Text) && !string.IsNullOrEmpty(qry))
             {
-                qry = qry + string.Format(" AND MONTH(DATEOFJOINING) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                qry = qry + string.Format(" AND DATEOFJOINING BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
             }
             else if (sForm_Name == "NewMemberReport" && !string.IsNullOrEmpty(dtpFromDate.Text) && string.IsNullOrEmpty(qry))
             {
-                qry = qry + string.Format(" MONTH(DATEOFJOINING) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                qry = qry + string.Format(" DATEOFJOINING BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
             }
 
             if (sForm_Name != "NewMemberReport" && !string.IsNullOrEmpty(qry))

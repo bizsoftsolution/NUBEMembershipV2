@@ -81,7 +81,7 @@
                         </Setter>
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="Simple Report" FontSize="14">
+                <!--<TabItem Header="Simple Report" FontSize="14">
                     <DataGrid x:Name="dgvResigned" HorizontalAlignment="Left" Height="430" IsReadOnly="True" AutoGenerateColumns="False" VerticalAlignment="Center"   Width="1140" Margin="10,0,0,0" >
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -102,7 +102,7 @@
                             <DataGridTextColumn Header="Claimer Name" Width="150" FontWeight="Bold" Binding="{Binding CLAIMER_NAME}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                </TabItem>
+                </TabItem>-->
                 <TabItem Header="Member Report" FontSize="14">
                     <WindowsFormsHost HorizontalAlignment="Left" Height="465" Margin="10,8,0,0" VerticalAlignment="Top" Width="1138">
                         <rv:ReportViewer x:Name="MemberReport"></rv:ReportViewer>

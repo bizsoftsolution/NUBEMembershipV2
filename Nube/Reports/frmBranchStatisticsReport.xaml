@@ -86,8 +86,8 @@
                         <rv:ReportViewer x:Name="MemberReport2"></rv:ReportViewer>
                     </WindowsFormsHost>
                 </TabItem>
-                <TabItem Header="Bank Report Grid" FontWeight="Bold" FontSize="14" Visibility="Collapsed">
-                    <Grid Margin="-2,0,2,0" Visibility="Collapsed">
+                <TabItem Header="Bank Report Grid" FontWeight="Bold" FontSize="14" >
+                    <Grid Margin="-2,0,2,0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="39*"/>
                             <ColumnDefinition Width="3*"/>
@@ -133,8 +133,8 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="NUBE Branch Report Grid" FontWeight="Bold"  FontSize="14" Visibility="Collapsed">
-                    <Grid  Margin="-2,0,2,0" Visibility="Collapsed">
+                <TabItem Header="NUBE Branch Report Grid" FontWeight="Bold"  FontSize="14">
+                    <Grid  Margin="-2,0,2,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="182*"/>
                             <ColumnDefinition Width="14*"/>
