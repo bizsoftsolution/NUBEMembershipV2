@@ -132,7 +132,6 @@ namespace Nube
             }
             else
             {
-                //Test();
                 progressBar1.Value = 5;
                 System.Windows.Forms.Application.DoEvents();
                 var User = (from x in db.UserAccounts where x.UserName == txtUserId.Text select x).SingleOrDefault();
@@ -208,83 +207,6 @@ namespace Nube
             }
         }
 
-        //void Test()
-        //{
-        //    try
-        //    {
-        //        string DBPath = "";
-        //        var dt = (from x in db.Tran_Start where x.EntryDate == DateTime.Today.Date select x).FirstOrDefault();
-        //        if (dt == null)
-        //        {
-        //            var qry = (from x in db.MASTERNAMESETUPs select x).FirstOrDefault();
-        //            if (qry.BackUpPath != null)
-        //            {
-        //                string str = qry.BackUpPath.ToString();
-        //                if (str.Contains(".") == true)
-        //                {
-        //                    string[] path = qry.BackUpPath.Split('.');
-        //                    DBPath = path[0];
-        //                }
-        //                else
-        //                {
-        //                    DBPath = qry.BackUpPath.ToString();
-        //                }
-        //                using (SqlConnection con = new SqlConnection(AppLib.connStr))
-        //                {
-        //                    //------------------ VERSION 2 BACKUP ---------
-        //                    string sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'\r" +
-        //                                   " BACKUP DATABASE " + con.Database + " \r" +
-        //                                   " TO DISK='" + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Today) + ".bak'";
-        //                    SqlCommand cmd = new SqlCommand(sBack, con);
-        //                    cmd.Connection.Open();
-        //                    cmd.CommandTimeout = 0;
-        //                    cmd.ExecuteNonQuery();
-
-        //                    if (qry.NEWEXEPATH != null)
-        //                    {
-        //                        // ------------------VERSION 1 BACKUP---------
-        //                        str = qry.NEWEXEPATH.ToString();
-        //                        if (str.Contains(".") == true)
-        //                        {
-        //                            string[] path = qry.NEWEXEPATH.Split('.');
-        //                            DBPath = path[0];
-        //                        }
-        //                        else
-        //                        {
-        //                            DBPath = qry.NEWEXEPATH.ToString();
-        //                        }
-        //                        sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'\r" +
-        //                           " BACKUP DATABASE " + con.Database + " \r" +
-        //                           " TO DISK='" + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Today) + ".bak'";
-        //                        cmd = new SqlCommand(sBack, con);
-        //                        cmd.CommandTimeout = 0;
-        //                        cmd.ExecuteNonQuery();
-        //                    }
-        //                    cmd.Connection.Close();
-        //                }
-
-        //                var TS = (from x in db.Tran_Start where x.Id == 1 select x).FirstOrDefault();
-        //                if (TS != null)
-        //                {
-        //                    TS.EntryDate = DateTime.Now.Date;
-        //                    TS.UserId = AppLib.iUserCode;
-        //                    TS.UpdatedTime = DateTime.Now;
-        //                    db.SaveChanges();
-        //                }
-        //            }
-        //            else
-        //            {
-        //                MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "Daily BackUp Error");
-        //            }
-
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        ExceptionLogging.SendErrorToText(ex);
-        //    }
-        //}
-
         #endregion
 
         #region BACK GROUND WORKER
@@ -294,13 +216,56 @@ namespace Nube
             try
             {
                 string DBPath = "";
+                string str = "";
                 var dt = (from x in db.Tran_Start where x.EntryDate == DateTime.Today.Date select x).FirstOrDefault();
                 if (dt == null)
                 {
                     var qry = (from x in db.MASTERNAMESETUPs select x).FirstOrDefault();
+
+                    // ######### VERSION 1 BACKUP ##############
+
+                    if (qry.NEWEXEPATH != null)
+                    {
+                        str = qry.NEWEXEPATH.ToString();
+                        if (str.Contains(".") == true)
+                        {
+                            string[] path = qry.NEWEXEPATH.Split('.');
+                            DBPath = path[0];
+                        }
+                        else
+                        {
+                            DBPath = qry.NEWEXEPATH.ToString();
+                        }
+
+                        try
+                        {
+                            using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                            {
+                                string sBack = " BACKUP DATABASE " + qry.NEWREPORTSPATH + " \r" +
+                                " TO DISK='" + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Today) + ".bak'";
+                                SqlCommand cmd = new SqlCommand(sBack, con);
+                                cmd.Connection.Open();
+                                cmd.CommandTimeout = 0;
+                                cmd.ExecuteNonQuery();
+
+                                sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'";
+                                cmd = new SqlCommand(sBack, con);
+                                cmd.CommandTimeout = 0;
+                                cmd.ExecuteNonQuery();
+                                cmd.Connection.Close();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            ExceptionLogging.SendErrorToText(ex);
+                        }
+                    }
+
+                    // ######### VERSION 2 BACKUP ##############
+
                     if (qry.BackUpPath != null)
                     {
-                        string str = qry.BackUpPath.ToString();
+                        str = qry.BackUpPath.ToString();
                         if (str.Contains(".") == true)
                         {
                             string[] path = qry.BackUpPath.Split('.');
@@ -310,54 +275,42 @@ namespace Nube
                         {
                             DBPath = qry.BackUpPath.ToString();
                         }
-                        using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                        try
                         {
-                            //------------------ VERSION 2 BACKUP ---------
-                            string sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'\r" +
-                                           " BACKUP DATABASE " + con.Database + " \r" +
-                                           " TO DISK='" + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Today) + ".bak'";
-                            SqlCommand cmd = new SqlCommand(sBack, con);
-                            cmd.Connection.Open();
-                            cmd.CommandTimeout = 0;
-                            cmd.ExecuteNonQuery();
-
-                            if (qry.NEWEXEPATH != null)
+                            using (SqlConnection con = new SqlConnection(AppLib.connStr))
                             {
-                                // ------------------VERSION 1 BACKUP---------
-                                str = qry.NEWEXEPATH.ToString();
-                                if (str.Contains(".") == true)
-                                {
-                                    string[] path = qry.NEWEXEPATH.Split('.');
-                                    DBPath = path[0];
-                                }
-                                else
-                                {
-                                    DBPath = qry.NEWEXEPATH.ToString();
-                                }
-                                sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'\r" +
-                                   " BACKUP DATABASE " + con.Database + " \r" +
-                                   " TO DISK='" + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Today) + ".bak'";
+                                string sBack = " BACKUP DATABASE " + con.Database + " \r" +
+                                      " TO DISK='" + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Today) + ".bak'";
+                                SqlCommand cmd = new SqlCommand(sBack, con);
+                                cmd.Connection.Open();
+                                cmd.CommandTimeout = 0;
+                                cmd.ExecuteNonQuery();
+
+                                sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'";
                                 cmd = new SqlCommand(sBack, con);
                                 cmd.CommandTimeout = 0;
                                 cmd.ExecuteNonQuery();
+                                cmd.Connection.Close();
                             }
-                            cmd.Connection.Close();
                         }
-
-                        var TS = (from x in db.Tran_Start where x.Id == 1 select x).FirstOrDefault();
-                        if (TS != null)
+                        catch (Exception ex)
                         {
-                            TS.EntryDate = DateTime.Now.Date;
-                            TS.UserId = AppLib.iUserCode;
-                            TS.UpdatedTime = DateTime.Now;
-                            db.SaveChanges();
+                            ExceptionLogging.SendErrorToText(ex);
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "Daily BackUp Error");
-                    }
 
+                    var TS = (from x in db.Tran_Start where x.Id == 1 select x).FirstOrDefault();
+                    if (TS != null)
+                    {
+                        TS.EntryDate = DateTime.Now.Date;
+                        TS.UserId = AppLib.iUserCode;
+                        TS.UpdatedTime = DateTime.Now;
+                        db.SaveChanges();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "Daily BackUp Error");
                 }
             }
             catch (Exception ex)

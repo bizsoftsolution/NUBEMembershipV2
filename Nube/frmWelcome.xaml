@@ -21,7 +21,7 @@
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Column="2" Grid.Row="0">
-            <Label FontWeight="Bold" HorizontalAlignment="Right" Content="Updated On - 01-AUG-2017"/>
+            <Label FontWeight="Bold" HorizontalAlignment="Right" Content="Updated On - 02-AUG-2017 @ 6PM"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <Image x:Name="image" HorizontalAlignment="Center" Height="150" VerticalAlignment="Center" Width="150" Source="Image/Logo.png" MouseUp="image_MouseUp" MouseEnter="image_MouseEnter"  />

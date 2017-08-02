@@ -2103,100 +2103,100 @@ namespace Nube.Transaction
             if (sMemberName.Length > 33)
             {
                 e.Graphics.MeasureString(sMemberName, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sMemberName.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 144, 23);
+                e.Graphics.DrawString(sMemberName.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 126, 23);
             }
             else
             {
                 e.Graphics.MeasureString(sMemberName, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sMemberName.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 144, 23);
+                e.Graphics.DrawString(sMemberName.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 135, 23);
             }
 
             if (sBankName.Length > 32)
             {
                 e.Graphics.MeasureString(sBankName, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankName.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 144, 38);
+                e.Graphics.DrawString(sBankName.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 126, 38);
             }
             else
             {
                 e.Graphics.MeasureString(sBankName, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankName.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 144, 38);
+                e.Graphics.DrawString(sBankName.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 135, 38);
             }
 
             if (sBankAddress1.Length > 26)
             {
                 e.Graphics.MeasureString(sBankAddress1, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankAddress1.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 190, 55);
+                e.Graphics.DrawString(sBankAddress1.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 183, 52);
             }
             else
             {
                 e.Graphics.MeasureString(sBankAddress1, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankAddress1.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 190, 55);
+                e.Graphics.DrawString(sBankAddress1.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 183, 52);
             }
 
             if (sBankAddress2.Length > 26)
             {
                 e.Graphics.MeasureString(sBankAddress2, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankAddress2.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 190, 70);
+                e.Graphics.DrawString(sBankAddress2.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 183, 68);
             }
             else
             {
                 e.Graphics.MeasureString(sBankAddress2, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankAddress2.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 190, 70);
+                e.Graphics.DrawString(sBankAddress2.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 183, 68);
             }
 
             if (sBankAddress3.Length > 26)
             {
                 e.Graphics.MeasureString(sBankAddress3, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankAddress3.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 190, 85);
+                e.Graphics.DrawString(sBankAddress3.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 183, 83);
             }
             else
             {
                 e.Graphics.MeasureString(sBankAddress3, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankAddress3.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 190, 85);
+                e.Graphics.DrawString(sBankAddress3.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 183, 83);
             }
 
             if (sBankUserCode.Length > 32)
             {
                 e.Graphics.MeasureString(sBankUserCode, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankUserCode.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 265, 115);
+                e.Graphics.DrawString(sBankUserCode.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 253, 102);
             }
             else
             {
                 e.Graphics.MeasureString(sBankUserCode, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sBankUserCode.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 265, 115);
+                e.Graphics.DrawString(sBankUserCode.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 253, 102);
             }
 
             if (sICNO.Length > 32)
             {
                 e.Graphics.MeasureString(sICNO, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sICNO.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 265, 130);
+                e.Graphics.DrawString(sICNO.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 253, 120);
             }
             else
             {
                 e.Graphics.MeasureString(sICNO, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sICNO.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 265, 130);
+                e.Graphics.DrawString(sICNO.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 253, 120);
             }
 
             if (sDOJ.Length > 32)
             {
                 e.Graphics.MeasureString(sDOJ, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sDOJ.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 265, 145);
+                e.Graphics.DrawString(sDOJ.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 253, 140);
             }
             else
             {
                 e.Graphics.MeasureString(sDOJ, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sDOJ.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 265, 145);
+                e.Graphics.DrawString(sDOJ.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 253, 140);
             }
 
             if (sMemberID.Length > 32)
             {
                 e.Graphics.MeasureString(sMemberID, textfont2, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sMemberID.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 265, 160);
+                e.Graphics.DrawString(sMemberID.Substring(currentChar, chars), textfont2, System.Drawing.Brushes.Black, 253, 158);
             }
             else
             {
                 e.Graphics.MeasureString(sMemberID, textfont1, new System.Drawing.SizeF(0, 0), format, out chars, out line);
-                e.Graphics.DrawString(sMemberID.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 265, 160);
+                e.Graphics.DrawString(sMemberID.Substring(currentChar, chars), textfont1, System.Drawing.Brushes.Black, 253, 158);
             }
         }
 
@@ -2228,9 +2228,9 @@ namespace Nube.Transaction
 
                             sMemberName = PrintLine(mm.MEMBER_NAME, PrintTextAlignType.Left);
                             sBankName = PrintLine(mm.BANK_NAME, PrintTextAlignType.Left);
-                            sBankAddress1 = PrintLine((mm.ADDRESS1 == null ? "" : mm.ADDRESS1), PrintTextAlignType.Left);
-                            sBankAddress2 = PrintLine((mm.ADDRESS2 == null ? "" : mm.ADDRESS2), PrintTextAlignType.Left);
-                            sBankAddress3 = PrintLine((mm.ADDRESS3 == null ? "" : mm.ADDRESS3), PrintTextAlignType.Left);
+                            sBankAddress1 = PrintLine((mm.BRANCHADR1 == null ? "" : mm.BRANCHADR1), PrintTextAlignType.Left);
+                            sBankAddress2 = PrintLine((mm.BRANCHADR2 == null ? "" : mm.BRANCHADR2), PrintTextAlignType.Left);
+                            sBankAddress3 = PrintLine((mm.BRANCHADR3 == null ? "" : mm.BRANCHADR3), PrintTextAlignType.Left);
                             sBankUserCode = PrintLine(mm.BANK_USERCODE.ToString() + "/" + mm.BRANCHUSERCODE.ToString(), PrintTextAlignType.Left);
                             sICNO = PrintLine((mm.ICNO_NEW == null ? mm.ICNO_OLD == null ? "" : mm.ICNO_OLD : mm.ICNO_NEW), PrintTextAlignType.Left);
                             sDOJ = PrintLine(string.Format("{0:dd/MMM/yyyy}", mm.DATEOFJOINING), PrintTextAlignType.Left);

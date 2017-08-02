@@ -88,7 +88,7 @@ namespace Nube.Transaction
                         MemberTransfer mt = new MemberTransfer();
                         mt.EntryDate = DateTime.Now.Date;
                         mt.MemberCode = dMember_Code;
-                        mt.BankCodeBF =Convert.ToDecimal(txtBankCode.Text);
+                        mt.BankCodeBF = Convert.ToDecimal(txtBankCode.Text);
                         mt.BranchCodeBF = Convert.ToDecimal(txtBranchCode.Text);
                         mt.BankCodeAF = Convert.ToDecimal(txtBankCode.Text);
                         mt.BranchCodeAF = Convert.ToDecimal(txtBranchCode.Text);
@@ -99,11 +99,11 @@ namespace Nube.Transaction
 
                         var NewData1 = new JSonHelper().ConvertObjectToJSon(mt);
                         AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData1, "MEMBERTRANSFER");
-                        
 
-                        MessageBox.Show(txtMemberName.Text + " Member Has Tranfered Sucessfully");          
-                        
-                                      
+
+                        MessageBox.Show(txtMemberName.Text + " Member Has Tranfered Sucessfully");
+
+
 
                         if (MessageBox.Show("Do you want to Send Mail to NUBE?", "EMAIL Confirmation ", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         {
@@ -133,7 +133,7 @@ namespace Nube.Transaction
                                 mail.From = new MailAddress(mn.SenderEmailId.ToString());
 
                                 mail.Subject = "NUBE TRANSFER MAIL";
-                                mail.Body =  "Dear Mr/Ms."+ txtMemberName.Text.ToString() + ",  \r" +
+                                mail.Body = "Dear Mr/Ms." + txtMemberName.Text.ToString() + ",  \r" +
                                            " Your Bank Transfer has Successfully Transfered \r\r" +
                                            " Given Below the Bank & Branch Details are  \r" +
                                            " From " + txtBankName.Text.ToString() + " - " + txtBranchName.Text.ToString() + "\r" +
@@ -291,7 +291,8 @@ namespace Nube.Transaction
                     var mBnk = db.MASTERBANKs.Where(x => x.BANK_CODE == dBankCode).FirstOrDefault();
                     cmbBankName.SelectedValue = mBnk.BANK_CODE;
 
-                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).ToList();
+                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).OrderBy(x => x.BANKBRANCH_NAME).ToList();
+
                     cmbBranchCode.ItemsSource = mbr;
                     cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
                     cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
@@ -328,7 +329,8 @@ namespace Nube.Transaction
                     var mBnk = db.MASTERBANKs.Where(x => x.BANK_CODE == dBankCode).FirstOrDefault();
                     cmbBankCode.SelectedValue = mBnk.BANK_CODE;
 
-                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).ToList();
+                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).OrderBy(x => x.BANKBRANCH_NAME).ToList();
+
                     cmbBranchCode.ItemsSource = mbr;
                     cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
                     cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
@@ -463,11 +465,11 @@ namespace Nube.Transaction
         {
             try
             {
-                cmbBankCode.ItemsSource = db.MASTERBANKs.ToList();
+                cmbBankCode.ItemsSource = db.MASTERBANKs.OrderBy(x => x.BANK_USERCODE).ToList();
                 cmbBankCode.SelectedValuePath = "BANK_CODE";
                 cmbBankCode.DisplayMemberPath = "BANK_USERCODE";
 
-                cmbBankName.ItemsSource = db.MASTERBANKs.ToList();
+                cmbBankName.ItemsSource = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
                 cmbBankName.SelectedValuePath = "BANK_CODE";
                 cmbBankName.DisplayMemberPath = "BANK_NAME";
             }
@@ -483,7 +485,7 @@ namespace Nube.Transaction
             {
                 var qry = (from mm in db.MASTERMEMBERs
                            join mt in db.MASTERMEMBERTYPEs on mm.MEMBERTYPE_CODE equals mt.MEMBERTYPE_CODE
-                           join bk in db.MASTERBANKs on mm.BANK_CODE equals bk.BANK_CODE                           
+                           join bk in db.MASTERBANKs on mm.BANK_CODE equals bk.BANK_CODE
                            where mm.MEMBER_CODE == dMember_Code
                            select new
                            {
@@ -499,7 +501,7 @@ namespace Nube.Transaction
                                bk.BANK_CODE,
                                bk.BANK_NAME,
                                bk.BANK_USERCODE,
-                               mm.BRANCH_CODE,                               
+                               mm.BRANCH_CODE,
                                mm.MEMBER_ID
                            }
                          ).FirstOrDefault();
@@ -538,7 +540,7 @@ namespace Nube.Transaction
                     dtpDOJ.SelectedDate = Convert.ToDateTime(qry.DATEOFJOINING);
 
                     txtBankCode.Text = qry.BANK_USERCODE.ToString();
-                    txtBankName.Text = qry.BANK_NAME;                    
+                    txtBankName.Text = qry.BANK_NAME;
                 }
 
                 if (brnch != null)
@@ -657,6 +659,6 @@ namespace Nube.Transaction
         }
 
         #endregion
-        
+
     }
 }
