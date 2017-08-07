@@ -248,7 +248,7 @@ namespace Nube
                                 cmd.CommandTimeout = 0;
                                 cmd.ExecuteNonQuery();
 
-                                sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'";
+                                sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-3)) + ".bak'";
                                 cmd = new SqlCommand(sBack, con);
                                 cmd.CommandTimeout = 0;
                                 cmd.ExecuteNonQuery();
@@ -259,6 +259,10 @@ namespace Nube
                         {
                             ExceptionLogging.SendErrorToText(ex);
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "VERSION 1 Daily BackUp Error");
                     }
 
                     // ######### VERSION 2 BACKUP ##############
@@ -286,7 +290,7 @@ namespace Nube
                                 cmd.CommandTimeout = 0;
                                 cmd.ExecuteNonQuery();
 
-                                sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek - 6)) + ".bak'";
+                                sBack = " xp_cmdshell 'del " + DBPath.ToString() + string.Format("{0:ddMMMyyyy}", DateTime.Now.AddDays(-3)) + ".bak'";
                                 cmd = new SqlCommand(sBack, con);
                                 cmd.CommandTimeout = 0;
                                 cmd.ExecuteNonQuery();
@@ -298,6 +302,10 @@ namespace Nube
                             ExceptionLogging.SendErrorToText(ex);
                         }
                     }
+                    else
+                    {
+                        MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "VERSION 2 Daily BackUp Error");
+                    }
 
                     var TS = (from x in db.Tran_Start where x.Id == 1 select x).FirstOrDefault();
                     if (TS != null)
@@ -307,11 +315,7 @@ namespace Nube
                         TS.UpdatedTime = DateTime.Now;
                         db.SaveChanges();
                     }
-                }
-                else
-                {
-                    MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "Daily BackUp Error");
-                }
+                }               
             }
             catch (Exception ex)
             {
