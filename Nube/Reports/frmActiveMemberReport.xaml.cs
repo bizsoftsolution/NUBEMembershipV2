@@ -359,11 +359,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND NUBEBANCHNAME='" + cmbNubeBranch.Text + "' ";
+                    qry = qry + " AND NUBEBRANCH=" + cmbNubeBranch.SelectedValue;
                 }
                 else
                 {
-                    qry = qry + " NUBEBANCHNAME='" + cmbNubeBranch.Text + "' ";
+                    qry = qry + " NUBEBRANCH=" + cmbNubeBranch.SelectedValue;
                 }
             }
 
@@ -371,11 +371,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND BANK_NAME='" + cmbBank.Text + "' ";
+                    qry = qry + " AND BANK_CODE=" + cmbBank.SelectedValue;
                 }
                 else
                 {
-                    qry = qry + " BANK_NAME='" + cmbBank.Text + "' ";
+                    qry = qry + " BANK_CODE=" + cmbBank.SelectedValue;
                 }
             }
 
@@ -383,11 +383,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND BRANCHNAME='" + cmbBranch.Text + "' ";
+                    qry = qry + " AND BRANCH_CODE=" + cmbBranch.SelectedValue;
                 }
                 else
                 {
-                    qry = qry + " BRANCHNAME='" + cmbBranch.Text + "' ";
+                    qry = qry + " BRANCH_CODE=" + cmbBranch.SelectedValue;
                 }
             }
 
