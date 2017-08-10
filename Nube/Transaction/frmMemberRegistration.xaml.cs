@@ -2260,12 +2260,12 @@ namespace Nube.Transaction
                     }
                     else
                     {
-                        MessageBox.Show("Please Enter Your Printer Name in Name Setup!", "Printer Confoguration Error");
+                        MessageBox.Show("Please Enter Your Printer Name in Name Setup!", "Printer Configuration Error");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please Enter Your Printer Name in Name Setup!", "Printer Confoguration Error");
+                    MessageBox.Show("Please Enter Your Printer Name in Name Setup!", "Printer Configuration Error");
                 }
 
             }
