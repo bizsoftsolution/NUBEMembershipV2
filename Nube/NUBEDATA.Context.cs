@@ -33,7 +33,6 @@ namespace Nube
         public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<dtproperty> dtproperties { get; set; }
         public virtual DbSet<EventHistory> EventHistories { get; set; }
-        public virtual DbSet<FeesDetail> FeesDetails { get; set; }
         public virtual DbSet<FeesMaster> FeesMasters { get; set; }
         public virtual DbSet<LoginHistory> LoginHistories { get; set; }
         public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
@@ -112,11 +111,12 @@ namespace Nube
         public virtual DbSet<ViewStockGroup> ViewStockGroups { get; set; }
         public virtual DbSet<ViewStockReport> ViewStockReports { get; set; }
         public virtual DbSet<ViewTrialBalance> ViewTrialBalances { get; set; }
-        public virtual DbSet<MASTERNAMESETUP> MASTERNAMESETUPs { get; set; }
         public virtual DbSet<VIEWNOMINEE> VIEWNOMINEEs { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
         public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
         public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
+        public virtual DbSet<FeesDetail> FeesDetails { get; set; }
+        public virtual DbSet<MASTERNAMESETUP> MASTERNAMESETUPs { get; set; }
     }
 }

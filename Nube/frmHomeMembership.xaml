@@ -49,7 +49,8 @@
                     <Button x:Name="btnPreApr16" Background="White" ToolTip="Pre-Apr16" Tag="Pre Arrear 16" Click="btnPreApr16_Click">Pre-Apr16</Button>
                     <Button x:Name="btnPostApr16" Background="White" ToolTip="Post-Apr16" Tag="Post Arrear 16" Click="btnPostApr16_Click">Post-Apr16</Button>
                     <Button x:Name="btnLevy" Background="White" ToolTip="Levy" Tag="LEVY" Click="btnLevy_Click" >Levy</Button>
-                    <Button x:Name="btnTDF" Background="White" ToolTip="TDF" Tag="TDF" Click="btnTDF_Click" >TDF</Button>                    
+                    <Button x:Name="btnTDF" Background="White" ToolTip="TDF" Tag="TDF" Click="btnTDF_Click" >TDF</Button>
+                    <Button x:Name="btnFeeCheck" Background="White" ToolTip="FeeEntry Check" Tag="FeeEntry Check" Click="btnFeeCheck_Click" >FeeEntry Check</Button>
                 </StackPanel>
             </materialDesign:PopupBox>
             <Button x:Name="btnManualPayment" Content="Manual Payment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,392,0,0" />

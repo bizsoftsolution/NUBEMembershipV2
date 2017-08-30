@@ -135,6 +135,7 @@ namespace Nube.Transaction
                             BeforeTotalMonthsPaid = Convert.ToInt32(mmMst.TOTALMONTHSPAID),
                             TotalDuePay = iTotalDuePay,
                             UpdatedStatus = "Not Updated"
+                            
                         };
                         db.ArrearPostMasters.Add(arrearMaster);
                         db.SaveChanges();

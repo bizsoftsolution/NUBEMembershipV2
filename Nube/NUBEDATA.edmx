@@ -126,23 +126,17 @@
           <Property Name="TableName" Type="varchar" MaxLength="50" />
           <Property Name="Remarks" Type="varchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.FeesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesDetails">
           <Key>
             <PropertyRef Name="DetailId" />
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FeeId" Type="int" Nullable="false" />
           <Property Name="MemberCode" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalAmount" Type="numeric" Precision="18" Scale="2" />
           <Property Name="AmountBF" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="MemberContribution" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="NUBEContribution" Type="numeric" Precision="18" Scale="2" />
           <Property Name="AmountIns" Type="numeric" Precision="18" Scale="2" />
           <Property Name="AmtSubs" Type="numeric" Precision="18" Scale="2" />
           <Property Name="Dept" Type="varchar" MaxLength="50" />
@@ -159,13 +153,12 @@ warning 6002: The table/view 'nubebfs17072017.dbo.FeesDetails' does not have a p
           <Property Name="IsStruckOff" Type="bit" Nullable="false" />
           <Property Name="Status" Type="varchar" MaxLength="50" />
           <Property Name="TotalMonthsPaid" Type="int" />
+          <Property Name="TotalMonthsPaidBF" Type="int" />
+          <Property Name="TotalMonthsPaidIns" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.FeesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesMaster">
           <Key>
             <PropertyRef Name="FeeId" />
-            
           </Key>
           <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BankId" Type="int" />
@@ -175,7 +168,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.FeesMaster' does not have a pr
           <Property Name="UpdatedStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Ledger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Ledger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Ledger">
           <Key>
             <PropertyRef Name="LedgerId" />
@@ -196,7 +189,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Ledger' does not have a primar
           <Property Name="DrAmt" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.LedgerReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.LedgerReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="LedgerReport">
           <Key>
             <PropertyRef Name="LReportId" />
@@ -399,6 +392,8 @@ warning 6002: The table/view 'nubebfs17072017.dbo.LedgerReport' does not have a 
           <Property Name="BuildingFund" Type="numeric" Precision="18" Scale="0" />
           <Property Name="BF" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Subscription" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="MembersContribution" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="NUBEsContribution" Type="numeric" Precision="18" Scale="0" />
           <Property Name="Insurance" Type="numeric" Precision="18" Scale="0" />
           <Property Name="BadgeAmount" Type="numeric" Precision="18" Scale="0" />
           <Property Name="LevyAmount" Type="numeric" Precision="18" Scale="0" />
@@ -517,7 +512,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.LedgerReport' does not have a 
           <Property Name="TitleName" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Payment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Payment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Payment">
           <Key>
             <PropertyRef Name="PaymentId" />
@@ -532,7 +527,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Payment' does not have a prima
           <Property Name="Narration" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -551,7 +546,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Products' does not have a prim
           <Property Name="Tax" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Purchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Purchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Purchase">
           <Key>
             <PropertyRef Name="PurchaseId" />
@@ -567,7 +562,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Purchase' does not have a prim
           <Property Name="Narration" Type="nvarchar" MaxLength="555" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.PurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PurchaseDetails">
           <Key>
             <PropertyRef Name="PDId" />
@@ -588,7 +583,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseDetails' does not have
           <Property Name="DisPer" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.PurchaseOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PurchaseOrder">
           <Key>
             <PropertyRef Name="POId" />
@@ -603,7 +598,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseOrder' does not have a
           <Property Name="Narration" Type="nvarchar" MaxLength="555" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.PurchaseOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PurchaseOrderDetails">
           <Key>
             <PropertyRef Name="PODId" />
@@ -622,7 +617,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseOrderDetails' does not
           <Property Name="DisPer" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.PurchaseReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PurchaseReturn">
           <Key>
             <PropertyRef Name="PRId" />
@@ -638,7 +633,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseReturn' does not have 
           <Property Name="Narration" Type="nvarchar" MaxLength="555" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.PurchaseReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PurchaseReturnDetails">
           <Key>
             <PropertyRef Name="PRDId" />
@@ -659,7 +654,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.PurchaseReturnDetails' does no
           <Property Name="DisPer" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Receipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Receipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Receipt">
           <Key>
             <PropertyRef Name="ReceiptId" />
@@ -701,7 +696,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Receipt' does not have a prima
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Sales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Sales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Sales">
           <Key>
             <PropertyRef Name="SalesId" />
@@ -716,7 +711,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Sales' does not have a primary
           <Property Name="Narration" Type="nvarchar" MaxLength="555" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.SalesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.SalesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SalesDetails">
           <Key>
             <PropertyRef Name="SDId" />
@@ -737,7 +732,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.SalesDetails' does not have a 
           <Property Name="DisPer" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.SalesOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.SalesOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SalesOrder">
           <Key>
             <PropertyRef Name="SOId" />
@@ -751,7 +746,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.SalesOrder' does not have a pr
           <Property Name="Narration" Type="nvarchar" MaxLength="555" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.SalesOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.SalesOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SalesOrderDetails">
           <Key>
             <PropertyRef Name="SODId" />
@@ -770,7 +765,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.SalesOrderDetails' does not ha
           <Property Name="DisPer" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.SalesReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.SalesReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SalesReturn">
           <Key>
             <PropertyRef Name="SRId" />
@@ -785,7 +780,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.SalesReturn' does not have a p
           <Property Name="Narration" Type="nvarchar" MaxLength="555" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.SalesReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.SalesReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="SalesReturnDetails">
           <Key>
             <PropertyRef Name="SRDId" />
@@ -823,7 +818,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.SalesReturnDetails' does not h
           <Property Name="FormId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Staff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Staff' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Staff">
           <Key>
             <PropertyRef Name="StaffId" />
@@ -851,7 +846,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Staff' does not have a primary
           <Property Name="UpdatedStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.StockGroups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.StockGroups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StockGroups">
           <Key>
             <PropertyRef Name="StockGroupId" />
@@ -861,7 +856,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.StockGroups' does not have a p
           <Property Name="Under" Type="nvarchar" MaxLength="155" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.StockReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.StockReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StockReport">
           <Key>
             <PropertyRef Name="StockId" />
@@ -882,7 +877,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.StockReport' does not have a p
           <Property Name="FU3" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.Supplier' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.Supplier' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Supplier">
           <Key>
             <PropertyRef Name="SupplierId" />
@@ -900,7 +895,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.Supplier' does not have a prim
           <Property Name="CreditLimits" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.TaxMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.TaxMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TaxMaster">
           <Key>
             <PropertyRef Name="TaxId" />
@@ -919,7 +914,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.TaxMaster' does not have a pri
           <Property Name="UpdatedTime" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.TVMASTERMEMBER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.TVMASTERMEMBER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TVMASTERMEMBER">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1016,7 +1011,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.TVMASTERMEMBER' does not have 
           <Property Name="BANKCODE_BYBANK" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="LEVY_AMOUNT" Type="numeric" Precision="18" Scale="0" Nullable="false" />
           <Property Name="TDF_AMOUNT" Type="numeric" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="TDF" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="TDF" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="RESIGNATION_DATE" Type="datetime" Nullable="false" />
           <Property Name="ENTRY_DATE" Type="datetime" Nullable="false" />
           <Property Name="VOUCHER_DATE" Type="datetime" />
@@ -1041,7 +1036,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.TVMASTERMEMBER' does not have 
           <Property Name="UserType" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.USERMASTER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.USERMASTER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="USERMASTER">
           <Key>
             <PropertyRef Name="USER_CODE" />
@@ -1075,7 +1070,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.USERMASTER' does not have a pr
           <Property Name="IsSuperAdmin" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewAnnualStatement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewAnnualStatement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewAnnualStatement">
           <Key>
             <PropertyRef Name="ICNO" />
@@ -1106,7 +1101,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewAnnualStatement' does not 
           <Property Name="MonDue" Type="numeric" Precision="12" Scale="0" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewBankBranchAdvice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewBankBranchAdvice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewBankBranchAdvice">
           <Key>
             <PropertyRef Name="ICNO" />
@@ -1126,7 +1121,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewBankBranchAdvice' does not
           <Property Name="ACCSUBSCRIPTION" Type="numeric" Precision="10" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewBranchMonthlyStatement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewBranchMonthlyStatement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewBranchMonthlyStatement">
           <Key>
             <PropertyRef Name="ICNO" />
@@ -1149,7 +1144,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewBranchMonthlyStatement' do
           <Property Name="DATEOFJOINING" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedger' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedger">
           <Key>
             <PropertyRef Name="LedgerId" />
@@ -1180,7 +1175,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedger' does not have a pr
           <Property Name="AcNo" Type="nvarchar" MaxLength="4000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedgerGroup' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedgerGroup">
           <Key>
             <PropertyRef Name="VoucherType" />
@@ -1200,7 +1195,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerGroup' does not have
           <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerJournal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedgerJournal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedgerJournal">
           <Key>
             <PropertyRef Name="VoucherType" />
@@ -1222,7 +1217,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerJournal' does not ha
           <Property Name="ChequeNo" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerOpening' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedgerOpening' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedgerOpening">
           <Key>
             <PropertyRef Name="VoucherType" />
@@ -1248,7 +1243,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerOpening' does not ha
           <Property Name="ChequeNo" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerPayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedgerPayment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedgerPayment">
           <Key>
             <PropertyRef Name="VoucherType" />
@@ -1268,7 +1263,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerPayment' does not ha
           <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedgerPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedgerPurchase">
           <Key>
             <PropertyRef Name="VocherCode" />
@@ -1287,7 +1282,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerPurchase' does not h
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerReceipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedgerReceipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedgerReceipt">
           <Key>
             <PropertyRef Name="VoucherType" />
@@ -1307,7 +1302,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerReceipt' does not ha
           <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewLedgerReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewLedgerReport">
           <Key>
             <PropertyRef Name="VoucherType" />
@@ -1330,7 +1325,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewLedgerReport' does not hav
           <Property Name="ChequeNo" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewMasterMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewMasterMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewMasterMember">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1433,7 +1428,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewMasterMember' does not hav
           <Property Name="VOUCHER_DATE" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewMemberLastPaidDate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewMemberLastPaidDate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewMemberLastPaidDate">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1443,7 +1438,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewMemberLastPaidDate' does n
           <Property Name="TOTALDUEPAY" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewMemberTotalMonthsDue' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewMemberTotalMonthsDue' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewMemberTotalMonthsDue">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1455,7 +1450,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewMemberTotalMonthsDue' does
           <Property Name="TOTALDUEPAY" Type="numeric" Precision="11" Scale="0" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.VIEWNOMINEE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.VIEWNOMINEE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VIEWNOMINEE">
           <Key>
             <PropertyRef Name="ID" />
@@ -1496,7 +1491,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.VIEWNOMINEE' does not have a p
           <Property Name="RELATION_CODE" Type="numeric" Precision="10" Scale="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewPurchase' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPurchase">
           <Key>
             <PropertyRef Name="PurchaseId" />
@@ -1519,7 +1514,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchase' does not have a 
           <Property Name="BillAmount" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewPurchaseDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPurchaseDetails">
           <Key>
             <PropertyRef Name="PDId" />
@@ -1545,7 +1540,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseDetails' does not 
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewPurchaseOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPurchaseOrder">
           <Key>
             <PropertyRef Name="POId" />
@@ -1565,7 +1560,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseOrder' does not ha
           <Property Name="BillAmount" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewPurchaseOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPurchaseOrderDetails">
           <Key>
             <PropertyRef Name="PODId" />
@@ -1589,7 +1584,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseOrderDetails' does
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewPurchaseReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPurchaseReturn">
           <Key>
             <PropertyRef Name="PRId" />
@@ -1610,7 +1605,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseReturn' does not h
           <Property Name="BillAmount" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewPurchaseReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPurchaseReturnDetails">
           <Key>
             <PropertyRef Name="PRDId" />
@@ -1636,7 +1631,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseReturnDetails' doe
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseSearch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewPurchaseSearch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewPurchaseSearch">
           <Key>
             <PropertyRef Name="PurchaseId" />
@@ -1652,7 +1647,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewPurchaseSearch' does not h
           <Property Name="TotalAmount" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewReceipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewReceipt' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewReceipt">
           <Key>
             <PropertyRef Name="ReceiptId" />
@@ -1666,7 +1661,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewReceipt' does not have a p
           <Property Name="Narration" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewSales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewSales' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSales">
           <Key>
             <PropertyRef Name="SalesId" />
@@ -1688,7 +1683,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewSales' does not have a pri
           <Property Name="BillAmount" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewSalesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSalesDetails">
           <Key>
             <PropertyRef Name="SDId" />
@@ -1714,7 +1709,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesDetails' does not hav
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewSalesOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSalesOrder">
           <Key>
             <PropertyRef Name="SOId" />
@@ -1733,7 +1728,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesOrder' does not have 
           <Property Name="BillAmount" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewSalesOrderDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSalesOrderDetails">
           <Key>
             <PropertyRef Name="SODId" />
@@ -1757,7 +1752,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesOrderDetails' does no
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewSalesReturn' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSalesReturn">
           <Key>
             <PropertyRef Name="SRId" />
@@ -1777,7 +1772,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesReturn' does not have
           <Property Name="BillAmount" Type="float" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewSalesReturnDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewSalesReturnDetails">
           <Key>
             <PropertyRef Name="SRDId" />
@@ -1801,7 +1796,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewSalesReturnDetails' does n
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewStockGroups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewStockGroups' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewStockGroups">
           <Key>
             <PropertyRef Name="StockGroupId" />
@@ -1812,7 +1807,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewStockGroups' does not have
           <Property Name="RootGroup" Type="varchar" MaxLength="5002" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewStockReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewStockReport' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewStockReport">
           <Key>
             <PropertyRef Name="VoucherCode" />
@@ -1836,7 +1831,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewStockReport' does not have
           <Property Name="RootGroup" Type="varchar" MaxLength="5000" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'Nubebfs.dbo.ViewTrialBalance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewTrialBalance">
           <Key>
             <PropertyRef Name="ICNO" />
@@ -1862,6 +1857,8 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <EntitySet Name="CountrySetup" EntityType="Self.CountrySetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventHistory" EntityType="Self.EventHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MASTERBANK" EntityType="Self.MASTERBANK" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MASTERBANKBRANCH" EntityType="Self.MASTERBANKBRANCH" Schema="dbo" store:Type="Tables" />
@@ -1888,41 +1885,6 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserPrevilage" EntityType="Self.UserPrevilage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesDetails].[DetailId] AS [DetailId], 
-    [FeesDetails].[FeeId] AS [FeeId], 
-    [FeesDetails].[MemberCode] AS [MemberCode], 
-    [FeesDetails].[TotalAmount] AS [TotalAmount], 
-    [FeesDetails].[AmountBF] AS [AmountBF], 
-    [FeesDetails].[AmountIns] AS [AmountIns], 
-    [FeesDetails].[AmtSubs] AS [AmtSubs], 
-    [FeesDetails].[Dept] AS [Dept], 
-    [FeesDetails].[UpdatedStatus] AS [UpdatedStatus], 
-    [FeesDetails].[FeeYear] AS [FeeYear], 
-    [FeesDetails].[FeeMonth] AS [FeeMonth], 
-    [FeesDetails].[Reason] AS [Reason], 
-    [FeesDetails].[IsUnPaid] AS [IsUnPaid], 
-    [FeesDetails].[IsNotMatch] AS [IsNotMatch], 
-    [FeesDetails].[MemberId] AS [MemberId], 
-    [FeesDetails].[MemberName_Bank] AS [MemberName_Bank], 
-    [FeesDetails].[NRIC_Bank] AS [NRIC_Bank], 
-    [FeesDetails].[IsAccept_ByNube] AS [IsAccept_ByNube], 
-    [FeesDetails].[IsStruckOff] AS [IsStruckOff], 
-    [FeesDetails].[Status] AS [Status], 
-    [FeesDetails].[TotalMonthsPaid] AS [TotalMonthsPaid]
-    FROM [dbo].[FeesDetails] AS [FeesDetails]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesMaster].[FeeId] AS [FeeId], 
-    [FeesMaster].[BankId] AS [BankId], 
-    [FeesMaster].[FeeDate] AS [FeeDate], 
-    [FeesMaster].[XLFileName] AS [XLFileName], 
-    [FeesMaster].[XLPassword] AS [XLPassword], 
-    [FeesMaster].[UpdatedStatus] AS [UpdatedStatus]
-    FROM [dbo].[FeesMaster] AS [FeesMaster]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Ledger" EntityType="Self.Ledger" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Ledger].[LedgerId] AS [LedgerId], 
@@ -2988,32 +2950,6 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <Property Name="TableName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Remarks" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="FeesDetail">
-          <Key>
-            <PropertyRef Name="DetailId" />
-          </Key>
-          <Property Name="DetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FeeId" Type="Int32" Nullable="false" />
-          <Property Name="MemberCode" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AmountBF" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AmountIns" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="AmtSubs" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Dept" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FeeYear" Type="Int32" />
-          <Property Name="FeeMonth" Type="Int32" />
-          <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="IsUnPaid" Type="Boolean" Nullable="false" />
-          <Property Name="IsNotMatch" Type="Boolean" Nullable="false" />
-          <Property Name="MemberId" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="MemberName_Bank" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="NRIC_Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="IsAccept_ByNube" Type="Boolean" Nullable="false" />
-          <Property Name="IsStruckOff" Type="Boolean" Nullable="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TotalMonthsPaid" Type="Int32" />
-        </EntityType>
         <EntityType Name="FeesMaster">
           <Key>
             <PropertyRef Name="FeeId" />
@@ -3635,7 +3571,6 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <EntitySet Name="Banks" EntityType="Self.Bank" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperty" />
           <EntitySet Name="EventHistories" EntityType="Self.EventHistory" />
-          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetail" />
           <EntitySet Name="FeesMasters" EntityType="Self.FeesMaster" />
           <EntitySet Name="LoginHistories" EntityType="Self.LoginHistory" />
           <EntitySet Name="MASTERBANKBRANCHes" EntityType="Self.MASTERBANKBRANCH" />
@@ -3714,12 +3649,13 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <EntitySet Name="ViewStockGroups" EntityType="nubebfsModel.ViewStockGroup" />
           <EntitySet Name="ViewStockReports" EntityType="nubebfsModel.ViewStockReport" />
           <EntitySet Name="ViewTrialBalances" EntityType="nubebfsModel.ViewTrialBalance" />
-          <EntitySet Name="MASTERNAMESETUPs" EntityType="nubebfsModel.MASTERNAMESETUP" />
           <EntitySet Name="VIEWNOMINEEs" EntityType="nubebfsModel.VIEWNOMINEE" />
           <EntitySet Name="MASTERMEMBERs" EntityType="nubebfsModel.MASTERMEMBER" />
           <EntitySet Name="TVMASTERMEMBERs" EntityType="nubebfsModel.TVMASTERMEMBER" />
           <EntitySet Name="ViewMasterMembers" EntityType="nubebfsModel.ViewMasterMember" />
           <EntitySet Name="MASTERBANKs" EntityType="nubebfsModel.MASTERBANK" />
+          <EntitySet Name="FeesDetails" EntityType="nubebfsModel.FeesDetail" />
+          <EntitySet Name="MASTERNAMESETUPs" EntityType="nubebfsModel.MASTERNAMESETUP" />
         </EntityContainer>
         <EntityType Name="CountrySetup">
           <Key>
@@ -4328,41 +4264,6 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <Property Name="MemberStatus" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="NubeBanchName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="MASTERNAMESETUP">
-          <Key>
-            <PropertyRef Name="ORGANISATION_NAME" />
-          </Key>
-          <Property Name="ORGANISATION_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ADDRESS3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="STATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZIPCODE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CUTOFFDATE" Type="DateTime" Precision="3" />
-          <Property Name="VERSION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SERVERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="NEWEXEPATH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="NEWREPORTSPATH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="NEWIMAGESPATH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="EnterenceFees" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="BuildingFund" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="BF" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Subscription" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="Insurance" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="BadgeAmount" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="LevyAmount" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="TDFAmount" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="RejoinAmount" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="SenderEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SenderPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CCEamilId1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CCEamilId2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PrinterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BackUpPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="VIEWNOMINEE">
           <Key>
             <PropertyRef Name="ID" />
@@ -4554,7 +4455,7 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <Property Name="BANKCODE_BYBANK" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="LEVY_AMOUNT" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="TDF_AMOUNT" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="TDF" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="TDF" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="RESIGNATION_DATE" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ENTRY_DATE" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="VOUCHER_DATE" Type="DateTime" Precision="3" />
@@ -4670,6 +4571,73 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
           <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="HEADER_BANK_CODE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="FeesDetail">
+          <Key>
+            <PropertyRef Name="DetailId" />
+          </Key>
+          <Property Name="DetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeeId" Type="Int32" Nullable="false" />
+          <Property Name="MemberCode" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AmountBF" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="MemberContribution" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NUBEContribution" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AmountIns" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="AmtSubs" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Dept" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FeeYear" Type="Int32" />
+          <Property Name="FeeMonth" Type="Int32" />
+          <Property Name="Reason" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsUnPaid" Type="Boolean" Nullable="false" />
+          <Property Name="IsNotMatch" Type="Boolean" Nullable="false" />
+          <Property Name="MemberId" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MemberName_Bank" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NRIC_Bank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAccept_ByNube" Type="Boolean" Nullable="false" />
+          <Property Name="IsStruckOff" Type="Boolean" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalMonthsPaid" Type="Int32" />
+          <Property Name="TotalMonthsPaidBF" Type="Int32" />
+          <Property Name="TotalMonthsPaidIns" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MASTERNAMESETUP">
+          <Key>
+            <PropertyRef Name="ORGANISATION_NAME" />
+          </Key>
+          <Property Name="ORGANISATION_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CUTOFFDATE" Type="DateTime" Precision="3" />
+          <Property Name="VERSION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SERVERNAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NEWEXEPATH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NEWREPORTSPATH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="NEWIMAGESPATH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EnterenceFees" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BuildingFund" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BF" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Subscription" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MembersContribution" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="NUBEsContribution" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Insurance" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="BadgeAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LevyAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TDFAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="RejoinAmount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="SenderEmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CCEamilId1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CCEamilId2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PrinterName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BackUpPath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4795,33 +4763,6 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
                 <ScalarProperty Name="ModifiedData" ColumnName="ModifiedData" />
                 <ScalarProperty Name="TableName" ColumnName="TableName" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="FeesDetails">
-            <EntityTypeMapping TypeName="nubebfsModel.FeesDetail">
-              <MappingFragment StoreEntitySet="FeesDetails">
-                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
-                <ScalarProperty Name="FeeId" ColumnName="FeeId" />
-                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="AmountBF" ColumnName="AmountBF" />
-                <ScalarProperty Name="AmountIns" ColumnName="AmountIns" />
-                <ScalarProperty Name="AmtSubs" ColumnName="AmtSubs" />
-                <ScalarProperty Name="Dept" ColumnName="Dept" />
-                <ScalarProperty Name="UpdatedStatus" ColumnName="UpdatedStatus" />
-                <ScalarProperty Name="FeeYear" ColumnName="FeeYear" />
-                <ScalarProperty Name="FeeMonth" ColumnName="FeeMonth" />
-                <ScalarProperty Name="Reason" ColumnName="Reason" />
-                <ScalarProperty Name="IsUnPaid" ColumnName="IsUnPaid" />
-                <ScalarProperty Name="IsNotMatch" ColumnName="IsNotMatch" />
-                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
-                <ScalarProperty Name="MemberName_Bank" ColumnName="MemberName_Bank" />
-                <ScalarProperty Name="NRIC_Bank" ColumnName="NRIC_Bank" />
-                <ScalarProperty Name="IsAccept_ByNube" ColumnName="IsAccept_ByNube" />
-                <ScalarProperty Name="IsStruckOff" ColumnName="IsStruckOff" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="TotalMonthsPaid" ColumnName="TotalMonthsPaid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -6024,42 +5965,6 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MASTERNAMESETUPs">
-            <EntityTypeMapping TypeName="nubebfsModel.MASTERNAMESETUP">
-              <MappingFragment StoreEntitySet="MASTERNAMESETUP">
-                <ScalarProperty Name="BackUpPath" ColumnName="BackUpPath" />
-                <ScalarProperty Name="PrinterName" ColumnName="PrinterName" />
-                <ScalarProperty Name="CCEamilId2" ColumnName="CCEamilId2" />
-                <ScalarProperty Name="CCEamilId1" ColumnName="CCEamilId1" />
-                <ScalarProperty Name="SenderPassword" ColumnName="SenderPassword" />
-                <ScalarProperty Name="SenderEmailId" ColumnName="SenderEmailId" />
-                <ScalarProperty Name="RejoinAmount" ColumnName="RejoinAmount" />
-                <ScalarProperty Name="TDFAmount" ColumnName="TDFAmount" />
-                <ScalarProperty Name="LevyAmount" ColumnName="LevyAmount" />
-                <ScalarProperty Name="BadgeAmount" ColumnName="BadgeAmount" />
-                <ScalarProperty Name="Insurance" ColumnName="Insurance" />
-                <ScalarProperty Name="Subscription" ColumnName="Subscription" />
-                <ScalarProperty Name="BF" ColumnName="BF" />
-                <ScalarProperty Name="BuildingFund" ColumnName="BuildingFund" />
-                <ScalarProperty Name="EnterenceFees" ColumnName="EnterenceFees" />
-                <ScalarProperty Name="NEWIMAGESPATH" ColumnName="NEWIMAGESPATH" />
-                <ScalarProperty Name="NEWREPORTSPATH" ColumnName="NEWREPORTSPATH" />
-                <ScalarProperty Name="NEWEXEPATH" ColumnName="NEWEXEPATH" />
-                <ScalarProperty Name="SERVERNAME" ColumnName="SERVERNAME" />
-                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
-                <ScalarProperty Name="CUTOFFDATE" ColumnName="CUTOFFDATE" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
-                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
-                <ScalarProperty Name="STATE" ColumnName="STATE" />
-                <ScalarProperty Name="CITY" ColumnName="CITY" />
-                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
-                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
-                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
-                <ScalarProperty Name="ORGANISATION_NAME" ColumnName="ORGANISATION_NAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="VIEWNOMINEEs">
             <EntityTypeMapping TypeName="nubebfsModel.VIEWNOMINEE">
               <MappingFragment StoreEntitySet="VIEWNOMINEE">
@@ -6332,6 +6237,75 @@ warning 6002: The table/view 'nubebfs17072017.dbo.ViewTrialBalance' does not hav
                 <ScalarProperty Name="BANK_USERCODE" ColumnName="BANK_USERCODE" />
                 <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
                 <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FeesDetails">
+            <EntityTypeMapping TypeName="nubebfsModel.FeesDetail">
+              <MappingFragment StoreEntitySet="FeesDetails">
+                <ScalarProperty Name="TotalMonthsPaidIns" ColumnName="TotalMonthsPaidIns" />
+                <ScalarProperty Name="TotalMonthsPaidBF" ColumnName="TotalMonthsPaidBF" />
+                <ScalarProperty Name="TotalMonthsPaid" ColumnName="TotalMonthsPaid" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsStruckOff" ColumnName="IsStruckOff" />
+                <ScalarProperty Name="IsAccept_ByNube" ColumnName="IsAccept_ByNube" />
+                <ScalarProperty Name="NRIC_Bank" ColumnName="NRIC_Bank" />
+                <ScalarProperty Name="MemberName_Bank" ColumnName="MemberName_Bank" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="IsNotMatch" ColumnName="IsNotMatch" />
+                <ScalarProperty Name="IsUnPaid" ColumnName="IsUnPaid" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+                <ScalarProperty Name="FeeMonth" ColumnName="FeeMonth" />
+                <ScalarProperty Name="FeeYear" ColumnName="FeeYear" />
+                <ScalarProperty Name="UpdatedStatus" ColumnName="UpdatedStatus" />
+                <ScalarProperty Name="Dept" ColumnName="Dept" />
+                <ScalarProperty Name="AmtSubs" ColumnName="AmtSubs" />
+                <ScalarProperty Name="AmountIns" ColumnName="AmountIns" />
+                <ScalarProperty Name="NUBEContribution" ColumnName="NUBEContribution" />
+                <ScalarProperty Name="MemberContribution" ColumnName="MemberContribution" />
+                <ScalarProperty Name="AmountBF" ColumnName="AmountBF" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
+                <ScalarProperty Name="FeeId" ColumnName="FeeId" />
+                <ScalarProperty Name="DetailId" ColumnName="DetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MASTERNAMESETUPs">
+            <EntityTypeMapping TypeName="nubebfsModel.MASTERNAMESETUP">
+              <MappingFragment StoreEntitySet="MASTERNAMESETUP">
+                <ScalarProperty Name="BackUpPath" ColumnName="BackUpPath" />
+                <ScalarProperty Name="PrinterName" ColumnName="PrinterName" />
+                <ScalarProperty Name="CCEamilId2" ColumnName="CCEamilId2" />
+                <ScalarProperty Name="CCEamilId1" ColumnName="CCEamilId1" />
+                <ScalarProperty Name="SenderPassword" ColumnName="SenderPassword" />
+                <ScalarProperty Name="SenderEmailId" ColumnName="SenderEmailId" />
+                <ScalarProperty Name="RejoinAmount" ColumnName="RejoinAmount" />
+                <ScalarProperty Name="TDFAmount" ColumnName="TDFAmount" />
+                <ScalarProperty Name="LevyAmount" ColumnName="LevyAmount" />
+                <ScalarProperty Name="BadgeAmount" ColumnName="BadgeAmount" />
+                <ScalarProperty Name="Insurance" ColumnName="Insurance" />
+                <ScalarProperty Name="NUBEsContribution" ColumnName="NUBEsContribution" />
+                <ScalarProperty Name="MembersContribution" ColumnName="MembersContribution" />
+                <ScalarProperty Name="Subscription" ColumnName="Subscription" />
+                <ScalarProperty Name="BF" ColumnName="BF" />
+                <ScalarProperty Name="BuildingFund" ColumnName="BuildingFund" />
+                <ScalarProperty Name="EnterenceFees" ColumnName="EnterenceFees" />
+                <ScalarProperty Name="NEWIMAGESPATH" ColumnName="NEWIMAGESPATH" />
+                <ScalarProperty Name="NEWREPORTSPATH" ColumnName="NEWREPORTSPATH" />
+                <ScalarProperty Name="NEWEXEPATH" ColumnName="NEWEXEPATH" />
+                <ScalarProperty Name="SERVERNAME" ColumnName="SERVERNAME" />
+                <ScalarProperty Name="VERSION" ColumnName="VERSION" />
+                <ScalarProperty Name="CUTOFFDATE" ColumnName="CUTOFFDATE" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="ORGANISATION_NAME" ColumnName="ORGANISATION_NAME" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -485,6 +485,9 @@
     <Compile Include="Transaction\frmFeesEntry.xaml.cs">
       <DependentUpon>frmFeesEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Transaction\frmFeesEntryTest.xaml.cs">
+      <DependentUpon>frmFeesEntryTest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Transaction\frmLevy.xaml.cs">
       <DependentUpon>frmLevy.xaml</DependentUpon>
     </Compile>
@@ -841,6 +844,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Transaction\frmFeesEntry.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmFeesEntryTest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

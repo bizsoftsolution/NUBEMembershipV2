@@ -248,6 +248,13 @@ namespace Nube
             }
         }
 
+        private void btnFeeCheck_Click(object sender, RoutedEventArgs e)
+        {
+            frmFeesEntryTest frm = new frmFeesEntryTest();
+            this.Close();
+            frm.ShowDialog();
+        }
+
         private void btnTDF_Click(object sender, RoutedEventArgs e)
         {
             frmTDF frm = new frmTDF();
@@ -267,8 +274,9 @@ namespace Nube
             frm.ShowDialog();
         }
 
+
         #endregion
 
-
+      
     }
 }

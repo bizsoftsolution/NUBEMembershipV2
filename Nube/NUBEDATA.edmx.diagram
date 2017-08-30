@@ -13,7 +13,6 @@
         <EntityTypeShape EntityType="nubebfsModel.Bank" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.dtproperty" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.EventHistory" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="nubebfsModel.FeesDetail" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.FeesMaster" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.LoginHistory" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsModel.MASTERBANKBRANCH" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
@@ -92,12 +91,13 @@
         <EntityTypeShape EntityType="nubebfsModel.ViewStockGroup" Width="1.5" PointX="11.75" PointY="27.75" />
         <EntityTypeShape EntityType="nubebfsModel.ViewStockReport" Width="1.5" PointX="27.75" PointY="12.75" />
         <EntityTypeShape EntityType="nubebfsModel.ViewTrialBalance" Width="1.5" PointX="13.75" PointY="27.75" />
-        <EntityTypeShape EntityType="nubebfsModel.MASTERNAMESETUP" Width="1.5" PointX="3.375" PointY="28.75" />
         <EntityTypeShape EntityType="nubebfsModel.VIEWNOMINEE" Width="1.5" PointX="16.375" PointY="28.75" />
         <EntityTypeShape EntityType="nubebfsModel.MASTERMEMBER" Width="1.5" PointX="5.375" PointY="29.75" />
         <EntityTypeShape EntityType="nubebfsModel.TVMASTERMEMBER" Width="1.5" PointX="28.375" PointY="17.75" />
         <EntityTypeShape EntityType="nubebfsModel.ViewMasterMember" Width="1.5" PointX="22.375" PointY="25.75" />
         <EntityTypeShape EntityType="nubebfsModel.MASTERBANK" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="nubebfsModel.FeesDetail" Width="1.5" PointX="9.375" PointY="11.75" />
+        <EntityTypeShape EntityType="nubebfsModel.MASTERNAMESETUP" Width="1.5" PointX="7.375" PointY="29.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
