@@ -19,8 +19,7 @@ namespace Nube
         public decimal MemberCode { get; set; }
         public Nullable<decimal> TotalAmount { get; set; }
         public Nullable<decimal> AmountBF { get; set; }
-        public Nullable<decimal> MemberContribution { get; set; }
-        public Nullable<decimal> NUBEContribution { get; set; }
+        public Nullable<decimal> UnionContribution { get; set; }
         public Nullable<decimal> AmountIns { get; set; }
         public Nullable<decimal> AmtSubs { get; set; }
         public string Dept { get; set; }
@@ -36,8 +35,8 @@ namespace Nube
         public bool IsAccept_ByNube { get; set; }
         public bool IsStruckOff { get; set; }
         public string Status { get; set; }
-        public Nullable<int> TotalMonthsPaid { get; set; }
         public Nullable<int> TotalMonthsPaidBF { get; set; }
         public Nullable<int> TotalMonthsPaidIns { get; set; }
+        public Nullable<int> TotalMonthsPaid { get; set; }
     }
 }

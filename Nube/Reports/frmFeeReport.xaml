@@ -31,26 +31,26 @@
             </materialDesign:Card>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="244,7,610,595" VerticalAlignment="Center" Width="326" Height="28"/>
-            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="244,43,610,559" VerticalAlignment="Center" Width="326" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
-            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="244,83,610,519" VerticalAlignment="Center" Width="326" Height="28"/>
-            <TextBlock x:Name="lblNubeBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="95,12,952,596" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
-            <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="95,48,952,560" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
-            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="85,89,952,519" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="143"/>
+            <ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="214,7,640,595" VerticalAlignment="Center" Width="326" Height="28"/>
+            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="214,43,640,559" VerticalAlignment="Center" Width="326" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
+            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="214,83,640,519" VerticalAlignment="Center" Width="326" Height="28"/>
+            <TextBlock x:Name="lblNubeBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="65,12,982,596" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
+            <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="65,48,982,560" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
+            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="55,89,982,519" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="143"/>
             <StackPanel Orientation="Horizontal" >
                 <Label x:Name="lblFilterOption" Content="Filter Option" FontWeight="Bold" HorizontalAlignment="Left" Margin="605,45,0,0" VerticalAlignment="Top" Width="90"/>
                 <RadioButton x:Name="rbtUnion" FontWeight="Bold" Content="Union"  IsChecked="True" Margin="0,51,0,14"/>
                 <RadioButton x:Name="rbtSeparate" FontWeight="Bold" Content="Separate" Margin="10,51,0,14"  />
             </StackPanel>
 
-            <DatePicker x:Name="dtpDate" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  VerticalAlignment="Top" Width="106" FontSize="14" Margin="660,7,0,0" Height="31" />
-            <Label x:Name="label_Copy" Content="Month" FontWeight="Bold" HorizontalAlignment="Left" Margin="600,9,0,0" VerticalAlignment="Top" Width="50"/>
-            <Label x:Name="lblType" Content="Type" FontWeight="Bold" HorizontalAlignment="Left" Margin="813,8,0,0" VerticalAlignment="Top" Width="50"/>
-            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="682,87,0,0" VerticalAlignment="Top" Width="75" Click="btnSearch_Click"/>
-            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="803,87,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click" />
-            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="920,87,0,0" VerticalAlignment="Top" Width="75" Click="btnBack_Click" />
+            <DatePicker x:Name="dtpDate" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  VerticalAlignment="Top" Width="106" FontSize="14" Margin="630,7,0,0" Height="31" />
+            <Label x:Name="label_Copy" Content="Month" FontWeight="Bold" HorizontalAlignment="Left" Margin="570,9,0,0" VerticalAlignment="Top" Width="50"/>
+            <Label x:Name="lblType" Content="Type" FontWeight="Bold" HorizontalAlignment="Left" Margin="773,8,0,0" VerticalAlignment="Top" Width="50"/>
+            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="652,87,0,0" VerticalAlignment="Top" Width="75" Click="btnSearch_Click"/>
+            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="773,87,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click" />
+            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="890,87,0,0" VerticalAlignment="Top" Width="75" Click="btnBack_Click" />
 
-            <DataGrid x:Name="dgFeeDetail" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,130,0,0" VerticalAlignment="Top" Height="440" Width="1180" >
+            <DataGrid x:Name="dgFeeDetail" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,130,0,0" VerticalAlignment="Top" Height="420" Width="1180" >
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="FontWeight" Value="Bold" />
@@ -76,10 +76,15 @@
                     <DataGridTextColumn Header="Reason" FontWeight="Bold" Width="210" Binding="{Binding REASON}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <RadioButton x:Name="rbtnAll" FontWeight="Bold" Content="All" HorizontalAlignment="Left" Margin="856,14,0,0" VerticalAlignment="Top" IsChecked="True"/>
-            <RadioButton x:Name="rbtnActive" FontWeight="Bold" Content="Active" HorizontalAlignment="Left" Margin="902,14,0,0" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbtnNotMatch" FontWeight="Bold" Content="Not Match" HorizontalAlignment="Left" Margin="966,14,0,0" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbtnUnPaid" FontWeight="Bold" Content="Un Paid" HorizontalAlignment="Left" Margin="1055,14,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtTotalAmount" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="531,566,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Total Amount" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="138" IsReadOnly="True"/>
+            <TextBox x:Name="txtTotalBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="692,566,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Total BF" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="138" IsReadOnly="True"/>
+            <TextBox x:Name="txtTotalIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="852,566,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Total Insurance" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="138" IsReadOnly="True"/>
+            <TextBox x:Name="txtTotalSubs" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="1013,566,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Total Subs" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="138" IsReadOnly="True"/>
+            <RadioButton x:Name="rbtnAll" FontWeight="Bold" Content="All" HorizontalAlignment="Left" Margin="816,14,0,0" VerticalAlignment="Top" IsChecked="True"/>
+            <RadioButton x:Name="rbtnActive" FontWeight="Bold" Content="Active" HorizontalAlignment="Left" Margin="862,14,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbtnNotMatch" FontWeight="Bold" Content="Not Match" HorizontalAlignment="Left" Margin="926,14,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbtnUnPaid" FontWeight="Bold" Content="Un Paid" HorizontalAlignment="Left" Margin="1015,14,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbtnArrear" FontWeight="Bold" Content="Arrear Entry" HorizontalAlignment="Left" Margin="1087,14,0,0" VerticalAlignment="Top"/>
         </Grid>
 
     </Grid>

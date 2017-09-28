@@ -38,9 +38,11 @@ namespace Nube.Transaction
         public static string connStr = AppLib.connStr;
         Boolean bIsUpdate = false;
         decimal BF = 0;
+        decimal UC = 0;
         decimal Ins = 0;
         decimal Subs = 0;
         decimal dTotlMonthsPaid = 0;
+        decimal dTotlMonthsPaidUC = 0;
         List<MASTERNOMINEENAMES> lstmstnom = new List<MASTERNOMINEENAMES>();
 
         public frmMemberRegistration(decimal dMembercode = 0)
@@ -57,9 +59,9 @@ namespace Nube.Transaction
                 FormFill();
                 bIsUpdate = true;
             }
-           
+
         }
-        
+
         #region "BUTTON EVENTS"
 
         private void btnNew_Click(object sender, RoutedEventArgs e)
@@ -310,7 +312,7 @@ namespace Nube.Transaction
                                     }
                                 }
                             }
-                            MessageBox.Show("Updated Sucessfully");                           
+                            MessageBox.Show("Updated Sucessfully");
                             fNew();
                         }
                     }
@@ -439,7 +441,7 @@ namespace Nube.Transaction
                                 }
                             }
                         }
-                        MessageBox.Show("Saved Sucessfully");                       
+                        MessageBox.Show("Saved Sucessfully");
                         fNew();
                     }
                 }
@@ -1091,18 +1093,18 @@ namespace Nube.Transaction
 
         void LoadTempViewMaster()
         {
-            //try
-            //{
-            //    if (AppLib.lstTVMasterMember.Count == 0)
-            //    {
-            //        var lstMM = (from x in db.TVMASTERMEMBERs select x).ToList();
-            //        AppLib.lstTVMasterMember = lstMM;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ExceptionLogging.SendErrorToText(ex);
-            //}
+            try
+            {
+                if (AppLib.lstMstMember.Count == 0)
+                {
+                    var lstMM = (from x in db.ViewMasterMembers select x).ToList();
+                    AppLib.lstMstMember = lstMM;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
         }
 
         void LoadFundDetails()
@@ -1299,7 +1301,7 @@ namespace Nube.Transaction
 
                 //var status = (from x in AppLib.lstTVMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
-                var status = (from x in db.ViewMasterMembers where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                var status = (from x in AppLib.lstMstMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 //var status = (from x in db.TEMPVIEWMASTERMEMBERs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
@@ -1380,19 +1382,31 @@ namespace Nube.Transaction
                                }
                                ).FirstOrDefault();
 
-                var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();
-                DataTable dtFee = AppLib.LINQResultToDataTable(fees);
+                // var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();      
+                DataTable dtFee = new DataTable();
+                using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                {
+                    SqlCommand cmd;
+                    string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
+                                 " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
+                                 " FROM FEESDETAILS(NOLOCK)" +
+                                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND MEMBERCODE=" + dMember_Code;
 
-                BF = 0;
-                Ins = 0;
-                Subs = 0;
-                dTotlMonthsPaid = 0;
+                    cmd = new SqlCommand(str, con);
+                    cmd.CommandType = CommandType.Text;
+                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    adp.Fill(dtFee);
+                }
+
+                BF = 0; UC = 0; Ins = 0; Subs = 0; dTotlMonthsPaid = 0; dTotlMonthsPaidUC = 0;
                 foreach (DataRow dr in dtFee.Rows)
                 {
                     BF = BF + Convert.ToDecimal(dr["AmountBf"]);
+                    UC = UC + Convert.ToDecimal(dr["UnionContribution"]);
                     Ins = Ins + Convert.ToDecimal(dr["AmountIns"]);
                     Subs = Subs + Convert.ToDecimal(dr["AmtSubs"]);
                     dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TotalMonthsPaid"]);
+                    dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TotalMonthsPaidIns"]);
                 }
                 //var ArPost = (from ap in db.ArrearPostDetails where ap.MemberCode == dMember_Code && ap.UpdatedStatus == "Not Updated" select ap).ToList();
                 //DataTable dtArrearPost = AppLib.LINQResultToDataTable(ArPost);
@@ -1462,30 +1476,36 @@ namespace Nube.Transaction
                     txtEntranceFee.Text = qry.ENTRANCEFEE.ToString();
                     txtBuildingFund.Text = status.HQFEE.ToString();
                     txtAccBenefit.Text = status.ACCBENEFIT.ToString();
+
                     txtMonthlySub.Text = status.MONTHLYSUBSCRIPTION.ToString();
+                    txtMonthlyBF.Text = status.MONTHLYBF.ToString();
+                    txtMonthlyUC.Text = "7";
+                    txtMonthlyIns.Text = "10";
+
+                    txtAccSub.Text = (qry.ACCSUBSCRIPTION + Subs).ToString();
+                    txtAccBF.Text = (qry.ACCBF + BF).ToString();
+                    txtAccUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                    txtAccIns.Text = Ins.ToString();
+
+                    txtCurrentYTDSub.Text = Subs.ToString();
+                    txtCurrentYTDBF.Text = BF.ToString();
+                    txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                    txtCurrentYTDIns.Text = Ins.ToString();
+
                     txtTotalMonthPaidSubs.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
                     txtTotalMonthPaidBF.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-                    txtAccSub.Text = (qry.ACCSUBSCRIPTION + Subs).ToString();
-                    txtMonthlyBF.Text = status.MONTHLYBF.ToString();
-                    //txtTotalMonthsDueSubs.Text = status.MONDUE.ToString();
-                    //txtTotalMonthsDueBF.Text = status.MONDUE.ToString();
+                    txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
+                    txtTotalMonthPaidIns.Text = Ins.ToString();
 
-                    txtAccBF.Text = (qry.ACCBF + BF).ToString();
-                    txtCurrentYTDBF.Text = BF.ToString();
-                    txtCurrentYTDSub.Text = Subs.ToString();
+                    txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
+                    txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
+                    txtTotalMonthsDueUC.Text = "0";
+                    txtTotalMonthsDueIns.Text = "0";
 
                     dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
                     dtpLastPay.IsEnabled = false;
-                    txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
-                    txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
+
                     txtBadgeAmt.Text = qry.BatchAmt.ToString();
-
-                    txtCurrentYTDIns.Text = "0";
-                    txtTotalMonthsDueIns.Text = "0";
-                    txtTotalMonthPaidIns.Text = "0";
-                    txtMonthlyIns.Text = "0";
-                    txtAccIns.Text = "0";
-
                     TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
 
                     int iSerYear = Convert.ToInt32(ts.Days) / 365;
@@ -1513,7 +1533,7 @@ namespace Nube.Transaction
 
                     if (status.RESIGNED == 1 || status.MEMBERSTATUSCODE == 6)
                     {
-                        lblStatus.Content = "Member Resigned";
+                        lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
                     }
                     else
                     {
@@ -1531,7 +1551,7 @@ namespace Nube.Transaction
                         }
                         else if (status.MEMBERSTATUSCODE == 6)
                         {
-                            lblStatus.Content = "Resigned";
+                            lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
                         }
                     }
                 }

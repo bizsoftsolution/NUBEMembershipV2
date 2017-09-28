@@ -138,6 +138,7 @@ namespace Nube.Reports
 
         void FormLoad()
         {
+            dgFeeDetail.ItemsSource = null;
             string sWhere = "";
             if (dtpDate.SelectedDate <= Convert.ToDateTime("31/MAR/2016").Date)
             {
@@ -158,12 +159,25 @@ namespace Nube.Reports
                 {
                     sWhere = sWhere + " AND FD.TOTAL_MONTHS<=0 ";
                 }
+
+                if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                {
+                    if (!string.IsNullOrEmpty(sWhere))
+                    {
+                        sWhere = sWhere + " AND FD.NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
+                    }
+                }
             }
             else
             {
                 if (!string.IsNullOrEmpty(dtpDate.Text.ToString()))
                 {
-                    sWhere = string.Format(" WHERE FD.FEEYEAR={0} AND FD.FEEMONTH={1}  AND FD.STATUS<>'ARREAR ENTRY'", Convert.ToDateTime(dtpDate.SelectedDate).Year, Convert.ToDateTime(dtpDate.SelectedDate).Month);
+                    sWhere = string.Format(" WHERE FD.FEEYEAR={0} AND FD.FEEMONTH={1}  ", Convert.ToDateTime(dtpDate.SelectedDate).Year, Convert.ToDateTime(dtpDate.SelectedDate).Month);
+                }
+
+                if ((rbtnArrear.IsChecked == false))
+                {
+                    sWhere = sWhere + " AND FD.STATUS <> 'ARREAR ENTRY' ";
                 }
 
                 if (rbtnActive.IsChecked == true)
@@ -178,13 +192,17 @@ namespace Nube.Reports
                 {
                     sWhere = sWhere + " AND ISUNPAID=1 ";
                 }
-            }
-
-            if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
-            {
-                if (!string.IsNullOrEmpty(sWhere))
+                else if (rbtnArrear.IsChecked == true)
                 {
-                    sWhere = sWhere + " AND MM.NUBEBANCHNAME='" + cmbNubeBranch.Text + "' ";
+                    sWhere = sWhere + " AND FD.STATUS<>'FEES ENTRY' ";
+                }
+
+                if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                {
+                    if (!string.IsNullOrEmpty(sWhere))
+                    {
+                        sWhere = sWhere + " AND MB.NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
+                    }
                 }
             }
 
@@ -243,7 +261,7 @@ namespace Nube.Reports
 
             if (!string.IsNullOrEmpty(cmbBranch.Text))
             {
-                sWhere = sWhere + " AND MM.BRANCHNAME='" + cmbBranch.Text + "' ";
+                sWhere = sWhere + " AND MM.BRANCH_CODE=" + cmbBranch.SelectedValue;
             }
 
             DataTable dt = new DataTable();
@@ -261,19 +279,22 @@ namespace Nube.Reports
                 }
                 else
                 {
-                    str =  " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID, \r"+
+                    str = " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID, \r" +
                            " ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC, \r" +
                            " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON \r" +
                            " FROM FEESDETAILS FD(NOLOCK) \r" +
                            " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID=FD.FEEID \r" +
-                           " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE \r" + sWhere +
+                           " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE \r" +
+                           " LEFT JOIN MASTERBANKBRANCH MB(NOLOCK) ON MB.BANKBRANCH_CODE=MM.BRANCH_CODE \r" + sWhere +
                            " ORDER BY MM.MEMBER_NAME ";
-                    }
+                }
 
                 SqlCommand cmd = new SqlCommand(str, conn);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 da.SelectCommand.CommandTimeout = 0;
                 da.Fill(dt);
+                decimal dTotalAmount = 0; decimal dTotalBF = 0;
+                decimal dTotalIns = 0; decimal dTotalSubs = 0;
                 if (dt.Rows.Count > 0)
                 {
                     int i = 0;
@@ -281,8 +302,17 @@ namespace Nube.Reports
                     {
                         i++;
                         dr["NO"] = i;
+                        dTotalAmount = dTotalAmount + Convert.ToDecimal(dr["TOTALAMOUNT"]);
+                        dTotalBF = dTotalBF + Convert.ToDecimal(dr["AMOUNTBF"]);
+                        dTotalIns = dTotalIns + Convert.ToDecimal(dr["AMOUNTINS"]);
+                        dTotalSubs = dTotalSubs + Convert.ToDecimal(dr["AMTSUBS"]);
+
                     }
                     dgFeeDetail.ItemsSource = dt.DefaultView;
+                    txtTotalAmount.Text = dTotalAmount.ToString();
+                    txtTotalBF.Text = dTotalBF.ToString();
+                    txtTotalIns.Text = dTotalIns.ToString();
+                    txtTotalSubs.Text = dTotalSubs.ToString();
                 }
                 else
                 {

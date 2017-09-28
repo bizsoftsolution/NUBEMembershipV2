@@ -36,5 +36,6 @@ namespace Nube
         public Nullable<System.DateTime> VOUCHER_DATE { get; set; }
         public Nullable<decimal> SERVICE_YEAR { get; set; }
         public int Id { get; set; }
+        public string PayMode { get; set; }
     }
 }

@@ -22,8 +22,7 @@ namespace Nube.MasterSetup
     public partial class frmNameSetup : MetroWindow
     {
         public Boolean bIsEdit = false;
-        nubebfsEntity db = new nubebfsEntity();
-        int ID = 0;
+        nubebfsEntity db = new nubebfsEntity();        
         string sFormName = "";
 
         public frmNameSetup(string sForm_Name = "")

@@ -121,40 +121,43 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AccountGroup.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="AlterViewMaster.cs" />
     <Compile Include="AppLib.cs" />
     <Compile Include="ArrearPostDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ArrearPostMaster.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ArrearPreDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ArrearPreMaster.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Bank.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="CountrySetup.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="dtproperty.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="EventHistory.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ExceptionLogging.cs" />
     <Compile Include="FeesDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="FeesMaster.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="frmBackUpDB.xaml.cs">
       <DependentUpon>frmBackUpDB.xaml</DependentUpon>
@@ -197,49 +200,49 @@
     </Compile>
     <Compile Include="JSonHelper.cs" />
     <Compile Include="Ledger.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="LedgerReport.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginHistory.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERBANK.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERBANKBRANCH.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERCITY.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERGUARDIAN.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERMEMBER.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERMEMBERTYPE.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERNAMESETUP.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERNOMINEE.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERNUBEBRANCH.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERRACE.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERRELATION.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERRESIGNSTATU.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MasterSetup\frmBankSetup.xaml.cs">
       <DependentUpon>frmBankSetup.xaml</DependentUpon>
@@ -284,13 +287,13 @@
       <DependentUpon>frmYearEnd.xaml</DependentUpon>
     </Compile>
     <Compile Include="MASTERSTATE.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERSTATU.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MemberTransfer.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Message.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -299,9 +302,24 @@
     </Compile>
     <Compile Include="Model\UserPrevilage.cs" />
     <Compile Include="NameTitleSetup.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="NoFormate.cs" />
+    <Compile Include="NUBE DATA.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NUBE DATA.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NUBE DATA.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NUBE DATA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NUBE DATA.edmx</DependentUpon>
+    </Compile>
     <Compile Include="NubeAccountBankConcilation.xaml.cs">
       <DependentUpon>NubeAccountBankConcilation.xaml</DependentUpon>
     </Compile>
@@ -314,47 +332,32 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="NUBEDATA.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NUBEDATA.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NUBEDATA.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NUBEDATA.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NUBEDATA.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Payment.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Purchase.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchaseDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchaseOrder.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchaseOrderDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchaseReturn.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="PurchaseReturnDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Receipt.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Reports\frmActiveMemberReport.xaml.cs">
       <DependentUpon>frmActiveMemberReport.xaml</DependentUpon>
@@ -429,49 +432,55 @@
       <DependentUpon>NubeBankStatisticstoBranch.xaml</DependentUpon>
     </Compile>
     <Compile Include="RESIGNATION.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Sale.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SalesDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SalesOrder.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SalesOrderDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SalesReturn.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SalesReturnDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SalutationSetup.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SetupDocument.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Staff.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="StatusModify.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="StockGroup.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="StockReport.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Supplier.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxMaster.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEMPFEE_STATUS.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEMPVIEWMASTERMEMBER.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="Transaction\frmArrearDueList.xaml.cs">
       <DependentUpon>frmArrearDueList.xaml</DependentUpon>
@@ -507,121 +516,145 @@
       <DependentUpon>frmTransfer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tran_Start.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="TVMASTERMEMBER.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="UnitOfMeasurement.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="UserAccount.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="USERMASTER.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="UserPrevilage.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="UserType.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWACCRUEDBENEFIT.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewAnnualStatement.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBankBranch.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewBankBranchAdvice.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewBranchMonthlyStatement.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWDUE042016TO032017.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWDUEUPTO032016.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedger.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedgerGroup.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedgerJournal.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedgerOpening.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedgerPayment.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedgerPurchase.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedgerReceipt.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewLedgerReport.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewMasterMember.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewMemberLastPaidDate.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMembership.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewMemberTotalMonthsDue.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="VIEWNOMINEE.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchase.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseOrder.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseOrderDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseReturn.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseReturnDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewPurchaseSearch.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewReceipt.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWRESIGNREPORT.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSale.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWSALERYONEPERCENT.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSalesDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSalesOrder.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSalesOrderDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSalesReturn.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSalesReturnDetail.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewStockGroup.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewStockReport.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VIEWTOTALDUE.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewTrialBalance.cs">
-      <DependentUpon>NUBEDATA.tt</DependentUpon>
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Page Include="frmBackUpDB.xaml">
       <SubType>Designer</SubType>
@@ -929,6 +962,13 @@
     <EmbeddedResource Include="Reports\rptTitleReport.rdlc" />
     <EmbeddedResource Include="Reports\StateReport.rdlc" />
     <None Include="ClassDiagram1.cd" />
+    <EntityDeploy Include="NUBE DATA.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NUBE DATA.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="NUBE DATA.edmx.diagram">
+      <DependentUpon>NUBE DATA.edmx</DependentUpon>
+    </None>
     <None Include="nubebfsDataSet.xsc">
       <DependentUpon>nubebfsDataSet.xsd</DependentUpon>
     </None>
@@ -939,13 +979,6 @@
     </None>
     <None Include="nubebfsDataSet.xss">
       <DependentUpon>nubebfsDataSet.xsd</DependentUpon>
-    </None>
-    <EntityDeploy Include="NUBEDATA.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NUBEDATA.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="NUBEDATA.edmx.diagram">
-      <DependentUpon>NUBEDATA.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -1010,15 +1043,15 @@
     <Resource Include="Nube Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NUBEDATA.Context.tt">
+    <Content Include="NUBE DATA.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NUBEDATA.edmx</DependentUpon>
-      <LastGenOutput>NUBEDATA.Context.cs</LastGenOutput>
+      <DependentUpon>NUBE DATA.edmx</DependentUpon>
+      <LastGenOutput>NUBE DATA.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="NUBEDATA.tt">
+    <Content Include="NUBE DATA.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NUBEDATA.edmx</DependentUpon>
-      <LastGenOutput>NUBEDATA.cs</LastGenOutput>
+      <DependentUpon>NUBE DATA.edmx</DependentUpon>
+      <LastGenOutput>NUBE DATA.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -519,7 +519,7 @@ namespace Nube.Reports
                 " (CASE WHEN ST.MEMBERSTATUSCODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
                 " FROM TEMPVIEWMASTERMEMBER ST (NOLOCK) \r" +
                 " --FROM VIEWMASTERMEMBER ST (NOLOCK) \r" +
-                " WHERE ST.MEMBERSTATUSCODE IN(1, 2) AND ST.DATEOFJOINING < '2017-08-01' " + sWhere);
+                " WHERE ST.MEMBERSTATUSCODE IN(1, 2) AND ST.DATEOFJOINING < '2017-09-01' " + sWhere);
                 //
 
                 //Qry = String.Format("select isnull(nb.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,isnull(bk.BANK_NAME,'') AS BANK_NAME,isnull(bk.BANK_USERCODE,'')+'_'+isnull(br.BANKBRANCH_USERCODE,'') as BankBranch,isnull(mm.SEX,'') as SEX,isnull(mm.RACE_CODE,0) as RACE_CODE,isnull(mm.MEMBERTYPE_CODE,0) as MEMBERTYPE_CODE from {1}.dbo.STATUS{2} as st left join {0}.dbo.MASTERMEMBER as mm on mm.MEMBER_CODE=st.MEMBER_CODE left join {0}.dbo.MASTERBANK as bk on st.BANK_CODE = bk.BANK_CODE left join {0}.dbo.MASTERNUBEBRANCH as nb on nb.NUBE_BRANCH_CODE=br.NUBE_BRANCH_CODE left join {0}.dbo.MASTERBANKBRANCH as br on br.BANKBRANCH_CODE=mm.BRANCH_CODE  where mm.RESIGNED=0", AppLib.DBBFS);

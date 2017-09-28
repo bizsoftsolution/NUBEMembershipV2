@@ -178,7 +178,7 @@
 
                 <TabItem Header="Fund Details" FontSize="14">
                     <Grid>
-                        <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="875" Margin="2,4,-12,165" />
+                        <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="875" Margin="2,4,-8,137" />
                         <TextBlock x:Name="lblEntranceFee" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entrance Fee:" VerticalAlignment="Top" Width="90" Height="19" Margin="30,58,0,0"/>
                         <TextBlock x:Name="lblBuildingFund" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Building Fund:" VerticalAlignment="Top" Width="136" Margin="155,58,0,0"/>
                         <TextBlock x:Name="lblAccBenefit" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Acc Benefit:" VerticalAlignment="Top" Width="86" Margin="357,58,0,0"/>
@@ -189,62 +189,71 @@
                         <TextBox x:Name="txtBuildingFund" FontWeight="Bold"  HorizontalAlignment="Left" Height="40" Margin="291,39,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" PreviewTextInput="txtBuildingFund_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
                         <TextBox x:Name="txtAccBenefit" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="447,39,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" PreviewTextInput="txtAccBenefit_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
                         <TextBox x:Name="txtServicePeriod" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="794,39,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="43" RenderTransformOrigin="-2.887,2.667" PreviewTextInput="txtServicePeriod_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False" />
-                        <DatePicker x:Name="dtpLastPay" FontWeight="Bold" HorizontalAlignment="Left" IsEnabled="False" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="727,301,0,0" VerticalAlignment="Top" Width="112" FontSize="14" Height="34" materialDesign:HintAssist.Hint="Last Payment Date"/>
+                        <DatePicker x:Name="dtpLastPay" FontWeight="Bold" HorizontalAlignment="Left" IsEnabled="False" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="727,342,0,0" VerticalAlignment="Top" Width="112" FontSize="14" Height="34" materialDesign:HintAssist.Hint="Last Payment Date"/>
                         <TextBox x:Name="txtBadgeAmt" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="605,39,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667" PreviewTextInput="txtBadgeAmt_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                        <TextBlock x:Name="lblBadgeAmt_Copy" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Last Payment Date" VerticalAlignment="Top" Width="132" RenderTransformOrigin="0.481,3.368" Margin="589,308,0,0" Height="17"/>
-                        <GroupBox x:Name="groupBox" Header="Monthly" HorizontalAlignment="Left" Margin="30,108,0,0" VerticalAlignment="Top" Height="177" Width="150">
+                        <TextBlock x:Name="lblBadgeAmt_Copy" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Last Payment Date" VerticalAlignment="Top" Width="132" RenderTransformOrigin="0.481,3.368" Margin="589,349,0,0" Height="17"/>
+                        <GroupBox x:Name="groupBox" Header="Monthly" HorizontalAlignment="Left" Margin="30,108,0,0" VerticalAlignment="Top" Height="224" Width="150">
                             <Grid >
-                                <TextBlock x:Name="lblMonthlySub" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="10,15,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="10,62,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF_Copy" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,106,0,0"/>
-                                <TextBox x:Name="txtMonthlySub" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="54,-4,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.375" PreviewTextInput="txtMonthlySub_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtMonthlyBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="54,41,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.375" PreviewTextInput="txtMonthlyBF_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtMonthlyIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="54,85,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.375" PreviewTextInput="txtMonthlyInsurance_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBlock x:Name="lblMonthlySub" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="50"  Margin="0,24,0,0"/>
+                                <TextBlock x:Name="lblMonthlyBF" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="10,66,0,0"/>
+                                <TextBlock x:Name="lblMonthlyBF_Copy" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="UC:" VerticalAlignment="Top" Width="40" Margin="10,108,0,0"/>
+                                <TextBlock x:Name="lblMonthlyIns" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,150,0,0"/>
+                                <TextBox x:Name="txtMonthlySub" FontWeight="Bold" HorizontalAlignment="Left" Height="47" Margin="54,-3,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.375"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtMonthlyBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="54,48,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.375"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtMonthlyUC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="54,89,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.375"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtMonthlyIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="54,131,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.375"  IsReadOnly="True" IsUndoEnabled="False"/>
 
                             </Grid>
                         </GroupBox>
-                        <GroupBox x:Name="groupBox_Copy" Header="Acc" HorizontalAlignment="Left" Margin="195,108,0,0" VerticalAlignment="Top" Height="177" Width="150">
+                        <GroupBox x:Name="groupBoxAcc" Header="Acc" HorizontalAlignment="Left" Margin="195,108,0,0" VerticalAlignment="Top" Height="224" Width="146">
                             <Grid >
-                                <TextBlock x:Name="lblMonthlySub1" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="6,16,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF1" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="6,60,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF_Copy1" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="6,106,0,0"/>
-                                <TextBox x:Name="txtAccSub" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="52,-5,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="76" PreviewTextInput="txtAccSub_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtAccBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="52,40,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="76" PreviewTextInput="txtAccBF_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtAccIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="52,86,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="76" PreviewTextInput="txtAccIns_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBlock x:Name="lblMonthlySub1" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="9,21,0,0"/>
+                                <TextBlock x:Name="lblMonthlyBF1" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="42" Margin="7,62,0,0"/>
+                                <TextBlock x:Name="lblMonthlyUC" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="UC:" VerticalAlignment="Top" Width="42" Margin="7,104,0,0"/>
+                                <TextBlock x:Name="lblMonthlyInsu" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="41" Margin="8,148,0,0"/>
+                                <TextBox x:Name="txtAccSub" FontWeight="Bold" HorizontalAlignment="Left" Height="47" Margin="56,-5,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtAccBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="56,45,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtAccUC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="56,87,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtAccIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="56,130,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57"  IsReadOnly="True" IsUndoEnabled="False"/>
 
                             </Grid>
                         </GroupBox>
-                        <GroupBox x:Name="groupBox_Copy1" Header="Current YTD" HorizontalAlignment="Left" Margin="357,108,0,0" VerticalAlignment="Top" Height="177" Width="150">
+                        <GroupBox x:Name="groupBoxYTD" Header="Current YTD" HorizontalAlignment="Left" Margin="357,108,0,0" VerticalAlignment="Top" Height="224" Width="150">
                             <Grid >
-                                <TextBlock x:Name="lblMonthlySub2" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="10,14,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF2" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="10,62,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF_Copy2" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,108,0,0"/>
-                                <TextBox x:Name="txtCurrentYTDSub" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="62,-3,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="1.612,-0.5" PreviewTextInput="txtCurrentYTDSub_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtCurrentYTDBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="62,42,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.375" PreviewTextInput="txtCurrentYTDBF_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtCurrentYTDIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="62,88,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="1.612,-0.5" PreviewTextInput="txtCurrentYTDIns_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBlock x:Name="lblMonthlySub2" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="13,24,0,0"/>
+                                <TextBlock x:Name="lblMonthlyBF2" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="43" Margin="10,67,0,0"/>
+                                <TextBlock x:Name="lblMonthlyUCYTD" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="UC:" VerticalAlignment="Top" Width="43" Margin="10,110,0,0"/>
+                                <TextBlock x:Name="lblMonthlyInsYTD" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="43" Margin="10,152,0,0"/>
+                                <TextBox x:Name="txtCurrentYTDSub" FontWeight="Bold" HorizontalAlignment="Left" Height="47" Margin="62,-3,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="1.612,-0.5"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtCurrentYTDBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="62,49,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="0.5,0.375" IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtCurrentYTDUC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="62,91,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="1.612,-0.5"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtCurrentYTDIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="62,134,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" RenderTransformOrigin="1.612,-0.5"  IsReadOnly="True" IsUndoEnabled="False"/>
 
                             </Grid>
                         </GroupBox>
-                        <GroupBox x:Name="groupBox_Copy2" Header="Total Months Paid" HorizontalAlignment="Left" Margin="525,108,0,0" VerticalAlignment="Top" Height="177" Width="150">
+                        <GroupBox x:Name="groupBoxTotalMonthsPaid" Header="Total Months Paid" HorizontalAlignment="Left" Margin="525,108,0,0" VerticalAlignment="Top" Height="224" Width="150">
                             <Grid >
-                                <TextBlock x:Name="lblMonthlySub3" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="10,20,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF3" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="10,64,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF_Copy3" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,112,0,0"/>
-                                <TextBox x:Name="txtTotalMonthPaidSubs" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="60,-1,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" PreviewTextInput="txtTotalMonthsPaid_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtTotalMonthPaidBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="60,44,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" PreviewTextInput="txtTotalMonthsDue_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtTotalMonthPaidIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="60,92,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" PreviewTextInput="txtTotalMonthsDueIns_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBlock x:Name="lblMonthlySub3" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="10,28,0,0"/>
+                                <TextBlock x:Name="lblMonthlyBF3" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="10,67,0,0"/>
+                                <TextBlock x:Name="lblMonthlyUCMP" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="UC:" VerticalAlignment="Top" Width="40" Margin="10,110,0,0"/>
+                                <TextBlock x:Name="lblMonthlyInsTP" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,153,0,0"/>
+                                <TextBox x:Name="txtTotalMonthPaidSubs" FontWeight="Bold" HorizontalAlignment="Left" Height="47" Margin="60,-1,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTotalMonthPaidBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="60,51,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTotalMonthPaidUC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="60,93,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTotalMonthPaidIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="60,136,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="57" IsReadOnly="True" IsUndoEnabled="False"/>
 
                             </Grid>
                         </GroupBox>
-                        <GroupBox x:Name="groupBox_Copy3" Header="Total Months Due" HorizontalAlignment="Left" Margin="690,108,0,0" VerticalAlignment="Top" Height="177" Width="150">
+                        <GroupBox x:Name="groupBoxMonthsDue" Header="Total Months Due" HorizontalAlignment="Left" Margin="690,108,0,0" VerticalAlignment="Top" Height="224" Width="150">
                             <Grid >
-                                <TextBlock x:Name="lblMonthlySub4" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="10,18,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF4" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="10,64,0,0"/>
-                                <TextBlock x:Name="lblMonthlyBF_Copy4" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,110,0,0"/>
-                                <TextBox x:Name="txtTotalMonthsDueSubs" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="64,-2,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667" PreviewTextInput="txtSubsDue_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtTotalMonthsDueBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="64,44,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667" PreviewTextInput="txtBFDue_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-                                <TextBox x:Name="txtTotalMonthsDueIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="64,90,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667" PreviewTextInput="txtInsDue_PreviewTextInput" IsReadOnly="True" IsUndoEnabled="False"/>
-
+                                <TextBlock x:Name="lblMonthlySub4" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Subs:" VerticalAlignment="Top" Width="40"  Margin="10,27,0,0"/>
+                                <TextBlock x:Name="lblMonthlyBF4" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="BF:" VerticalAlignment="Top" Width="40" Margin="10,68,0,0"/>
+                                <TextBlock x:Name="lblMonthlyUCDue" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="UC:" VerticalAlignment="Top" Width="40" Margin="10,109,0,0"/>
+                                <TextBlock x:Name="lblMonthlyInsDue" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,150,0,0"/>
+                                <TextBox x:Name="txtTotalMonthsDueSubs" FontWeight="Bold" HorizontalAlignment="Left" Height="47" Margin="57,0,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTotalMonthsDueBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,50,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTotalMonthsDueUC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,91,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTotalMonthsDueIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,133,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
                             </Grid>
                         </GroupBox>
 
@@ -377,7 +386,7 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Insurance Details" FontSize="14">
+                <!--<TabItem Header="Insurance Details" FontSize="14">
                     <Grid>
                         <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="875" Margin="0,2,-10,118" />
                         <TextBox x:Name="txtInsName" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="21,83,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="298"/>
@@ -407,7 +416,7 @@
                         <TextBox x:Name="txtInsAddress3" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="21,261,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address 3" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="298" RenderTransformOrigin="-0.205,0.625" />
 
                     </Grid>
-                </TabItem>
+                </TabItem>-->
 
             </TabControl>
 

@@ -91,6 +91,10 @@ namespace Nube.Transaction
 
                 dgvDetails.ItemsSource = dtMember.DefaultView;
                 txtNoofMembers.Text = dtMember.Rows.Count.ToString();
+
+                AppLib.lstMstMember.Clear();
+                var lstMM = (from x in db.ViewMasterMembers select x).ToList();
+                AppLib.lstMstMember = lstMM;
             }
             catch (Exception ex)
             {

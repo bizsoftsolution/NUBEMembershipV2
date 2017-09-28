@@ -100,6 +100,7 @@ namespace Nube.Transaction
                             rsg.ACCBF = Convert.ToDecimal(txtRegBFContribution.Text);
                             rsg.ACCBENEFIT = Convert.ToDecimal(txtRegSubTotal.Text);
                             rsg.CHEQUENO = txtRegPaymode.Text.ToString();
+                            rsg.PayMode = cmbPaymode.Text.ToString();
                             rsg.CHEQUEDATE = dtpRegChequeDate.SelectedDate;
                             rsg.AMOUNT = Convert.ToDecimal(txtRegTotalAmount.Text);
                             rsg.TOTALARREARS = Convert.ToDecimal(txtTotalMonthsDueSubs.Text);
@@ -134,7 +135,6 @@ namespace Nube.Transaction
                                 this.Close();
                                 frm.ShowDialog();
                             }
-
                         }
                         else
                         {
@@ -487,18 +487,18 @@ namespace Nube.Transaction
 
         void LoadTempViewMaster()
         {
-            //try
-            //{
-            //    if (AppLib.lstTVMasterMember.Count == 0)
-            //    {
-            //        var lstMM = (from x in db.TVMASTERMEMBERs select x).ToList();
-            //        AppLib.lstTVMasterMember = lstMM;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    ExceptionLogging.SendErrorToText(ex);
-            //}
+            try
+            {
+                if (AppLib.lstMstMember.Count == 0)
+                {
+                    var lstMM = (from x in db.ViewMasterMembers select x).ToList();
+                    AppLib.lstMstMember = lstMM;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
         }
 
         void FormLoad()
@@ -624,6 +624,7 @@ namespace Nube.Transaction
                            }
                          ).FirstOrDefault();
                 DataTable dtResign = new DataTable();
+                DataTable dtFee = new DataTable();
                 using (SqlConnection con = new SqlConnection(AppLib.connStr))
                 {
                     SqlCommand cmd;
@@ -634,16 +635,24 @@ namespace Nube.Transaction
                     dtResign.Rows.Clear();
                     adp.SelectCommand.CommandTimeout = 0;
                     adp.Fill(dtResign);
+
+                    string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
+                                 " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
+                                 " FROM FEESDETAILS(NOLOCK)" +
+                                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND MEMBERCODE=" + dMember_Code;
+
+                    cmd = new SqlCommand(str, con);
+                    adp = new SqlDataAdapter(cmd);
+                    adp.Fill(dtFee);
                 }
 
                 //var status = (from x in AppLib.lstTVMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
-                var status = (from x in db.ViewMasterMembers where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                var status = (from x in AppLib.lstMstMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 if (status != null)
                 {
                     iStatusCode = Convert.ToInt32(status.MEMBERSTATUSCODE);
                 }
-
 
                 var brnch = (from bc in db.MASTERBANKBRANCHes
                              join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
@@ -723,17 +732,18 @@ namespace Nube.Transaction
                                }
                                ).FirstOrDefault();
 
-                var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();
-                DataTable dtFee = AppLib.LINQResultToDataTable(fees);
+                //var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();
 
-                decimal BF = 0, Ins = 0, Subs = 0, dTotlMonthsPaid = 0;
+                decimal BF = 0, UC = 0, Ins = 0, Subs = 0, dTotlMonthsPaid = 0, dTotlMonthsPaidUC = 0;
 
                 foreach (DataRow dr in dtFee.Rows)
                 {
-                    BF = BF + Convert.ToDecimal(dr["AmountBf"]);
-                    Ins = Ins + Convert.ToDecimal(dr["AmountIns"]);
-                    Subs = Subs + Convert.ToDecimal(dr["AmtSubs"]);
-                    dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TotalMonthsPaid"]);
+                    BF = BF + Convert.ToDecimal(dr["AMOUNTBF"]);
+                    UC = UC + Convert.ToDecimal(dr["UNIONCONTRIBUTION"]);
+                    Ins = Ins + Convert.ToDecimal(dr["AMOUNTINS"]);
+                    Subs = Subs + Convert.ToDecimal(dr["AMTSUBS"]);
+                    dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TOTALMONTHSPAID"]);
+                    dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TOTALMONTHSPAIDINS"]);
                 }
                 //var ArPost = (from ap in db.ArrearPostDetails where ap.MemberCode == dMember_Code && ap.UpdatedStatus == "Not Updated" select ap).ToList();
                 //DataTable dtArrearPost = AppLib.LINQResultToDataTable(ArPost);
@@ -815,7 +825,6 @@ namespace Nube.Transaction
 
                     txtRegAmount.Text = (totalMonths * 3).ToString();
                     txtServicePeriod.Text = iSerYear.ToString();
-                    //txtRegBenefits.Text = qry.ACCBENEFIT == null ? "0" : qry.ACCBENEFIT.ToString();
 
                     if (qry.RESIGNED == 1)
                     {
@@ -825,19 +834,34 @@ namespace Nube.Transaction
                     txtEntranceFee.Text = qry.ENTRANCEFEE.ToString();
                     txtBuildingFund.Text = status.HQFEE.ToString();
                     txtAccBenefit.Text = qry.ACCBENEFIT.ToString();
-                    txtMonthlySub.Text = status.MONTHLYSUBSCRIPTION.ToString();
-                    txtTotalMonthPaidSubs.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-                    txtTotalMonthPaidBF.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-                    txtAccSub.Text = (qry.ACCSUBSCRIPTION + Subs).ToString();
-                    txtMonthlyBF.Text = status.MONTHLYBF.ToString();
-                    txtAccBF.Text = (qry.ACCBF + BF).ToString();
-                    txtCurrentYTDBF.Text = BF.ToString();
-                    txtCurrentYTDSub.Text = Subs.ToString();
-
                     dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
                     dtpLastPay.IsEnabled = false;
+
+                    txtMonthlySub.Text = status.MONTHLYSUBSCRIPTION.ToString();
+                    txtMonthlyBF.Text = status.MONTHLYBF.ToString();
+                    txtMonthlyUC.Text = "7";
+                    txtMonthlyIns.Text = "10";
+
+                    txtAccSub.Text = (qry.ACCSUBSCRIPTION + Subs).ToString();
+                    txtAccBF.Text = (qry.ACCBF + BF).ToString();
+                    txtAccUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                    txtAccIns.Text = Ins.ToString();
+
+                    txtCurrentYTDSub.Text = Subs.ToString();
+                    txtCurrentYTDBF.Text = BF.ToString();
+                    txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                    txtCurrentYTDIns.Text = Ins.ToString();
+
+                    txtTotalMonthPaidSubs.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+                    txtTotalMonthPaidBF.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+                    txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
+                    txtTotalMonthPaidIns.Text = Ins.ToString();
+
                     txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
                     txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
+                    txtTotalMonthsDueUC.Text = "0";
+                    txtTotalMonthsDueIns.Text = "0";
+
                     txtBadgeAmt.Text = qry.BatchAmt.ToString();
                     if (qry.EMAIL != null)
                     {
@@ -848,12 +872,6 @@ namespace Nube.Transaction
                     txtResPostalCode.Text = qry.ZIPCODE;
                     cmbResState.SelectedValue = qry.resStatecode;
                     cmbResCountry.Text = qry.COUNTRY;
-
-                    txtCurrentYTDIns.Text = "0";
-                    txtTotalMonthsDueIns.Text = "0";
-                    txtTotalMonthPaidIns.Text = "0";
-                    txtMonthlyIns.Text = "0";
-                    txtAccIns.Text = "0";
 
                     if (status.RESIGNED == 1 || status.MEMBERSTATUSCODE == 6)
                     {
@@ -925,6 +943,7 @@ namespace Nube.Transaction
                         txtRegBenefits.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
                         txtRegAmount.Text = dtResign.Rows[i]["ACCBF"].ToString();
                         txtRegSubTotal.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
+                        cmbPaymode.Text = dtResign.Rows[i]["PAYMODE"].ToString();
                         txtRegPaymode.Text = dtResign.Rows[i]["CHEQUENO"].ToString();
                         dtpRegChequeDate.Text = dtResign.Rows[i]["CHEQUEDATE"].ToString();
                         txtRegTotalAmount.Text = dtResign.Rows[i]["AMOUNT"].ToString();
@@ -951,7 +970,9 @@ namespace Nube.Transaction
         {
             int iBFContri = Convert.ToInt32(txtRegBFContribution.Text);
             int iBenefits = Convert.ToInt32(txtRegSubTotal.Text);
+            int iUnionContri = Convert.ToInt32(txtRegUnionContri.Text);
             txtRegTotalAmount.Text = (iBFContri + iBenefits).ToString();
+            txtRegGrandTotal.Text = (iBFContri + iBenefits + iUnionContri).ToString();
             //txtRegSubTotal.Text = (iBFContri + iBenefits).ToString();
         }
 
@@ -960,6 +981,7 @@ namespace Nube.Transaction
             if (dMember_Code != 0)
             {
                 int iBenefitAmt = 0;
+                int iUnionContribbution = 0;
                 decimal dReason = Convert.ToDecimal(cmbRegReason.SelectedValue);
                 int iTotalmonth = AppLib.MonthDiff(dtpRegResignDate.SelectedDate.Value, dtpDOJ.SelectedDate.Value) + 1;
 
@@ -969,6 +991,7 @@ namespace Nube.Transaction
                     if (rr != null)
                     {
                         int iBenefitYrs = Convert.ToInt32(txtRegServiceYear.Text);
+                        iUnionContribbution = Convert.ToInt32(txtAccUC.Text);
                         if ((Convert.ToInt32(txtTotalMonthPaidSubs.Text) + 3) >= iTotalmonth && iBenefitYrs >= rr.MinimumYear)
                         {
                             int AmtPerYear1 = Convert.ToInt32(rr.AmtPerYear1);
@@ -986,8 +1009,13 @@ namespace Nube.Transaction
                             }
                         }
                     }
+                    else
+                    {
+                        iUnionContribbution = 0;
+                    }
                 }
                 txtRegBenefits.Text = iBenefitAmt.ToString();
+                txtRegUnionContri.Text = iUnionContribbution.ToString();
                 //txtRegContributedMonths.Text = iTotalmonth.ToString();
                 txtRegSubTotal.Text = iBenefitAmt.ToString();
                 fTotal();

@@ -33,8 +33,6 @@ namespace Nube
         public Nullable<decimal> BuildingFund { get; set; }
         public Nullable<decimal> BF { get; set; }
         public Nullable<decimal> Subscription { get; set; }
-        public Nullable<decimal> MembersContribution { get; set; }
-        public Nullable<decimal> NUBEsContribution { get; set; }
         public Nullable<decimal> Insurance { get; set; }
         public Nullable<decimal> BadgeAmount { get; set; }
         public Nullable<decimal> LevyAmount { get; set; }

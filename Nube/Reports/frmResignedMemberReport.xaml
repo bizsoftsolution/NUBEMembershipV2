@@ -12,7 +12,7 @@
         mc:Ignorable="d"
         xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
      
-        Title="NUBE Resigned Member" Height="750" Width="1200" Icon="/Nube;component/Image/Logo.png"  WindowState="Maximized" WindowStartupLocation="CenterScreen" >
+        Title="NUBE Resigned Member" Height="750" Width="1250" Icon="/Nube;component/Image/Logo.png"  WindowState="Maximized" WindowStartupLocation="CenterScreen" >
     <metro:MetroWindow.Background>
         <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
     </metro:MetroWindow.Background>
@@ -24,7 +24,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="690"/>
+            <RowDefinition Height="200"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="3">
@@ -34,28 +34,33 @@
         </Grid>
         <Grid  Grid.Row="1" Grid.ColumnSpan="2" Margin="0,10,5,-10" Grid.RowSpan="2">
 
-            <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="18,84,1047,584" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="115"/>
-            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="-7,121,1047,547" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="140"/>
+            <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="30,75,1059,574" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="28" Width="116"/>
+            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="6,114,1059,541" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="140"/>
             <TextBox x:Name="txtMemberNoFrom" HorizontalAlignment="Left" Height="52" Margin="548,102,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo From" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
             <TextBox x:Name="txtMemberNoTo" HorizontalAlignment="Left" Height="52" Margin="705,102,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
-            <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="630,45,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
-            <DatePicker x:Name="dtpToDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="847,45,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
-            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="860,124,238,538" VerticalAlignment="Center" Width="82" Height="28" Click="btnSearch_Click"/>
+            <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="630,35,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
+            <DatePicker x:Name="dtpToDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="837,35,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
+            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="862,128,261,521" VerticalAlignment="Center" Width="82" Height="28" Click="btnSearch_Click"/>
             <CheckBox x:Name="chkPrint" Content="Benefit Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="540,82,0,0" VerticalAlignment="Top" Height="20" Width="118"/>
-            <CheckBox x:Name="chkSimple" Content="Simple Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="976,82,0,0" VerticalAlignment="Top" Height="20" Width="118"/>
-            <Button x:Name="btnExit" Content="Back" HorizontalAlignment="Center" Margin="1080,124,18,538" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click" />
+            <CheckBox x:Name="chkSimple" Content="Simple Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="1006,82,0,0" VerticalAlignment="Top" Height="20" Width="118"/>
+            <Button x:Name="btnExit" Content="Back" HorizontalAlignment="Center" Margin="1092,128,31,521" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click" />
 
-            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="147,78,708,584" VerticalAlignment="Center" Width="325" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
-            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="147,118,708,544" VerticalAlignment="Center" Width="325" Height="28"/>
-            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="963,124,135,538" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
-            <TextBlock x:Name="lblNubeBranch"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="18,48,1047,620" TextWrapping="Wrap" Text="Nube Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="115"/>
-            <TextBlock x:Name="lblDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="487,46,595,622" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="98"/>
-            <TextBlock x:Name="lblToDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="727,46,380,622" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="73"/>
-            <TextBlock x:Name="lblReason"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="924,45,183,623" TextWrapping="Wrap" Text="Reason" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="73"/>
+            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="160,72,721,575" VerticalAlignment="Center" Width="324" Height="30" SelectionChanged="cmbBank_SelectionChanged"/>
+            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="160,112,721,541" VerticalAlignment="Center" Width="324" Height="24"/>
+            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="976,128,147,521" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
+            <TextBlock x:Name="lblNubeBranch"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="30,38,1059,613" TextWrapping="Wrap" Text="Nube Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="116"/>
+            <TextBlock x:Name="lblDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="510,36,597,615" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="98"/>
+            <TextBlock x:Name="lblToDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="740,35,393,617" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="25" Width="72"/>
+            <TextBlock x:Name="lblReason"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="936,41,195,614" TextWrapping="Wrap" Text="Reason" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="74"/>
 
-            <ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="147,42,708,620" VerticalAlignment="Center" Width="325" Height="28" />
-            <ComboBox x:Name="cmbReasonBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="1005,42,-3,620" VerticalAlignment="Center" Width="178" Height="28" />
-            <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="515" Margin="8,165,7,10"  VerticalAlignment="Center" Width="1165" FontSize="14" Background="Transparent" >
+            <ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="160,36,721,611" VerticalAlignment="Center" Width="324" Height="30" />
+            <ComboBox x:Name="cmbReasonBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="1018,36,9,611" VerticalAlignment="Center" Width="178" Height="30" />
+            <RadioButton x:Name="rbtResingDate" IsChecked="True" Content="Resign Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="740,82,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbtPaymentDate" Content="Payment Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="841,82,0,0" VerticalAlignment="Top"/>
+            <TextBlock x:Name="lblToDate_Copy"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="663,78,470,574" TextWrapping="Wrap" Text="Date Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="25" Width="72"/>
+        </Grid>
+        <Grid Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <TabControl x:Name="tabControl" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1166" FontSize="14" Background="Transparent" Margin="22,10,22,-19" >
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -114,7 +119,6 @@
                     </WindowsFormsHost>
                 </TabItem>
             </TabControl>
-
         </Grid>
 
     </Grid>

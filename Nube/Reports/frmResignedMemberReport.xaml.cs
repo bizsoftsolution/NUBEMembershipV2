@@ -90,14 +90,12 @@ namespace Nube
                     {
                         MessageBox.Show("No Records Found!");
                     }
-
                 }
             }
             else
             {
                 LoadReport();
             }
-
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
@@ -243,13 +241,27 @@ namespace Nube
                 Wqry();
                 if (!string.IsNullOrEmpty(dtpFromDate.Text))
                 {
-                    if (!string.IsNullOrEmpty(qry))
+                    if (rbtPaymentDate.IsChecked == true)
                     {
-                        qry = qry + string.Format(" AND VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
                     }
                     else
                     {
-                        qry = qry + string.Format(" VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND RESIGNATION_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" RESIGNATION_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
                     }
                 }
                 if (!string.IsNullOrEmpty(cmbReasonBranch.Text))
@@ -334,7 +346,14 @@ namespace Nube
 
                 if (!string.IsNullOrEmpty(dtpFromDate.Text))
                 {
-                    qry = qry + string.Format(" AND VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                    if (rbtPaymentDate.IsChecked == true)
+                    {
+                        qry = qry + string.Format(" AND VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                    }
+                    else
+                    {
+                        qry = qry + string.Format(" AND RESIGNATION_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                    }                    
                 }
 
                 cmd = new SqlCommand("SELECT * FROM VIEWMASTERMEMBER(NOLOCK)  where " + qry + " ORDER BY MEMBER_NAME", con);

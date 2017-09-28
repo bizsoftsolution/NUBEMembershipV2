@@ -31,14 +31,19 @@ namespace Nube
         public virtual DbSet<ArrearPreDetail> ArrearPreDetails { get; set; }
         public virtual DbSet<ArrearPreMaster> ArrearPreMasters { get; set; }
         public virtual DbSet<Bank> Banks { get; set; }
+        public virtual DbSet<CountrySetup> CountrySetups { get; set; }
         public virtual DbSet<dtproperty> dtproperties { get; set; }
         public virtual DbSet<EventHistory> EventHistories { get; set; }
+        public virtual DbSet<FeesDetail> FeesDetails { get; set; }
         public virtual DbSet<FeesMaster> FeesMasters { get; set; }
         public virtual DbSet<LoginHistory> LoginHistories { get; set; }
+        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
         public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         public virtual DbSet<MASTERCITY> MASTERCITies { get; set; }
         public virtual DbSet<MASTERGUARDIAN> MASTERGUARDIANs { get; set; }
+        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<MASTERMEMBERTYPE> MASTERMEMBERTYPEs { get; set; }
+        public virtual DbSet<MASTERNAMESETUP> MASTERNAMESETUPs { get; set; }
         public virtual DbSet<MASTERNOMINEE> MASTERNOMINEEs { get; set; }
         public virtual DbSet<MASTERNUBEBRANCH> MASTERNUBEBRANCHes { get; set; }
         public virtual DbSet<MASTERRACE> MASTERRACEs { get; set; }
@@ -47,13 +52,16 @@ namespace Nube
         public virtual DbSet<MASTERSTATE> MASTERSTATEs { get; set; }
         public virtual DbSet<MASTERSTATU> MASTERSTATUS { get; set; }
         public virtual DbSet<MemberTransfer> MemberTransfers { get; set; }
-        public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
+        public virtual DbSet<NameTitleSetup> NameTitleSetups { get; set; }
+        public virtual DbSet<SalutationSetup> SalutationSetups { get; set; }
         public virtual DbSet<SetupDocument> SetupDocuments { get; set; }
+        public virtual DbSet<StatusModify> StatusModifies { get; set; }
         public virtual DbSet<Tran_Start> Tran_Start { get; set; }
         public virtual DbSet<UnitOfMeasurement> UnitOfMeasurements { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<UserPrevilage> UserPrevilages { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<FEE_STATUS> FEE_STATUS { get; set; }
         public virtual DbSet<Ledger> Ledgers { get; set; }
         public virtual DbSet<LedgerReport> LedgerReports { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
@@ -76,14 +84,17 @@ namespace Nube
         public virtual DbSet<StockReport> StockReports { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<TaxMaster> TaxMasters { get; set; }
+        public virtual DbSet<TEMPFEE_STATUS> TEMPFEE_STATUS { get; set; }
+        public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
+        public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
         public virtual DbSet<USERMASTER> USERMASTERs { get; set; }
-        public virtual DbSet<CountrySetup> CountrySetups { get; set; }
-        public virtual DbSet<NameTitleSetup> NameTitleSetups { get; set; }
-        public virtual DbSet<SalutationSetup> SalutationSetups { get; set; }
-        public virtual DbSet<StatusModify> StatusModifies { get; set; }
+        public virtual DbSet<VIEWACCRUEDBENEFIT> VIEWACCRUEDBENEFITs { get; set; }
         public virtual DbSet<ViewAnnualStatement> ViewAnnualStatements { get; set; }
+        public virtual DbSet<ViewBankBranch> ViewBankBranches { get; set; }
         public virtual DbSet<ViewBankBranchAdvice> ViewBankBranchAdvices { get; set; }
         public virtual DbSet<ViewBranchMonthlyStatement> ViewBranchMonthlyStatements { get; set; }
+        public virtual DbSet<VIEWDUE042016TO032017> VIEWDUE042016TO032017 { get; set; }
+        public virtual DbSet<VIEWDUEUPTO032016> VIEWDUEUPTO032016 { get; set; }
         public virtual DbSet<ViewLedger> ViewLedgers { get; set; }
         public virtual DbSet<ViewLedgerGroup> ViewLedgerGroups { get; set; }
         public virtual DbSet<ViewLedgerJournal> ViewLedgerJournals { get; set; }
@@ -92,8 +103,11 @@ namespace Nube
         public virtual DbSet<ViewLedgerPurchase> ViewLedgerPurchases { get; set; }
         public virtual DbSet<ViewLedgerReceipt> ViewLedgerReceipts { get; set; }
         public virtual DbSet<ViewLedgerReport> ViewLedgerReports { get; set; }
+        public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
         public virtual DbSet<ViewMemberLastPaidDate> ViewMemberLastPaidDates { get; set; }
+        public virtual DbSet<ViewMembership> ViewMemberships { get; set; }
         public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
+        public virtual DbSet<VIEWNOMINEE> VIEWNOMINEEs { get; set; }
         public virtual DbSet<ViewPurchase> ViewPurchases { get; set; }
         public virtual DbSet<ViewPurchaseDetail> ViewPurchaseDetails { get; set; }
         public virtual DbSet<ViewPurchaseOrder> ViewPurchaseOrders { get; set; }
@@ -102,6 +116,8 @@ namespace Nube
         public virtual DbSet<ViewPurchaseReturnDetail> ViewPurchaseReturnDetails { get; set; }
         public virtual DbSet<ViewPurchaseSearch> ViewPurchaseSearches { get; set; }
         public virtual DbSet<ViewReceipt> ViewReceipts { get; set; }
+        public virtual DbSet<VIEWRESIGNREPORT> VIEWRESIGNREPORTs { get; set; }
+        public virtual DbSet<VIEWSALERYONEPERCENT> VIEWSALERYONEPERCENTs { get; set; }
         public virtual DbSet<ViewSale> ViewSales { get; set; }
         public virtual DbSet<ViewSalesDetail> ViewSalesDetails { get; set; }
         public virtual DbSet<ViewSalesOrder> ViewSalesOrders { get; set; }
@@ -110,13 +126,8 @@ namespace Nube
         public virtual DbSet<ViewSalesReturnDetail> ViewSalesReturnDetails { get; set; }
         public virtual DbSet<ViewStockGroup> ViewStockGroups { get; set; }
         public virtual DbSet<ViewStockReport> ViewStockReports { get; set; }
+        public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
         public virtual DbSet<ViewTrialBalance> ViewTrialBalances { get; set; }
-        public virtual DbSet<VIEWNOMINEE> VIEWNOMINEEs { get; set; }
-        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
-        public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
-        public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
-        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
-        public virtual DbSet<FeesDetail> FeesDetails { get; set; }
-        public virtual DbSet<MASTERNAMESETUP> MASTERNAMESETUPs { get; set; }
+        public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
     }
 }

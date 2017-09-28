@@ -153,8 +153,7 @@ namespace Nube.Transaction
                                         TotalMonthsPaid = 1,
                                         TotalMonthsPaidBF = 0,
                                         TotalMonthsPaidIns = 1,
-                                        MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                        NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                        UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                                     };
                                     lstFeesDetls.Add(FeesDtl);
                                 }
@@ -199,9 +198,8 @@ namespace Nube.Transaction
                                             Status = "Fees Entry",
                                             TotalMonthsPaid = 1,
                                             TotalMonthsPaidBF = 0,
-                                            TotalMonthsPaidIns = 1,                                           
-                                            MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                            NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                            TotalMonthsPaidIns = 1,
+                                            UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                                         };
                                         lstFeesDetls.Add(FeesDtl);
                                     }
@@ -229,8 +227,7 @@ namespace Nube.Transaction
                                             TotalMonthsPaid = 1,
                                             TotalMonthsPaidBF = 0,
                                             TotalMonthsPaidIns = 1,                                            
-                                            MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                            NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                            UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                                         };
                                         lstFeesDetls.Add(FeesDtl);
                                     }
@@ -258,8 +255,7 @@ namespace Nube.Transaction
                                             TotalMonthsPaid = 1,
                                             TotalMonthsPaidBF = 0,
                                             TotalMonthsPaidIns = 1,                                            
-                                            MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                            NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                            UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                                         };
                                         lstFeesDetls.Add(FeesDtl);
                                     }
@@ -372,8 +368,7 @@ namespace Nube.Transaction
                                     TotalMonthsPaid = 1,
                                     TotalMonthsPaidBF = 0,
                                     TotalMonthsPaidIns = 1,                                    
-                                    MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                    NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                    UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                                 };
                                 lstFeesDetls.Add(FeesDtl);
                             }
@@ -419,8 +414,7 @@ namespace Nube.Transaction
                                         TotalMonthsPaid = 1,
                                         TotalMonthsPaidBF = 0,
                                         TotalMonthsPaidIns = 1,                                        
-                                        MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                        NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                        UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
 
                                     };
                                     lstFeesDetls.Add(FeesDtl);
@@ -449,8 +443,7 @@ namespace Nube.Transaction
                                         TotalMonthsPaid = 1,
                                         TotalMonthsPaidBF = 0,
                                         TotalMonthsPaidIns = 1,                                        
-                                        MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                        NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                        UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                                     };
                                     lstFeesDetls.Add(FeesDtl);
                                 }
@@ -478,8 +471,7 @@ namespace Nube.Transaction
                                         TotalMonthsPaid = 1,
                                         TotalMonthsPaidBF = 0,
                                         TotalMonthsPaidIns = 1,                                        
-                                        MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                                        NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                                        UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                                     };
                                     lstFeesDetls.Add(FeesDtl);
                                 }
@@ -595,8 +587,7 @@ namespace Nube.Transaction
                             TotalMonthsPaid = 1,
                             TotalMonthsPaidBF = 0,
                             TotalMonthsPaidIns = 1,                            
-                            MemberContribution = Convert.ToDecimal(dt.Rows[i]["MEMBERCONTRI"]),
-                            NUBEContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
+                            UnionContribution = Convert.ToDecimal(dt.Rows[i]["NUBECONTRI"])
                         };
                         DB.FeesDetails.Add(FeesDtl);
                         DB.SaveChanges();
@@ -942,8 +933,7 @@ namespace Nube.Transaction
                 dtTemp.Columns.Add("REASON", typeof(string));
                 dtTemp.Columns.Add("LAST_PAY_DATE", typeof(string));
                 dtTemp.Columns.Add("OLD", typeof(string));
-                dtTemp.Columns.Add("OLD2", typeof(string));
-                dtTemp.Columns.Add("MEMBERCONTRI", typeof(string));
+                dtTemp.Columns.Add("OLD2", typeof(string));                
                 dtTemp.Columns.Add("NUBECONTRI", typeof(string));
 
                 for (rowCnt = 5; rowCnt <= excelRange.Rows.Count; rowCnt++)
@@ -1036,22 +1026,19 @@ namespace Nube.Transaction
                             if (iAmnt <= 0)
                             {
                                 iBF = 0;
-                                iInsurance = 0;
-                                dtTemp.Rows[i]["MEMBERCONTRI"] = "0";
+                                iInsurance = 0;                                
                                 dtTemp.Rows[i]["NUBECONTRI"] = "0";
                             }
                             else if (nm != null)
                             {
                                 iInsurance = Convert.ToDecimal(nm.Insurance);
-                                iBF = Convert.ToDecimal(nm.BF);
-                                dtTemp.Rows[i]["MEMBERCONTRI"] = Convert.ToDecimal(nm.MembersContribution);
-                                dtTemp.Rows[i]["NUBECONTRI"] = Convert.ToDecimal(nm.NUBEsContribution);
+                                iBF = 3;                                
+                                dtTemp.Rows[i]["NUBECONTRI"] = "7";
                             }
                             else
                             {
-                                iBF = 0;
-                                iInsurance = 10;
-                                dtTemp.Rows[i]["MEMBERCONTRI"] = "3";
+                                iBF = 3;
+                                iInsurance = 10;                                
                                 dtTemp.Rows[i]["NUBECONTRI"] = "7";
                             }
 
@@ -1185,8 +1172,7 @@ namespace Nube.Transaction
                             {
                                 dtTemp.Rows[i]["REASON"] = "NRIC NOT MATCH BUT NAME MATCH";
                                 dtTemp.Rows[i]["STATUS_CODE"] = "13";
-                                dtTemp.Rows[i]["MEMBERID"] = mst.MEMBER_ID;
-                                dtTemp.Rows[i]["MEMBERCONTRI"] = "3";
+                                dtTemp.Rows[i]["MEMBERID"] = mst.MEMBER_ID;                                
                                 dtTemp.Rows[i]["NUBECONTRI"] = "7";
 
                                 if (mst.ICNO_NEW != null)
@@ -1225,19 +1211,18 @@ namespace Nube.Transaction
                             }
                             else
                             {
-                                iBF = 0;
+                                iBF = 3;
 
                                 dtTemp.Rows[i]["STATUS_CODE"] = "8";
                                 dtTemp.Rows[i]["MEMBERCODE"] = "0";
-                                dtTemp.Rows[i]["BANKCODE"] = "0";
-                                dtTemp.Rows[i]["MEMBERCONTRI"] = "3";
+                                dtTemp.Rows[i]["BANKCODE"] = "0";                                
                                 dtTemp.Rows[i]["NUBECONTRI"] = "7";
                                 dtTemp.Rows[i]["REASON"] = "NRIC NOT MATCH";
                                 iAmnt = Convert.ToDecimal(dtTemp.Rows[i]["Amount"]);
                                 if (iAmnt > 0)
                                 {
                                     dtTemp.Rows[i]["INSURANCE"] = "10";
-                                    dtTemp.Rows[i]["BF"] = "0";
+                                    dtTemp.Rows[i]["BF"] = "3";
                                 }
                                 else
                                 {
@@ -1287,8 +1272,7 @@ namespace Nube.Transaction
                             dtTemp.Rows[i]["INSURANCE"] = "10";
                             dtTemp.Rows[i]["STATUS_CODE"] = MstMember.MEMBERSTATUSCODE;
                             dtTemp.Rows[i]["MEMBERCODE"] = MstMember.MEMBER_CODE;
-                            dtTemp.Rows[i]["BANKCODE"] = MstMember.BANK_CODE;
-                            dtTemp.Rows[i]["MEMBERCONTRI"] = "3";
+                            dtTemp.Rows[i]["BANKCODE"] = MstMember.BANK_CODE;                            
                             dtTemp.Rows[i]["NUBECONTRI"] = "7";
                             dBank_Code = Convert.ToDecimal(MstMember.BANK_CODE);
                             iAmnt = Convert.ToDecimal(dtTemp.Rows[i]["Amount"]);
@@ -1440,12 +1424,11 @@ namespace Nube.Transaction
                             //}
                             //else
                             //{
-                            iBF = 0;
+                            iBF = 3;
 
                             dtTemp.Rows[i]["STATUS_CODE"] = "6";
                             dtTemp.Rows[i]["MEMBERCODE"] = "0";
-                            dtTemp.Rows[i]["BANKCODE"] = "0";
-                            dtTemp.Rows[i]["MEMBERCONTRI"] = "3";
+                            dtTemp.Rows[i]["BANKCODE"] = "0";                            
                             dtTemp.Rows[i]["NUBECONTRI"] = "7";
                             dtTemp.Rows[i]["REASON"] = "NAME NOT MATCH";
                             iAmnt = Convert.ToDecimal(dtTemp.Rows[i]["Amount"]);
