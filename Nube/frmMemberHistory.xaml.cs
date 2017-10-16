@@ -145,6 +145,7 @@ namespace Nube
 
                     if (mm != null)
                     {
+                        dgvDetails.ItemsSource = null;
                         txtBankName.Text = mm.BANK_USERCODE;
                         txtBranchkName.Text = mm.BRANCHNAME;
                         dtpDOJ.SelectedDate = mm.DATEOFJOINING;
