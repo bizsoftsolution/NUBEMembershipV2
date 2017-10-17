@@ -250,11 +250,11 @@ namespace Nube
                 SqlCommand cmd;
                 if (sForm_Name == "NewMemberReport")
                 {
-                    cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_ID,MEMBER_NAME,ISNULL(MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,\r" +
+                    cmd = new SqlCommand(" SELECT ROW_NU-bMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_ID,MEMBER_NAME,ISNULL(MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,\r" +
                                      " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
                                      " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
                                      " ISNULL(SEX,'')SEX,DATEOFJOINING \r" +
-                                     " FROM VIEWMASTERMEMBER MM(NOLOCK) " +
+                                     " FROM TEMPVIEWMASTERMEMBER MM(NOLOCK) " +
                                      " WHERE " + qry +
                                      " ORDER BY MEMBER_NAME", con);
                 }
@@ -272,7 +272,7 @@ namespace Nube
                                                          " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
                                                          " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
                                                          " ISNULL(SEX,'')SEX,DATEOFJOINING\r" +
-                                                         " FROM VIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
+                                                         " FROM TEMPVIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
                                                          " ORDER BY MEMBER_NAME", con);
                 }
 
@@ -291,7 +291,7 @@ namespace Nube
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 SqlCommand cmd;
-                cmd = new SqlCommand("SELECT * FROM VIEWMASTERMEMBER(NOLOCK)  WHERE " + qry + " ORDER BY MEMBER_NAME", con);
+                cmd = new SqlCommand("SELECT * FROM TEMPVIEWMASTERMEMBER(NOLOCK)  WHERE " + qry + " ORDER BY MEMBER_NAME", con);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 adp.Fill(dt);
                 qry = "";

@@ -26,11 +26,12 @@ namespace Nube.Transaction
         decimal dMember_Code = 0;
         nubebfsEntity db = new nubebfsEntity();
         Boolean bValidation = false;
+        decimal dBankCodeBF = 0;
+        decimal dBranchCodeBF = 0;
         public frmTransfer(decimal dMembercode = 0)
         {
             InitializeComponent();
             dMember_Code = dMembercode;
-
             FormLoad();
             if (dMember_Code != 0)
             {
@@ -56,6 +57,8 @@ namespace Nube.Transaction
                 if (mm != null)
                 {
                     dMember_Code = mm.MEMBER_CODE;
+                    dBankCodeBF = 0;
+                    dBranchCodeBF = 0;
                     FormFill();
                 }
                 else
@@ -88,10 +91,10 @@ namespace Nube.Transaction
                         MemberTransfer mt = new MemberTransfer();
                         mt.EntryDate = DateTime.Now.Date;
                         mt.MemberCode = dMember_Code;
-                        mt.BankCodeBF = Convert.ToDecimal(txtBankCode.Text);
-                        mt.BranchCodeBF = Convert.ToDecimal(txtBranchCode.Text);
-                        mt.BankCodeAF = Convert.ToDecimal(txtBankCode.Text);
-                        mt.BranchCodeAF = Convert.ToDecimal(txtBranchCode.Text);
+                        mt.BankCodeBF = dBankCodeBF;
+                        mt.BranchCodeBF = dBranchCodeBF;
+                        mt.BankCodeAF = Convert.ToDecimal(cmbBankCode.SelectedValue);
+                        mt.BranchCodeAF = Convert.ToDecimal(cmbBranchCode.SelectedValue);
                         mt.UserId = AppLib.iUserCode;
 
                         db.MemberTransfers.Add(mt);
@@ -275,7 +278,6 @@ namespace Nube.Transaction
                 ExceptionLogging.SendErrorToText(ex);
             }
         }
-
 
         #endregion
 
@@ -481,6 +483,8 @@ namespace Nube.Transaction
 
         private void FormFill()
         {
+            dBankCodeBF = 0;
+            dBranchCodeBF = 0;
             try
             {
                 var qry = (from mm in db.MASTERMEMBERs
@@ -539,6 +543,7 @@ namespace Nube.Transaction
                     txtOldIC.Text = qry.ICNO_OLD;
                     dtpDOJ.SelectedDate = Convert.ToDateTime(qry.DATEOFJOINING);
 
+                    dBankCodeBF = qry.BANK_CODE;
                     txtBankCode.Text = qry.BANK_USERCODE.ToString();
                     txtBankName.Text = qry.BANK_NAME;
                 }
@@ -557,7 +562,7 @@ namespace Nube.Transaction
                     txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
                     txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
                     txtEmail.Text = brnch.BANKBRANCH_EMAIL;
-
+                    dBranchCodeBF = brnch.BANKBRANCH_CODE;
                 }
             }
             catch (Exception ex)
@@ -609,6 +614,8 @@ namespace Nube.Transaction
             txtCMobileNo.Text = "";
             txtCEmail.Text = "";
             dMember_Code = 0;
+            dBankCodeBF = 0;
+            dBranchCodeBF = 0;            
             FormLoad();
         }
 
