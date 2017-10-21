@@ -273,7 +273,7 @@ namespace Nube.Reports
                     str = " SELECT '' NO,0 DETAILID,0 FEEID,FD.MEMBER_CODE,ISNULL(MM.MEMBER_ID,0)MEMBERID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME, \r" +
                            " CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,\r" +
                            " (FD.TOTALBF_AMOUNT+FD.TOTALSUBCRP_AMOUNT) TOTALAMOUNT,'' DEPT,FD.TOTALBF_AMOUNT AMOUNTBF,0 AMOUNTINS,TOTALSUBCRP_AMOUNT AMTSUBS,'' REASON \r" +
-                           " FROM FEE_STATUS FD(NOLOCK) \r" +
+                           " FROM nubestatus..FEE_STATUS FD(NOLOCK) \r" +
                            " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBER_CODE \r" + sWhere +
                            " ORDER BY MM.MEMBER_NAME ";
                 }

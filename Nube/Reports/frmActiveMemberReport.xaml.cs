@@ -250,13 +250,18 @@ namespace Nube
                 SqlCommand cmd;
                 if (sForm_Name == "NewMemberReport")
                 {
-                    cmd = new SqlCommand(" SELECT ROW_NU-bMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_ID,MEMBER_NAME,ISNULL(MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,\r" +
-                                     " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
-                                     " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
-                                     " ISNULL(SEX,'')SEX,DATEOFJOINING \r" +
-                                     " FROM TEMPVIEWMASTERMEMBER MM(NOLOCK) " +
-                                     " WHERE " + qry +
-                                     " ORDER BY MEMBER_NAME", con);
+                    cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME, \r" +
+                                         " ISNULL(MT.MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,ISNULL(MM.LEVY,'')LEVY,ISNULL(MM.TDF,'')TDF,ISNULL(MM.SEX,'')SEX,\r" +
+                                         " CASE WHEN ISNULL(MM.ICNO_NEW, '')<>'' THEN ISNULL(MM.ICNO_NEW,'') ELSE ISNULL(MM.ICNO_OLD,'') END ICNO_NEW,\r" +
+                                         " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANK_USERCODE,MM.DATEOFJOINING,MM.DATEOFJOINING, \r" +
+                                         " ISNULL(VT.LASTPAIDDATE,MM.LASTPAYMENT_DATE)LASTPAYMENT_DATE \r" +
+                                         " FROM MASTERMEMBER MM(NOLOCK) \r" +
+                                         " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = MM.BANK_CODE \r" +
+                                         " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
+                                         " LEFT JOIN MASTERMEMBERTYPE MT(NOLOCK) ON MT.MEMBERTYPE_CODE = MM.MEMBERTYPE_CODE \r" +
+                                         " LEFT JOIN VIEWTOTALDUE VT(NOLOCK) ON VT.MEMBER_CODE = MM.MEMBER_CODE \r" +
+                                         " WHERE " + qry +
+                                         " ORDER BY MEMBER_NAME", con);
                 }
                 else
                 {
@@ -303,11 +308,11 @@ namespace Nube
         {
             if (sForm_Name == "NewMemberReport" && !string.IsNullOrEmpty(dtpFromDate.Text) && !string.IsNullOrEmpty(qry))
             {
-                qry = qry + string.Format(" AND DATEOFJOINING BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                qry = qry + string.Format(" AND MM.DATEOFJOINING BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
             }
             else if (sForm_Name == "NewMemberReport" && !string.IsNullOrEmpty(dtpFromDate.Text) && string.IsNullOrEmpty(qry))
             {
-                qry = qry + string.Format(" DATEOFJOINING BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                qry = qry + string.Format(" MM.DATEOFJOINING BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
             }
 
             if (sForm_Name != "NewMemberReport" && !string.IsNullOrEmpty(qry))
@@ -323,11 +328,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + string.Format(" AND MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                    qry = qry + string.Format(" AND MM.MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
                 }
                 else
                 {
-                    qry = qry + string.Format(" MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                    qry = qry + string.Format(" MM.MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
                 }
 
             }
@@ -335,35 +340,32 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                    qry = qry + string.Format(" AND MM.MEMBER_ID ={0} ", txtMemberNoFrom.Text);
                 }
                 else
                 {
-                    qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                    qry = qry + string.Format(" MM.MEMBER_ID ={0} ", txtMemberNoFrom.Text);
                 }
             }
 
+            else if (!string.IsNullOrEmpty(txtMemberNoTo.Text) && !string.IsNullOrEmpty(qry))
+            {
+                qry = qry + string.Format(" AND MM.MEMBER_ID ={0} ", txtMemberNoTo.Text);
+            }
             else if (!string.IsNullOrEmpty(txtMemberNoTo.Text))
             {
-                if (!string.IsNullOrEmpty(qry))
-                {
-                    qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoTo.Text);
-                }
-                else
-                {
-                    qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoTo.Text);
-                }
+                qry = qry + string.Format(" MM.MEMBER_ID ={0} ", txtMemberNoTo.Text);
             }
 
             if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND NUBEBRANCH=" + cmbNubeBranch.SelectedValue;
+                    qry = qry + " AND BB.NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
                 }
                 else
                 {
-                    qry = qry + " NUBEBRANCH=" + cmbNubeBranch.SelectedValue;
+                    qry = qry + " BB.NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
                 }
             }
 
@@ -371,11 +373,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND BANK_CODE=" + cmbBank.SelectedValue;
+                    qry = qry + " AND MM.BANK_CODE=" + cmbBank.SelectedValue;
                 }
                 else
                 {
-                    qry = qry + " BANK_CODE=" + cmbBank.SelectedValue;
+                    qry = qry + " MM.BANK_CODE=" + cmbBank.SelectedValue;
                 }
             }
 
@@ -383,11 +385,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND BRANCH_CODE=" + cmbBranch.SelectedValue;
+                    qry = qry + " AND MM.BRANCH_CODE=" + cmbBranch.SelectedValue;
                 }
                 else
                 {
-                    qry = qry + " BRANCH_CODE=" + cmbBranch.SelectedValue;
+                    qry = qry + " MM.BRANCH_CODE=" + cmbBranch.SelectedValue;
                 }
             }
 

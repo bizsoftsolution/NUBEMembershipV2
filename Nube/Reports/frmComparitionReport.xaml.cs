@@ -391,7 +391,7 @@ namespace Nube.Reports
                     }
                     sQry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,FD.MEMBER_CODE,MM.MEMBER_ID,MM.MEMBER_NAME,BK.BANK_USERCODE BANK_NAME,BR.BANKBRANCH_NAME, \r" +
                                                 " FD.TOTALBF_AMOUNT BF,0 INS,TOTALSUBCRP_AMOUNT SUBS  \r" +
-                                                " FROM FEE_STATUS FD(NOLOCK) \r" +
+                                                " FROM nubestatus..FEE_STATUS FD(NOLOCK) \r" +
                                                 " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBER_CODE\r " +
                                                 " LEFT JOIN MASTERBANK BK(NOLOCK) ON BK.BANK_CODE = MM.BANK_CODE \r" +
                                                 " LEFT JOIN MASTERBANKBRANCH BR(NOLOCK) ON BR.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
