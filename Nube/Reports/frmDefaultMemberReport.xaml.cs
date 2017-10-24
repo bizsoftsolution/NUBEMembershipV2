@@ -31,17 +31,25 @@ namespace Nube
         public frmDefaultMemberReport()
         {
             InitializeComponent();
-            var NUBE = db.MASTERNUBEBRANCHes.OrderBy(x => x.NUBE_BRANCH_NAME).ToList();
-            cmbNubeBranch.ItemsSource = NUBE;
-            cmbNubeBranch.SelectedValuePath = "NUBE_BRANCH_CODE";
-            cmbNubeBranch.DisplayMemberPath = "NUBE_BRANCH_NAME";
 
-            var bank = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
-            cmbBank.ItemsSource = bank;
-            cmbBank.SelectedValuePath = "BANK_CODE";
-            cmbBank.DisplayMemberPath = "BANK_NAME";
+            try
+            {
+                var NUBE = db.MASTERNUBEBRANCHes.OrderBy(x => x.NUBE_BRANCH_NAME).ToList();
+                cmbNubeBranch.ItemsSource = NUBE;
+                cmbNubeBranch.SelectedValuePath = "NUBE_BRANCH_CODE";
+                cmbNubeBranch.DisplayMemberPath = "NUBE_BRANCH_NAME";
 
-            this.KeyDown += new System.Windows.Input.KeyEventHandler(Window_KeyDown);
+                var bank = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
+                cmbBank.ItemsSource = bank;
+                cmbBank.SelectedValuePath = "BANK_CODE";
+                cmbBank.DisplayMemberPath = "BANK_NAME";
+
+                this.KeyDown += new System.Windows.Input.KeyEventHandler(Window_KeyDown);
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
         }
 
         //Closing events
@@ -74,7 +82,16 @@ namespace Nube
         //Button  events
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            LoadReport();
+            if (string.IsNullOrEmpty(dtpToDate.Text))
+            {
+                MessageBox.Show("Date is Empty!");
+                dtpFromDate.Focus();
+                return;
+            }
+            else
+            {
+                LoadReport();
+            }
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
@@ -103,7 +120,7 @@ namespace Nube
                     MemberReport.LocalReport.SetParameters(RP);
 
                     MemberReport.RefreshReport();
-                    LoadBankReport();
+                    LoadBankReport(dt);
                 }
                 else
                 {
@@ -116,13 +133,12 @@ namespace Nube
             }
         }
 
-        private void LoadBankReport()
+        private void LoadBankReport(DataTable dtBranch)
         {
             try
             {
-                NUBEMemberReport.Reset();
-                DataTable dt1 = getNUBEData();
-                ReportDataSource Data = new ReportDataSource("ViewMasterMember", dt1);
+                NUBEMemberReport.Reset();                
+                ReportDataSource Data = new ReportDataSource("ViewMasterMember", dtBranch);
 
                 NUBEMemberReport.LocalReport.DataSources.Add(Data);
                 NUBEMemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.NUBEBranchMemberReport.rdlc";
@@ -139,112 +155,65 @@ namespace Nube
         }
 
         private DataTable getData()
-        {
-            Wqry();
+        {           
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(connStr))
-            {
-                int i = ((Convert.ToDateTime(DateTime.Now).Year - Convert.ToDateTime(dtpFromDate.SelectedDate).Year) * 12) + Convert.ToDateTime(DateTime.Now).Month - Convert.ToDateTime(dtpFromDate.SelectedDate).Month;
-
-                AlterView.ViewMemberTotalMonthsDue(i);
-                AlterView.ViewMasterMember(i);
-                AlterView.ExecuteSPREFRESH();
-                AlterView.DefaultMemberTotalMonthsDue();
-                AlterView.DefaultMasterMember();
-
+            {                
                 SqlCommand cmd;
-                cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_ID,MEMBER_NAME,ISNULL(MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,\r" +
-                                                           " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
-                                                           " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
-                                                           " ISNULL(TOTALMOTHSDUE,0)TOTALMOTHSDUE,ISNULL(SEX,'')SEX,DATEOFJOINING\r" +
-                                                           " FROM TEMPVIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
-                                                           " ORDER BY MEMBER_NAME", con);
+                //cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_ID,MEMBER_NAME,ISNULL(MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,\r" +
+                //                                           " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
+                //                                           " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
+                //                                           " ISNULL(TOTALMOTHSDUE,0)TOTALMOTHSDUE,ISNULL(SEX,'')SEX,DATEOFJOINING\r" +
+                //                                           " FROM TEMPVIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
+                //                                           " ORDER BY MEMBER_NAME", con);
+                cmd = new SqlCommand("SPMEMBERSTATUS", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@ENTRYDATE", dtpToDate.SelectedDate);
+                cmd.Parameters.AddWithValue("@MEMBERSTATUSCODE", 2);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
                 adp.Fill(dt);
-                qry = "";
+
+                string sWhere = "";
+
+                if (!string.IsNullOrEmpty(cmbBank.Text))
+                {
+                    sWhere = sWhere + " BANK_CODE=" + cmbBank.SelectedValue;
+                }
+
+                if (!string.IsNullOrEmpty(cmbBranch.Text) && !string.IsNullOrEmpty(sWhere))
+                {
+                    sWhere = sWhere + " AND BRANCH_CODE=" + cmbBranch.SelectedValue;
+                }
+                else if (!string.IsNullOrEmpty(cmbBranch.Text))
+                {
+                    sWhere = sWhere + " BRANCH_CODE=" + cmbBranch.SelectedValue;
+                }
+
+                if (!string.IsNullOrEmpty(cmbNubeBranch.Text) && !string.IsNullOrEmpty(sWhere))
+                {
+                    sWhere = sWhere + " AND NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
+                }
+                else if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                {
+                    sWhere = sWhere + " NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
+                }               
+
+                if (!string.IsNullOrEmpty(sWhere))
+                {
+                    DataView dv = new DataView(dt);
+                    dv.RowFilter = sWhere;
+                    dt = dv.ToTable();
+                    int i = 0;
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        row["RNO"] = i + 1;
+                        i++;
+                    }
+                }
             }
             return dt;
         }
-
-        private DataTable getNUBEData()
-        {
-            Wqry();
-            DataTable dt = new DataTable();
-            using (SqlConnection con = new SqlConnection(connStr))
-            {
-                SqlCommand cmd;
-                cmd = new SqlCommand("SELECT * FROM TEMPVIEWMASTERMEMBER  WHERE " + qry + " ORDER BY MEMBER_NAME", con);
-                SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                adp.Fill(dt);
-                qry = "";
-            }
-            return dt;
-
-        }
-
-        public string Wqry()
-        {
-            //if (!string.IsNullOrEmpty(dtpFromDate.Text) && !string.IsNullOrEmpty(qry))
-            //{
-            //    qry = qry + string.Format(" AND MONTH(DATEOFJOINING) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
-            //}
-            //else if (!string.IsNullOrEmpty(dtpFromDate.Text) && string.IsNullOrEmpty(qry))
-            //{
-            //    qry = qry + string.Format(" MONTH(DATEOFJOINING) BETWEEN MONTH('{0:dd/MMM/yyyy}') AND MONTH('{1:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING) BETWEEN YEAR('{0:dd/MMM/yyyy}') AND YEAR('{1:dd/MMM/yyyy}') ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
-            //}
-
-            if (qry != "")
-            {
-                qry = qry + " AND MEMBERSTATUSCODE=2";
-            }
-            else
-            {
-                qry = " MEMBERSTATUSCODE=2";
-            }
-
-            if (cmbNubeBranch.Text != "")
-            {
-                NubeBranch = cmbNubeBranch.Text;
-                if (qry != "")
-                {
-
-                    qry = qry + " AND NUBEBANCHNAME='" + NubeBranch + "'";
-                }
-                else
-                {
-                    qry = " NUBEBANCHNAME='" + NubeBranch + "'";
-                }
-            }
-
-
-            if (cmbBank.Text != "")
-            {
-                BankName = cmbBank.Text;
-                if (qry != "")
-                {
-                    qry = qry + " AND BANK_NAME='" + BankName + "'";
-                }
-                else
-                {
-                    qry = " BANK_NAME='" + BankName + "'";
-                }
-
-            }
-            if (cmbBranch.Text != "")
-            {
-                BranchName = cmbBranch.Text;
-                if (qry != "")
-                {
-                    qry = qry + " AND BranchName='" + BranchName + "'";
-                }
-                else
-                {
-                    qry = " BRANCHNAME='" + BranchName + "'";
-                }
-            }
-            return qry;
-        }
-
+   
         private void cmbBank_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
