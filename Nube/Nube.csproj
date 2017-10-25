@@ -123,6 +123,7 @@
     <Compile Include="AccountGroup.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="AlounttoWords.cs" />
     <Compile Include="AlterViewMaster.cs" />
     <Compile Include="AppLib.cs" />
     <Compile Include="ArrearPostDetail.cs">

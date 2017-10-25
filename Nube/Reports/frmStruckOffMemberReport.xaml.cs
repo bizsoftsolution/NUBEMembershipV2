@@ -115,11 +115,10 @@ namespace Nube
                 {
                     MessageBox.Show("No Records Found!");
                 }
-
             }
             catch (Exception ex)
             {
-                ExceptionLogging.SendErrorToText(ex);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -127,7 +126,7 @@ namespace Nube
         {
             try
             {
-                NUBEMemberReport.Reset();                
+                NUBEMemberReport.Reset();
                 ReportDataSource Data = new ReportDataSource("ViewMasterMember", dtBranch);
 
                 NUBEMemberReport.LocalReport.DataSources.Add(Data);
@@ -145,7 +144,7 @@ namespace Nube
         }
 
         private DataTable getData()
-        {         
+        {
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(connStr))
             {
@@ -161,6 +160,7 @@ namespace Nube
                 cmd.Parameters.AddWithValue("@ENTRYDATE", dtpToDate.SelectedDate);
                 cmd.Parameters.AddWithValue("@MEMBERSTATUSCODE", 3);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                adp.SelectCommand.CommandTimeout = 0;
                 adp.Fill(dt);
 
                 string sWhere = "";
@@ -199,10 +199,10 @@ namespace Nube
                         row["RNO"] = i + 1;
                         i++;
                     }
-                }                               
+                }
             }
             return dt;
-        }    
+        }
 
         private void cmbBank_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

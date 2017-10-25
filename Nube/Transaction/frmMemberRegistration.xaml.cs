@@ -48,6 +48,7 @@ namespace Nube.Transaction
         public frmMemberRegistration(decimal dMembercode = 0)
         {
             InitializeComponent();
+
             dMember_Code = dMembercode;
             FormLoad();
             bIsUpdate = false;
@@ -2697,5 +2698,6 @@ namespace Nube.Transaction
 
 
         #endregion        
+
     }
 }
