@@ -74,13 +74,13 @@ namespace Nube.Transaction
                         if (mm != null)
                         {
                             mm.RESIGNED = 1;
-                            db.SaveChanges();
+                            //db.SaveChanges();
 
                             RESIGNATION rg = (from mas in db.RESIGNATIONs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
                             if (rg != null)
                             {
                                 db.RESIGNATIONs.Remove(rg);
-                                db.SaveChanges();
+                                //db.SaveChanges();
                             }
 
                             RESIGNATION rsg = new RESIGNATION();
@@ -111,8 +111,8 @@ namespace Nube.Transaction
                             rsg.VOUCHER_DATE = dtpRegVData.SelectedDate;
                             rsg.SERVICE_YEAR = Convert.ToDecimal(txtRegServiceYear.Text);
                             db.RESIGNATIONs.Add(rsg);
-                            db.SaveChanges();
 
+                            db.SaveChanges();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(mm);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
