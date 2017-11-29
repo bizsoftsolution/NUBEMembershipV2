@@ -89,12 +89,12 @@ namespace Nube.Transaction
                 AppLib.dtMemberQuery.Rows.Clear();
                 FormLoad();
 
-                dgvDetails.ItemsSource = dtMember.DefaultView;
-                txtNoofMembers.Text = dtMember.Rows.Count.ToString();
+                //dgvDetails.ItemsSource = dtMember.DefaultView;
+                //txtNoofMembers.Text = dtMember.Rows.Count.ToString();
 
-                AppLib.lstMstMember.Clear();
-                var lstMM = (from x in db.ViewMasterMembers select x).ToList();
-                AppLib.lstMstMember = lstMM;
+                //AppLib.lstMstMember.Clear();
+                //var lstMM = (from x in db.ViewMasterMembers select x).ToList();
+                //AppLib.lstMstMember = lstMM;
             }
             catch (Exception ex)
             {
@@ -299,6 +299,7 @@ namespace Nube.Transaction
 
                 if ((dgvDetails.SelectedItem != null))
                 {
+
                     DataRowView drv = (DataRowView)dgvDetails.SelectedItem;
                     dMember_Code = Convert.ToDecimal(drv["MEMBER_CODE"]);
                     if (dMember_Code != 0)
@@ -392,13 +393,13 @@ namespace Nube.Transaction
                     progressBar1.Maximum = 10;
                     progressBar1.Visibility = Visibility.Visible;
 
-                    SqlCommand cmd;
                     if (AppLib.dtMemberQuery.Rows.Count > 0)
                     {
                         dtMember = AppLib.dtMemberQuery.Copy();
                     }
                     else
                     {
+                        SqlCommand cmd;
                         cmd = new SqlCommand("SPMEMBERSHIP", con);
                         cmd.CommandType = CommandType.StoredProcedure;
                         SqlDataAdapter adp = new SqlDataAdapter(cmd);
@@ -407,6 +408,9 @@ namespace Nube.Transaction
                         dtMember.Rows.Clear();
                         adp.SelectCommand.CommandTimeout = 0;
                         adp.Fill(dtMember);
+                        //var ms = (from x in db.MemberStatusLogs orderby x.MEMBER_NAME ascending select x).ToList();
+                        //dtMember = AppLib.LINQResultToDataTable(ms);
+                        //dgvDetails.ItemsSource = dtMember.DefaultView;
                         AppLib.dtMemberQuery = dtMember.Copy();
                     }
 
@@ -418,26 +422,27 @@ namespace Nube.Transaction
                         System.Windows.Forms.Application.DoEvents();
                         dgvDetails.ItemsSource = dtMember.DefaultView;
                         txtNoofMembers.Text = dtMember.Rows.Count.ToString();
+                        filteration();
                     }
                     progressBar1.Value = 10;
                     System.Windows.Forms.Application.DoEvents();
 
-                    txtBankName.Text = "";
-                    txtBranchName.Text = "";
-                    txtBankUserCode.Text = "";
-                    txtICNo.Text = "";
-                    txtMemberName.Text = "";
-                    txtNubeBranch.Text = "";
-                    txtMemberType.Text = "";
-                    txtMemberNo.Text = "";
-                    txtNoofMembers.Text = "";
+                    //txtBankName.Text = "";
+                    //txtBranchName.Text = "";
+                    //txtBankUserCode.Text = "";
+                    //txtICNo.Text = "";
+                    //txtMemberName.Text = "";
+                    //txtNubeBranch.Text = "";
+                    //txtMemberType.Text = "";
+                    //txtMemberNo.Text = "";
+                    //txtNoofMembers.Text = "";
 
-                    ckbActive.IsChecked = false;
-                    ckbDefaulter.IsChecked = false;
-                    ckbResigned.IsChecked = false;
-                    ckbstrukoff.IsChecked = false;
-                    dtpFromDate.Text = "";
-                    dtpTodate.Text = "";
+                    //ckbActive.IsChecked = false;
+                    //ckbDefaulter.IsChecked = false;
+                    //ckbResigned.IsChecked = false;
+                    //ckbstrukoff.IsChecked = false;
+                    //dtpFromDate.Text = "";
+                    //dtpTodate.Text = "";
                 }
             }
             catch (Exception ex)
@@ -460,11 +465,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere1))
                     {
-                        sWhere1 = sWhere1 + " AND BANK_NAME like '" + txtBankName.Text + "%'";
+                        sWhere1 = sWhere1 + " AND BANKUSER_CODE like '" + txtBankName.Text + "%'";
                     }
                     else
                     {
-                        sWhere1 = sWhere1 + "BANK_NAME like '" + txtBankName.Text + "%'";
+                        sWhere1 = sWhere1 + "BANKUSER_CODE like '" + txtBankName.Text + "%'";
                     }
                 }
 
@@ -472,11 +477,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere1))
                     {
-                        sWhere1 = sWhere1 + " AND BANKBRANCH_NAME like '" + txtBranchName.Text + "%'";
+                        sWhere1 = sWhere1 + " AND BRANCH_NAME like '" + txtBranchName.Text + "%'";
                     }
                     else
                     {
-                        sWhere1 = sWhere1 + "BANKBRANCH_NAME like '" + txtBranchName.Text + "%'";
+                        sWhere1 = sWhere1 + "BRANCH_NAME like '" + txtBranchName.Text + "%'";
                     }
                 }
 
@@ -484,11 +489,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere1))
                     {
-                        sWhere1 = sWhere1 + " AND SEX like'" + txtBankUserCode.Text + "%'";
+                        sWhere1 = sWhere1 + " AND SEX_MF like'" + txtBankUserCode.Text + "%'";
                     }
                     else
                     {
-                        sWhere1 = sWhere1 + "SEX like'" + txtBankUserCode.Text + "%'";
+                        sWhere1 = sWhere1 + "SEX_MF like'" + txtBankUserCode.Text + "%'";
                     }
                 }
 
@@ -519,11 +524,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere1))
                     {
-                        sWhere1 = sWhere1 + " AND NUBE_BRANCH_NAME like '" + txtNubeBranch.Text + "%'";
+                        sWhere1 = sWhere1 + " AND NUBEBRANCH_NAME like '" + txtNubeBranch.Text + "%'";
                     }
                     else
                     {
-                        sWhere1 = sWhere1 + "NUBE_BRANCH_NAME like '" + txtNubeBranch.Text + "%'";
+                        sWhere1 = sWhere1 + "NUBEBRANCH_NAME like '" + txtNubeBranch.Text + "%'";
                     }
                 }
 
@@ -556,11 +561,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere2))
                     {
-                        sWhere2 = sWhere2 + " OR STATUS_CODE=1";
+                        sWhere2 = sWhere2 + " OR MEMBERSTATUSCODE=1";
                     }
                     else
                     {
-                        sWhere2 = sWhere2 + "STATUS_CODE=1";
+                        sWhere2 = sWhere2 + "MEMBERSTATUSCODE=1";
                     }
                 }
 
@@ -568,11 +573,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere2))
                     {
-                        sWhere2 = sWhere2 + " OR STATUS_CODE=2";
+                        sWhere2 = sWhere2 + " OR MEMBERSTATUSCODE=2";
                     }
                     else
                     {
-                        sWhere2 = sWhere2 + "STATUS_CODE=2";
+                        sWhere2 = sWhere2 + "MEMBERSTATUSCODE=2";
                     }
                 }
 
@@ -580,11 +585,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere2))
                     {
-                        sWhere2 = sWhere2 + " OR STATUS_CODE=3";
+                        sWhere2 = sWhere2 + " OR MEMBERSTATUSCODE=3";
                     }
                     else
                     {
-                        sWhere2 = sWhere2 + "STATUS_CODE=3";
+                        sWhere2 = sWhere2 + "MEMBERSTATUSCODE=3";
                     }
                 }
 
@@ -592,11 +597,11 @@ namespace Nube.Transaction
                 {
                     if (!string.IsNullOrEmpty(sWhere2))
                     {
-                        sWhere2 = sWhere2 + " OR STATUS_CODE=6";
+                        sWhere2 = sWhere2 + " OR MEMBERSTATUSCODE=6";
                     }
                     else
                     {
-                        sWhere2 = sWhere2 + "STATUS_CODE=6";
+                        sWhere2 = sWhere2 + "MEMBERSTATUSCODE=6";
                     }
                 }
 
@@ -667,11 +672,13 @@ namespace Nube.Transaction
                         row["RNO"] = i + 1;
                         i++;
                     }
+                    dgvDetails.ItemsSource = null;
                     dgvDetails.ItemsSource = dtTemp.DefaultView;
                     txtNoofMembers.Text = dtTemp.Rows.Count.ToString();
                 }
                 else
                 {
+                    dgvDetails.ItemsSource = null;
                     dgvDetails.ItemsSource = dtMember.DefaultView;
                     txtNoofMembers.Text = dtMember.Rows.Count.ToString();
                 }

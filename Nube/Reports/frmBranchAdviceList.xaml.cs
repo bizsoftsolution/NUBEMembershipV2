@@ -86,7 +86,7 @@ namespace Nube
                         rp[2] = new ReportParameter("BranchCode", cmbBranch.SelectedValue.ToString());
 
                         NewMemberReport.LocalReport.SetParameters(rp);
-                        NewMemberReport.RefreshReport();                        
+                        NewMemberReport.RefreshReport();
                     }
                     else
                     {
@@ -175,6 +175,16 @@ namespace Nube
             {
                 qry = qry + string.Format(" MONTH(DATEOFJOINING)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING)=YEAR('{0:dd/MMM/yyyy}')", dtpDate.SelectedDate);
             }
+
+            if (!string.IsNullOrEmpty(qry))
+            {
+                qry = qry + " AND ISCANCEL=0 ";
+            }
+            else
+            {
+                qry = qry + " ISCANCEL=0 ";
+            }
+
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(connStr))
             {

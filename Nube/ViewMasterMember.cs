@@ -88,5 +88,6 @@ namespace Nube
         public System.DateTime RESIGNATION_DATE { get; set; }
         public System.DateTime ENTRY_DATE { get; set; }
         public Nullable<System.DateTime> VOUCHER_DATE { get; set; }
+        public bool ISCANCEL { get; set; }
     }
 }

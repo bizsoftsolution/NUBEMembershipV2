@@ -87,5 +87,10 @@ namespace Nube
         public string MemberName_ByBank { get; set; }
         public string NRIC_ByBank { get; set; }
         public Nullable<decimal> BankCode_ByBank { get; set; }
+        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public Nullable<int> CreatedBy { get; set; }
+        public Nullable<System.DateTime> UpdatedOn { get; set; }
+        public Nullable<int> UpdatedBy { get; set; }
+        public bool IsCancel { get; set; }
     }
 }

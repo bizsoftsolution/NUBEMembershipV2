@@ -40,7 +40,7 @@ namespace Nube.Transaction
             {
                 FormFill();
             }
-            LoadTempViewMaster();
+            //LoadTempViewMaster();
         }
 
         #region BUTTON EVENTS
@@ -261,7 +261,7 @@ namespace Nube.Transaction
             if (e.Key == Key.Enter && !string.IsNullOrEmpty(txtMemberNo.Text))
             {
                 decimal dMemberId = Convert.ToDecimal(txtMemberNo.Text);
-                var mm = (from x in db.MASTERMEMBERs where x.MEMBER_ID == dMemberId select x).FirstOrDefault();
+                var mm = (from x in db.MASTERMEMBERs where x.MEMBER_ID == dMemberId && x.IsCancel == false select x).FirstOrDefault();
                 if (mm != null)
                 {
                     dMember_Code = mm.MEMBER_CODE;
@@ -571,393 +571,363 @@ namespace Nube.Transaction
         {
             try
             {
-                var qry = (from mm in db.MASTERMEMBERs
-                           where mm.MEMBER_CODE == dMember_Code
-                           select new
-                           {
-                               mm.MEMBERTYPE_CODE,
-                               mm.MEMBER_CODE,
-                               mm.MEMBER_TITLE,
-                               mm.MEMBER_NAME,
-                               mm.DATEOFBIRTH,
-                               mm.AGE_IN_YEARS,
-                               mm.SEX,
-                               mm.REJOINED,
-                               mm.RACE_CODE,
-                               mm.ICNO_OLD,
-                               mm.ICNO_NEW,
-                               mm.DATEOFJOINING,
-                               mm.BANK_CODE,
-                               mm.BRANCH_CODE,
-                               mm.DATEOFEMPLOYMENT,
-                               mm.Salary,
-                               LEVY = (mm.LEVY == "NULL" ? "" : mm.LEVY),
-                               TDF = (mm.TDF == "NULL" ? "" : mm.TDF),
-                               mm.LEVY_AMOUNT,
-                               mm.TDF_AMOUNT,
-                               mm.LevyPaymentDate,
-                               mm.Tdf_PaymentDate,
-                               mm.ENTRANCEFEE,
-                               mm.ACCBENEFIT,
-                               mm.MONTHLYSUBSCRIPTION,
-                               mm.TOTALMONTHSPAID,
-                               mm.ACCSUBSCRIPTION,
-                               mm.MONTHLYBF,
-                               mm.ACCBF,
-                               mm.CURRENT_YTDBF,
-                               mm.CURRENT_YTDSUBSCRIPTION,
-                               mm.LASTPAYMENT_DATE,
-                               mm.ADDRESS1,
-                               mm.ADDRESS2,
-                               mm.ADDRESS3,
-                               resCitycode = mm.CITY_CODE,
-                               resStatecode = mm.STATE_CODE,
-                               mm.COUNTRY,
-                               mm.ZIPCODE,
-                               mm.PHONE,
-                               mm.MOBILE,
-                               mm.EMAIL,
-                               mm.MEMBER_ID,
-                               mm.STATUS_CODE,
-                               mm.BatchAmt,
-                               mm.RESIGNED
-                           }
-                         ).FirstOrDefault();
-                DataTable dtResign = new DataTable();
-                DataTable dtFee = new DataTable();
-                using (SqlConnection con = new SqlConnection(AppLib.connStr))
-                {
-                    SqlCommand cmd;
-                    cmd = new SqlCommand(string.Format("SELECT * FROM VIEWRESIGN(NOLOCK) WHERE MEMBER_CODE={0}", dMember_Code), con);
-                    cmd.CommandType = CommandType.Text;
-                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
-
-                    dtResign.Rows.Clear();
-                    adp.SelectCommand.CommandTimeout = 0;
-                    adp.Fill(dtResign);
-
-                    string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
-                                 " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
-                                 " FROM FEESDETAILS(NOLOCK)" +
-                                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND MEMBERCODE=" + dMember_Code;
-
-                    cmd = new SqlCommand(str, con);
-                    adp = new SqlDataAdapter(cmd);
-                    adp.Fill(dtFee);
-                }
-
-                //var status = (from x in AppLib.lstTVMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
-                var status = (from x in AppLib.lstMstMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
-
-                if (status != null)
-                {
-                    iStatusCode = Convert.ToInt32(status.MEMBERSTATUSCODE);
-                }
-
-                var brnch = (from bc in db.MASTERBANKBRANCHes
-                             join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
-                             join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
-                             where bc.BANKBRANCH_CODE == qry.BRANCH_CODE
-                             select new
-                             {
-                                 bc.BANKBRANCH_ADDRESS1,
-                                 bc.BANKBRANCH_ADDRESS2,
-                                 bc.BANKBRANCH_ADDRESS3,
-                                 ct.CITY_NAME,
-                                 st.STATE_NAME,
-                                 bc.BANKBRANCH_ZIPCODE,
-                                 bc.BANKBRANCH_COUNTRY,
-                                 bc.BANKBRANCH_PHONE1,
-                                 bc.BANKBRANCH_PHONE2,
-                                 bc.BANKBRANCH_EMAIL
-                             }
-                              ).FirstOrDefault();
-
-                var nominee = (from nm in db.MASTERNOMINEEs
-                               join ct in db.MASTERCITies on nm.CITY_CODE equals ct.CITY_CODE
-                               join st in db.MASTERSTATEs on nm.STATE_CODE equals st.STATE_CODE
-                               join rl in db.MASTERRELATIONs on nm.RELATION_CODE equals rl.RELATION_CODE
-                               where nm.MEMBER_CODE == dMember_Code
-                               orderby nm.Id descending
-                               select new
-                               {
-                                   nm.NAME,
-                                   nm.AGE,
-                                   nm.SEX,
-                                   rl.RELATION_NAME,
-                                   nm.ICNO_NEW,
-                                   nm.ICNO_OLD,
-                                   nm.ADDRESS1,
-                                   nm.ADDRESS2,
-                                   nm.ADDRESS3,
-                                   ct.CITY_NAME,
-                                   st.STATE_NAME,
-                                   nm.MOBILE,
-                                   nm.PHONE,
-                                   nm.MEMBER_CODE,
-                                   nm.CITY_CODE,
-                                   nm.STATE_CODE,
-                                   nm.RELATION_CODE
-                               }).ToList();
-
-                if (nominee != null)
-                {
-                    DataTable dt = new DataTable();
-                    dt = AppLib.LINQResultToDataTable(nominee);
-                    if (dt.Rows.Count > 0)
-                    {
-                        dgNomination.ItemsSource = dt.DefaultView;
-                    }
-                }
-
-                var gurdian = (from gr in db.MASTERGUARDIANs
-                               where gr.MEMBER_CODE == dMember_Code
-                               select new
-                               {
-                                   Name = gr.NAME,
-                                   gr.RELATION_CODE,
-                                   gr.ADDRESS1,
-                                   gr.ADDRESS2,
-                                   gr.ADDRESS3,
-                                   gr.AGE,
-                                   gr.ICNO_NEW,
-                                   gr.ICNO_OLD,
-                                   gr.CITY_CODE,
-                                   gr.STATE_CODE,
-                                   gr.COUNTRY,
-                                   gr.ZIPCODE,
-                                   gr.PHONE,
-                                   gr.MOBILE,
-                                   gr.SEX
-                               }
-                               ).FirstOrDefault();
-
-                //var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();
-
-                decimal BF = 0, UC = 0, Ins = 0, Subs = 0, dTotlMonthsPaid = 0, dTotlMonthsPaidUC = 0;
-
-                foreach (DataRow dr in dtFee.Rows)
-                {
-                    BF = BF + Convert.ToDecimal(dr["AMOUNTBF"]);
-                    UC = UC + Convert.ToDecimal(dr["UNIONCONTRIBUTION"]);
-                    Ins = Ins + Convert.ToDecimal(dr["AMOUNTINS"]);
-                    Subs = Subs + Convert.ToDecimal(dr["AMTSUBS"]);
-                    dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TOTALMONTHSPAID"]);
-                    dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TOTALMONTHSPAIDINS"]);
-                }
-                //var ArPost = (from ap in db.ArrearPostDetails where ap.MemberCode == dMember_Code && ap.UpdatedStatus == "Not Updated" select ap).ToList();
-                //DataTable dtArrearPost = AppLib.LINQResultToDataTable(ArPost);
-                //foreach (DataRow dr in dtArrearPost.Rows)
-                //{
-                //    BF = BF + Convert.ToDecimal(dr["AmountBf"]);
-                //    Ins = BF + Convert.ToDecimal(dr["AmountIns"]);
-                //    Subs = BF + Convert.ToDecimal(dr["AmtSubs"]);
-                //    dTotlMonthsPaid = dTotlMonthsPaid + 1;
-                //}
-                //var ArPre = (from ap in db.ArrearPreDetails where ap.MemberCode == dMember_Code && ap.UpdatedStatus == "Not Updated" select ap).ToList();
-                //DataTable dtArrearPre = AppLib.LINQResultToDataTable(ArPre);
-                //foreach (DataRow dr in dtArrearPre.Rows)
-                //{
-                //    BF = BF + Convert.ToDecimal(dr["AmountBf"]);
-                //    Ins = BF + Convert.ToDecimal(dr["AmountIns"]);
-                //    Subs = BF + Convert.ToDecimal(dr["AmtSubs"]);
-                //    dTotlMonthsPaid = dTotlMonthsPaid + 1;
-                //}
-
+                var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code && x.IsCancel == false orderby x.DATEOFJOINING descending select x).FirstOrDefault();
                 if (qry != null)
                 {
-                    cmbMemberType.SelectedValue = qry.MEMBERTYPE_CODE;
-                    txtMemberNo.Text = qry.MEMBER_ID.ToString();
-                    cmbMemberInit.Text = qry.MEMBER_TITLE;
-                    txtMemberName.Text = qry.MEMBER_NAME;
-                    txtAge.Text = qry.AGE_IN_YEARS.ToString();
-                    txtResAddress1.Text = qry.ADDRESS1;
-                    txtResAddress2.Text = qry.ADDRESS2;
-                    txtResAddress3.Text = qry.ADDRESS3;
-                    txtResPhoneNo.Text = qry.PHONE;
-                    txtResMobileNo.Text = qry.MOBILE;
-                    dtpDOB.SelectedDate = Convert.ToDateTime(qry.DATEOFBIRTH);
-                    cmbGender.Text = qry.SEX;
-                    ckbRejoined.IsChecked = Convert.ToBoolean(qry.REJOINED);
-                    cmbRace.SelectedValue = qry.RACE_CODE;
-                    txtNewIC.Text = qry.ICNO_NEW;
-                    txtOldIC.Text = qry.ICNO_OLD;
-                    dtpDOJ.SelectedDate = Convert.ToDateTime(qry.DATEOFJOINING);
-
-                    cmbBankCode.SelectedValue = qry.BANK_CODE;
-                    cmbBankName.SelectedValue = qry.BANK_CODE;
-                    cmbBranchCode.SelectedValue = qry.BRANCH_CODE;
-                    cmbBranchName.SelectedValue = qry.BRANCH_CODE;
-                    dtpDOEmp.SelectedDate = Convert.ToDateTime(qry.DATEOFEMPLOYMENT);
-                    txtSalary.Text = qry.Salary.ToString();
-                    if (status.TDF != null)
+                    DataTable dtResign = new DataTable();
+                    DataTable dtFee = new DataTable();
+                    using (SqlConnection con = new SqlConnection(AppLib.connStr))
                     {
-                        cmbTDF.Text = status.TDF.ToString();
+                        SqlCommand cmd;
+                        cmd = new SqlCommand(string.Format("SELECT * FROM VIEWRESIGN(NOLOCK) WHERE MEMBER_CODE={0}", dMember_Code), con);
+                        cmd.CommandType = CommandType.Text;
+                        SqlDataAdapter adp = new SqlDataAdapter(cmd);
+
+                        dtResign.Rows.Clear();
+                        adp.SelectCommand.CommandTimeout = 0;
+                        adp.Fill(dtResign);
+
+                        string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
+                                     " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
+                                     " FROM FEESDETAILS(NOLOCK)" +
+                                     " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND MEMBERCODE=" + dMember_Code;
+
+                        cmd = new SqlCommand(str, con);
+                        adp = new SqlDataAdapter(cmd);
+                        adp.Fill(dtFee);
                     }
 
-                    if (qry.LEVY != null)
+                    //var status = (from x in AppLib.lstTVMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                    //var status = (from x in AppLib.lstMstMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+
+                    var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+
+                    if (status != null)
                     {
-                        cmbLevy.Text = qry.LEVY.ToString();
+                        iStatusCode = Convert.ToInt32(status.MEMBERSTATUSCODE);
                     }
 
-                    if (qry.LEVY_AMOUNT != null)
+                    var brnch = (from bc in db.MASTERBANKBRANCHes
+                                 join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
+                                 join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
+                                 where bc.BANKBRANCH_CODE == qry.BRANCH_CODE
+                                 select new
+                                 {
+                                     bc.BANKBRANCH_ADDRESS1,
+                                     bc.BANKBRANCH_ADDRESS2,
+                                     bc.BANKBRANCH_ADDRESS3,
+                                     ct.CITY_NAME,
+                                     st.STATE_NAME,
+                                     bc.BANKBRANCH_ZIPCODE,
+                                     bc.BANKBRANCH_COUNTRY,
+                                     bc.BANKBRANCH_PHONE1,
+                                     bc.BANKBRANCH_PHONE2,
+                                     bc.BANKBRANCH_EMAIL
+                                 }
+                                  ).FirstOrDefault();
+
+                    var nominee = (from nm in db.MASTERNOMINEEs
+                                   join ct in db.MASTERCITies on nm.CITY_CODE equals ct.CITY_CODE
+                                   join st in db.MASTERSTATEs on nm.STATE_CODE equals st.STATE_CODE
+                                   join rl in db.MASTERRELATIONs on nm.RELATION_CODE equals rl.RELATION_CODE
+                                   where nm.MEMBER_CODE == dMember_Code
+                                   orderby nm.Id descending
+                                   select new
+                                   {
+                                       nm.NAME,
+                                       nm.AGE,
+                                       nm.SEX,
+                                       rl.RELATION_NAME,
+                                       nm.ICNO_NEW,
+                                       nm.ICNO_OLD,
+                                       nm.ADDRESS1,
+                                       nm.ADDRESS2,
+                                       nm.ADDRESS3,
+                                       ct.CITY_NAME,
+                                       st.STATE_NAME,
+                                       nm.MOBILE,
+                                       nm.PHONE,
+                                       nm.MEMBER_CODE,
+                                       nm.CITY_CODE,
+                                       nm.STATE_CODE,
+                                       nm.RELATION_CODE
+                                   }).ToList();
+
+                    if (nominee != null)
                     {
-                        txtLevyAmount.Text = qry.LEVY_AMOUNT.ToString();
-                    }
-
-                    if (qry.TDF_AMOUNT != null)
-                    {
-                        txtTDFAmount.Text = qry.TDF_AMOUNT.ToString();
-                    }
-
-                    DateTime dtM = Convert.ToDateTime(status.LASTPAYMENT_DATE);
-                    txtRegPaidTill.Text = dtM.ToString("MMM-yyyy");
-                    txtRegContributedMonths.Text = Convert.ToInt32(qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-
-                    txtRegBFContribution.Text = Convert.ToInt32(qry.ACCBF + BF).ToString();
-                    txtRegBenefitYear.Text = Convert.ToInt32((qry.TOTALMONTHSPAID + dTotlMonthsPaid) / 12).ToString();
-
-                    TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
-
-                    int iSerYear = Convert.ToInt32(ts.Days) / 365;
-                    txtRegServiceYear.Text = iSerYear.ToString();
-                    int totalMonths = Convert.ToInt32(status.LASTPAYMENT_DATE.Value.Subtract(status.DATEOFJOINING.Value).Days / (365.25 / 12));
-
-                    txtRegAmount.Text = (totalMonths * 3).ToString();
-                    txtServicePeriod.Text = iSerYear.ToString();
-
-                    if (qry.RESIGNED == 1)
-                    {
-                        lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
-                    }
-
-                    txtEntranceFee.Text = qry.ENTRANCEFEE.ToString();
-                    txtBuildingFund.Text = status.HQFEE.ToString();
-                    txtAccBenefit.Text = qry.ACCBENEFIT.ToString();
-                    dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
-                    dtpLastPay.IsEnabled = false;
-
-                    txtMonthlySub.Text = status.MONTHLYSUBSCRIPTION.ToString();
-                    txtMonthlyBF.Text = status.MONTHLYBF.ToString();
-                    txtMonthlyUC.Text = "7";
-                    txtMonthlyIns.Text = "10";
-
-                    txtAccSub.Text = (qry.ACCSUBSCRIPTION + Subs).ToString();
-                    txtAccBF.Text = (qry.ACCBF + BF).ToString();
-                    txtAccUC.Text = (dTotlMonthsPaidUC * 7).ToString();
-                    txtAccIns.Text = Ins.ToString();
-
-                    txtCurrentYTDSub.Text = Subs.ToString();
-                    txtCurrentYTDBF.Text = BF.ToString();
-                    txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
-                    txtCurrentYTDIns.Text = Ins.ToString();
-
-                    txtTotalMonthPaidSubs.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-                    txtTotalMonthPaidBF.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-                    txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
-                    txtTotalMonthPaidIns.Text = Ins.ToString();
-
-                    txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
-                    txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
-                    txtTotalMonthsDueUC.Text = "0";
-                    txtTotalMonthsDueIns.Text = "0";
-
-                    txtBadgeAmt.Text = qry.BatchAmt.ToString();
-                    if (qry.EMAIL != null)
-                    {
-                        txtResEmail.Text = qry.EMAIL.ToString();
-                    }
-
-                    cmbResCity.SelectedValue = qry.resCitycode;
-                    txtResPostalCode.Text = qry.ZIPCODE;
-                    cmbResState.SelectedValue = qry.resStatecode;
-                    cmbResCountry.Text = qry.COUNTRY;
-
-                    if (status.RESIGNED == 1 || status.MEMBERSTATUSCODE == 6)
-                    {
-                        lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
-                    }
-                    else
-                    {
-                        if (status.MEMBERSTATUSCODE == 1)
+                        DataTable dt = new DataTable();
+                        dt = AppLib.LINQResultToDataTable(nominee);
+                        if (dt.Rows.Count > 0)
                         {
-                            lblStatus.Content = "Active Member; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            dgNomination.ItemsSource = dt.DefaultView;
                         }
-                        else if (status.MEMBERSTATUSCODE == 2)
+                    }
+
+                    var gurdian = (from gr in db.MASTERGUARDIANs
+                                   where gr.MEMBER_CODE == dMember_Code
+                                   select new
+                                   {
+                                       Name = gr.NAME,
+                                       gr.RELATION_CODE,
+                                       gr.ADDRESS1,
+                                       gr.ADDRESS2,
+                                       gr.ADDRESS3,
+                                       gr.AGE,
+                                       gr.ICNO_NEW,
+                                       gr.ICNO_OLD,
+                                       gr.CITY_CODE,
+                                       gr.STATE_CODE,
+                                       gr.COUNTRY,
+                                       gr.ZIPCODE,
+                                       gr.PHONE,
+                                       gr.MOBILE,
+                                       gr.SEX
+                                   }
+                                   ).FirstOrDefault();
+
+                    //var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();
+
+                    decimal BF = 0, UC = 0, Ins = 0, Subs = 0, dTotlMonthsPaid = 0, dTotlMonthsPaidUC = 0;
+
+                    foreach (DataRow dr in dtFee.Rows)
+                    {
+                        BF = BF + Convert.ToDecimal(dr["AMOUNTBF"]);
+                        UC = UC + Convert.ToDecimal(dr["UNIONCONTRIBUTION"]);
+                        Ins = Ins + Convert.ToDecimal(dr["AMOUNTINS"]);
+                        Subs = Subs + Convert.ToDecimal(dr["AMTSUBS"]);
+                        dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TOTALMONTHSPAID"]);
+                        dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TOTALMONTHSPAIDINS"]);
+                    }
+                    //var ArPost = (from ap in db.ArrearPostDetails where ap.MemberCode == dMember_Code && ap.UpdatedStatus == "Not Updated" select ap).ToList();
+                    //DataTable dtArrearPost = AppLib.LINQResultToDataTable(ArPost);
+                    //foreach (DataRow dr in dtArrearPost.Rows)
+                    //{
+                    //    BF = BF + Convert.ToDecimal(dr["AmountBf"]);
+                    //    Ins = BF + Convert.ToDecimal(dr["AmountIns"]);
+                    //    Subs = BF + Convert.ToDecimal(dr["AmtSubs"]);
+                    //    dTotlMonthsPaid = dTotlMonthsPaid + 1;
+                    //}
+                    //var ArPre = (from ap in db.ArrearPreDetails where ap.MemberCode == dMember_Code && ap.UpdatedStatus == "Not Updated" select ap).ToList();
+                    //DataTable dtArrearPre = AppLib.LINQResultToDataTable(ArPre);
+                    //foreach (DataRow dr in dtArrearPre.Rows)
+                    //{
+                    //    BF = BF + Convert.ToDecimal(dr["AmountBf"]);
+                    //    Ins = BF + Convert.ToDecimal(dr["AmountIns"]);
+                    //    Subs = BF + Convert.ToDecimal(dr["AmtSubs"]);
+                    //    dTotlMonthsPaid = dTotlMonthsPaid + 1;
+                    //}
+
+                    if (qry != null)
+                    {
+                        cmbMemberType.SelectedValue = qry.MEMBERTYPE_CODE;
+                        txtMemberNo.Text = qry.MEMBER_ID.ToString();
+                        cmbMemberInit.Text = qry.MEMBER_TITLE;
+                        txtMemberName.Text = qry.MEMBER_NAME;
+                        txtAge.Text = qry.AGE_IN_YEARS.ToString();
+                        txtResAddress1.Text = qry.ADDRESS1;
+                        txtResAddress2.Text = qry.ADDRESS2;
+                        txtResAddress3.Text = qry.ADDRESS3;
+                        txtResPhoneNo.Text = qry.PHONE;
+                        txtResMobileNo.Text = qry.MOBILE;
+                        dtpDOB.SelectedDate = Convert.ToDateTime(qry.DATEOFBIRTH);
+                        cmbGender.Text = qry.SEX;
+                        ckbRejoined.IsChecked = Convert.ToBoolean(qry.REJOINED);
+                        cmbRace.SelectedValue = qry.RACE_CODE;
+                        txtNewIC.Text = qry.ICNO_NEW;
+                        txtOldIC.Text = qry.ICNO_OLD;
+                        dtpDOJ.SelectedDate = Convert.ToDateTime(qry.DATEOFJOINING);
+
+                        cmbBankCode.SelectedValue = qry.BANK_CODE;
+                        cmbBankName.SelectedValue = qry.BANK_CODE;
+                        cmbBranchCode.SelectedValue = qry.BRANCH_CODE;
+                        cmbBranchName.SelectedValue = qry.BRANCH_CODE;
+                        dtpDOEmp.SelectedDate = Convert.ToDateTime(qry.DATEOFEMPLOYMENT);
+                        txtSalary.Text = qry.Salary.ToString();
+                        if (status.TDF != null)
                         {
-                            lblStatus.Content = "Defaulter; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            cmbTDF.Text = status.TDF.ToString();
                         }
-                        else if (status.MEMBERSTATUSCODE == 3)
+
+                        if (qry.LEVY != null)
                         {
-                            lblStatus.Content = "Struck Off; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            cmbLevy.Text = qry.LEVY.ToString();
                         }
-                        else if (status.MEMBERSTATUSCODE == 6)
+
+                        if (qry.LEVY_AMOUNT != null)
+                        {
+                            txtLevyAmount.Text = qry.LEVY_AMOUNT.ToString();
+                        }
+
+                        if (qry.TDF_AMOUNT != null)
+                        {
+                            txtTDFAmount.Text = qry.TDF_AMOUNT.ToString();
+                        }
+
+                        DateTime dtM = Convert.ToDateTime(status.LASTPAYMENT_DATE);
+                        txtRegPaidTill.Text = dtM.ToString("MMM-yyyy");
+                        txtRegContributedMonths.Text = Convert.ToInt32(qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+
+                        txtRegBFContribution.Text = Convert.ToInt32(qry.ACCBF + BF).ToString();
+                        txtRegBenefitYear.Text = Convert.ToInt32((qry.TOTALMONTHSPAID + dTotlMonthsPaid) / 12).ToString();
+
+                        TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
+
+                        int iSerYear = Convert.ToInt32(ts.Days) / 365;
+                        txtRegServiceYear.Text = iSerYear.ToString();
+                        int totalMonths = Convert.ToInt32(status.LASTPAYMENT_DATE.Value.Subtract(status.DATEOFJOINING.Value).Days / (365.25 / 12));
+
+                        txtRegAmount.Text = (totalMonths * 3).ToString();
+                        txtServicePeriod.Text = iSerYear.ToString();
+
+                        if (qry.RESIGNED == 1)
                         {
                             lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
                         }
+
+                        txtEntranceFee.Text = qry.ENTRANCEFEE.ToString();
+                        txtBuildingFund.Text = qry.HQFEE.ToString();
+                        txtAccBenefit.Text = qry.ACCBENEFIT.ToString();
+                        dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
+                        dtpLastPay.IsEnabled = false;
+
+                        txtMonthlySub.Text = qry.MONTHLYSUBSCRIPTION.ToString();
+                        txtMonthlyBF.Text = qry.MONTHLYBF.ToString();
+                        txtMonthlyUC.Text = "7";
+                        txtMonthlyIns.Text = "10";
+
+                        txtAccSub.Text = (qry.ACCSUBSCRIPTION + Subs).ToString();
+                        txtAccBF.Text = (qry.ACCBF + BF).ToString();
+                        txtAccUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                        txtAccIns.Text = Ins.ToString();
+
+                        txtCurrentYTDSub.Text = Subs.ToString();
+                        txtCurrentYTDBF.Text = BF.ToString();
+                        txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                        txtCurrentYTDIns.Text = Ins.ToString();
+
+                        txtTotalMonthPaidSubs.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+                        txtTotalMonthPaidBF.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+                        txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
+                        txtTotalMonthPaidIns.Text = Ins.ToString();
+
+                        txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
+                        txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
+                        txtTotalMonthsDueUC.Text = "0";
+                        txtTotalMonthsDueIns.Text = "0";
+
+                        txtBadgeAmt.Text = qry.BatchAmt.ToString();
+                        if (qry.EMAIL != null)
+                        {
+                            txtResEmail.Text = qry.EMAIL.ToString();
+                        }
+
+                        if (qry.CITY_CODE != null)
+                        {
+                            cmbResCity.SelectedValue = qry.CITY_CODE;
+                        }
+                        if (qry.ZIPCODE != null)
+                        {
+                            txtResPostalCode.Text = qry.ZIPCODE;
+                        }
+                        if (qry.STATE_CODE != null)
+                        {
+                            cmbResState.SelectedValue = qry.STATE_CODE;
+                        }
+                        if (qry.COUNTRY != null)
+                        {
+                            cmbResCountry.Text = qry.COUNTRY;
+                        }
+
+                        if (status.RESIGNED == true || status.MEMBERSTATUSCODE == 6)
+                        {
+                            lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
+                        }
+                        else
+                        {
+                            if (status.MEMBERSTATUSCODE == 1)
+                            {
+                                lblStatus.Content = "Active Member; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            }
+                            else if (status.MEMBERSTATUSCODE == 2)
+                            {
+                                lblStatus.Content = "Defaulter; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            }
+                            else if (status.MEMBERSTATUSCODE == 3)
+                            {
+                                lblStatus.Content = "Struck Off; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            }
+                            else if (status.MEMBERSTATUSCODE == 6)
+                            {
+                                lblStatus.Content = "MEMBER IS ALREADY RESIGNED";
+                            }
+                        }
                     }
-                }
 
-                if (brnch != null)
-                {
-                    txtAddress.Text = brnch.BANKBRANCH_ADDRESS1;
-                    txtAddress2.Text = brnch.BANKBRANCH_ADDRESS2;
-                    txtAddress3.Text = brnch.BANKBRANCH_ADDRESS3;
-                    txtCity.Text = brnch.CITY_NAME;
-                    txtState.Text = brnch.STATE_NAME;
-                    txtPostalCode.Text = brnch.BANKBRANCH_ZIPCODE;
-                    txtCountry.Text = brnch.BANKBRANCH_COUNTRY;
-                    txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
-                    txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
-                    txtEmail.Text = brnch.BANKBRANCH_EMAIL;
-                }
-
-                if (gurdian != null)
-                {
-                    txGurName.Text = gurdian.Name;
-                    cmbGurRelation.SelectedValue = gurdian.RELATION_CODE;
-                    txtGurAddress.Text = gurdian.ADDRESS1;
-                    txtGurAddress2.Text = gurdian.ADDRESS2;
-                    txtGurAddress3.Text = gurdian.ADDRESS3;
-                    txtGurAge.Text = gurdian.AGE.ToString();
-                    cmbGurSex.Text = gurdian.SEX;
-                    txtGurICNO.Text = gurdian.ICNO_NEW;
-                    txtGurOldICNO.Text = gurdian.ICNO_OLD;
-                    cmbGurCity.SelectedValue = gurdian.CITY_CODE;
-                    cmbGurState.SelectedValue = gurdian.STATE_CODE;
-                    cmbGurCountry.Text = gurdian.COUNTRY;
-                    txtGurZipCode.Text = gurdian.ZIPCODE;
-                    txtGurPhNo.Text = gurdian.PHONE;
-                    txtGurMobileNo.Text = gurdian.MOBILE;
-                }
-                dtpRegResignDate.Focus();
-
-                if (dtResign.Rows.Count > 0)
-                {
-                    for (int i = 0; i < dtResign.Rows.Count; i++)
+                    if (brnch != null)
                     {
-                        cmbRegClaimer.SelectedValue = Convert.ToInt32(dtResign.Rows[i]["RELATION_CODE"]);
-                        txtRegClaimerName.Text = dtResign.Rows[i]["CLAIMER_NAME"].ToString();
-                        txtRegContributedMonths.Text = dtResign.Rows[i]["MONTHS_CONTRIBUTED"].ToString();
-                        txtRegBFContribution.Text = dtResign.Rows[i]["ACCBF"].ToString();
-                        txtRegBenefits.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
-                        txtRegAmount.Text = dtResign.Rows[i]["ACCBF"].ToString();
-                        txtRegSubTotal.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
-                        cmbPaymode.Text = dtResign.Rows[i]["PAYMODE"].ToString();
-                        txtRegPaymode.Text = dtResign.Rows[i]["CHEQUENO"].ToString();
-                        dtpRegChequeDate.Text = dtResign.Rows[i]["CHEQUEDATE"].ToString();
-                        txtRegTotalAmount.Text = dtResign.Rows[i]["AMOUNT"].ToString();
-                        dtpRegVData.Text = dtResign.Rows[i]["VOUCHER_DATE"].ToString();
-                        txtRegServiceYear.Text = dtResign.Rows[i]["SERVICE_YEAR"].ToString();
-                        cmbRegReason.SelectedValue = Convert.ToInt32(dtResign.Rows[i]["REASON_CODE"]);
-                        dtpRegResignDate.Text = string.Format("{0:dd/MMM/yyyy}", dtResign.Rows[i]["RESIGNATION_DATE"]);
+                        txtAddress.Text = brnch.BANKBRANCH_ADDRESS1;
+                        txtAddress2.Text = brnch.BANKBRANCH_ADDRESS2;
+                        txtAddress3.Text = brnch.BANKBRANCH_ADDRESS3;
+                        txtCity.Text = brnch.CITY_NAME;
+                        txtState.Text = brnch.STATE_NAME;
+                        txtPostalCode.Text = brnch.BANKBRANCH_ZIPCODE;
+                        txtCountry.Text = brnch.BANKBRANCH_COUNTRY;
+                        txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
+                        txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
+                        txtEmail.Text = brnch.BANKBRANCH_EMAIL;
+                    }
+
+                    if (gurdian != null)
+                    {
+                        txGurName.Text = gurdian.Name;
+                        cmbGurRelation.SelectedValue = gurdian.RELATION_CODE;
+                        txtGurAddress.Text = gurdian.ADDRESS1;
+                        txtGurAddress2.Text = gurdian.ADDRESS2;
+                        txtGurAddress3.Text = gurdian.ADDRESS3;
+                        txtGurAge.Text = gurdian.AGE.ToString();
+                        cmbGurSex.Text = gurdian.SEX;
+                        txtGurICNO.Text = gurdian.ICNO_NEW;
+                        txtGurOldICNO.Text = gurdian.ICNO_OLD;
+                        cmbGurCity.SelectedValue = gurdian.CITY_CODE;
+                        cmbGurState.SelectedValue = gurdian.STATE_CODE;
+                        cmbGurCountry.Text = gurdian.COUNTRY;
+                        txtGurZipCode.Text = gurdian.ZIPCODE;
+                        txtGurPhNo.Text = gurdian.PHONE;
+                        txtGurMobileNo.Text = gurdian.MOBILE;
+                    }
+                    dtpRegResignDate.Focus();
+
+                    if (dtResign.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dtResign.Rows.Count; i++)
+                        {
+                            cmbRegClaimer.SelectedValue = Convert.ToInt32(dtResign.Rows[i]["RELATION_CODE"]);
+                            txtRegClaimerName.Text = dtResign.Rows[i]["CLAIMER_NAME"].ToString();
+                            txtRegContributedMonths.Text = dtResign.Rows[i]["MONTHS_CONTRIBUTED"].ToString();
+                            txtRegBFContribution.Text = dtResign.Rows[i]["ACCBF"].ToString();
+                            txtRegBenefits.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
+                            txtRegAmount.Text = dtResign.Rows[i]["ACCBF"].ToString();
+                            txtRegSubTotal.Text = dtResign.Rows[i]["ACCBENEFIT"].ToString();
+                            cmbPaymode.Text = dtResign.Rows[i]["PAYMODE"].ToString();
+                            txtRegPaymode.Text = dtResign.Rows[i]["CHEQUENO"].ToString();
+                            dtpRegChequeDate.Text = dtResign.Rows[i]["CHEQUEDATE"].ToString();
+                            txtRegTotalAmount.Text = dtResign.Rows[i]["AMOUNT"].ToString();
+                            dtpRegVData.Text = dtResign.Rows[i]["VOUCHER_DATE"].ToString();
+                            txtRegServiceYear.Text = dtResign.Rows[i]["SERVICE_YEAR"].ToString();
+                            cmbRegReason.SelectedValue = Convert.ToInt32(dtResign.Rows[i]["REASON_CODE"]);
+                            dtpRegResignDate.Text = string.Format("{0:dd/MMM/yyyy}", dtResign.Rows[i]["RESIGNATION_DATE"]);
+                        }
+                    }
+                    else
+                    {
+                        dtpRegResignDate.SelectedDate = DateTime.Now;
+                        dtpRegChequeDate.SelectedDate = DateTime.Now;
+                        dtpRegVData.SelectedDate = DateTime.Now;
                     }
                 }
                 else
                 {
-                    dtpRegResignDate.SelectedDate = DateTime.Now;
-                    dtpRegChequeDate.SelectedDate = DateTime.Now;
-                    dtpRegVData.SelectedDate = DateTime.Now;
+                    MessageBox.Show("No Records Found!");
                 }
             }
             catch (Exception ex)

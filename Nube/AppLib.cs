@@ -31,7 +31,7 @@ namespace Nube
         public static List<TVMASTERMEMBER> lstTVMasterMember = new List<TVMASTERMEMBER>();
         public static List<ViewMasterMember> lstMstMember = new List<ViewMasterMember>();
 
-        public static DataTable dtMemberQuery = new DataTable();
+        public static DataTable dtMemberQuery = new DataTable();        
         public static DataTable dtAnnualStatement = new DataTable();
         public static nubebfsEntity db = new nubebfsEntity();
 

@@ -53,7 +53,7 @@ namespace Nube.Transaction
             FormLoad();
             bIsUpdate = false;
 
-            LoadTempViewMaster();
+            //LoadTempViewMaster();
 
             if (dMember_Code != 0)
             {
@@ -235,11 +235,71 @@ namespace Nube.Transaction
                             mm.ZIPCODE = txtResPostalCode.Text;
                             mm.STATE_CODE = dStateCode;
                             mm.COUNTRY = cmbResCountry.Text;
+                            mm.UpdatedBy = AppLib.iUserCode;
+                            mm.UpdatedOn = DateTime.Now;
 
                             db.SaveChanges();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(mm);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
+
+                            var ms = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                            if (ms != null)
+                            {
+                                ms.MEMBER_NAME = txtMemberName.Text;
+                                ms.MEMBER_ID = Convert.ToInt32(dtxtMember_ID);
+                                ms.MEMBERTYPE_CODE = Convert.ToInt32(cmbMemberType.SelectedValue);
+                                if (Convert.ToInt32(cmbMemberType.SelectedValue) == 1)
+                                {
+                                    ms.MEMBERTYPE_NAME = "C";
+                                }
+                                else
+                                {
+                                    ms.MEMBERTYPE_NAME = "N";
+                                }
+                                ms.SEX = cmbGender.Text;
+
+                                if (cmbGender.Text == "Male")
+                                {
+                                    ms.SEX_MF = "M";
+                                }
+                                else
+                                {
+                                    ms.SEX_MF = "F";
+                                }
+
+                                if (cmbRace.Text == "MALAY")
+                                {
+                                    ms.RACE = "M";
+                                }
+                                else if (cmbRace.Text == "INDIAN")
+                                {
+                                    ms.RACE = "I";
+                                }
+                                else if (cmbRace.Text == "CHINESE")
+                                {
+                                    ms.RACE = "C";
+                                }
+                                else if (cmbRace.Text == "OTHERS")
+                                {
+                                    ms.RACE = "O";
+                                }
+                                ms.ICNO_NEW = string.IsNullOrEmpty(txtNewIC.Text) ? "" : txtNewIC.Text;
+                                ms.ICNO_OLD = string.IsNullOrEmpty(txtOldIC.Text) ? "" : txtOldIC.Text;
+                                ms.Levy = cmbLevy.Text;
+                                ms.TDF = cmbTDF.Text;
+                                ms.CITY_CODE = Convert.ToInt32(dCityCode);
+                                ms.STATE_CODE = Convert.ToInt32(dStateCode);
+                                ms.MOBILE_NO = txtResMobileNo.Text;
+                                ms.DATEOFBIRTH = dtpDOB.SelectedDate;
+                                ms.BANK_CODE = Convert.ToInt32(cmbBankCode.SelectedValue);
+                                ms.BANKUSER_CODE = cmbBankCode.Text;
+                                ms.BRANCH_CODE = Convert.ToInt32(cmbBranchCode.SelectedValue);
+                                ms.BRANCH_NAME = cmbBranchCode.Text;
+                                ms.DATEOFJOINING = dtpDOJ.SelectedDate;
+                                ms.REJOINED = Convert.ToBoolean(ckbRejoined.IsChecked);
+                                db.SaveChanges();
+                            }
 
                             MASTERGUARDIAN mg = (from mas in db.MASTERGUARDIANs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
                             var OldData1 = new JSonHelper().ConvertObjectToJSon(mg);
@@ -316,6 +376,10 @@ namespace Nube.Transaction
                             MessageBox.Show("Updated Sucessfully");
                             fNew();
                         }
+                        else
+                        {
+                            MessageBox.Show("No Record to Update !", "Update Error");
+                        }
                     }
                     else
                     {
@@ -366,13 +430,77 @@ namespace Nube.Transaction
                             ZIPCODE = txtResPostalCode.Text,
                             STATE_CODE = dStateCode,
                             COUNTRY = cmbResCountry.Text,
-                            STATUS_CODE = 1
+                            STATUS_CODE = 1,
+                            CreatedBy = AppLib.iUserCode,
+                            CreatedOn = DateTime.Now
                         };
                         db.MASTERMEMBERs.Add(mstmm);
                         db.SaveChanges();
 
                         var NewData = new JSonHelper().ConvertObjectToJSon(mstmm);
                         AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERMEMBER");
+
+                        MemberStatusLog ms = new MemberStatusLog();
+                        ms.MEMBER_NAME = txtMemberName.Text;
+                        ms.MEMBER_ID = Convert.ToInt32(dtxtMember_ID);
+                        ms.MEMBERTYPE_CODE = Convert.ToInt32(cmbMemberType.SelectedValue);
+                        if (Convert.ToInt32(cmbMemberType.SelectedValue) == 1)
+                        {
+                            ms.MEMBERTYPE_NAME = "C";
+                        }
+                        else
+                        {
+                            ms.MEMBERTYPE_NAME = "N";
+                        }
+                        ms.SEX = cmbGender.Text;
+
+                        if (cmbGender.Text == "Male")
+                        {
+                            ms.SEX_MF = "M";
+                        }
+                        else
+                        {
+                            ms.SEX_MF = "F";
+                        }
+
+                        if (cmbRace.Text == "MALAY")
+                        {
+                            ms.RACE = "M";
+                        }
+                        else if (cmbRace.Text == "INDIAN")
+                        {
+                            ms.RACE = "I";
+                        }
+                        else if (cmbRace.Text == "CHINESE")
+                        {
+                            ms.RACE = "C";
+                        }
+                        else if (cmbRace.Text == "OTHERS")
+                        {
+                            ms.RACE = "O";
+                        }
+
+                        ms.ICNO_NEW = string.IsNullOrEmpty(txtNewIC.Text) ? "" : txtNewIC.Text;
+                        ms.ICNO_OLD = string.IsNullOrEmpty(txtOldIC.Text) ? "" : txtOldIC.Text;
+                        ms.Levy = cmbLevy.Text;
+                        ms.TDF = cmbTDF.Text;
+                        ms.CITY_CODE = Convert.ToInt32(dCityCode);
+                        ms.STATE_CODE = Convert.ToInt32(dStateCode);
+                        ms.MOBILE_NO = txtResMobileNo.Text;
+                        ms.DATEOFBIRTH = dtpDOB.SelectedDate;
+                        ms.BANK_CODE = Convert.ToInt32(cmbBankCode.SelectedValue);
+                        ms.BANKUSER_CODE = cmbBankCode.Text;
+                        ms.BRANCH_CODE = Convert.ToInt32(cmbBranchCode.SelectedValue);
+                        ms.BRANCH_NAME = cmbBranchCode.Text;
+                        ms.DATEOFJOINING = dtpDOJ.SelectedDate;
+                        ms.REJOINED = Convert.ToBoolean(ckbRejoined.IsChecked);
+                        ms.TOTALMONTHSPAID = 1;
+                        ms.TOTALMOTHSDUE = 0;
+                        ms.LASTPAYMENT_DATE = DateTime.Today;
+                        ms.MEMBERSTATUS = "ACTIVE";
+                        ms.MEMBERSTATUSCODE = 1;
+                        db.MemberStatusLogs.Add(ms);
+                        db.SaveChanges();
 
                         dMember_Code = Convert.ToDecimal(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
                         if (!string.IsNullOrEmpty(txGurName.Text))
@@ -1086,7 +1214,7 @@ namespace Nube.Transaction
 
             txtLevyAmount.Text = "";
             txtTDFAmount.Text = "";
-
+            bIsUpdate = false;
             LoadFundDetails();
 
             FormLoad();
@@ -1247,65 +1375,10 @@ namespace Nube.Transaction
             try
             {
                 ckbRejoined.IsEnabled = false;
-                var qry = (from mm in db.MASTERMEMBERs
-                           where mm.MEMBER_CODE == dMember_Code
-                           select new
-                           {
-                               mm.MEMBERTYPE_CODE,
-                               mm.MEMBER_CODE,
-                               mm.MEMBER_TITLE,
-                               mm.MEMBER_NAME,
-                               mm.DATEOFBIRTH,
-                               mm.AGE_IN_YEARS,
-                               mm.SEX,
-                               mm.REJOINED,
-                               mm.RACE_CODE,
-                               mm.ICNO_OLD,
-                               mm.ICNO_NEW,
-                               mm.DATEOFJOINING,
-                               mm.BANK_CODE,
-                               mm.BRANCH_CODE,
-                               mm.DATEOFEMPLOYMENT,
-                               mm.Salary,
-                               LEVY = (mm.LEVY == "NULL" ? "" : mm.LEVY),
-                               TDF = (mm.TDF == "NULL" ? "" : mm.TDF),
-                               mm.LEVY_AMOUNT,
-                               mm.TDF_AMOUNT,
-                               mm.LevyPaymentDate,
-                               mm.Tdf_PaymentDate,
-                               mm.ENTRANCEFEE,
-                               mm.ACCBENEFIT,
-                               mm.MONTHLYSUBSCRIPTION,
-                               mm.TOTALMONTHSPAID,
-                               mm.ACCSUBSCRIPTION,
-                               mm.MONTHLYBF,
-                               mm.ACCBF,
-                               mm.CURRENT_YTDBF,
-                               mm.CURRENT_YTDSUBSCRIPTION,
-                               mm.LASTPAYMENT_DATE,
-                               mm.ADDRESS1,
-                               mm.ADDRESS2,
-                               mm.ADDRESS3,
-                               resCitycode = mm.CITY_CODE,
-                               resStatecode = mm.STATE_CODE,
-                               mm.COUNTRY,
-                               mm.ZIPCODE,
-                               mm.PHONE,
-                               mm.MOBILE,
-                               mm.EMAIL,
-                               mm.MEMBER_ID,
-                               mm.STATUS_CODE,
-                               mm.BatchAmt,
-                               mm.RESIGNED
-                           }
-                         ).FirstOrDefault();
 
-                //var status = (from x in AppLib.lstTVMasterMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
 
-                var status = (from x in AppLib.lstMstMember where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
-
-                //var status = (from x in db.TEMPVIEWMASTERMEMBERs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
-
+                var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 var brnch = (from bc in db.MASTERBANKBRANCHes
                              join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
@@ -1383,7 +1456,6 @@ namespace Nube.Transaction
                                }
                                ).FirstOrDefault();
 
-                // var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();      
                 DataTable dtFee = new DataTable();
                 using (SqlConnection con = new SqlConnection(AppLib.connStr))
                 {
@@ -1454,9 +1526,9 @@ namespace Nube.Transaction
                     cmbBranchName.SelectedValue = qry.BRANCH_CODE;
                     dtpDOEmp.SelectedDate = Convert.ToDateTime(qry.DATEOFEMPLOYMENT);
                     txtSalary.Text = qry.Salary.ToString();
-                    if (status.TDF != null)
+                    if (qry.TDF != null)
                     {
-                        cmbTDF.Text = status.TDF.ToString();
+                        cmbTDF.Text = qry.TDF.ToString();
                     }
 
                     if (qry.LEVY != null)
@@ -1475,11 +1547,11 @@ namespace Nube.Transaction
                     }
 
                     txtEntranceFee.Text = qry.ENTRANCEFEE.ToString();
-                    txtBuildingFund.Text = status.HQFEE.ToString();
-                    txtAccBenefit.Text = status.ACCBENEFIT.ToString();
+                    txtBuildingFund.Text = qry.HQFEE.ToString();
+                    txtAccBenefit.Text = qry.ACCBENEFIT.ToString();
 
-                    txtMonthlySub.Text = status.MONTHLYSUBSCRIPTION.ToString();
-                    txtMonthlyBF.Text = status.MONTHLYBF.ToString();
+                    txtMonthlySub.Text = qry.MONTHLYSUBSCRIPTION.ToString();
+                    txtMonthlyBF.Text = qry.MONTHLYBF.ToString();
                     txtMonthlyUC.Text = "7";
                     txtMonthlyIns.Text = "10";
 
@@ -1527,12 +1599,24 @@ namespace Nube.Transaction
                         }
                     }
 
-                    cmbResCity.SelectedValue = qry.resCitycode;
-                    txtResPostalCode.Text = qry.ZIPCODE;
-                    cmbResState.SelectedValue = qry.resStatecode;
-                    cmbResCountry.Text = qry.COUNTRY;
+                    if (qry.CITY_CODE != null)
+                    {
+                        cmbResCity.SelectedValue = qry.CITY_CODE;
+                    }
+                    if (qry.ZIPCODE != null)
+                    {
+                        txtResPostalCode.Text = qry.ZIPCODE;
+                    }
+                    if (qry.STATE_CODE != null)
+                    {
+                        cmbResState.SelectedValue = qry.STATE_CODE;
+                    }
+                    if (qry.COUNTRY != null)
+                    {
+                        cmbResCountry.Text = qry.COUNTRY;
+                    }
 
-                    if (status.RESIGNED == 1 || status.MEMBERSTATUSCODE == 6)
+                    if (status.RESIGNED == true || status.MEMBERSTATUSCODE == 6)
                     {
                         lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
                     }
@@ -1690,6 +1774,27 @@ namespace Nube.Transaction
                 bValidation = true;
                 return;
             }
+            //else if (string.IsNullOrEmpty(cmbResCity.Text))
+            //{
+            //    MessageBox.Show("City Name is Empty!");
+            //    cmbResCity.Focus();
+            //    bValidation = true;
+            //    return;
+            //}
+            //else if (string.IsNullOrEmpty(cmbResState.Text))
+            //{
+            //    MessageBox.Show("State Name is Empty!");
+            //    cmbResState.Focus();
+            //    bValidation = true;
+            //    return;
+            //}
+            //else if (string.IsNullOrEmpty(cmbResCountry.Text))
+            //{
+            //    MessageBox.Show("Country Name is Empty!");
+            //    cmbResCountry.Focus();
+            //    bValidation = true;
+            //    return;
+            //}
             //else if (string.IsNullOrEmpty(txtSalary.Text))
             //{
             //    MessageBox.Show("Salary is Empty!");

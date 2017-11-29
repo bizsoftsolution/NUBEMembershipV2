@@ -383,12 +383,12 @@ namespace Nube
         {
             try
             {
-                AlterView.DefaultMemberTotalMonthsDue();
-                AlterView.DefaultMasterMember();
+                //AlterView.DefaultMemberTotalMonthsDue();
+                //AlterView.DefaultMasterMember();
                 using (SqlConnection con = new SqlConnection(AppLib.connStr))
                 {
                     System.Windows.Forms.Application.DoEvents();
-                    SqlCommand cmd = new SqlCommand("SPREFRESH", con);
+                    SqlCommand cmd = new SqlCommand("SPMONTHENDCLOSING", con);
                     cmd.CommandType = CommandType.StoredProcedure;
                     System.Windows.Forms.Application.DoEvents();
                     cmd.Connection.Open();
@@ -396,14 +396,13 @@ namespace Nube
                     int i = cmd.ExecuteNonQuery();
                     if (i == 0)
                     {
-                        MessageBox.Show("Data Not Refresh Contact Administrator!", "Error");
+                        MessageBox.Show("Data Not Refreshed Contact Administrator!", "Error");
                     }
                     else
                     {
                         MessageBox.Show("Data Refreshed Sucessfully !", "Sucessfully");
                     }
-                    cmd.Connection.Close();
-                    MessageBox.Show("No Data Found");
+                    cmd.Connection.Close();                    
                 }
             }
             catch (Exception ex)

@@ -25,12 +25,10 @@ namespace Nube
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AccountGroup> AccountGroups { get; set; }
         public virtual DbSet<ArrearPostDetail> ArrearPostDetails { get; set; }
         public virtual DbSet<ArrearPostMaster> ArrearPostMasters { get; set; }
         public virtual DbSet<ArrearPreDetail> ArrearPreDetails { get; set; }
         public virtual DbSet<ArrearPreMaster> ArrearPreMasters { get; set; }
-        public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<CountrySetup> CountrySetups { get; set; }
         public virtual DbSet<dtproperty> dtproperties { get; set; }
         public virtual DbSet<EventHistory> EventHistories { get; set; }
@@ -41,7 +39,6 @@ namespace Nube
         public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         public virtual DbSet<MASTERCITY> MASTERCITies { get; set; }
         public virtual DbSet<MASTERGUARDIAN> MASTERGUARDIANs { get; set; }
-        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<MASTERMEMBERTYPE> MASTERMEMBERTYPEs { get; set; }
         public virtual DbSet<MASTERNAMESETUP> MASTERNAMESETUPs { get; set; }
         public virtual DbSet<MASTERNOMINEE> MASTERNOMINEEs { get; set; }
@@ -54,80 +51,27 @@ namespace Nube
         public virtual DbSet<MemberTransfer> MemberTransfers { get; set; }
         public virtual DbSet<NameTitleSetup> NameTitleSetups { get; set; }
         public virtual DbSet<SalutationSetup> SalutationSetups { get; set; }
-        public virtual DbSet<SetupDocument> SetupDocuments { get; set; }
         public virtual DbSet<StatusModify> StatusModifies { get; set; }
         public virtual DbSet<Tran_Start> Tran_Start { get; set; }
-        public virtual DbSet<UnitOfMeasurement> UnitOfMeasurements { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<UserPrevilage> UserPrevilages { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<FEE_STATUS> FEE_STATUS { get; set; }
-        public virtual DbSet<Ledger> Ledgers { get; set; }
-        public virtual DbSet<LedgerReport> LedgerReports { get; set; }
-        public virtual DbSet<Payment> Payments { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Purchase> Purchases { get; set; }
-        public virtual DbSet<PurchaseDetail> PurchaseDetails { get; set; }
-        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
-        public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
-        public virtual DbSet<PurchaseReturn> PurchaseReturns { get; set; }
-        public virtual DbSet<PurchaseReturnDetail> PurchaseReturnDetails { get; set; }
-        public virtual DbSet<Receipt> Receipts { get; set; }
-        public virtual DbSet<Sale> Sales { get; set; }
-        public virtual DbSet<SalesDetail> SalesDetails { get; set; }
-        public virtual DbSet<SalesOrder> SalesOrders { get; set; }
-        public virtual DbSet<SalesOrderDetail> SalesOrderDetails { get; set; }
-        public virtual DbSet<SalesReturn> SalesReturns { get; set; }
-        public virtual DbSet<SalesReturnDetail> SalesReturnDetails { get; set; }
-        public virtual DbSet<Staff> Staffs { get; set; }
-        public virtual DbSet<StockGroup> StockGroups { get; set; }
-        public virtual DbSet<StockReport> StockReports { get; set; }
-        public virtual DbSet<Supplier> Suppliers { get; set; }
-        public virtual DbSet<TaxMaster> TaxMasters { get; set; }
-        public virtual DbSet<TEMPFEE_STATUS> TEMPFEE_STATUS { get; set; }
-        public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
         public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
-        public virtual DbSet<USERMASTER> USERMASTERs { get; set; }
-        public virtual DbSet<VIEWACCRUEDBENEFIT> VIEWACCRUEDBENEFITs { get; set; }
-        public virtual DbSet<ViewAnnualStatement> ViewAnnualStatements { get; set; }
         public virtual DbSet<ViewBankBranch> ViewBankBranches { get; set; }
         public virtual DbSet<ViewBankBranchAdvice> ViewBankBranchAdvices { get; set; }
         public virtual DbSet<ViewBranchMonthlyStatement> ViewBranchMonthlyStatements { get; set; }
         public virtual DbSet<VIEWDUE042016TO032017> VIEWDUE042016TO032017 { get; set; }
         public virtual DbSet<VIEWDUEUPTO032016> VIEWDUEUPTO032016 { get; set; }
-        public virtual DbSet<ViewLedger> ViewLedgers { get; set; }
-        public virtual DbSet<ViewLedgerGroup> ViewLedgerGroups { get; set; }
-        public virtual DbSet<ViewLedgerJournal> ViewLedgerJournals { get; set; }
-        public virtual DbSet<ViewLedgerOpening> ViewLedgerOpenings { get; set; }
-        public virtual DbSet<ViewLedgerPayment> ViewLedgerPayments { get; set; }
-        public virtual DbSet<ViewLedgerPurchase> ViewLedgerPurchases { get; set; }
-        public virtual DbSet<ViewLedgerReceipt> ViewLedgerReceipts { get; set; }
-        public virtual DbSet<ViewLedgerReport> ViewLedgerReports { get; set; }
         public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
         public virtual DbSet<ViewMemberLastPaidDate> ViewMemberLastPaidDates { get; set; }
         public virtual DbSet<ViewMembership> ViewMemberships { get; set; }
         public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
         public virtual DbSet<VIEWNOMINEE> VIEWNOMINEEs { get; set; }
-        public virtual DbSet<ViewPurchase> ViewPurchases { get; set; }
-        public virtual DbSet<ViewPurchaseDetail> ViewPurchaseDetails { get; set; }
-        public virtual DbSet<ViewPurchaseOrder> ViewPurchaseOrders { get; set; }
-        public virtual DbSet<ViewPurchaseOrderDetail> ViewPurchaseOrderDetails { get; set; }
-        public virtual DbSet<ViewPurchaseReturn> ViewPurchaseReturns { get; set; }
-        public virtual DbSet<ViewPurchaseReturnDetail> ViewPurchaseReturnDetails { get; set; }
-        public virtual DbSet<ViewPurchaseSearch> ViewPurchaseSearches { get; set; }
-        public virtual DbSet<ViewReceipt> ViewReceipts { get; set; }
         public virtual DbSet<VIEWRESIGNREPORT> VIEWRESIGNREPORTs { get; set; }
-        public virtual DbSet<VIEWSALERYONEPERCENT> VIEWSALERYONEPERCENTs { get; set; }
-        public virtual DbSet<ViewSale> ViewSales { get; set; }
-        public virtual DbSet<ViewSalesDetail> ViewSalesDetails { get; set; }
-        public virtual DbSet<ViewSalesOrder> ViewSalesOrders { get; set; }
-        public virtual DbSet<ViewSalesOrderDetail> ViewSalesOrderDetails { get; set; }
-        public virtual DbSet<ViewSalesReturn> ViewSalesReturns { get; set; }
-        public virtual DbSet<ViewSalesReturnDetail> ViewSalesReturnDetails { get; set; }
-        public virtual DbSet<ViewStockGroup> ViewStockGroups { get; set; }
-        public virtual DbSet<ViewStockReport> ViewStockReports { get; set; }
         public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
-        public virtual DbSet<ViewTrialBalance> ViewTrialBalances { get; set; }
         public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
+        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
+        public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
     }
 }

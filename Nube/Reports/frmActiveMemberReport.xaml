@@ -17,78 +17,94 @@
     </metro:MetroWindow.Background>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="1180"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="690"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Grid.ColumnSpan="3">
-            <materialDesign:Card Margin="0,0,0,-11" >
-                <TextBlock x:Name="txtHeading" FontWeight="Bold" Background="Transparent" TextAlignment="Center" HorizontalAlignment="Center" Height="41" Margin="330,10,420,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="440" FontSize="18"/>
+            <materialDesign:Card >
+                <TextBlock x:Name="txtHeading" FontWeight="Bold" Background="Transparent" TextAlignment="Center" HorizontalAlignment="Center" Height="41" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="440" FontSize="18"/>
             </materialDesign:Card>
         </Grid>
-        <Grid Grid.Column="1"  Grid.Row="1" Margin="0,5,0,-5" Grid.RowSpan="2">
-            <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="105,60,942,608" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
-            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="95,101,942,567" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="143"/>
-            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="831,93,260,565" VerticalAlignment="Center" Width="89" Height="32" Click="btnSearch_Click"/>
-            <Button x:Name="btnExit" Content="Back" HorizontalAlignment="Center" Margin="1065,93,33,565" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click"/>
-            <ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="244,21,610,641" VerticalAlignment="Center" Width="326" Height="28"/>
-
-            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="244,57,610,605" VerticalAlignment="Center" Width="326" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
-            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="244,97,610,565" VerticalAlignment="Center" Width="326" Height="28"/>
-            <TextBlock x:Name="lblFromDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="725,28,365,640" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="90"/>
-            <TextBlock x:Name="lblDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="956,31,145,637" TextWrapping="Wrap" Text="TO Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="79"/>
-            <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="831,27,0,0" VerticalAlignment="Top" Height="28" Width="109" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
-            <DatePicker x:Name="dtpToDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="1049,26,0,0" VerticalAlignment="Top" Height="28" Width="128" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
-            <TextBox x:Name="txtMemberNoFrom" HorizontalAlignment="Left" Height="52" Margin="590,3,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo From" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
-            <TextBox x:Name="txtMemberNoTo" HorizontalAlignment="Left" Height="52" Margin="590,73,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
-            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="953,93,145,565" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
-            <TextBlock x:Name="lblNubeBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="105,23,942,645" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
-            <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="535" Margin="0,145,0,10"  VerticalAlignment="Center" Width="1180" FontSize="14" Background="Transparent" >
-                <TabControl.Resources>
-                    <Style TargetType="TabItem">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="TabItem">
-                                    <Grid Name="Panel">
-                                        <ContentPresenter x:Name="ContentSite"
+        <Grid Grid.Column="1"  Grid.Row="1" Grid.RowSpan="2">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="lblNubeBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
+                        <ComboBox x:Name="cmbNubeBranch" Margin="10,0,0,0" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
+                        <ComboBox x:Name="cmbBank" Margin="10,0,0,0" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
+                        <ComboBox x:Name="cmbBranch" Margin="10,0,0,0" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="20,0,0,0" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <TextBox x:Name="txtMemberNoFrom" HorizontalAlignment="Left" Height="50" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo From" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
+                        <TextBlock x:Name="lblFromDate" Margin="10,20,0,0" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="90"/>
+                        <DatePicker x:Name="dtpFromDate" Margin="10,20,0,0" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Height="28" Width="109" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
+                        <TextBlock x:Name="lblDate" Margin="10,20,0,0"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TO Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="79"/>
+                        <DatePicker x:Name="dtpToDate" Margin="10,20,0,0" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Height="28" Width="128" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                        <TextBox x:Name="txtMemberNoTo" HorizontalAlignment="Left" Height="52" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
+                        <CheckBox x:Name="chkRejoin" Margin="30,30,0,0" Content="Rejoined" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="btnSearch" Margin="100,0,0,0" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="89" Height="32" Click="btnSearch_Click"/>
+                        <Button x:Name="btnClear" Margin="10,0,0,0" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
+                        <Button x:Name="btnExit" Margin="10,0,0,0" Content="Back" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="2">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="517" Margin="10" VerticalAlignment="Center" Width="1180" FontSize="14" Background="Transparent" >
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Grid Name="Panel">
+                                            <ContentPresenter x:Name="ContentSite"
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Center"
                                         ContentSource="Header"
                                         Margin="10,2"/>
-                                    </Grid>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
-                                        </Trigger>
-                                        <Trigger Property="IsSelected" Value="False">
-                                            <Setter TargetName="Panel" Property="Background" Value="White" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </TabControl.Resources>
-                <TabItem Header="Member Report" FontWeight="Bold" FontSize="14">
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="482" Margin="0,6,0,0" VerticalAlignment="Top" Width="1173">
-                        <rv:ReportViewer x:Name="MemberReport"></rv:ReportViewer>
-                    </WindowsFormsHost>
-                </TabItem>
-                <TabItem Header="NUBE Branch Report" FontWeight="Bold" FontSize="14">
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="483" Margin="0,5,0,0" VerticalAlignment="Top" Width="1173">
-                        <rv:ReportViewer x:Name="NUBEMemberReport"></rv:ReportViewer>
-                    </WindowsFormsHost>
-                </TabItem>
-            </TabControl>
-
-
-
+                                        </Grid>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Panel" Property="Background" Value="White" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Member Report" FontWeight="Bold" FontSize="14">
+                        <WindowsFormsHost HorizontalAlignment="Left" Height="424" Margin="10" VerticalAlignment="Top" Width="1173">
+                            <rv:ReportViewer x:Name="MemberReport"></rv:ReportViewer>
+                        </WindowsFormsHost>
+                    </TabItem>
+                    <TabItem Header="NUBE Branch Report" FontWeight="Bold" FontSize="14">
+                        <WindowsFormsHost HorizontalAlignment="Left" Height="483" Margin="10" VerticalAlignment="Top" Width="1173">
+                            <rv:ReportViewer x:Name="NUBEMemberReport"></rv:ReportViewer>
+                        </WindowsFormsHost>
+                    </TabItem>
+                </TabControl>
+            </StackPanel>
         </Grid>
-
     </Grid>
 </metro:MetroWindow>

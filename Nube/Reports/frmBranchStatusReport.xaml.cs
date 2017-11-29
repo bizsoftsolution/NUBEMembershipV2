@@ -162,7 +162,7 @@ namespace Nube.Reports
                 " CASE WHEN MEMBERTYPE_NAME='CLERICAL' THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
                 " DATEOFJOINING,CASE WHEN MEMBERSTATUS='ACTIVE' THEN 'A' ELSE 'D' END STATUS_NAME \r" +
                 " FROM TEMPVIEWMASTERMEMBER (NOLOCK) \r" +
-                " WHERE MEMBERSTATUSCODE IN (1,2) AND DATEOFJOINING<'2017-05-01' " + sWhere + " \r" +
+                " WHERE ISCANCEL=0 AND MEMBERSTATUSCODE IN (1,2) AND DATEOFJOINING<'2017-05-01' " + sWhere + " \r" +
                 " ORDER BY BANK_NAME,MEMBER_NAME");
                     SqlCommand cmd = new SqlCommand(Qry, con);
                     SqlDataAdapter sdp = new SqlDataAdapter(cmd);

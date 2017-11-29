@@ -188,7 +188,7 @@ namespace Nube
         {
             frmMemberQuery frm = new frmMemberQuery("HomeMember");
             this.Close();
-            frm.ShowDialog();
+            frm.ShowDialog();            
         }
 
         private void btnReport_Click(object sender, RoutedEventArgs e)
@@ -277,6 +277,6 @@ namespace Nube
 
         #endregion
 
-      
+
     }
 }

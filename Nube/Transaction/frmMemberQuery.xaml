@@ -47,16 +47,16 @@
                 <DataGrid.RowStyle>
                     <Style TargetType="DataGridRow">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding STATUS_CODE}" Value="1">
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="1">
                                 <Setter Property="Foreground" Value="DarkBlue"></Setter>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding STATUS_CODE}" Value="2">
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="2">
                                 <Setter Property="Foreground" Value="Brown"></Setter>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding STATUS_CODE}" Value="3">
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="3">
                                 <Setter Property="Foreground" Value="Red"></Setter>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding STATUS_CODE}" Value="6">
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="6">
                                 <Setter Property="Foreground" Value="Green"></Setter>
                             </DataTrigger>
                         </Style.Triggers>
@@ -64,13 +64,13 @@
                 </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="S.NO" FontWeight="Bold" Width="60" Binding="{Binding RNO}"/>
-                    <DataGridTextColumn Header="Status" FontWeight="Bold" Width="120" Binding="{Binding STATUS_NAME}" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Status" FontWeight="Bold" Width="120" Binding="{Binding MEMBERSTATUS}" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Membership" FontWeight="Bold" Width="100" Binding="{Binding MEMBER_ID}"/>
                     <DataGridTextColumn Header="Name" FontWeight="Bold" Width="250" Binding="{Binding MEMBER_NAME}"/>
                     <DataGridTextColumn Header="Type" FontWeight="Bold" Width="50"  Binding="{Binding MEMBERTYPE_NAME}"/>
-                    <DataGridTextColumn Header="M/F" Width="40" FontWeight="Bold" Binding="{Binding SEX}"/>
-                    <DataGridTextColumn Header="Bank" Width="60" FontWeight="Bold" Binding="{Binding BANK_NAME}"/>
-                    <DataGridTextColumn Header="Bank Branch" FontWeight="Bold" Width="220" Binding="{Binding BANKBRANCH_NAME}"/>
+                    <DataGridTextColumn Header="M/F" Width="40" FontWeight="Bold" Binding="{Binding SEX_MF}"/>
+                    <DataGridTextColumn Header="Bank" Width="60" FontWeight="Bold" Binding="{Binding BANKUSER_CODE}"/>
+                    <DataGridTextColumn Header="Bank Branch" FontWeight="Bold" Width="220" Binding="{Binding BRANCH_NAME}"/>
                     <DataGridTextColumn Header="Levy" FontWeight="Bold" Width="70" Binding="{Binding LEVY}"/>
                     <DataGridTextColumn Header="TDF" FontWeight="Bold" Width="70" Binding="{Binding TDF}"/>
                     <DataGridTemplateColumn Header="History" Width="80">
@@ -87,10 +87,10 @@
                     <DataGridTextColumn Header="State" FontWeight="Bold" Width="120" Binding="{Binding STATE_NAME}"/>
                     <DataGridTextColumn Header="NRIC-O" FontWeight="Bold" Width="110" Binding="{Binding ICNO_OLD}"/>
                     <DataGridTextColumn Header="NRIC-N" FontWeight="Bold" Width="110" Binding="{Binding ICNO_NEW}"/>
-                    <DataGridTextColumn Header="Mobile" FontWeight="Bold" Width="110" Binding="{Binding MOBILE}"/>
-                    <DataGridTextColumn Header="Race" FontWeight="Bold" Width="50" Binding="{Binding RACE_NAME}"/>
-                    <DataGridTextColumn Header="NUBE Branch" FontWeight="Bold" Width="100" Binding="{Binding NUBE_BRANCH_NAME}"/>
-                    <DataGridTextColumn Header="STATUS_CODE" FontWeight="Bold" Width="100" Binding="{Binding STATUS_CODE}" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Mobile" FontWeight="Bold" Width="110" Binding="{Binding MOBILE_NO}"/>
+                    <DataGridTextColumn Header="Race" FontWeight="Bold" Width="50" Binding="{Binding RACE}"/>
+                    <DataGridTextColumn Header="NUBE Branch" FontWeight="Bold" Width="100" Binding="{Binding NUBEBRANCH_NAME}"/>
+                    <DataGridTextColumn Header="STATUS_CODE" FontWeight="Bold" Width="100" Binding="{Binding MEMBERSTATUSCODE}" Visibility="Hidden"/>
                     <DataGridTextColumn Header="MEMBER_CODE" FontWeight="Bold" Width="100" Binding="{Binding MEMBER_CODE}" Visibility="Hidden"/>
                 </DataGrid.Columns>
             </DataGrid>

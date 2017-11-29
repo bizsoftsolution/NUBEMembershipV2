@@ -262,7 +262,7 @@ namespace Nube
                     }
                     else
                     {
-                        MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "VERSION 1 Daily BackUp Error");
+                        MessageBox.Show("Please Enter the Daily Backup Path Correctly!", "VERSION 1 Daily BackUp Error");
                     }
 
                     // ######### VERSION 2 BACKUP ##############
@@ -304,7 +304,7 @@ namespace Nube
                     }
                     else
                     {
-                        MessageBox.Show("Please Ensure the Daily Backup Path Correctly!", "VERSION 2 Daily BackUp Error");
+                        MessageBox.Show("Please Enter the Daily Backup Path Correctly!", "VERSION 2 Daily BackUp Error");
                     }
 
                     var TS = (from x in db.Tran_Start where x.Id == 1 select x).FirstOrDefault();
@@ -327,7 +327,7 @@ namespace Nube
         {
             if (e.Cancelled)
             {
-                MessageBox.Show("Sorry Daily Backup Process Fails! ,Please Contact to Administrator", "Daily Backup Error");
+                MessageBox.Show("Sorry Daily Backup Process Fails ! ,Please Contact to Administrator", "Daily Backup Error");
             }
         }
 

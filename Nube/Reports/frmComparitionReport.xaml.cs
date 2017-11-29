@@ -395,7 +395,7 @@ namespace Nube.Reports
                                                 " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBER_CODE\r " +
                                                 " LEFT JOIN MASTERBANK BK(NOLOCK) ON BK.BANK_CODE = MM.BANK_CODE \r" +
                                                 " LEFT JOIN MASTERBANKBRANCH BR(NOLOCK) ON BR.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
-                                                " WHERE FD.FEE_YEAR={0:yyyy} AND FD.FEE_MONTH={0:MM} AND FD.TOTAL_MONTHS>0  \r" + sWhere +
+                                                " WHERE FD.FEE_YEAR={0:yyyy} AND MM.ISCANCEL=0 AND FD.FEE_MONTH={0:MM} AND FD.TOTAL_MONTHS>0  \r" + sWhere +
                                                 " ORDER BY MM.MEMBER_NAME ASC", dtpFromDate.SelectedDate);
                 }
                 else
