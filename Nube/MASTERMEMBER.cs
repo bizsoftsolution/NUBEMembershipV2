@@ -92,5 +92,6 @@ namespace Nube
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public bool IsCancel { get; set; }
+        public int TotalPaid { get; set; }
     }
 }

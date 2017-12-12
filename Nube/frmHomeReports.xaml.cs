@@ -229,5 +229,12 @@ namespace Nube
             this.Close();
             frm.ShowDialog();
         }
+
+        private void btnVariationReport_Click(object sender, RoutedEventArgs e)
+        {
+            frmVariationReport frm = new frmVariationReport();
+            this.Close();
+            frm.ShowDialog();
+        }
     }
 }

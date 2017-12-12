@@ -62,16 +62,17 @@ namespace Nube
         public virtual DbSet<ViewBranchMonthlyStatement> ViewBranchMonthlyStatements { get; set; }
         public virtual DbSet<VIEWDUE042016TO032017> VIEWDUE042016TO032017 { get; set; }
         public virtual DbSet<VIEWDUEUPTO032016> VIEWDUEUPTO032016 { get; set; }
-        public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
         public virtual DbSet<ViewMemberLastPaidDate> ViewMemberLastPaidDates { get; set; }
         public virtual DbSet<ViewMembership> ViewMemberships { get; set; }
-        public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
         public virtual DbSet<VIEWNOMINEE> VIEWNOMINEEs { get; set; }
         public virtual DbSet<VIEWRESIGNREPORT> VIEWRESIGNREPORTs { get; set; }
-        public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
         public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
-        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
-        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
+        public virtual DbSet<TEMPFEE_STATUS> TEMPFEE_STATUS { get; set; }
         public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
+        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
+        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
+        public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
+        public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
     }
 }

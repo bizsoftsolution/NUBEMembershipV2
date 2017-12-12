@@ -470,6 +470,11 @@ namespace Nube.Transaction
             txtRegBFContribution.Text = "";
             txtRegClaimerName.Text = "";
 
+            txtGE.Text = "";
+            txtAIA.Text = "";
+            txtTakaful.Text = "";
+            txtTDFInsurance.Text = "";
+
             txtRegContributedMonths.Text = "";
             cmbRegClaimer.Text = "";
             txtRegBenefitYear.Text = "";
@@ -587,10 +592,10 @@ namespace Nube.Transaction
                         adp.SelectCommand.CommandTimeout = 0;
                         adp.Fill(dtResign);
 
-                        string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
-                                     " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
+                        string str = " SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
+                                     " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID,0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
                                      " FROM FEESDETAILS(NOLOCK)" +
-                                     " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND MEMBERCODE=" + dMember_Code;
+                                     " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND ISNOTMATCH=0  AND MEMBERCODE=" + dMember_Code;
 
                         cmd = new SqlCommand(str, con);
                         adp = new SqlDataAdapter(cmd);
@@ -763,12 +768,31 @@ namespace Nube.Transaction
                             txtTDFAmount.Text = qry.TDF_AMOUNT.ToString();
                         }
 
+                        txtGE.Text = "-";
+                        txtAIA.Text = "-";
+                        txtTakaful.Text = dTotlMonthsPaidUC.ToString();
+                        if (qry.TDF != null && qry.TDF == "YES")
+                        {
+                            if (qry.TDF_AMOUNT != null)
+                            {
+                                txtTDFInsurance.Text = qry.TDF_AMOUNT.ToString();
+                            }
+                            else
+                            {
+                                txtTDFInsurance.Text = "0";
+                            }
+                        }
+                        else
+                        {
+                            txtTDFInsurance.Text = "NO";
+                        }
+                        
                         DateTime dtM = Convert.ToDateTime(status.LASTPAYMENT_DATE);
                         txtRegPaidTill.Text = dtM.ToString("MMM-yyyy");
-                        txtRegContributedMonths.Text = Convert.ToInt32(qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+                        txtRegContributedMonths.Text = Convert.ToInt32(qry.TotalPaid + dTotlMonthsPaid).ToString();
 
                         txtRegBFContribution.Text = Convert.ToInt32(qry.ACCBF + BF).ToString();
-                        txtRegBenefitYear.Text = Convert.ToInt32((qry.TOTALMONTHSPAID + dTotlMonthsPaid) / 12).ToString();
+                        txtRegBenefitYear.Text = Convert.ToInt32((qry.TotalPaid + dTotlMonthsPaid) / 12).ToString();
 
                         TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
 
@@ -805,10 +829,10 @@ namespace Nube.Transaction
                         txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
                         txtCurrentYTDIns.Text = Ins.ToString();
 
-                        txtTotalMonthPaidSubs.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-                        txtTotalMonthPaidBF.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+                        txtTotalMonthPaidSubs.Text = (qry.TotalPaid + dTotlMonthsPaid).ToString();
+                        txtTotalMonthPaidBF.Text = (qry.TotalPaid + dTotlMonthsPaid).ToString();
                         txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
-                        txtTotalMonthPaidIns.Text = Ins.ToString();
+                        txtTotalMonthPaidIns.Text = dTotlMonthsPaidUC.ToString();
 
                         txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
                         txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
@@ -938,9 +962,9 @@ namespace Nube.Transaction
 
         void fTotal()
         {
-            int iBFContri = Convert.ToInt32(txtRegBFContribution.Text);
-            int iBenefits = Convert.ToInt32(txtRegSubTotal.Text);
-            int iUnionContri = Convert.ToInt32(txtRegUnionContri.Text);
+            decimal iBFContri = Convert.ToDecimal(txtRegBFContribution.Text);
+            decimal iBenefits = Convert.ToDecimal(txtRegSubTotal.Text);
+            decimal iUnionContri = Convert.ToDecimal(txtRegUnionContri.Text);
             txtRegTotalAmount.Text = (iBFContri + iBenefits).ToString();
             txtRegGrandTotal.Text = (iBFContri + iBenefits + iUnionContri).ToString();
             //txtRegSubTotal.Text = (iBFContri + iBenefits).ToString();

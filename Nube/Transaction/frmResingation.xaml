@@ -199,7 +199,7 @@
                     </Grid>-->
 
                     <Grid>
-                        <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="875" Margin="2,4,-8,142" />
+                        <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="875" Margin="2,4,-8,22" />
                         <TextBlock x:Name="lblEntranceFee" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Entrance Fee:" VerticalAlignment="Top" Width="90" Height="19" Margin="30,50,0,0"/>
                         <TextBlock x:Name="lblBuildingFund" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Building Fund:" VerticalAlignment="Top" Width="110" Margin="181,50,0,0"/>
                         <TextBlock x:Name="lblAccBenefit" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Acc Benefit:" VerticalAlignment="Top" Width="86" Margin="357,50,0,0"/>
@@ -275,6 +275,20 @@
                                 <TextBox x:Name="txtTotalMonthsDueBF" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,50,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
                                 <TextBox x:Name="txtTotalMonthsDueUC" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,91,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
                                 <TextBox x:Name="txtTotalMonthsDueIns" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,133,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox x:Name="groupBoxInsurance" Header="Insurance Details" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,396,0,0" VerticalAlignment="Top" Height="108" Width="810">
+                            <Grid >
+                                <TextBlock x:Name="lblGE" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left" TextWrapping="Wrap" Text="GE :" VerticalAlignment="Top" Width="40"  Margin="10,31,0,0" Height="19"/>
+                                <TextBlock x:Name="lblAIA" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="AIA :" VerticalAlignment="Top" Width="40" Margin="185,31,0,0" Height="19"/>
+                                <TextBlock x:Name="lblTakaful" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Takaful Total Months Paid:" VerticalAlignment="Top" Width="203" Margin="331,31,0,0"/>
+                                <TextBlock x:Name="lblMonthlyInsDue3" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="Ins:" VerticalAlignment="Top" Width="40" Margin="10,150,0,0"/>
+                                <TextBox x:Name="txtGE" FontWeight="Bold" HorizontalAlignment="Left" Height="54" Margin="57,0,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="59" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtAIA" FontWeight="Bold" HorizontalAlignment="Left" Height="54" Margin="230,0,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="60" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTakaful" FontWeight="Bold" HorizontalAlignment="Left" Height="54" Margin="536,0,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="60" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBox x:Name="txtTotalMonthsDueIns3" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,133,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
+                                <TextBlock x:Name="lblInsuranceTDF" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Left"  TextWrapping="Wrap" Text="TDF :" VerticalAlignment="Top" Width="40" Margin="671,31,0,0"/>
+                                <TextBox x:Name="txtTDFInsurance" FontWeight="Bold" HorizontalAlignment="Left" Height="54" Margin="716,0,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="60" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
                             </Grid>
                         </GroupBox>
                     </Grid>

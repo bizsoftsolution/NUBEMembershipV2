@@ -389,6 +389,9 @@
     <Compile Include="Reports\frmTitleReport.xaml.cs">
       <DependentUpon>frmTitleReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reports\frmVariationReport.xaml.cs">
+      <DependentUpon>frmVariationReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Reports\NubeBankStatisticstoBranch.xaml.cs">
       <DependentUpon>NubeBankStatisticstoBranch.xaml</DependentUpon>
     </Compile>
@@ -399,6 +402,9 @@
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="StatusModify.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TEMPFEE_STATUS.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="TEMPVIEWMASTERMEMBER.cs">
@@ -691,6 +697,10 @@
     <Page Include="Reports\frmTitleReport.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reports\frmVariationReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reports\NubeBankStatisticstoBranch.xaml">
       <Generator>MSBuild:Compile</Generator>

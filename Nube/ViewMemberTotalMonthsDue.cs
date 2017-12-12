@@ -16,8 +16,8 @@ namespace Nube
     {
         public decimal MEMBER_CODE { get; set; }
         public Nullable<System.DateTime> LASTPAIDDATE { get; set; }
-        public Nullable<decimal> TOTALMOTHSDUE { get; set; }
+        public Nullable<int> TOTALMOTHSDUE { get; set; }
         public Nullable<int> TOTALDUE { get; set; }
-        public Nullable<decimal> TOTALDUEPAY { get; set; }
+        public Nullable<int> TOTALDUEPAY { get; set; }
     }
 }

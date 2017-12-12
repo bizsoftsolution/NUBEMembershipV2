@@ -1217,6 +1217,11 @@ namespace Nube.Transaction
             bIsUpdate = false;
             LoadFundDetails();
 
+            txtGE.Text = "";
+            txtAIA.Text = "";
+            txtTakaful.Text = "";
+            txtTDFInsurance.Text = "";
+
             FormLoad();
         }
 
@@ -1463,7 +1468,7 @@ namespace Nube.Transaction
                     string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
                                  " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
                                  " FROM FEESDETAILS(NOLOCK)" +
-                                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND MEMBERCODE=" + dMember_Code;
+                                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND ISNOTMATCH=0 AND MEMBERCODE=" + dMember_Code;
 
                     cmd = new SqlCommand(str, con);
                     cmd.CommandType = CommandType.Text;
@@ -1565,15 +1570,34 @@ namespace Nube.Transaction
                     txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
                     txtCurrentYTDIns.Text = Ins.ToString();
 
-                    txtTotalMonthPaidSubs.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
-                    txtTotalMonthPaidBF.Text = (qry.TOTALMONTHSPAID + dTotlMonthsPaid).ToString();
+                    txtTotalMonthPaidSubs.Text = (qry.TotalPaid + dTotlMonthsPaid).ToString();
+                    txtTotalMonthPaidBF.Text = (qry.TotalPaid + dTotlMonthsPaid).ToString();
                     txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
-                    txtTotalMonthPaidIns.Text = Ins.ToString();
+                    txtTotalMonthPaidIns.Text = dTotlMonthsPaidUC.ToString();
 
                     txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
                     txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
                     txtTotalMonthsDueUC.Text = "0";
                     txtTotalMonthsDueIns.Text = "0";
+
+                    txtGE.Text = "-";
+                    txtAIA.Text = "-";
+                    txtTakaful.Text = dTotlMonthsPaidUC.ToString();
+                    if (qry.TDF != null && qry.TDF == "YES")
+                    {
+                        if (qry.TDF_AMOUNT != null)
+                        {
+                            txtTDFInsurance.Text = qry.TDF_AMOUNT.ToString();
+                        }
+                        else
+                        {
+                            txtTDFInsurance.Text = "0";
+                        }                            
+                    }
+                    else
+                    {
+                        txtTDFInsurance.Text = "NO";
+                    }                    
 
                     dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
                     dtpLastPay.IsEnabled = false;
