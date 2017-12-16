@@ -52,5 +52,7 @@ namespace Nube
         public string NRIC_BYBANK { get; set; }
         public string MEMBERNAME_BYBANK { get; set; }
         public Nullable<int> BANKCODE_BYBANK { get; set; }
+        public bool AI_Insurance { get; set; }
+        public bool GE_Insurance { get; set; }
     }
 }

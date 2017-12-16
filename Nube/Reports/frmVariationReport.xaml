@@ -62,9 +62,10 @@
                         <TextBlock x:Name="lblBankBranch1" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="100"/>
                         <ComboBox Margin="10,0,0,0" x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28" />
                     </StackPanel>
-                    <StackPanel Margin="150,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <StackPanel Margin="100,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button x:Name="btnSearch" Margin="10,0,0,0" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="32" Click="btnSearch_Click"/>
                         <Button x:Name="btnClear" Margin="10,0,0,0" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="32" Click="btnClear_Click"/>
+                        <Button x:Name="btnExportXL" Margin="10,0,0,0" Content="Export XL" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="32" Click="btnExportXL_Click"/>
                         <Button x:Name="btnBack" Margin="10,0,0,0" Content="Back" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnBack_Click"/>
                     </StackPanel>
                 </StackPanel>

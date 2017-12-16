@@ -471,7 +471,7 @@ namespace Nube.Transaction
             txtRegClaimerName.Text = "";
 
             txtGE.Text = "";
-            txtAIA.Text = "";
+            cmbAI_Insurance.Text = "";
             txtTakaful.Text = "";
             txtTDFInsurance.Text = "";
 
@@ -769,7 +769,14 @@ namespace Nube.Transaction
                         }
 
                         txtGE.Text = "-";
-                        txtAIA.Text = "-";
+                        if (status.AI_Insurance == true)
+                        {
+                            cmbAI_Insurance.Text = "Available";
+                        }
+                        else
+                        {
+                            cmbAI_Insurance.Text = "N/A";
+                        }
                         txtTakaful.Text = dTotlMonthsPaidUC.ToString();
                         if (qry.TDF != null && qry.TDF == "YES")
                         {

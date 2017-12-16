@@ -1218,7 +1218,7 @@ namespace Nube.Transaction
             LoadFundDetails();
 
             txtGE.Text = "";
-            txtAIA.Text = "";
+            cmbAI_Insurance.Text = "";
             txtTakaful.Text = "";
             txtTDFInsurance.Text = "";
 
@@ -1580,8 +1580,15 @@ namespace Nube.Transaction
                     txtTotalMonthsDueUC.Text = "0";
                     txtTotalMonthsDueIns.Text = "0";
 
-                    txtGE.Text = "-";
-                    txtAIA.Text = "-";
+                    if (status.AI_Insurance == true)
+                    {
+                        cmbAI_Insurance.Text = "Available";
+                    }
+                    else
+                    {
+                        cmbAI_Insurance.Text = "N/A";
+                    }
+                    txtGE.Text = "-";                    
                     txtTakaful.Text = dTotlMonthsPaidUC.ToString();
                     if (qry.TDF != null && qry.TDF == "YES")
                     {
@@ -1592,13 +1599,12 @@ namespace Nube.Transaction
                         else
                         {
                             txtTDFInsurance.Text = "0";
-                        }                            
+                        }
                     }
                     else
                     {
                         txtTDFInsurance.Text = "NO";
-                    }                    
-
+                    }
                     dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
                     dtpLastPay.IsEnabled = false;
 
@@ -1639,7 +1645,6 @@ namespace Nube.Transaction
                     {
                         cmbResCountry.Text = qry.COUNTRY;
                     }
-
                     if (status.RESIGNED == true || status.MEMBERSTATUSCODE == 6)
                     {
                         lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);

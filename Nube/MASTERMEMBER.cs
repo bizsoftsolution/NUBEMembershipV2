@@ -93,5 +93,7 @@ namespace Nube
         public Nullable<int> UpdatedBy { get; set; }
         public bool IsCancel { get; set; }
         public int TotalPaid { get; set; }
+        public bool AI_Insurance { get; set; }
+        public bool GE_Insurance { get; set; }
     }
 }

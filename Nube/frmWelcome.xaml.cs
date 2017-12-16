@@ -28,7 +28,7 @@ namespace Nube
         public frmWelcome()
         {
             InitializeComponent();
-            lblUpdated.Content = string.Format("UPDATED ON - 12-Dec-2017-4PM");    
+            lblUpdated.Content = string.Format("UPDATED ON - 16-Dec-2017");    
         }
 
         private void image_MouseUp(object sender, MouseButtonEventArgs e)

@@ -23,6 +23,7 @@ namespace Nube.Reports
     public partial class frmVariationReport : MetroWindow
     {
         nubebfsEntity db = new nubebfsEntity();
+        DataTable dt = new DataTable();
         public frmVariationReport()
         {
             InitializeComponent();
@@ -75,6 +76,116 @@ namespace Nube.Reports
             try
             {
                 fClear();
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+        }
+
+        private void btnExportXL_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                dt = ((DataView)dgVariationReport.ItemsSource).ToTable();
+                if (dt.Rows.Count > 0)
+                {
+                    Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+                    dlg.InitialDirectory = Environment.CurrentDirectory;
+                    dlg.Title = "Variation Report";
+                    dlg.DefaultExt = ".xlsx";
+                    dlg.Filter = "XL files|*.xls;*.xlsx|All files|*.*";
+                    dlg.FileName = "VariationReport";
+                    if (dlg.ShowDialog() == true)
+                    {
+                        Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+                        Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+                        Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+                        app.Visible = true;
+                        worksheet = workbook.Sheets["Sheet1"];
+
+                        worksheet = workbook.ActiveSheet;
+                        worksheet.Name = "Variation Report";
+
+                        worksheet.Cells[3, 4] = "VARIATION REPORT ";
+                        worksheet.Cells[3, 4].Font.Bold = true;
+                        for (int i = 1; i < dt.Columns.Count + 1; i++)
+                        {
+                            if (i == 3)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} A Member", dtpFromDate.SelectedDate);
+                            }
+                            else if (i == 4)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} A Amount", dtpFromDate.SelectedDate);
+                            }
+                            else if (i == 5)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} S Member", dtpFromDate.SelectedDate);
+                            }
+                            else if (i == 6)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} S Amount", dtpFromDate.SelectedDate);
+                            }
+                            else if (i == 7)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} Tot Member", dtpFromDate.SelectedDate);
+                            }
+                            else if (i == 8)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} Tot Amount", dtpFromDate.SelectedDate);
+                            }
+                            else if (i == 9)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} A Member", dtpToDate.SelectedDate);
+                            }
+                            else if (i == 10)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} A Amount", dtpToDate.SelectedDate);
+                            }
+                            else if (i == 11)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} S Member", dtpToDate.SelectedDate);
+                            }
+                            else if (i == 12)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} S Amount", dtpToDate.SelectedDate);
+                            }
+                            else if (i == 13)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} Tot Member", dtpToDate.SelectedDate);
+                            }
+                            else if (i == 14)
+                            {
+                                worksheet.Cells[5, i + 2] = string.Format("{0:MMM} Tot Amount", dtpToDate.SelectedDate);
+                            }
+                            else if (i != 1)
+                            {
+                                worksheet.Cells[5, i + 2] = dt.Columns[i - 1].ColumnName;
+                            }
+                            worksheet.Cells[5, i + 2].Font.Bold = true;
+                        }
+
+                        for (int i = 0; i < dt.Rows.Count - 1; i++)
+                        {
+                            for (int j = 0; j < dt.Columns.Count; j++)
+                            {
+                                if (j != 0)
+                                {
+                                    worksheet.Cells[i + 6, j + 3] = dt.Rows[i][j].ToString();
+                                }                                
+                            }
+                        }
+
+                        workbook.SaveAs(dlg.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                        app.Quit();
+                        MessageBox.Show("Exported Sucessfully !", "Sucess");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No Data Found !", "Empty");
+                }
             }
             catch (Exception ex)
             {
@@ -136,12 +247,13 @@ namespace Nube.Reports
             dtpFromDate.Text = "";
             dtpToDate.Text = "";
             dgVariationReport.ItemsSource = null;
+            dt.Rows.Clear();
             fFormLoad();
         }
 
         void fGetData()
         {
-            DataTable dt = new DataTable();
+            dt.Rows.Clear();
             using (SqlConnection conn = new SqlConnection(AppLib.connStr))
             {
                 string sJOIN = "";
@@ -251,5 +363,7 @@ namespace Nube.Reports
         }
 
         #endregion
+
+
     }
 }

@@ -120,6 +120,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AI_Insurance.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="AlterViewMaster.cs" />
     <Compile Include="AppLib.cs" />
     <Compile Include="ArrearPostDetail.cs">
@@ -188,6 +191,9 @@
     </Compile>
     <Compile Include="frmWelcome.xaml.cs">
       <DependentUpon>frmWelcome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GE_Insurance.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="JSonHelper.cs" />
     <Compile Include="LoginHistory.cs">
