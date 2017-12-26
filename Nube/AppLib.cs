@@ -29,7 +29,7 @@ namespace Nube
         public static string connstatus = System.Configuration.ConfigurationManager.ConnectionStrings["NUBESTATUS"].ConnectionString;
         public static List<UserPrevilage> lstUsreRights = new List<UserPrevilage>();
         public static List<TVMASTERMEMBER> lstTVMasterMember = new List<TVMASTERMEMBER>();
-        public static List<ViewMasterMember> lstMstMember = new List<ViewMasterMember>();
+        public static List<ViewMasterMember> lstMstMember = new List<ViewMasterMember>();        
 
         public static DataTable dtMemberQuery = new DataTable();        
         public static DataTable dtAnnualStatement = new DataTable();

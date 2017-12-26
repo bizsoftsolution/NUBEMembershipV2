@@ -94,6 +94,8 @@ namespace Nube
         public bool IsCancel { get; set; }
         public int TotalPaid { get; set; }
         public bool AI_Insurance { get; set; }
+        public string AI_MemberNo { get; set; }
         public bool GE_Insurance { get; set; }
+        public string GE_ContractNo { get; set; }
     }
 }

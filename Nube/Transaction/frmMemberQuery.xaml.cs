@@ -409,8 +409,8 @@ namespace Nube.Transaction
                         adp.SelectCommand.CommandTimeout = 0;
                         adp.Fill(dtMember);
                         //var ms = (from x in db.MemberStatusLogs orderby x.MEMBER_NAME ascending select x).ToList();
-                        //dtMember = AppLib.LINQResultToDataTable(ms);
-                        //dgvDetails.ItemsSource = dtMember.DefaultView;
+                       // dtMember = AppLib.LINQResultToDataTable(ms);
+                        dgvDetails.ItemsSource = dtMember.DefaultView;
                         AppLib.dtMemberQuery = dtMember.Copy();
                     }
 

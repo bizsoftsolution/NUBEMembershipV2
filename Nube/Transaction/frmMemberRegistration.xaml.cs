@@ -1217,7 +1217,7 @@ namespace Nube.Transaction
             bIsUpdate = false;
             LoadFundDetails();
 
-            txtGE.Text = "";
+            cmbGE_Insurance.Text = "";
             cmbAI_Insurance.Text = "";
             txtTakaful.Text = "";
             txtTDFInsurance.Text = "";
@@ -1588,7 +1588,16 @@ namespace Nube.Transaction
                     {
                         cmbAI_Insurance.Text = "N/A";
                     }
-                    txtGE.Text = "-";                    
+
+                    if (status.GE_Insurance == true)
+                    {
+                        cmbGE_Insurance.Text = "Available";
+                    }
+                    else
+                    {
+                        cmbGE_Insurance.Text = "N/A";
+                    }
+                    
                     txtTakaful.Text = dTotlMonthsPaidUC.ToString();
                     if (qry.TDF != null && qry.TDF == "YES")
                     {

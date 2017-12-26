@@ -40,5 +40,7 @@ namespace Nube
         public Nullable<decimal> Bonus { get; set; }
         public Nullable<decimal> Interest { get; set; }
         public Nullable<decimal> UnitBalance { get; set; }
+        public Nullable<int> MemberCode { get; set; }
+        public Nullable<int> MemberId { get; set; }
     }
 }

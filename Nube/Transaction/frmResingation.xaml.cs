@@ -470,7 +470,7 @@ namespace Nube.Transaction
             txtRegBFContribution.Text = "";
             txtRegClaimerName.Text = "";
 
-            txtGE.Text = "";
+            cmbGE_Insurance.Text = "";
             cmbAI_Insurance.Text = "";
             txtTakaful.Text = "";
             txtTDFInsurance.Text = "";
@@ -768,7 +768,15 @@ namespace Nube.Transaction
                             txtTDFAmount.Text = qry.TDF_AMOUNT.ToString();
                         }
 
-                        txtGE.Text = "-";
+                        if (status.GE_Insurance == true)
+                        {
+                            cmbGE_Insurance.Text = "Available";
+                        }
+                        else
+                        {
+                            cmbGE_Insurance.Text = "N/A";
+                        }
+
                         if (status.AI_Insurance == true)
                         {
                             cmbAI_Insurance.Text = "Available";

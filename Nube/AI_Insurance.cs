@@ -40,5 +40,7 @@ namespace Nube
         public string SubStd { get; set; }
         public string Takeover { get; set; }
         public string Coverage { get; set; }
+        public Nullable<int> MemberCode { get; set; }
+        public Nullable<int> MemberId { get; set; }
     }
 }
