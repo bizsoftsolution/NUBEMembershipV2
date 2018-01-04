@@ -309,7 +309,7 @@ namespace Nube.Reports
                     " GROUP BY FD.FEEYEAR,FD.FEEMONTH,FD.FEEID \r" +
                     " UNION ALL \r" +
                     " SELECT FD.FEEYEAR,FD.FEEMONTH,FD.FEEID,0 AC_AMOUNT,0 AC_MEMBERS,SUM(TOTALAMOUNT) SD_AMOUNT,COUNT(*) SD_MEMBERS \r" +
-                    " FROM FEESDETAILS FD(NOLOCK) \r" + sJOIN +
+                    " FROM FEESDETAILSNOTMATCH FD(NOLOCK) \r" + sJOIN +
                     " WHERE FD.FEEYEAR=YEAR('{0:dd/MMM/yyyy}') AND FD.FEEMONTH=MONTH('{0:dd/MMM/yyyy}') AND ISNOTMATCH=1 " + sWhere + " \r" +
                     " GROUP BY FD.FEEYEAR,FD.FEEMONTH,FD.FEEID)TMP \r" +
                     " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = TMP.FEEID \r" +
@@ -324,7 +324,7 @@ namespace Nube.Reports
                     " GROUP BY FD.FEEYEAR, FD.FEEMONTH, FD.FEEID \r" +
                     " UNION ALL \r" +
                     " SELECT FD.FEEYEAR, FD.FEEMONTH, FD.FEEID,0 AC_AMOUNT,0 AC_MEMBERS,SUM(TOTALAMOUNT) SD_AMOUNT,COUNT(*) SD_MEMBERS \r" +
-                    " FROM FEESDETAILS FD(NOLOCK) \r" + sJOIN +
+                    " FROM FEESDETAILSNOTMATCH FD(NOLOCK) \r" + sJOIN +
                     " WHERE FD.FEEYEAR=YEAR('{1:dd/MMM/yyyy}') AND FD.FEEMONTH=MONTH('{1:dd/MMM/yyyy}') AND ISNOTMATCH=1 " + sWhere + " \r" +
                     " GROUP BY FD.FEEYEAR,FD.FEEMONTH,FD.FEEID)TMP \r" +
                     " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = TMP.FEEID \r" +

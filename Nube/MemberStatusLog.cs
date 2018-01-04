@@ -28,6 +28,7 @@ namespace Nube
         public Nullable<int> BANK_CODE { get; set; }
         public string BANKUSER_CODE { get; set; }
         public Nullable<int> BRANCH_CODE { get; set; }
+        public string BRANCH_USER_CODE { get; set; }
         public string BRANCH_NAME { get; set; }
         public Nullable<int> NUBEBRANCH_CODE { get; set; }
         public string NUBEBRANCH_NAME { get; set; }
@@ -52,6 +53,7 @@ namespace Nube
         public string NRIC_BYBANK { get; set; }
         public string MEMBERNAME_BYBANK { get; set; }
         public Nullable<int> BANKCODE_BYBANK { get; set; }
+        public bool ISCANCEL { get; set; }
         public bool AI_Insurance { get; set; }
         public bool GE_Insurance { get; set; }
     }

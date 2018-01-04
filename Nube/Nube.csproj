@@ -150,6 +150,9 @@
     <Compile Include="FeesDetail.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="FeesDetailsNotMatch.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="FeesMaster.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>

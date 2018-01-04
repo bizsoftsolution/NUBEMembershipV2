@@ -56,7 +56,6 @@ namespace Nube
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<UserPrevilage> UserPrevilages { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
         public virtual DbSet<ViewBankBranch> ViewBankBranches { get; set; }
         public virtual DbSet<ViewBankBranchAdvice> ViewBankBranchAdvices { get; set; }
         public virtual DbSet<ViewBranchMonthlyStatement> ViewBranchMonthlyStatements { get; set; }
@@ -67,8 +66,6 @@ namespace Nube
         public virtual DbSet<VIEWRESIGNREPORT> VIEWRESIGNREPORTs { get; set; }
         public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
         public virtual DbSet<TEMPFEE_STATUS> TEMPFEE_STATUS { get; set; }
-        public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
-        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
         public virtual DbSet<AI_Insurance> AI_Insurance { get; set; }
         public virtual DbSet<GE_Insurance> GE_Insurance { get; set; }
         public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
@@ -76,5 +73,9 @@ namespace Nube
         public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
         public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
+        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
+        public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
+        public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
     }
 }

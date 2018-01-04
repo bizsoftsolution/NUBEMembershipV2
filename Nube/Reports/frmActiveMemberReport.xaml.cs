@@ -280,18 +280,28 @@ namespace Nube
                     }
 
 
-                    cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME, \r" +
-                                     " ISNULL(MT.MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,ISNULL(MM.LEVY,'')LEVY,ISNULL(MM.TDF,'')TDF,ISNULL(MM.SEX,'')SEX,\r" +
-                                     " CASE WHEN ISNULL(MM.ICNO_NEW, '')<>'' THEN ISNULL(MM.ICNO_NEW,'') ELSE ISNULL(MM.ICNO_OLD,'') END ICNO_NEW,\r" +
-                                     " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANK_USERCODE,MM.DATEOFJOINING,MB.BANK_USERCODE BANK,BB.BANKBRANCH_USERCODE, \r" +
-                                     " ISNULL(VT.LASTPAIDDATE,MM.LASTPAYMENT_DATE)LASTPAYMENT_DATE,MM.BANK_CODE,MM.BRANCH_CODE,BB.NUBE_BRANCH_CODE \r" +
-                                     " FROM MASTERMEMBER MM(NOLOCK) \r" +
-                                     " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = MM.BANK_CODE \r" +
-                                     " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
-                                     " LEFT JOIN MASTERMEMBERTYPE MT(NOLOCK) ON MT.MEMBERTYPE_CODE = MM.MEMBERTYPE_CODE \r" +
-                                     " LEFT JOIN VIEWTOTALDUE VT(NOLOCK) ON VT.MEMBER_CODE = MM.MEMBER_CODE \r" +
-                                     " WHERE MM.ISCANCEL=0 AND " + sDate +
-                                     " ORDER BY MEMBER_NAME", con);
+                    //cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME, \r" +
+                    //                 " ISNULL(MT.MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,ISNULL(MM.LEVY,'')LEVY,ISNULL(MM.TDF,'')TDF,ISNULL(MM.SEX,'')SEX,\r" +
+                    //                 " CASE WHEN ISNULL(MM.ICNO_NEW, '')<>'' THEN ISNULL(MM.ICNO_NEW,'') ELSE ISNULL(MM.ICNO_OLD,'') END ICNO_NEW,\r" +
+                    //                 " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANK_USERCODE,MM.DATEOFJOINING,MB.BANK_USERCODE BANK,BB.BANKBRANCH_USERCODE, \r" +
+                    //                 " ISNULL(VT.LASTPAIDDATE,MM.LASTPAYMENT_DATE)LASTPAYMENT_DATE,MM.BANK_CODE,MM.BRANCH_CODE,BB.NUBE_BRANCH_CODE \r" +
+                    //                 " FROM MASTERMEMBER MM(NOLOCK) \r" +
+                    //                 " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = MM.BANK_CODE \r" +
+                    //                 " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
+                    //                 " LEFT JOIN MASTERMEMBERTYPE MT(NOLOCK) ON MT.MEMBERTYPE_CODE = MM.MEMBERTYPE_CODE \r" +
+                    //                 " LEFT JOIN VIEWTOTALDUE VT(NOLOCK) ON VT.MEMBER_CODE = MM.MEMBER_CODE \r" +
+                    //                 " WHERE MM.ISCANCEL=0 AND " + sDate +
+                    //                 " ORDER BY MEMBER_NAME", con);
+
+                    cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME,  \r" +
+                                         " ISNULL(MM.MEMBERTYPE_NAME, '')MEMBERTYPE_NAME, ISNULL(MM.LEVY, '')LEVY, ISNULL(MM.TDF, '')TDF, ISNULL(MM.SEX, '')SEX, \r" +
+                                         " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(MM.ICNO_OLD, '') END ICNO_NEW, \r" +
+                                         " MM.BANKUSER_CODE + '/' + MM.BRANCH_USER_CODE BANK_USERCODE, MM.DATEOFJOINING, MM.BANKUSER_CODE BANK, MM.BRANCH_USER_CODE BANKBRANCH_USERCODE, \r" +
+                                         " MM.LASTPAYMENT_DATE LASTPAYMENT_DATE,MM.BANK_CODE,MM.BRANCH_CODE,MM.NUBEBRANCH_CODE NUBE_BRANCH_CODE \r" + 
+                                         " FROM MEMBERSTATUSLOG MM(NOLOCK) \r" +
+                                         " WHERE MM.ISCANCEL=0 AND " + sDate +
+                                         " ORDER BY MEMBER_NAME", con);
+
                     SqlDataAdapter adp = new SqlDataAdapter(cmd);
                     adp.Fill(dt);
                 }
