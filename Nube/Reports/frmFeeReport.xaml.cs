@@ -140,6 +140,8 @@ namespace Nube.Reports
         {
             dgFeeDetail.ItemsSource = null;
             string sWhere = "";
+            string sWhere1 = "";
+            string sWhere2 = "";
             if (dtpDate.SelectedDate <= Convert.ToDateTime("31/MAR/2016").Date)
             {
                 if (!string.IsNullOrEmpty(dtpDate.Text.ToString()))
@@ -196,6 +198,11 @@ namespace Nube.Reports
                 {
                     sWhere = sWhere + " AND FD.STATUS<>'FEES ENTRY' ";
                 }
+                else
+                {
+                    sWhere1 = sWhere1 + " AND FD.ISNOTMATCH=1 ";
+                    sWhere2 = sWhere2 + " AND FD.ISNOTMATCH=0 ";
+                }
 
                 if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
                 {
@@ -206,7 +213,11 @@ namespace Nube.Reports
                 }
             }
 
-            decimal dBankCode = Convert.ToDecimal(cmbBank.SelectedValue);
+            decimal dBankCode = 0;
+            if (!string.IsNullOrEmpty(cmbBank.Text))
+            {
+                dBankCode = Convert.ToDecimal(cmbBank.SelectedValue);
+            }
 
             if (!string.IsNullOrEmpty(cmbBank.Text) && (dtpDate.SelectedDate <= Convert.ToDateTime("31/MAR/2016").Date))
             {
@@ -290,7 +301,7 @@ namespace Nube.Reports
                         " LEFT JOIN MASTERBANKBRANCH MB(NOLOCK) ON MB.BANKBRANCH_CODE=MM.BRANCH_CODE \r" + sWhere +
                         " ORDER BY MM.MEMBER_NAME ";
                     }
-                    else
+                    else if ((rbtnNotMatch.IsChecked == false && rbtnUnPaid.IsChecked == false) && (rbtnArrear.IsChecked == true || rbtnActive.IsChecked == true))
                     {
                         str = " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID, \r" +
                        " ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC, \r" +
@@ -301,7 +312,29 @@ namespace Nube.Reports
                        " LEFT JOIN MASTERBANKBRANCH MB(NOLOCK) ON MB.BANKBRANCH_CODE=MM.BRANCH_CODE \r" + sWhere +
                        " ORDER BY MM.MEMBER_NAME ";
                     }
-
+                    else
+                    {
+                        str = " SELECT NO,DETAILID,FEEID,MEMBERCODE,MEMBERID,MEMBER_NAME,NRIC,TOTALAMOUNT,DEPT,AMOUNTBF,AMOUNTINS,AMTSUBS,REASON \r" +
+                         " FROM(\r" +
+                         " SELECT '' NO, FD.DETAILID, FD.FEEID, FD.MEMBERCODE, ISNULL(MM.MEMBER_ID, 0)MEMBERID,\r" +
+                         " ISNULL(MM.MEMBER_NAME, '')MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,\r" +
+                         " FD.TOTALAMOUNT, ISNULL(FD.DEPT, '')DEPT, FD.AMOUNTBF, AMOUNTINS, AMTSUBS, ISNULL(REASON, '')REASON\r" +
+                         " FROM FEESDETAILS FD(NOLOCK)\r" +
+                         " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID\r" +
+                         " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE\r" +
+                         " LEFT JOIN MASTERBANKBRANCH MB(NOLOCK) ON MB.BANKBRANCH_CODE = MM.BRANCH_CODE\r" +
+                         sWhere + sWhere2 + "\r" +
+                         " UNION ALL\r" +
+                         " SELECT '' NO, FD.DETAILID, FD.FEEID, FD.MEMBERCODE, ISNULL(MM.MEMBER_ID, 0)MEMBERID,\r" +
+                         " ISNULL(MM.MEMBER_NAME, '')MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,\r" +
+                         " FD.TOTALAMOUNT, ISNULL(FD.DEPT, '')DEPT, FD.AMOUNTBF, AMOUNTINS, AMTSUBS, ISNULL(REASON, '')REASON\r" +
+                         " FROM FEESDETAILSNOTMATCH FD(NOLOCK)\r" +
+                         " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID\r" +
+                         " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE\r" +
+                         " LEFT JOIN MASTERBANKBRANCH MB(NOLOCK) ON MB.BANKBRANCH_CODE = MM.BRANCH_CODE\r" +
+                         sWhere + sWhere1 + " )TEMP\r" +
+                         " ORDER BY MEMBER_NAME";
+                    }
                 }
 
                 SqlCommand cmd = new SqlCommand(str, conn);
@@ -338,7 +371,6 @@ namespace Nube.Reports
         }
 
         #endregion
-
 
     }
 }

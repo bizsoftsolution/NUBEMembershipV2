@@ -130,6 +130,8 @@ namespace Nube.Reports
                     string sWhere = "";
                     string Qry = "";
 
+                    DateTime dtfirstDayOfNextMonth = new DateTime(Convert.ToDateTime(dtpDOB.SelectedDate).Year, Convert.ToDateTime(dtpDOB.SelectedDate).Month, 1).AddMonths(1);
+
                     if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
                     {
                         sWhere = " AND NUBEBANCHCODE=" + cmbNubeBranch.SelectedValue;
@@ -162,7 +164,7 @@ namespace Nube.Reports
                 " CASE WHEN MEMBERTYPE_NAME='CLERICAL' THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
                 " DATEOFJOINING,CASE WHEN MEMBERSTATUS='ACTIVE' THEN 'A' ELSE 'D' END STATUS_NAME \r" +
                 " FROM TEMPVIEWMASTERMEMBER (NOLOCK) \r" +
-                " WHERE ISCANCEL=0 AND MEMBERSTATUSCODE IN (1,2) AND DATEOFJOINING<'2017-05-01' " + sWhere + " \r" +
+                " WHERE ISCANCEL=0 AND MEMBERSTATUSCODE IN (1,2) AND DATEOFJOINING< '" + dtfirstDayOfNextMonth + "' " + sWhere + " \r" +
                 " ORDER BY BANK_NAME,MEMBER_NAME");
                     SqlCommand cmd = new SqlCommand(Qry, con);
                     SqlDataAdapter sdp = new SqlDataAdapter(cmd);
