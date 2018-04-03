@@ -44,6 +44,9 @@ namespace Nube.Transaction
         decimal dTotlMonthsPaid = 0;
         decimal dTotlMonthsPaidUC = 0;
         List<MASTERNOMINEENAMES> lstmstnom = new List<MASTERNOMINEENAMES>();
+        Boolean bBankCodeChange = true;
+        Boolean bBranchCodeChange = true;
+        bool bIsWebServiceData = false;
 
         public frmMemberRegistration(decimal dMembercode = 0)
         {
@@ -295,7 +298,8 @@ namespace Nube.Transaction
                                 ms.BANK_CODE = Convert.ToInt32(cmbBankCode.SelectedValue);
                                 ms.BANKUSER_CODE = cmbBankCode.Text;
                                 ms.BRANCH_CODE = Convert.ToInt32(cmbBranchCode.SelectedValue);
-                                ms.BRANCH_NAME = cmbBranchCode.Text;
+                                ms.BRANCH_USER_CODE = cmbBranchCode.Text;
+                                ms.BRANCH_NAME = cmbBranchName.Text;
                                 ms.DATEOFJOINING = dtpDOJ.SelectedDate;
                                 ms.REJOINED = Convert.ToBoolean(ckbRejoined.IsChecked);
                                 db.SaveChanges();
@@ -440,7 +444,10 @@ namespace Nube.Transaction
                         var NewData = new JSonHelper().ConvertObjectToJSon(mstmm);
                         AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERMEMBER");
 
+                        dMember_Code = Convert.ToDecimal(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
+
                         MemberStatusLog ms = new MemberStatusLog();
+                        ms.MEMBER_CODE = Convert.ToInt32(dMember_Code);
                         ms.MEMBER_NAME = txtMemberName.Text;
                         ms.MEMBER_ID = Convert.ToInt32(dtxtMember_ID);
                         ms.MEMBERTYPE_CODE = Convert.ToInt32(cmbMemberType.SelectedValue);
@@ -490,8 +497,10 @@ namespace Nube.Transaction
                         ms.DATEOFBIRTH = dtpDOB.SelectedDate;
                         ms.BANK_CODE = Convert.ToInt32(cmbBankCode.SelectedValue);
                         ms.BANKUSER_CODE = cmbBankCode.Text;
+
                         ms.BRANCH_CODE = Convert.ToInt32(cmbBranchCode.SelectedValue);
-                        ms.BRANCH_NAME = cmbBranchCode.Text;
+                        ms.BRANCH_USER_CODE = cmbBranchCode.Text;
+                        ms.BRANCH_NAME = cmbBranchName.Text;
                         ms.DATEOFJOINING = dtpDOJ.SelectedDate;
                         ms.REJOINED = Convert.ToBoolean(ckbRejoined.IsChecked);
                         ms.TOTALMONTHSPAID = 1;
@@ -502,7 +511,7 @@ namespace Nube.Transaction
                         db.MemberStatusLogs.Add(ms);
                         db.SaveChanges();
 
-                        dMember_Code = Convert.ToDecimal(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
+
                         if (!string.IsNullOrEmpty(txGurName.Text))
                         {
                             MASTERGUARDIAN mstgrd = new MASTERGUARDIAN
@@ -1251,12 +1260,15 @@ namespace Nube.Transaction
                 txtBuildingFund.Text = ns.BuildingFund.ToString();
                 txtBadgeAmt.Text = ns.BadgeAmount.ToString();
                 txtMonthlyBF.Text = ns.BF.ToString();
-                txtMonthlyIns.Text = ns.Insurance.ToString();
+                txtMonthlyUC.Text = ns.Insurance.ToString();
+                txtMonthlyIns.Text = (ns.Insurance + ns.BF).ToString();
                 txtAccBF.Text = ns.BF.ToString();
-                txtAccIns.Text = ns.Insurance.ToString();
+                txtAccUC.Text = ns.Insurance.ToString();
+                txtAccIns.Text = (ns.Insurance + ns.BF).ToString();
 
                 txtCurrentYTDBF.Text = ns.BF.ToString();
-                txtCurrentYTDIns.Text = ns.Insurance.ToString();
+                txtCurrentYTDUC.Text = ns.Insurance.ToString();
+                txtCurrentYTDIns.Text = (ns.BF + ns.Insurance).ToString();
             }
             else
             {
@@ -1265,8 +1277,10 @@ namespace Nube.Transaction
                 txtBadgeAmt.Text = "0";
 
                 txtMonthlyBF.Text = "0";
+                txtMonthlyUC.Text = "0";
                 txtMonthlyIns.Text = "0";
                 txtAccBF.Text = "0";
+                txtAccUC.Text = "0";
                 txtAccIns.Text = "0";
 
                 txtCurrentYTDBF.Text = "0";
@@ -1379,9 +1393,9 @@ namespace Nube.Transaction
         {
             try
             {
-                ckbRejoined.IsEnabled = false;
-
-                var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
+                
+                var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();               
+                
 
                 var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
@@ -1479,7 +1493,7 @@ namespace Nube.Transaction
                 BF = 0; UC = 0; Ins = 0; Subs = 0; dTotlMonthsPaid = 0; dTotlMonthsPaidUC = 0;
                 foreach (DataRow dr in dtFee.Rows)
                 {
-                    BF = BF + Convert.ToDecimal(dr["AmountBf"]);
+                    BF = BF + (dr["AmountBf"] != null ? Convert.ToDecimal(dr["AmountBf"]) : 0);
                     UC = UC + Convert.ToDecimal(dr["UnionContribution"]);
                     Ins = Ins + Convert.ToDecimal(dr["AmountIns"]);
                     Subs = Subs + Convert.ToDecimal(dr["AmtSubs"]);
@@ -1516,7 +1530,7 @@ namespace Nube.Transaction
                     txtResAddress2.Text = qry.ADDRESS2;
                     txtResAddress3.Text = qry.ADDRESS3;
                     txtResPhoneNo.Text = qry.PHONE;
-                    txtResMobileNo.Text = qry.MOBILE;
+                    txtResMobileNo.Text = (qry.MOBILE != null ? qry.MOBILE.ToString() : "");
                     dtpDOB.SelectedDate = Convert.ToDateTime(qry.DATEOFBIRTH);
                     cmbGender.Text = qry.SEX;
                     ckbRejoined.IsChecked = Convert.ToBoolean(qry.REJOINED);
@@ -1575,29 +1589,54 @@ namespace Nube.Transaction
                     txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
                     txtTotalMonthPaidIns.Text = dTotlMonthsPaidUC.ToString();
 
-                    txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
-                    txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
+                    if (status != null)
+                    {
+                        txtTotalMonthsDueSubs.Text = status.TOTALMOTHSDUE.ToString();
+                        txtTotalMonthsDueBF.Text = status.TOTALMOTHSDUE.ToString();
+
+                        if (status.AI_Insurance == true)
+                        {
+                            cmbAI_Insurance.Text = "Available";
+                        }
+                        else
+                        {
+                            cmbAI_Insurance.Text = "N/A";
+                        }
+
+                        if (status.GE_Insurance == true)
+                        {
+                            cmbGE_Insurance.Text = "Available";
+                        }
+                        else
+                        {
+                            cmbGE_Insurance.Text = "N/A";
+                        }
+
+                        dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
+
+                        TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
+
+                        int iSerYear = Convert.ToInt32(ts.Days) / 365;
+                        txtServicePeriod.Text = iSerYear.ToString();
+                    }
+                    else
+                    {
+                        txtTotalMonthsDueSubs.Text = "0";
+                        txtTotalMonthsDueBF.Text = "0";
+                        cmbAI_Insurance.Text = "N/A";
+                        cmbGE_Insurance.Text = "N/A";
+
+                        //dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
+
+                        //TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
+
+                        //int iSerYear = Convert.ToInt32(ts.Days) / 365;
+                        //txtServicePeriod.Text = iSerYear.ToString();
+                    }
+
                     txtTotalMonthsDueUC.Text = "0";
                     txtTotalMonthsDueIns.Text = "0";
 
-                    if (status.AI_Insurance == true)
-                    {
-                        cmbAI_Insurance.Text = "Available";
-                    }
-                    else
-                    {
-                        cmbAI_Insurance.Text = "N/A";
-                    }
-
-                    if (status.GE_Insurance == true)
-                    {
-                        cmbGE_Insurance.Text = "Available";
-                    }
-                    else
-                    {
-                        cmbGE_Insurance.Text = "N/A";
-                    }
-                    
                     txtTakaful.Text = dTotlMonthsPaidUC.ToString();
                     if (qry.TDF != null && qry.TDF == "YES")
                     {
@@ -1614,14 +1653,9 @@ namespace Nube.Transaction
                     {
                         txtTDFInsurance.Text = "NO";
                     }
-                    dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
+
                     dtpLastPay.IsEnabled = false;
-
                     txtBadgeAmt.Text = qry.BatchAmt.ToString();
-                    TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
-
-                    int iSerYear = Convert.ToInt32(ts.Days) / 365;
-                    txtServicePeriod.Text = iSerYear.ToString();
 
                     if (qry.EMAIL != null)
                     {
@@ -1654,29 +1688,37 @@ namespace Nube.Transaction
                     {
                         cmbResCountry.Text = qry.COUNTRY;
                     }
-                    if (status.RESIGNED == true || status.MEMBERSTATUSCODE == 6)
+                    if (status != null)
                     {
-                        lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
-                    }
-                    else
-                    {
-                        if (status.MEMBERSTATUSCODE == 1)
-                        {
-                            lblStatus.Content = "Active Member; " + status.TOTALMOTHSDUE + " Arrears Pending";
-                        }
-                        else if (status.MEMBERSTATUSCODE == 2)
-                        {
-                            lblStatus.Content = "Defaulter; " + status.TOTALMOTHSDUE + " Arrears Pending";
-                        }
-                        else if (status.MEMBERSTATUSCODE == 3)
-                        {
-                            lblStatus.Content = "Struck Off; " + status.TOTALMOTHSDUE + " Arrears Pending";
-                        }
-                        else if (status.MEMBERSTATUSCODE == 6)
+                        if (status != null && (status.RESIGNED == true || status.MEMBERSTATUSCODE == 6))
                         {
                             lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
                         }
+                        else
+                        {
+                            if (status.MEMBERSTATUSCODE == 1)
+                            {
+                                lblStatus.Content = "Active Member; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            }
+                            else if (status.MEMBERSTATUSCODE == 2)
+                            {
+                                lblStatus.Content = "Defaulter; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            }
+                            else if (status.MEMBERSTATUSCODE == 3)
+                            {
+                                lblStatus.Content = "Struck Off; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                            }
+                            else if (status.MEMBERSTATUSCODE == 6)
+                            {
+                                lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
+                            }
+                        }
                     }
+                    else
+                    {
+                        lblStatus.Content = "Active Member; 0 Arrears Pending";
+                    }
+
                 }
 
                 if (brnch != null)
@@ -1953,31 +1995,36 @@ namespace Nube.Transaction
         {
             try
             {
-                decimal dBankCode = Convert.ToDecimal(cmbBankCode.SelectedValue);
-                if (dBankCode != 0)
+                if (bBankCodeChange == true)
                 {
-                    var mBnk = db.MASTERBANKs.Where(x => x.BANK_CODE == dBankCode).FirstOrDefault();
-                    cmbBankName.SelectedValue = mBnk.BANK_CODE;
+                    decimal dBankCode = Convert.ToDecimal(cmbBankCode.SelectedValue);
+                    if (dBankCode != 0)
+                    {
+                        //var mBnk = db.MASTERBANKs.Where(x => x.BANK_CODE == dBankCode).FirstOrDefault();
+                        bBankCodeChange = false;
+                        cmbBankName.SelectedValue = dBankCode;
+                        bBankCodeChange = true;
 
-                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).ToList();
-                    cmbBranchCode.ItemsSource = mbr;
-                    cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
-                    cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
+                        var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).ToList();
+                        cmbBranchCode.ItemsSource = mbr;
+                        cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
+                        cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
 
-                    cmbBranchName.ItemsSource = mbr;
-                    cmbBranchName.SelectedValuePath = "BANKBRANCH_CODE";
-                    cmbBranchName.DisplayMemberPath = "BANKBRANCH_NAME";
+                        cmbBranchName.ItemsSource = mbr;
+                        cmbBranchName.SelectedValuePath = "BANKBRANCH_CODE";
+                        cmbBranchName.DisplayMemberPath = "BANKBRANCH_NAME";
 
-                    txtAddress.Text = "";
-                    txtAddress2.Text = "";
-                    txtAddress3.Text = "";
-                    txtCity.Text = "";
-                    txtState.Text = "";
-                    txtPostalCode.Text = "";
-                    txtCountry.Text = "";
-                    txtPhoneNo.Text = "";
-                    txtMobileNo.Text = "";
-                    txtEmail.Text = "";
+                        txtAddress.Text = "";
+                        txtAddress2.Text = "";
+                        txtAddress3.Text = "";
+                        txtCity.Text = "";
+                        txtState.Text = "";
+                        txtPostalCode.Text = "";
+                        txtCountry.Text = "";
+                        txtPhoneNo.Text = "";
+                        txtMobileNo.Text = "";
+                        txtEmail.Text = "";
+                    }
                 }
             }
             catch (Exception ex)
@@ -1990,31 +2037,36 @@ namespace Nube.Transaction
         {
             try
             {
-                decimal dBankCode = Convert.ToDecimal(cmbBankName.SelectedValue);
-                if (dBankCode != 0)
+                if (bBankCodeChange == true)
                 {
-                    var mBnk = db.MASTERBANKs.Where(x => x.BANK_CODE == dBankCode).FirstOrDefault();
-                    cmbBankCode.SelectedValue = mBnk.BANK_CODE;
+                    decimal dBankCode = Convert.ToDecimal(cmbBankName.SelectedValue);
+                    if (dBankCode != 0)
+                    {
+                        //var mBnk = db.MASTERBANKs.Where(x => x.BANK_CODE == dBankCode).FirstOrDefault();
+                        bBankCodeChange = false;
+                        cmbBankCode.SelectedValue = dBankCode;
+                        bBankCodeChange = true;
 
-                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).ToList();
-                    cmbBranchCode.ItemsSource = mbr;
-                    cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
-                    cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
+                        var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANK_CODE == dBankCode).ToList();
+                        cmbBranchCode.ItemsSource = mbr;
+                        cmbBranchCode.SelectedValuePath = "BANKBRANCH_CODE";
+                        cmbBranchCode.DisplayMemberPath = "BANKBRANCH_USERCODE";
 
-                    cmbBranchName.ItemsSource = mbr;
-                    cmbBranchName.SelectedValuePath = "BANKBRANCH_CODE";
-                    cmbBranchName.DisplayMemberPath = "BANKBRANCH_NAME";
+                        cmbBranchName.ItemsSource = mbr;
+                        cmbBranchName.SelectedValuePath = "BANKBRANCH_CODE";
+                        cmbBranchName.DisplayMemberPath = "BANKBRANCH_NAME";
 
-                    txtAddress.Text = "";
-                    txtAddress2.Text = "";
-                    txtAddress3.Text = "";
-                    txtCity.Text = "";
-                    txtState.Text = "";
-                    txtPostalCode.Text = "";
-                    txtCountry.Text = "";
-                    txtPhoneNo.Text = "";
-                    txtMobileNo.Text = "";
-                    txtEmail.Text = "";
+                        txtAddress.Text = "";
+                        txtAddress2.Text = "";
+                        txtAddress3.Text = "";
+                        txtCity.Text = "";
+                        txtState.Text = "";
+                        txtPostalCode.Text = "";
+                        txtCountry.Text = "";
+                        txtPhoneNo.Text = "";
+                        txtMobileNo.Text = "";
+                        txtEmail.Text = "";
+                    }
                 }
             }
             catch (Exception ex)
@@ -2027,42 +2079,47 @@ namespace Nube.Transaction
         {
             try
             {
-                decimal dBrnkCode = Convert.ToDecimal(cmbBranchCode.SelectedValue);
-                if (dBrnkCode != 0)
+                if (bBranchCodeChange == true)
                 {
-                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANKBRANCH_CODE == dBrnkCode).FirstOrDefault();
-                    cmbBranchName.SelectedValue = mbr.BANKBRANCH_CODE;
-
-                    var brnch = (from bc in db.MASTERBANKBRANCHes
-                                 join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
-                                 join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
-                                 where bc.BANKBRANCH_CODE == mbr.BANKBRANCH_CODE
-                                 select new
-                                 {
-                                     bc.BANKBRANCH_ADDRESS1,
-                                     bc.BANKBRANCH_ADDRESS2,
-                                     bc.BANKBRANCH_ADDRESS3,
-                                     ct.CITY_NAME,
-                                     st.STATE_NAME,
-                                     bc.BANKBRANCH_ZIPCODE,
-                                     bc.BANKBRANCH_COUNTRY,
-                                     bc.BANKBRANCH_PHONE1,
-                                     bc.BANKBRANCH_PHONE2,
-                                     bc.BANKBRANCH_EMAIL
-                                 }
-                          ).FirstOrDefault();
-                    if (brnch != null)
+                    decimal dBrnkCode = Convert.ToDecimal(cmbBranchCode.SelectedValue);
+                    if (dBrnkCode != 0)
                     {
-                        txtAddress.Text = brnch.BANKBRANCH_ADDRESS1;
-                        txtAddress2.Text = brnch.BANKBRANCH_ADDRESS2;
-                        txtAddress3.Text = brnch.BANKBRANCH_ADDRESS3;
-                        txtCity.Text = brnch.CITY_NAME.ToString();
-                        txtState.Text = brnch.STATE_NAME.ToString();
-                        txtPostalCode.Text = brnch.BANKBRANCH_ZIPCODE;
-                        txtCountry.Text = brnch.BANKBRANCH_COUNTRY;
-                        txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
-                        txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
-                        txtEmail.Text = brnch.BANKBRANCH_EMAIL;
+                        //var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANKBRANCH_CODE == dBrnkCode).FirstOrDefault();
+                        bBranchCodeChange = false;
+                        cmbBranchName.SelectedValue = dBrnkCode;
+                        bBranchCodeChange = true;
+
+                        var brnch = (from bc in db.MASTERBANKBRANCHes
+                                     join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
+                                     join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
+                                     where bc.BANKBRANCH_CODE == dBrnkCode
+                                     select new
+                                     {
+                                         bc.BANKBRANCH_ADDRESS1,
+                                         bc.BANKBRANCH_ADDRESS2,
+                                         bc.BANKBRANCH_ADDRESS3,
+                                         ct.CITY_NAME,
+                                         st.STATE_NAME,
+                                         bc.BANKBRANCH_ZIPCODE,
+                                         bc.BANKBRANCH_COUNTRY,
+                                         bc.BANKBRANCH_PHONE1,
+                                         bc.BANKBRANCH_PHONE2,
+                                         bc.BANKBRANCH_EMAIL
+                                     }
+                              ).FirstOrDefault();
+                        if (brnch != null)
+                        {
+                            txtAddress.Text = brnch.BANKBRANCH_ADDRESS1;
+                            txtAddress2.Text = brnch.BANKBRANCH_ADDRESS2;
+                            txtAddress3.Text = brnch.BANKBRANCH_ADDRESS3;
+                            txtCity.Text = brnch.CITY_NAME.ToString();
+                            txtState.Text = brnch.STATE_NAME.ToString();
+                            txtPostalCode.Text = brnch.BANKBRANCH_ZIPCODE;
+                            txtCountry.Text = brnch.BANKBRANCH_COUNTRY;
+                            txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
+                            txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
+                            txtEmail.Text = brnch.BANKBRANCH_EMAIL;
+                        }
                     }
                 }
             }
@@ -2076,42 +2133,47 @@ namespace Nube.Transaction
         {
             try
             {
-                decimal dBrnkCode = Convert.ToDecimal(cmbBranchName.SelectedValue);
-                if (dBrnkCode != 0)
+                if (bBranchCodeChange == true)
                 {
-                    var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANKBRANCH_CODE == dBrnkCode).FirstOrDefault();
-                    cmbBranchCode.SelectedValue = mbr.BANKBRANCH_CODE;
-
-                    var brnch = (from bc in db.MASTERBANKBRANCHes
-                                 join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
-                                 join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
-                                 where bc.BANKBRANCH_CODE == mbr.BANKBRANCH_CODE
-                                 select new
-                                 {
-                                     bc.BANKBRANCH_ADDRESS1,
-                                     bc.BANKBRANCH_ADDRESS2,
-                                     bc.BANKBRANCH_ADDRESS3,
-                                     ct.CITY_NAME,
-                                     st.STATE_NAME,
-                                     bc.BANKBRANCH_ZIPCODE,
-                                     bc.BANKBRANCH_COUNTRY,
-                                     bc.BANKBRANCH_PHONE1,
-                                     bc.BANKBRANCH_PHONE2,
-                                     bc.BANKBRANCH_EMAIL
-                                 }
-                           ).FirstOrDefault();
-                    if (brnch != null)
+                    decimal dBrnkCode = Convert.ToDecimal(cmbBranchName.SelectedValue);
+                    if (dBrnkCode != 0)
                     {
-                        txtAddress.Text = brnch.BANKBRANCH_ADDRESS1;
-                        txtAddress2.Text = brnch.BANKBRANCH_ADDRESS2;
-                        txtAddress3.Text = brnch.BANKBRANCH_ADDRESS3;
-                        txtCity.Text = brnch.CITY_NAME.ToString();
-                        txtState.Text = brnch.STATE_NAME.ToString();
-                        txtPostalCode.Text = brnch.BANKBRANCH_ZIPCODE;
-                        txtCountry.Text = brnch.BANKBRANCH_COUNTRY;
-                        txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
-                        txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
-                        txtEmail.Text = brnch.BANKBRANCH_EMAIL;
+                        //var mbr = db.MASTERBANKBRANCHes.Where(x => x.BANKBRANCH_CODE == dBrnkCode).FirstOrDefault();
+                        bBranchCodeChange = false;
+                        cmbBranchCode.SelectedValue = dBrnkCode;
+                        bBranchCodeChange = true;
+
+                        var brnch = (from bc in db.MASTERBANKBRANCHes
+                                     join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
+                                     join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
+                                     where bc.BANKBRANCH_CODE == dBrnkCode
+                                     select new
+                                     {
+                                         bc.BANKBRANCH_ADDRESS1,
+                                         bc.BANKBRANCH_ADDRESS2,
+                                         bc.BANKBRANCH_ADDRESS3,
+                                         ct.CITY_NAME,
+                                         st.STATE_NAME,
+                                         bc.BANKBRANCH_ZIPCODE,
+                                         bc.BANKBRANCH_COUNTRY,
+                                         bc.BANKBRANCH_PHONE1,
+                                         bc.BANKBRANCH_PHONE2,
+                                         bc.BANKBRANCH_EMAIL
+                                     }
+                               ).FirstOrDefault();
+                        if (brnch != null)
+                        {
+                            txtAddress.Text = brnch.BANKBRANCH_ADDRESS1;
+                            txtAddress2.Text = brnch.BANKBRANCH_ADDRESS2;
+                            txtAddress3.Text = brnch.BANKBRANCH_ADDRESS3;
+                            txtCity.Text = brnch.CITY_NAME.ToString();
+                            txtState.Text = brnch.STATE_NAME.ToString();
+                            txtPostalCode.Text = brnch.BANKBRANCH_ZIPCODE;
+                            txtCountry.Text = brnch.BANKBRANCH_COUNTRY;
+                            txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
+                            txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
+                            txtEmail.Text = brnch.BANKBRANCH_EMAIL;
+                        }
                     }
                 }
             }
@@ -2139,7 +2201,8 @@ namespace Nube.Transaction
                         if (ns != null)
                         {
                             txtMonthlyBF.Text = ns.BF.ToString();
-                            txtMonthlyIns.Text = ns.Insurance.ToString();
+                            txtMonthlyUC.Text = ns.Insurance.ToString();
+                            txtMonthlyIns.Text = (ns.BF + ns.Insurance).ToString();
                             txtBuildingFund.Text = ns.BuildingFund.ToString();
                             txtAccBenefit.Text = "1200";
                             txtBadgeAmt.Text = ns.BadgeAmount.ToString(); ;
@@ -2165,7 +2228,8 @@ namespace Nube.Transaction
                         else
                         {
                             txtMonthlyBF.Text = "3";
-                            txtMonthlyIns.Text = "4";
+                            txtMonthlyUC.Text = "7";
+                            txtMonthlyIns.Text = "10";
                             txtBuildingFund.Text = "2";
                             txtAccBenefit.Text = "1200";
                             txtBadgeAmt.Text = "5";

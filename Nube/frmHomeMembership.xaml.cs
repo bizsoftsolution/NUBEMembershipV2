@@ -162,14 +162,9 @@ namespace Nube
 
         private void btnFeeEntry_Click(object sender, RoutedEventArgs e)
         {
-            frmFeesEntry frm = new frmFeesEntry();
-            userPrevilage = new UserPrevilage(this.btnFeeEntry.Tag.ToString());
-            if (userPrevilage.Show == true)
-            {
-                frm.btnSave.IsEnabled = Convert.ToBoolean(userPrevilage.AddNew);
-                this.Close();
-                frm.ShowDialog();
-            }
+            frmMemberApprovalEntry frm = new frmMemberApprovalEntry();
+            this.Close();
+            frm.ShowDialog();
         }
 
         private void btnResingation_Click(object sender, RoutedEventArgs e)
@@ -250,9 +245,18 @@ namespace Nube
 
         private void btnFeeCheck_Click(object sender, RoutedEventArgs e)
         {
-            frmFeesEntryTest frm = new frmFeesEntryTest();
-            this.Close();
-            frm.ShowDialog();
+            frmFeesEntry frm = new frmFeesEntry();
+            userPrevilage = new UserPrevilage(this.btnFeeEntry.Tag.ToString());
+            if (userPrevilage.Show == true)
+            {
+                frm.btnSave.IsEnabled = Convert.ToBoolean(userPrevilage.AddNew);
+                this.Close();
+                frm.ShowDialog();
+            }
+
+            //frmFeesEntryTest frm = new frmFeesEntryTest();
+            //this.Close();
+            //frm.ShowDialog();
         }
 
         private void btnTDF_Click(object sender, RoutedEventArgs e)

@@ -35,7 +35,7 @@
             <Button x:Name="btnMaster" Content="Master Setup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,174,0,0" Click="btnMaster_Click"/>
             <Button x:Name="btnMemberRegistration" Content="Member Registration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,218,0,0" Click="btnMemberRegistration_Click" Tag="Member Registration" />
             <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,524,0,0" Click="btnHome_Click" />
-            <Button x:Name="btnFeeEntry" Content="Fee Entry" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,261,0,0" Click="btnFeeEntry_Click" Tag="Fees Entry" />
+            <Button x:Name="btnFeeEntry" Content="Member Approval" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,261,0,0" Click="btnFeeEntry_Click" Tag="Fees Entry" />
             <Button x:Name="btnResingation" Content="Resignation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,304,0,0" Click="btnResingation_Click" Tag="Resignation" />
             <Button x:Name="btnMemberQuery" Content="Member Query" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,348,0,0" Click="btnMemberQuery_Click" Tag="Member Query" />
             <Button x:Name="btnReport" Content="Reports" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,480,0,0" Click="btnReport_Click" />
@@ -45,15 +45,15 @@
                                          PlacementMode="BottomAndAlignCentres"
                                          ToolTipService.Placement="Right"
                                          ToolTip="Payment Entry For Arrear, LEVY  &amp; TDF" Margin="190,388,0,144" Width="50" Height="Auto">
-                <StackPanel>                    
-                    <Button x:Name="btnPreApr16" Background="White" ToolTip="Pre-Apr16" Tag="Pre Arrear 16" Click="btnPreApr16_Click">Pre-Apr16</Button>
-                    <Button x:Name="btnPostApr16" Background="White" ToolTip="Post-Apr16" Tag="Post Arrear 16" Click="btnPostApr16_Click">Post-Apr16</Button>
+                <StackPanel>
+                    <Button x:Name="btnFeeCheck" Background="White" ToolTip="FeeEntry" Tag="FeeEntry" Click="btnFeeCheck_Click" >FeeEntry</Button>                    
                     <Button x:Name="btnLevy" Background="White" ToolTip="Levy" Tag="LEVY" Click="btnLevy_Click" >Levy</Button>
                     <Button x:Name="btnTDF" Background="White" ToolTip="TDF" Tag="TDF" Click="btnTDF_Click" >TDF</Button>
-                    <Button x:Name="btnFeeCheck" Background="White" ToolTip="FeeEntry Check" Tag="FeeEntry Check" Click="btnFeeCheck_Click" >FeeEntry Check</Button>
+                    <Button x:Name="btnPreApr16" Background="White" ToolTip="Pre-Apr16" Tag="Pre Arrear 16" Click="btnPreApr16_Click">Pre-Apr16</Button>
+                    <Button x:Name="btnPostApr16" Background="White" ToolTip="Post-Apr16" Tag="Post Arrear 16" Click="btnPostApr16_Click">Post-Apr16</Button>
                 </StackPanel>
             </materialDesign:PopupBox>
-            <Button x:Name="btnManualPayment" Content="Manual Payment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,392,0,0" />
+            <Button x:Name="btnManualPayment" Content="Payment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,392,0,0" />
             <Button x:Name="btnTransfer" Content="Member Transfer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,436,0,0" Click="btnTransfer_Click" Tag="Member Transfer" />
         </Grid>
     </Grid>

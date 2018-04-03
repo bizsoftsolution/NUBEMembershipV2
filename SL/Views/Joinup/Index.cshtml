@@ -1,0 +1,998 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</head>
+<body>
+    <div> 
+
+        <script type="application/javascript">
+            /** After windod Load */
+            $(window).bind("load", function() {
+              window.setTimeout(function() {
+                $(".alert").fadeTo(300, 0).slideUp(500, function(){
+                    $(this).remove();
+                });
+            }, 4000);
+            });
+
+        </script>
+        <style>
+                     .ui-autocomplete {
+                         max-height: 300px;
+                         overflow-y: auto;
+                         /* prevent horizontal scrollbar */
+                         overflow-x: hidden;
+                     }
+                     /* IE 6 doesn't support max-height
+            * we use height instead, but this forces the menu to always be this tall
+            */
+                     * html .ui-autocomplete {
+                         height: 300px;
+                     }
+        </style>
+        <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+
+
+        <div class="container-fluid" style="padding-top:3%;">
+            <center><h1 style=" padding:15px;">National Union of Bank Employees</h1></center>
+        </div>
+        <div class="container-fluid" style="margin-top:2%;">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+
+                    <style>
+                        .testform {
+                            min-height: 0px !important;
+                        }
+                    </style>
+
+                    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/joinup'); ?>/simpleform.css" />
+                    <form class="testform" id="testform" action="<?php echo $custompath; ?>MasterMember/Insert" method="post" role="form" enctype="multipart/form-data" style="min-height:0px!important;">
+                        <fieldset class="personal-data">
+                            <h4>Check List New Membership</h4>
+                            <ul>
+                                <li>Original Membership Apllication Form</li>
+                                <li>2 Copies of consent letters (salary dedution)</li>
+                                <li>Bank draft/Cashier's order Payable to NUBE</li>
+                                <li>1% from Basic Salary Chq no: plus</li>
+                                <li>RM12.00 (Building, Education & badge Fee)</li>
+                                <li>RM 100.00 (Trade Dispute Fund)</li>
+                                <li>RM 50 per year(Late Joining fee)</li>
+                                <li>1 Piece of passport size photo</li>
+                                <li>Photocopy of identity Card</li>
+                                <li>Photocopy of Employment Letter</li>
+                                <li>Photocopy of Salary Slip</li>
+                            </ul>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Member Name: <?php //echo $custompath; ?></label>
+                                <input class="form-control" type="text" name="Member_Name" id="firstname" required />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> IC No: </label>
+                                <input class="form-control" type="text" name="ICNO_NEW" id="identitycardno" required />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Profession or Occupation: </label>
+                                <input class="form-control" type="text" name="professionoccupation" required />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname"><span class="req">* </span>Are you Clerical or Non Clerical ?: </label> <br>
+                                <label class="radio-inline">
+                                    <input type="radio" name="Membertype_Code" value="1">Clerical
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="Membertype_Code" value="2">Non Clerical
+                                </label>
+
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname"><span class="req">* </span>Have you been a member of this Union?: </label> <br>
+                                <label class="radio-inline">
+                                    <input type="radio" name="Rejoined" value="1">Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="Rejoined" value="0">No
+                                </label>
+
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Name of Bank: </label>
+                                <input type="text" class="form-control" id="txtBankNames" /><br />
+                                <input type="hidden" id="BankCode" name="Bank_Code" />
+                                <!--input class="form-control" type="text" name="nameofbank" required -->
+
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Branch Name: </label>
+                                <input type="text" class="form-control" id="txtBranchNames" /><br />
+                                <input type="hidden" id="BranchCode" name="Branch_Code" />
+
+                            </div>
+                            <!--div class="form-group">
+                            <label for="firstname"><span class="req">* </span> Bank Address: </label>
+                                <input class="form-control" type="text" name="Address1" required />
+                                 <input class="form-control" type="text" name="Address2"  placeholder="Enter Address" />
+
+                                <div id="errFirst"></div>
+                        </div-->
+
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Private Address: </label>
+                                <input class="form-control" type="text" name="Address1" placeholder="Enter Address1" required />
+                                <input class="form-control" type="text" name="Address2" placeholder="Enter Address2" />
+                                <!--input class="form-control" type="text" name="privateaddress2" placeholder="Enter Address" -->
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> City Name: </label>
+                                <input class="form-control" type="text" id="txtCityName" required />
+                                <input type="hidden" id="CityCode" name="City_Code" />
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> State Name: </label>
+                                <input class="form-control" type="text" id="txtStateName" required />
+                                <input type="hidden" id="StateCode" name="State_Code" />
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Country Name: </label>
+                                <input class="form-control" type="text" id="txtCountryName" required />
+                                <input type="hidden" id="CountryCode" name="Country" />
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname"><span class="req">* </span> Date of Birth: </label>
+                                <input class="form-control" type="text" name="DATEOFBIRTH" id="dob" required />
+                                <div id="errLast"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname"><span class="req">* </span> Sex: </label> <br>
+                                <label class="radio-inline">
+                                    <input type="radio" value="Male" name="sex">Male
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" value="Female" name="sex">Female
+                                </label>
+
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Date of Employment: </label>
+                                <input class="form-control" type="text" name="DATEOFEMPLOYMENT" id="dateofemployment" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Race </label>
+                                <input type="text" class="form-control" id="txtrace" />
+                                <!--input class="form-control" type="text" name="nameofbank" required -->
+                                <input type="hidden" id="RaceCode" name="Race_Code" />
+
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Salary: </label>
+                                <input class="form-control" type="text" name="salary" required />
+                                <div id="errFirst"></div>
+                            </div>
+
+                            <!--div class="form-group">
+                                <label for="lastname"><span class="req">* </span>Are you at present a member of any other Trade Union and so state the name of Union? : </label>
+                                 <input class="form-control" type="text" name="tradeunionmember" required />
+
+                                <div id="errFirst"></div>
+                        </div-->
+                            <!--div class="field_wrapper">
+                            <div class="form-group">
+                                <p>In the event of my being admitted a member and in the event of my death after quality for benefits, i apoint the following as my nomines/s and guardian/s to receive whatever benefits that may accure under the rules of the union.</p>
+                                <label >Name of the Nominee</label>
+                                <input class="form-control" type="text" name="name_nominee[]">
+                            </div>
+                            <div class="form-group">
+                                <label>Adresss</label>
+                                <textarea row="3" class="form_control" name="address_nominee[]"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Age</label>
+                                <input type="text" class="form-control" name="age_nominee[]"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Relationship </label>
+                                    <select name="realtionship_nominee[]" class="form-control">
+                                        <option value="0"> -- Select Relationship -- </option>
+                                    </select>
+                            </div>
+                            <!--div class="form-group">
+                                <label>Relationship</label>
+                                <input type="text" class="form-control" name="realtionship_nominee[]"/>
+                            </div->
+                            <div class="form-group">
+                                <label>IC No</label>
+                                <input type="text" class="form-control"  name="ic_no_nominee[]"/>
+                            </div>
+
+                        </div>
+                        <div class="form-group" style="float:right">
+                            <input type="button" class="btn btn-success add_button" id="add_button" value="ADD" />
+
+                        </div-->
+                            <br>
+
+                            <div>
+                                <div class="form-group">
+                                    <label for="lastname"><span class="req">* </span>If Nominee </label> <br>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="is_minor" id="is_minor" value="Yes">Yes
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="is_minor" id="is_minor_no" value="No">No
+                                    </label>
+
+                                    <div id="errFirst"></div>
+                                </div>
+                            </div>
+
+                            <div id="is_minor_div" style="display:none;">
+                                <div class="field_wrapper1">
+                                    <div class="form-group">
+
+                                        <label>Name of the Nominee</label>
+                                        <input class="form-control" type="text" name="N_NAME" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Adresss1</label>
+                                        <input type="text" class="form_control" name="N_ADDRESS1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Adresss2</label>
+                                        <input type="text" class="form_control" name="N_ADDRESS2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> City Name: </label>
+                                        <input class="form-control" type="text" id="NtxtCityName" required />
+                                        <input type="hidden" id="NCityCode" name="N_CITY_CODE" />
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> State Name: </label>
+                                        <input class="form-control" type="text" id="NtxtStateName" required />
+                                        <input type="hidden" id="NStateCode" name="N_STATE_CODE" />
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> Country Name: </label>
+                                        <input class="form-control" type="text" id="NtxtCountryName" required />
+                                        <input type="hidden" id="NCountryCode" name="N_COUNTRY" />
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname"><span class="req">* </span> Sex: </label> <br>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="Male" name="N_SEX">Male
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="Female" name="N_SEX">Female
+                                        </label>
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        <input type="text" class="form-control" name="N_AGE" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> Relationship </label>
+                                        <input type="text" class="form-control relationship" id="relationship" />
+                                        <input type="hidden" name="N_RELATION_CODE" id="RelationCode">
+                                        <!--select name="realtionship_nominee[]" class="form-control">
+                                        <option value="0"> -- Select Relationship -- </option>
+                                    </select-->
+                                    </div>
+                                    <div class="form-group">
+                                        <label>IC No</label>
+                                        <input type="text" class="form-control" name="N_ICNO_NEW" />
+                                    </div>
+
+                                </div>
+                                <!--div class="form-group" style="float:right">
+                                    <input type="button" class="btn btn-success add_button1" id="add_button" value="ADD" />
+                            </div-->
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="lastname"><span class="req">* </span>if Guardian </label> <br>
+                                <label class="radio-inline">
+                                    <input type="radio" name="if_guardian" id="if_guardian" value="Yes">Yes
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="if_guardian" id="if_guardian_no" value="No">No
+                                </label>
+
+                                <div id="errFirst"></div>
+                            </div>
+                            <div id="is_guardian_div" style="display:none;">
+                                <div class="field_wrapper">
+                                    <div class="form-group">
+
+                                        <label>Name of the Guardian</label>
+                                        <input class="form-control" type="text" name="G_NAME" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Adresss1</label>
+                                        <input type="text" class="form_control" name="G_ADDRESS1">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Adresss2</label>
+                                        <input type="text" class="form_control" name="G_ADDRESS2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> City Name: </label>
+                                        <input class="form-control" type="text" id="GtxtCityName" required />
+                                        <input type="hidden" id="GCityCode" name="G_CITY_CODE" />
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> State Name: </label>
+                                        <input class="form-control" type="text" id="GtxtStateName" required />
+                                        <input type="hidden" id="GStateCode" name="G_STATE_CODE" />
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> Country Name: </label>
+                                        <input class="form-control" type="text" id="GtxtCountryName" required />
+                                        <input type="hidden" id="GCountryCode" name="G_COUNTRY" />
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="lastname"><span class="req">* </span> Sex: </label> <br>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="Male" name="G_SEX">Male
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" value="Female" name="G_SEX">Female
+                                        </label>
+                                        <div id="errFirst"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Age</label>
+                                        <input type="text" class="form-control" name="G_AGE" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="firstname"><span class="req">* </span> Relationship </label>
+                                        <input type="text" class="form-control grelationship" id="grelationship" />
+                                        <input type="hidden" name="G_RELATION_CODE" id="GRelationCode">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>IC No</label>
+                                        <input type="text" class="form-control" name="G_ICNO_NEW" />
+                                    </div>
+
+                                </div>
+                                <!--div class="form-group" style="float:right">
+                                    <input type="button" class="btn btn-success add_button" id="add_button" value="ADD" />
+                            </div-->
+                            </div>
+                            <input type="hidden" value="http://www.nube.org.my/" name="URL">
+                        </fieldset>
+
+                        <fieldset class="personal-data">
+                            <hr>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Photo: </label>
+                                <input class="form-control" type="file" name="photo" required />
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Digital Signature: </label>
+                                <input class="form-control" type="file" name="digitalsignature" required />
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> IC: </label>
+                                <input class="form-control" type="file" name="ic" />
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Employment Letter: </label>
+                                <input class="form-control" type="file" name="employmentletter" required />
+                                <div id="errFirst"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="firstname"><span class="req">* </span> Prove of Payment – Cash Deposit / Online Transfer: </label>
+                                <input class="form-control" type="file" name="ppcdot" required />
+                                <div id="errFirst"></div>
+                            </div>
+                            <h5>Terms & Condition</h5>
+                            <ul>
+                                <li>I have read and fully uderstood the constitution and Rules of NUBE and the Bye-laws of the NUBE Benevolent Fund and undertake to abide by them and such additions and/or alteration there to as amy be made from time to time</li>
+                                <li>I declare that the information given below is to the best of knowledge and belif true</li>
+                                <li>I hereby authorise my paying officer to deduct from my salary all my dues to the union</li>
+                            </ul>
+
+
+                        </fieldset>
+
+                        <div class="clear"></div>
+                        <!--input type="submit" name="Submit" value="ADD" class="btn btn-default submit-button"-->
+                    </form>
+
+                    <script type="text/javascript">
+		$(".testform").simpleform({
+			speed : 500,
+			transition : 'fade',
+			progressBar : true,
+			showProgressText : true,
+			validate: true
+		});
+
+
+
+		function validateForm(formID, Obj){
+
+			switch(formID){
+				case 'testform' :
+					Obj.validate({
+						rules: {
+							email: {
+								required: true,
+								email: true
+							},
+							firstname: {
+								required: true
+							},
+							identitycardno: {
+								required: true
+							},
+							professionoccupation: {
+								required: true
+							},
+							nameofbank: {
+								required: true
+							},
+							privateaddress: {
+								required: true
+							},
+							dob: {
+								required: true
+							},
+							dateofemployment: {
+								required: true
+							},
+							salary: {
+								required: true
+							},
+							photo: {
+								required: true
+							},
+							digitalsignature: {
+								required: true
+							},
+							ic: {
+								required: true
+							},
+							employmentletter: {
+								required: true
+							},
+							ppcdot: {
+								required: true
+							}
+						},
+						messages: {
+							email: {
+								required: "Please enter an email address",
+								email: "Not a valid email address"
+							},
+							firstname: {
+							 	required: "Please enter your name"
+							},
+							identitycardno: {
+								required: "Please enter identity card no"
+							},
+							professionoccupation: {
+								required: "Please enter occupation"
+							},
+							nameofbank: {
+								required: "Please enter bank name"
+							},
+							privateaddress: {
+								required: "Please enter private address"
+							},
+							dob: {
+								required: "Please select date of birth"
+							},
+							dateofemployment: {
+								required: "Please enter date of employment"
+							},
+							salary: {
+								required: "Please enter salary"
+							},
+							photo: {
+								required: "Please choose photo"
+							},
+							digitalsignature: {
+								required: "Please choose digital signature"
+							},
+							ic: {
+								required: "Please choose ic"
+							},
+							employmentletter: {
+								required: "Please choose employment letter"
+							},
+							ppcdot: {
+								required: "Please choose prove of payment"
+							}
+						}
+					});
+				return Obj.valid();
+				break;
+
+				case 'testform2' :
+					Obj.validate({
+						rules: {
+							email: {
+								required: true,
+								email: true
+							},
+							name: {
+								required: true
+							},
+							spouse_email: {
+								required: true,
+								email: true
+							},
+							spouse_name: {
+								required: true
+							},
+							street: {
+								required: true
+							}
+						},
+						messages: {
+							email: {
+								required: "Please enter an email address",
+								email: "Not a valid email address"
+							},
+							name: {
+							 	required: "Please enter your name"
+							},
+							spouse_email: {
+								required: "Please enter an email address",
+								email: "Not a valid email address"
+							},
+							spouse_name: {
+							 	required: "Please enter your spouses name"
+							},
+							street: {
+								required: "Please enter street name"
+							}
+						}
+					});
+				return Obj.valid();
+				break;
+			}
+		}
+
+
+
+			$(document).ready(function() {
+					var maxField1 = 3; //Input fields increment limitation
+					var addButton1 = $('.add_button1'); //Add button selector
+					var wrapper1 = $('.field_wrapper1'); //Input field wrapper
+					var fieldHTML1 = '<div><div class="form-group"><label >Name of the Nominee</label><input class="form-control" type="text" name="name_nominee1[]"></div><div class="form-group"><label>Adresss</label><textarea row="3" class="form_control" name="address_nominee1[]"></textarea></div><div class="form-group"><label>Age</label><input type="text" class="form-control" name="age_nominee1[]"/></div><div class="form-group"><label for="firstname"><span class="req">* </span> Relationship </label><input type="text" class="form-control relationship" id="relationship" name="relationship[]" /></div><div class="form-group"><label>IC No</label><input type="text" class="form-control"  name="ic_no_nominee1[]"/></div><a href="javascript:void(0);" class="remove_button1 btn btn-danger" title="Remove field"><i class="fa fa-remove" style="color:#fff;font-size:18px;"></i>&nbsp;&nbsp;<span style="">Remove</span></a></div>'; //New input field html
+					var x = 1; //Initial field counter is 1
+					$(addButton1).click(function() { //Once add button is clicked
+						if (x < maxField1) { //Check maximum number of input fields
+							x++; //Increment field counter
+							$(wrapper1).append(fieldHTML1); // Add field html
+
+						}
+					});
+					$(wrapper1).on('click', '.remove_button1', function(e) { //Once remove button is clicked
+						e.preventDefault();
+						$(this).parent('div').remove(); //Remove field html
+						x--; //Decrement field counter
+					});
+				});
+
+
+			$(document).ready(function(){
+
+				 $("#is_minor").click(function() {
+					$('#is_minor_div').show();
+				});
+				 $("#is_minor_no").click(function() {
+					$('#is_minor_div').hide();
+				});
+			});
+
+			 $(document).ready(function() {
+					var maxField = 3; //Input fields increment limitation
+					var addButton = $('.add_button'); //Add button selector
+					var wrapper = $('.field_wrapper'); //Input field wrapper
+					var fieldHTML = '<div><div class="form-group"><label >Name of the Nominee</label><input class="form-control" type="text" name="name_guardian[]"></div><div class="form-group"><label>Adresss</label><textarea row="3" class="form_control" name="address_guardian[]"></textarea></div><div class="form-group"><label>Age</label><input type="text" class="form-control" name="age_guardian[]"/></div><div class="form-group"><label for="firstname"><span class="req">* </span> Relationship </label><input type="text" class="form-control" id="relationship" name="grelationship[]" />l</div><div class="form-group"><label>IC No</label><input type="text" class="form-control"  name="ic_no_guardian[]"/></div><a href="javascript:void(0);" class="remove_button btn btn-danger" title="Remove field"><i class="fa fa-remove" style="color:#fff;font-size:18px;"></i>&nbsp;&nbsp;<span style="">Remove</span></a></div>'; //New input field html
+					var x = 1; //Initial field counter is 1
+					$(addButton).click(function() { //Once add button is clicked
+						if (x < maxField) { //Check maximum number of input fields
+							x++; //Increment field counter
+							$(wrapper).append(fieldHTML); // Add field html
+						}
+					});
+					$(wrapper).on('click', '.remove_button', function(e) { //Once remove button is clicked
+						e.preventDefault();
+						$(this).parent('div').remove(); //Remove field html
+						x--; //Decrement field counter
+					});
+				});
+
+				$(document).ready(function(){
+
+					 $("#if_guardian").click(function() {
+						$('#is_guardian_div').show();
+					});
+					 $("#if_guardian_no").click(function() {
+						$('#is_guardian_div').hide();
+					});
+				});
+
+
+                    </script>
+
+                    <script type="text/javascript">
+				$(document).ready(function(){
+
+							$("#dob").datepicker({
+								dateFormat : 'yy/mm/dd',
+								changeMonth: true,
+								changeYear: true,
+								yearRange: '-100:+0',
+								maxDate: '-1d'
+							});
+							$("#dateofemployment").datepicker({
+								dateFormat : 'yy/mm/dd',
+								changeMonth: true,
+								changeYear: true,
+								yearRange: '-100:+0',
+								maxDate: '-1d'
+							});
+
+							$("#txtBankNames").autocomplete({
+							  source: "<?php echo $custompath; ?>Masterbank/tolist",
+							  focus: function( event, ui ) {
+								$( "#txtBankNames" ).val( ui.item.BANK_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#BankCode").val(ui.item.BANK_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.BANK_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#txtBranchNames").autocomplete({
+							  source: function(request, response){
+								          $.getJSON( "<?php echo $custompath; ?>Masterbranch/tolist?bank_code="+$("#BankCode").val(), request, function( data, status, xhr ) {
+											  response( data );
+											});
+
+							  },
+							  focus: function( event, ui ) {
+								$( "#txtBranchNames" ).val( ui.item.BANKBRANCH_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#BranchCode").val(ui.item.BANKBRANCH_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.BANKBRANCH_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+
+
+							$("#txtrace").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterRace/tolist",
+							  focus: function( event, ui ) {
+								$( "#txtrace" ).val( ui.item.RACE_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#RaceCode").val(ui.item.RACE_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.RACE_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#txtCityName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterCity/tolist",
+							  focus: function( event, ui ) {
+								$( "#txtCityName" ).val( ui.item.CITY_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#CityCode").val(ui.item.CITY_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.CITY_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#txtStateName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterState/tolist",
+							  focus: function( event, ui ) {
+								$( "#txtStateName" ).val( ui.item.STATE_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#StateCode").val(ui.item.STATE_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.STATE_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#txtCountryName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterCountry/tolist",
+							  focus: function( event, ui ) {
+								$( "#txtCountryName" ).val( ui.item.CountryName );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#CountryCode").val(ui.item.CountryName);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.CountryName + "</div>" )
+									.appendTo( ul );
+								};
+
+
+
+
+							$("#NtxtCityName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterCity/tolist",
+							  focus: function( event, ui ) {
+								$( "#NtxtCityName" ).val( ui.item.CITY_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#NCityCode").val(ui.item.CITY_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.CITY_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#NtxtStateName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterState/tolist",
+							  focus: function( event, ui ) {
+								$( "#NtxtStateName" ).val( ui.item.STATE_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#NStateCode").val(ui.item.STATE_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.STATE_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#NtxtCountryName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterCountry/tolist",
+							  focus: function( event, ui ) {
+								$( "#NtxtCountryName" ).val( ui.item.CountryName );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#NCountryCode").val(ui.item.CountryName);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.CountryName + "</div>" )
+									.appendTo( ul );
+								};
+
+
+
+
+
+
+
+							$("#GtxtCityName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterCity/tolist",
+							  focus: function( event, ui ) {
+								$( "#GtxtCityName" ).val( ui.item.CITY_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#GCityCode").val(ui.item.CITY_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.CITY_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#GtxtStateName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterState/tolist",
+							  focus: function( event, ui ) {
+								$( "#GtxtStateName" ).val( ui.item.STATE_NAME );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#GStateCode").val(ui.item.STATE_CODE);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.STATE_NAME + "</div>" )
+									.appendTo( ul );
+								};
+
+							$("#GtxtCountryName").autocomplete({
+							  source: "<?php echo $custompath; ?>MasterCountry/tolist",
+							  focus: function( event, ui ) {
+								$( "#GtxtCountryName" ).val( ui.item.CountryName );
+								return false;
+							  },
+							  minLength: 0,
+							  select: function( event, ui ) {
+								console.log(ui);
+								$("#GCountryCode").val(ui.item.CountryName);
+								return false;
+							  }
+							}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+								  return $( "<li>" )
+									.append( "<div>" + item.CountryName + "</div>" )
+									.appendTo( ul );
+								};
+
+
+
+
+
+							$(document).on('keydown.autocomplete', '.relationship', function(){
+								$(this).autocomplete({
+								  source: "<?php echo $custompath; ?>MasterRelation/tolist",
+								  focus: function( event, ui ) {
+									$(this).val( ui.item.RELATION_NAME );
+									return false;
+								  },
+								  minLength: 0,
+								  select: function( event, ui ) {
+									console.log(ui);
+									$("#RelationCode").val(ui.item.RELATION_CODE);
+									return false;
+								  }
+								}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+									  return $( "<li>" )
+										.append( "<div>" + item.RELATION_NAME + "</div>" )
+										.appendTo( ul );
+								};
+							});
+							$(document).on('keydown.autocomplete', '.grelationship', function(){
+								$(this).autocomplete({
+								  source: "<?php echo $custompath; ?>MasterRelation/tolist",
+								  focus: function( event, ui ) {
+									$(this).val( ui.item.RELATION_NAME );
+									return false;
+								  },
+								  minLength: 0,
+								  select: function( event, ui ) {
+									console.log(ui);
+									$("#GRelationCode").val(ui.item.RELATION_CODE);
+									return false;
+								  }
+								}).autocomplete( "instance" )._renderItem = function( ul, item ) {
+									  return $( "<li>" )
+										.append( "<div>" + item.RELATION_NAME + "</div>" )
+										.appendTo( ul );
+								};
+							});
+
+
+
+							/* var str = $("form").serializeArray();
+							$.ajax({
+								type: "POST",
+								url: "update.php",
+								data: str,
+								success: function(value) {
+										$("#data").html(value);
+								}
+							}); */
+
+
+				});
+                    </script>
+                    <script>
+					$(document).ready(function(){
+						var form=$("#testform");
+						//window.location.href = "http://www.nube.org.my/front/joinup";
+						$(".submit-button").click(function(){
+						$.ajax({
+								type:"POST",
+								url:form.attr("action"),
+								data:form.serialize(),
+
+								success: function(response){
+									//if(response.isSaved == true){
+										 window.location.href = "http://www.nube.org.my/Joinup";
+									//}  else {
+										//$("#err").html("failed");//updated
+									//}
+								}
+							});
+						});
+					});
+                    </script>
+
+                    <script type="text/javascript">
+  document.getElementById("field_terms").setCustomValidity("Please indicate that you accept the Terms and Conditions");
+                    </script>
+                </div><!-- ends col-6 -->
+
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">&nbsp;</div>
+        </div>
+
+    </div>
+</body>
+</html>

@@ -92,10 +92,12 @@ namespace Nube
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public bool IsCancel { get; set; }
+        public bool IsBranchRegister { get; set; }
         public int TotalPaid { get; set; }
         public bool AI_Insurance { get; set; }
         public string AI_MemberNo { get; set; }
         public bool GE_Insurance { get; set; }
         public string GE_ContractNo { get; set; }
+        public Nullable<int> BranchMemberCode { get; set; }
     }
 }

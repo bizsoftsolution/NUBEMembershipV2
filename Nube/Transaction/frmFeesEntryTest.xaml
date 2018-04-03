@@ -96,7 +96,7 @@
                     </DataGrid>
                 </TabItem>
 
-                <TabItem Header="Name Not Match" FontSize="14">
+                <TabItem Header="Name Not Match" FontSize="14" Height="23" VerticalAlignment="Top">
                     <DataGrid x:Name="dgNotMatch" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="-2,1,-4,0" VerticalAlignment="Top" Height="377" Width="1122" SelectionChanged="dgNotMatch_SelectionChanged" MouseDoubleClick="dgNotMatch_MouseDoubleClick">
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">

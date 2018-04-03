@@ -156,6 +156,9 @@
     <Compile Include="FeesMaster.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="frmAccountsExpenceReport.xaml.cs">
+      <DependentUpon>frmAccountsExpenceReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmBackUpDB.xaml.cs">
       <DependentUpon>frmBackUpDB.xaml</DependentUpon>
     </Compile>
@@ -196,6 +199,9 @@
       <DependentUpon>frmWelcome.xaml</DependentUpon>
     </Compile>
     <Compile Include="GE_Insurance.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GuardianInsertBranch.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="JSonHelper.cs" />
@@ -286,6 +292,9 @@
     <Compile Include="MASTERSTATU.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="MemberInsertBranch.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="MemberStatusLog.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
@@ -302,6 +311,9 @@
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="NoFormate.cs" />
+    <Compile Include="NomineeInsertBranch.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="NUBE DATA.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -319,6 +331,9 @@
     </Compile>
     <Compile Include="NubeAccountBankConcilation.xaml.cs">
       <DependentUpon>NubeAccountBankConcilation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="nubebfsDataSet.cs">
+      <DependentUpon>nubebfsDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="nubebfsDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -437,6 +452,9 @@
     <Compile Include="Transaction\frmLevy.xaml.cs">
       <DependentUpon>frmLevy.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Transaction\frmMemberApprovalEntry.xaml.cs">
+      <DependentUpon>frmMemberApprovalEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Transaction\frmMemberQuery.xaml.cs">
       <DependentUpon>frmMemberQuery.xaml</DependentUpon>
     </Compile>
@@ -503,6 +521,10 @@
     <Compile Include="VIEWTOTALDUE.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Page Include="frmAccountsExpenceReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="frmBackUpDB.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -739,6 +761,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Transaction\frmMemberApprovalEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Transaction\frmMemberQuery.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -812,6 +838,9 @@
     <EmbeddedResource Include="Reports\rptStateReport.rdlc" />
     <EmbeddedResource Include="Reports\rptTitleReport.rdlc" />
     <EmbeddedResource Include="Reports\StateReport.rdlc" />
+    <EmbeddedResource Include="rptAccountsExpenceReport.rdlc" />
+    <EmbeddedResource Include="rptAccountsExpenceReport2.rdlc" />
+    <EmbeddedResource Include="rptAccountsExpenceReport3.rdlc" />
     <None Include="ClassDiagram1.cd" />
     <EntityDeploy Include="NUBE DATA.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -894,6 +923,7 @@
     <Resource Include="Nube Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Image\accept.png" />
     <Content Include="NUBE DATA.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NUBE DATA.edmx</DependentUpon>
