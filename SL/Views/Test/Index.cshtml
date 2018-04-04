@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <input id="txtBox01" type="text" data-bind="textInput:m1.Member_Name" />
+        <input id="btnOk" value="Ok" data-bind="click:btnOk_click" type="button" />
+    </div>
+    <script src="~/Scripts/require.js"></script>
+    <script src="~/Scripts/JS/Main.js"></script>
+    <script>
+        require(['js/Prg01']);
+    </script>
+</body>
+</html>
