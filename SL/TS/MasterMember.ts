@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 
-class Membership {
+class MASTERMEMBER {
     MEMBER_CODE: KnockoutObservable<number>;
     MEMBER_NAME: KnockoutObservable<string>;
     MEMBER_ID: KnockoutObservable<number>;
@@ -30,7 +30,7 @@ class Membership {
     RACE_CODE: KnockoutObservable<number>;
 
     constructor() {
-        
+
         this.MEMBER_CODE = ko.observable<number>();
         this.MEMBER_NAME = ko.observable<string>();
         this.MEMBER_ID = ko.observable<number>();
@@ -59,7 +59,7 @@ class Membership {
         this.SEX = ko.observable<string>();
         this.RACE_CODE = ko.observable<number>();;
     }
-    
+
 }
 
-export { Membership };
+export { MASTERMEMBER };

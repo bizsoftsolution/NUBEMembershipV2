@@ -1,17 +1,16 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MASTERSTATE = (function () {
-        function MASTERSTATE() {
-            this.STATE_CODE = ko.observable();
-            this.STATE_NAME = ko.observable();
+    var MASTERRELATION = (function () {
+        function MASTERRELATION() {
+            this.RELATION_CODE = ko.observable();
+            this.RELATION_NAME = ko.observable();
             this.DELETED = ko.observable();
-            this.Country = ko.observable();
         }
-        MASTERSTATE.toList = function () {
-            if (MASTERSTATE._toList == undefined) {
+        MASTERRELATION.toList = function () {
+            if (MASTERRELATION._toList == undefined) {
                 $.ajax({
-                    url: 'http://localhost/MembershipTest/Masterstate/tolist',
+                    url: 'http://localhost/MembershipTest/MasterRelation/tolist',
                     type: 'get',
                     async: false,
                     cache: false,
@@ -20,14 +19,13 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
                         console.log(err);
                     },
                     success: function (data) {
-                        MASTERSTATE._toList = data;
+                        MASTERRELATION._toList = data;
                     },
                 });
             }
-            return MASTERSTATE._toList;
+            return MASTERRELATION._toList;
         };
-        return MASTERSTATE;
+        return MASTERRELATION;
     }());
-    exports.MASTERSTATE = MASTERSTATE;
 });
-//# sourceMappingURL=MASTERSTATE.js.map
+//# sourceMappingURL=MasterRelation.js.map

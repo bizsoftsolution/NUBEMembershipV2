@@ -1,8 +1,8 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Membership = (function () {
-        function Membership() {
+    var MASTERMEMBER = (function () {
+        function MASTERMEMBER() {
             this.MEMBER_CODE = ko.observable();
             this.MEMBER_NAME = ko.observable();
             this.MEMBER_ID = ko.observable();
@@ -32,8 +32,8 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
             this.RACE_CODE = ko.observable();
             ;
         }
-        return Membership;
+        return MASTERMEMBER;
     }());
-    exports.Membership = Membership;
+    exports.MASTERMEMBER = MASTERMEMBER;
 });
-//# sourceMappingURL=Membership.js.map
+//# sourceMappingURL=MasterMember.js.map

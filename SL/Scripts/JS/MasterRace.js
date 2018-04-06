@@ -1,17 +1,17 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MASTERSTATE = (function () {
-        function MASTERSTATE() {
-            this.STATE_CODE = ko.observable();
-            this.STATE_NAME = ko.observable();
+    var MASTERRACE = (function () {
+        function MASTERRACE() {
+            this.RACE_CODE = ko.observable();
+            this.RACE_NAME = ko.observable();
+            this.RACE_SHORTCODE = ko.observable();
             this.DELETED = ko.observable();
-            this.Country = ko.observable();
         }
-        MASTERSTATE.toList = function () {
-            if (MASTERSTATE._toList == undefined) {
+        MASTERRACE.toList = function () {
+            if (MASTERRACE._toList == undefined) {
                 $.ajax({
-                    url: 'http://localhost/MembershipTest/Masterstate/tolist',
+                    url: 'http://localhost/MembershipTest/MasterRace/tolist',
                     type: 'get',
                     async: false,
                     cache: false,
@@ -20,14 +20,13 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
                         console.log(err);
                     },
                     success: function (data) {
-                        MASTERSTATE._toList = data;
+                        MASTERRACE._toList = data;
                     },
                 });
             }
-            return MASTERSTATE._toList;
+            return MASTERRACE._toList;
         };
-        return MASTERSTATE;
+        return MASTERRACE;
     }());
-    exports.MASTERSTATE = MASTERSTATE;
 });
-//# sourceMappingURL=MASTERSTATE.js.map
+//# sourceMappingURL=MasterRace.js.map

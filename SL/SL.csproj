@@ -211,6 +211,18 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="node_modules\%40types\jqueryui\LICENSE" />
+    <Content Include="node_modules\%40types\jqueryui\package.json" />
+    <Content Include="node_modules\%40types\jqueryui\README.md" />
+    <Content Include="node_modules\%40types\jquery\LICENSE" />
+    <Content Include="node_modules\%40types\jquery\package.json" />
+    <Content Include="node_modules\%40types\jquery\README.md" />
+    <Content Include="node_modules\%40types\knockout\LICENSE" />
+    <Content Include="node_modules\%40types\knockout\package.json" />
+    <Content Include="node_modules\%40types\knockout\README.md" />
+    <Content Include="node_modules\%40types\requirejs\LICENSE" />
+    <Content Include="node_modules\%40types\requirejs\package.json" />
+    <Content Include="node_modules\%40types\requirejs\README.md" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -304,9 +316,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="node_modules\%40types\jqueryui\index.d.ts" />
+    <TypeScriptCompile Include="node_modules\%40types\jquery\index.d.ts" />
+    <TypeScriptCompile Include="node_modules\%40types\knockout\index.d.ts" />
+    <TypeScriptCompile Include="node_modules\%40types\requirejs\index.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="TS\Main.ts" />
+    <TypeScriptCompile Include="TS\MasterBank.ts" />
+    <TypeScriptCompile Include="TS\MasterBranch.ts" />
     <TypeScriptCompile Include="TS\MASTERCITY.ts" />
+    <TypeScriptCompile Include="TS\MasterCountry.ts" />
+    <TypeScriptCompile Include="TS\MasterMember.ts" />
+    <TypeScriptCompile Include="TS\MasterRace.ts" />
+    <TypeScriptCompile Include="TS\MasterRelation.ts" />
     <TypeScriptCompile Include="TS\MASTERSTATE.ts" />
     <TypeScriptCompile Include="TS\Membership\Membership.ts" />
     <TypeScriptCompile Include="TS\Prg01.ts" />

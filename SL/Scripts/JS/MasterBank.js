@@ -1,17 +1,18 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MASTERSTATE = (function () {
-        function MASTERSTATE() {
-            this.STATE_CODE = ko.observable();
-            this.STATE_NAME = ko.observable();
+    var MASTERBANK = (function () {
+        function MASTERBANK() {
+            this.BANK_CODE = ko.observable();
+            this.BANK_NAME = ko.observable();
+            this.BANK_USERCODE = ko.observable();
             this.DELETED = ko.observable();
-            this.Country = ko.observable();
+            this.HEADER_BANK_CODE = ko.observable();
         }
-        MASTERSTATE.toList = function () {
-            if (MASTERSTATE._toList == undefined) {
+        MASTERBANK.toList = function () {
+            if (MASTERBANK._toList == undefined) {
                 $.ajax({
-                    url: 'http://localhost/MembershipTest/Masterstate/tolist',
+                    url: 'http://localhost/MembershipTest/MasterBank/tolist',
                     type: 'get',
                     async: false,
                     cache: false,
@@ -20,14 +21,13 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
                         console.log(err);
                     },
                     success: function (data) {
-                        MASTERSTATE._toList = data;
+                        MASTERBANK._toList = data;
                     },
                 });
             }
-            return MASTERSTATE._toList;
+            return MASTERBANK._toList;
         };
-        return MASTERSTATE;
+        return MASTERBANK;
     }());
-    exports.MASTERSTATE = MASTERSTATE;
 });
-//# sourceMappingURL=MASTERSTATE.js.map
+//# sourceMappingURL=MasterBank.js.map
