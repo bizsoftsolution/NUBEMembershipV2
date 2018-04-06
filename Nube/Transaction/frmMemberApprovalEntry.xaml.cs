@@ -109,24 +109,57 @@ namespace Nube.Transaction
                     dMemberCode = Convert.ToDecimal(btn.Tag);
                     if (dMemberCode != 0)
                     {
-                        var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
-                        if (mm != null)
+                        if (rbtPending.IsChecked == true || rbtDeclain.IsChecked == true)
                         {
-                            frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE);
-                            frm.Height = 600;
-                            frm.Width = 1000;
-                            frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                            frm.btnNew.Visibility = Visibility.Collapsed;
-                            frm.btnSave.Visibility = Visibility.Collapsed;
-                            frm.btnDelete.Visibility = Visibility.Collapsed;
-                            frm.btnHistory.Visibility = Visibility.Collapsed;
-                            frm.btnSearch.Visibility = Visibility.Collapsed;
-                            frm.btnHome.Visibility = Visibility.Collapsed;
-                            frm.btnMembercard.Visibility = Visibility.Collapsed;
-                            frm.btnNomAdd.Visibility = Visibility.Collapsed;
-                            frm.btnNomClear.Visibility = Visibility.Collapsed;
-                            frm.ShowDialog();
+                            var mm = (from x in db.MemberInsertBranches where x.MEMBER_CODE == dMemberCode select x).FirstOrDefault();
+                            if (mm != null)
+                            {
+                                frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, true);
+                                frm.Height = 600;
+                                frm.Width = 1000;
+                                frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                                frm.btnNew.Visibility = Visibility.Collapsed;
+                                frm.btnSave.Visibility = Visibility.Collapsed;
+                                frm.btnDelete.Visibility = Visibility.Collapsed;
+                                frm.btnHistory.Visibility = Visibility.Collapsed;
+                                frm.btnSearch.Visibility = Visibility.Collapsed;
+                                frm.btnHome.Visibility = Visibility.Collapsed;
+                                frm.btnMembercard.Visibility = Visibility.Collapsed;
+                                frm.btnNomAdd.Visibility = Visibility.Collapsed;
+                                frm.btnNomClear.Visibility = Visibility.Collapsed;
+                                frm.ShowDialog();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No Data Found!");
+                            }
                         }
+                        else
+                        {
+                            var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
+                            if (mm != null)
+                            {
+                                frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, true);
+                                frm.Height = 600;
+                                frm.Width = 1000;
+                                frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                                frm.btnNew.Visibility = Visibility.Collapsed;
+                                frm.btnSave.Visibility = Visibility.Collapsed;
+                                frm.btnDelete.Visibility = Visibility.Collapsed;
+                                frm.btnHistory.Visibility = Visibility.Collapsed;
+                                frm.btnSearch.Visibility = Visibility.Collapsed;
+                                frm.btnHome.Visibility = Visibility.Collapsed;
+                                frm.btnMembercard.Visibility = Visibility.Collapsed;
+                                frm.btnNomAdd.Visibility = Visibility.Collapsed;
+                                frm.btnNomClear.Visibility = Visibility.Collapsed;
+                                frm.ShowDialog();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No Data Found!");
+                            }
+                        }
+
                     }
                 }
             }
@@ -144,28 +177,57 @@ namespace Nube.Transaction
                 if (drv != null)
                 {
                     decimal dMemberCode = Convert.ToDecimal(drv["MEMBER_CODE"]);
-                    var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
-                    if (mm != null)
+                    if (rbtPending.IsChecked == true || rbtDeclain.IsChecked == true)
                     {
-                        frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE);
-                        frm.Height = 600;
-                        frm.Width = 1000;
-                        frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                        frm.btnNew.Visibility = Visibility.Collapsed;
-                        frm.btnSave.Visibility = Visibility.Collapsed;
-                        frm.btnDelete.Visibility = Visibility.Collapsed;
-                        frm.btnHistory.Visibility = Visibility.Collapsed;
-                        frm.btnSearch.Visibility = Visibility.Collapsed;
-                        frm.btnHome.Visibility = Visibility.Collapsed;
-                        frm.btnMembercard.Visibility = Visibility.Collapsed;
-                        frm.btnNomAdd.Visibility = Visibility.Collapsed;
-                        frm.btnNomClear.Visibility = Visibility.Collapsed;
-                        frm.ShowDialog();
+                        var mm = (from x in db.MemberInsertBranches where x.MEMBER_CODE == dMemberCode select x).FirstOrDefault();
+                        if (mm != null)
+                        {
+                            frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, true);
+                            frm.Height = 600;
+                            frm.Width = 1000;
+                            frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            frm.btnNew.Visibility = Visibility.Collapsed;
+                            frm.btnSave.Visibility = Visibility.Collapsed;
+                            frm.btnDelete.Visibility = Visibility.Collapsed;
+                            frm.btnHistory.Visibility = Visibility.Collapsed;
+                            frm.btnSearch.Visibility = Visibility.Collapsed;
+                            frm.btnHome.Visibility = Visibility.Collapsed;
+                            frm.btnMembercard.Visibility = Visibility.Collapsed;
+                            frm.btnNomAdd.Visibility = Visibility.Collapsed;
+                            frm.btnNomClear.Visibility = Visibility.Collapsed;
+                            frm.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No Data Found!");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("No Data Found!");
+                        var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
+                        if (mm != null)
+                        {
+                            frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, true);
+                            frm.Height = 600;
+                            frm.Width = 1000;
+                            frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            frm.btnNew.Visibility = Visibility.Collapsed;
+                            frm.btnSave.Visibility = Visibility.Collapsed;
+                            frm.btnDelete.Visibility = Visibility.Collapsed;
+                            frm.btnHistory.Visibility = Visibility.Collapsed;
+                            frm.btnSearch.Visibility = Visibility.Collapsed;
+                            frm.btnHome.Visibility = Visibility.Collapsed;
+                            frm.btnMembercard.Visibility = Visibility.Collapsed;
+                            frm.btnNomAdd.Visibility = Visibility.Collapsed;
+                            frm.btnNomClear.Visibility = Visibility.Collapsed;
+                            frm.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No Data Found!");
+                        }
                     }
+
                 }
             }
             else if ((dgvMemberApproval.CurrentCell.Column.Header.ToString() == "Approve" || dgvMemberApproval.CurrentCell.Column.Header.ToString() == "Declain") && rbtApproved.IsChecked == false)

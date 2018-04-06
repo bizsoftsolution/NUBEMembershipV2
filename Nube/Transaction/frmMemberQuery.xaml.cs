@@ -349,7 +349,7 @@ namespace Nube.Transaction
                         }
                         else
                         {
-                            frmMemberRegistration frm = new frmMemberRegistration(dMember_Code);
+                            frmMemberRegistration frm = new frmMemberRegistration(dMember_Code, false);
                             frm.Show();
                             this.Hide();
                         }
@@ -409,7 +409,7 @@ namespace Nube.Transaction
                         adp.SelectCommand.CommandTimeout = 0;
                         adp.Fill(dtMember);
                         //var ms = (from x in db.MemberStatusLogs orderby x.MEMBER_NAME ascending select x).ToList();
-                       // dtMember = AppLib.LINQResultToDataTable(ms);
+                        // dtMember = AppLib.LINQResultToDataTable(ms);
                         dgvDetails.ItemsSource = dtMember.DefaultView;
                         AppLib.dtMemberQuery = dtMember.Copy();
                     }
