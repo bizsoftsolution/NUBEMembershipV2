@@ -48,7 +48,7 @@ namespace Nube.Transaction
         Boolean bBranchCodeChange = true;
         bool bIsWebServiceData = false;
 
-        public frmMemberRegistration(decimal dMembercode = 0)
+        public frmMemberRegistration(decimal dMembercode = 0, Boolean IsWebForm = false)
         {
             InitializeComponent();
 
@@ -60,7 +60,15 @@ namespace Nube.Transaction
 
             if (dMember_Code != 0)
             {
-                FormFill();
+                if (IsWebForm == true)
+                {
+                    WebFormFill();
+                }
+                else
+                {
+                    LocalFormFill();
+                }
+
                 bIsUpdate = true;
             }
 
@@ -1389,13 +1397,12 @@ namespace Nube.Transaction
             }
         }
 
-        private void FormFill()
+        private void LocalFormFill()
         {
             try
             {
-                
-                var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();               
-                
+
+                var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
 
                 var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
@@ -1752,6 +1759,266 @@ namespace Nube.Transaction
                     txtGurZipCode.Text = gurdian.ZIPCODE;
                     txtGurPhNo.Text = gurdian.PHONE;
                     txtGurMobileNo.Text = gurdian.MOBILE;
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+        }
+
+        private void WebFormFill()
+        {
+            try
+            {
+
+                var qry = (from x in db.MemberInsertBranches where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
+
+                //var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+
+                var brnch = (from bc in db.MASTERBANKBRANCHes
+                             join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
+                             join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
+                             where bc.BANKBRANCH_CODE == qry.BRANCH_CODE
+                             select new
+                             {
+                                 bc.BANKBRANCH_ADDRESS1,
+                                 bc.BANKBRANCH_ADDRESS2,
+                                 bc.BANKBRANCH_ADDRESS3,
+                                 ct.CITY_NAME,
+                                 st.STATE_NAME,
+                                 bc.BANKBRANCH_ZIPCODE,
+                                 bc.BANKBRANCH_COUNTRY,
+                                 bc.BANKBRANCH_PHONE1,
+                                 bc.BANKBRANCH_PHONE2,
+                                 bc.BANKBRANCH_EMAIL
+                             }
+                              ).FirstOrDefault();
+
+                var nominee = (from x in db.VIEWNOMINEEs where x.MEMBER_CODE == dMember_Code orderby x.ID descending select x).ToList();
+                if (nominee != null)
+                {
+                    DataTable dt = new DataTable();
+                    dt = AppLib.LINQResultToDataTable(nominee);
+                    if (dt.Rows.Count > 0)
+                    {
+                        dgNomination.ItemsSource = dt.DefaultView;
+                    }
+                    foreach (DataRow dr in dt.Rows)
+                    {
+                        MASTERNOMINEENAMES mstnom = new MASTERNOMINEENAMES
+                        {
+                            NAME = dr["NAME"].ToString(),
+                            AGE = Convert.ToDecimal(dr["AGE"]),
+                            SEX = dr["SEX"].ToString(),
+                            RELATION_CODE = Convert.ToDecimal(dr["RELATION_CODE"]),
+                            ICNO_NEW = dr["ICNO_NEW"].ToString(),
+                            ICNO_OLD = dr["ICNO_OLD"].ToString(),
+                            ADDRESS1 = dr["ADDRESS1"].ToString(),
+                            ADDRESS2 = dr["ADDRESS2"].ToString(),
+                            ADDRESS3 = dr["ADDRESS3"].ToString(),
+                            CITY_CODE = Convert.ToDecimal(dr["CITY_CODE"]),
+                            STATE_CODE = Convert.ToDecimal(dr["STATE_CODE"]),
+                            MOBILE = dr["MOBILE"].ToString(),
+                            PHONE = dr["PHONE"].ToString(),
+                            MEMBER_CODE = dMember_Code,
+                            CITY_NAME = dr["CITY_NAME"].ToString(),
+                            STATE_NAME = dr["STATE_NAME"].ToString(),
+                            RELATION_NAME = dr["RELATION_NAME"].ToString(),
+                        };
+                        lstmstnom.Add(mstnom);
+                    }
+                }
+
+                var gurdian = (from gr in db.MASTERGUARDIANs
+                               where gr.MEMBER_CODE == dMember_Code
+                               select new
+                               {
+                                   Name = gr.NAME,
+                                   gr.RELATION_CODE,
+                                   gr.ADDRESS1,
+                                   gr.ADDRESS2,
+                                   gr.ADDRESS3,
+                                   gr.AGE,
+                                   gr.ICNO_NEW,
+                                   gr.ICNO_OLD,
+                                   gr.CITY_CODE,
+                                   gr.STATE_CODE,
+                                   gr.COUNTRY,
+                                   gr.ZIPCODE,
+                                   gr.PHONE,
+                                   gr.MOBILE,
+                                   gr.SEX
+                               }
+                               ).FirstOrDefault();
+
+                DataTable dtFee = new DataTable();
+                using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                {
+                    SqlCommand cmd;
+                    string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
+                                 " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
+                                 " FROM FEESDETAILS(NOLOCK)" +
+                                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND ISNOTMATCH=0 AND MEMBERCODE=" + dMember_Code;
+
+                    cmd = new SqlCommand(str, con);
+                    cmd.CommandType = CommandType.Text;
+                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    adp.Fill(dtFee);
+                }
+
+                BF = 0; UC = 0; Ins = 0; Subs = 0; dTotlMonthsPaid = 0; dTotlMonthsPaidUC = 0;
+                //foreach (DataRow dr in dtFee.Rows)
+                //{
+                //    BF = BF + (dr["AmountBf"] != null ? Convert.ToDecimal(dr["AmountBf"]) : 0);
+                //    UC = UC + Convert.ToDecimal(dr["UnionContribution"]);
+                //    Ins = Ins + Convert.ToDecimal(dr["AmountIns"]);
+                //    Subs = Subs + Convert.ToDecimal(dr["AmtSubs"]);
+                //    dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TotalMonthsPaid"]);
+                //    dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TotalMonthsPaidIns"]);
+                //}               
+
+                if (qry != null)
+                {
+                    cmbMemberType.SelectedValue = qry.MEMBERTYPE_CODE;
+                    txtMemberNo.Text = qry.MEMBER_ID.ToString();
+                    cmbMemberInit.Text = qry.MEMBER_TITLE;
+                    txtMemberName.Text = qry.MEMBER_NAME;
+                    txtAge.Text = qry.AGE_IN_YEARS.ToString();
+                    txtResAddress1.Text = qry.ADDRESS1;
+                    txtResAddress2.Text = qry.ADDRESS2;
+                    txtResAddress3.Text = qry.ADDRESS3;
+                    txtResPhoneNo.Text = qry.PHONE;
+                    txtResMobileNo.Text = (qry.MOBILE != null ? qry.MOBILE.ToString() : "");
+                    dtpDOB.SelectedDate = Convert.ToDateTime(qry.DATEOFBIRTH);
+                    cmbGender.Text = qry.SEX;
+                    ckbRejoined.IsChecked = Convert.ToBoolean(qry.REJOINED);
+                    cmbRace.SelectedValue = qry.RACE_CODE;
+                    txtNewIC.Text = qry.ICNO_NEW;
+                    txtOldIC.Text = qry.ICNO_OLD;
+                    dtpDOJ.SelectedDate = Convert.ToDateTime(qry.DATEOFJOINING);
+
+                    cmbBankCode.SelectedValue = qry.BANK_CODE;
+                    cmbBankName.SelectedValue = qry.BANK_CODE;
+                    cmbBranchCode.SelectedValue = qry.BRANCH_CODE;
+                    cmbBranchName.SelectedValue = qry.BRANCH_CODE;
+                    dtpDOEmp.SelectedDate = Convert.ToDateTime(qry.DATEOFEMPLOYMENT);
+                    txtSalary.Text = qry.Salary.ToString();
+                    if (qry.TDF != null)
+                    {
+                        cmbTDF.Text = qry.TDF.ToString();
+                    }
+
+                    if (qry.LEVY != null)
+                    {
+                        cmbLevy.Text = qry.LEVY.ToString();
+                    }
+
+                    if (qry.LEVY_AMOUNT != null)
+                    {
+                        txtLevyAmount.Text = qry.LEVY_AMOUNT.ToString();
+                    }
+
+                    if (qry.TDF_AMOUNT != null)
+                    {
+                        txtTDFAmount.Text = qry.TDF_AMOUNT.ToString();
+                    }
+
+                    txtEntranceFee.Text = qry.ENTRANCEFEE.ToString();
+                    txtBuildingFund.Text = qry.HQFEE.ToString();
+                    txtAccBenefit.Text = qry.ACCBENEFIT.ToString();
+
+                    txtMonthlySub.Text = qry.MONTHLYSUBSCRIPTION.ToString();
+                    txtMonthlyBF.Text = qry.MONTHLYBF.ToString();
+                    txtMonthlyUC.Text = "7";
+                    txtMonthlyIns.Text = "10";
+
+                    txtAccSub.Text = (qry.ACCSUBSCRIPTION + Subs).ToString();
+                    txtAccBF.Text = (qry.ACCBF + BF).ToString();
+                    txtAccUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                    txtAccIns.Text = Ins.ToString();
+
+                    txtCurrentYTDSub.Text = Subs.ToString();
+                    txtCurrentYTDBF.Text = BF.ToString();
+                    txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
+                    txtCurrentYTDIns.Text = Ins.ToString();
+
+                    txtTotalMonthPaidSubs.Text = "1";
+                    txtTotalMonthPaidBF.Text = "1";
+                    txtTotalMonthPaidUC.Text = "1";
+                    txtTotalMonthPaidIns.Text = "1";
+
+                    txtTotalMonthsDueSubs.Text = "0";
+                    txtTotalMonthsDueBF.Text = "0";
+                    cmbAI_Insurance.Text = "N/A";
+                    cmbGE_Insurance.Text = "N/A";
+
+
+
+                    txtTotalMonthsDueUC.Text = "0";
+                    txtTotalMonthsDueIns.Text = "0";
+
+                    txtTakaful.Text = dTotlMonthsPaidUC.ToString();
+
+                    txtTDFInsurance.Text = "0";
+
+                    dtpLastPay.IsEnabled = false;
+                    txtBadgeAmt.Text = qry.BatchAmt.ToString();
+                    txtResEmail.Text = qry.EMAIL.ToString();
+
+
+
+                    if (qry.CITY_CODE != null)
+                    {
+                        cmbResCity.SelectedValue = qry.CITY_CODE;
+                    }
+                    if (qry.ZIPCODE != null)
+                    {
+                        txtResPostalCode.Text = qry.ZIPCODE;
+                    }
+                    if (qry.STATE_CODE != null)
+                    {
+                        cmbResState.SelectedValue = qry.STATE_CODE;
+                    }
+                    if (qry.COUNTRY != null)
+                    {
+                        cmbResCountry.Text = qry.COUNTRY;
+                    }
+                    lblStatus.Content = "Active Member; 0 Arrears Pending";
+
+
+                    if (brnch != null)
+                    {
+                        txtAddress.Text = brnch.BANKBRANCH_ADDRESS1;
+                        txtAddress2.Text = brnch.BANKBRANCH_ADDRESS2;
+                        txtAddress3.Text = brnch.BANKBRANCH_ADDRESS3;
+                        txtCity.Text = brnch.CITY_NAME;
+                        txtState.Text = brnch.STATE_NAME;
+                        txtPostalCode.Text = brnch.BANKBRANCH_ZIPCODE;
+                        txtCountry.Text = brnch.BANKBRANCH_COUNTRY;
+                        txtPhoneNo.Text = brnch.BANKBRANCH_PHONE1;
+                        txtMobileNo.Text = brnch.BANKBRANCH_PHONE2;
+                        txtEmail.Text = brnch.BANKBRANCH_EMAIL;
+                    }
+
+                    if (gurdian != null)
+                    {
+                        txGurName.Text = gurdian.Name;
+                        cmbGurRelation.SelectedValue = gurdian.RELATION_CODE;
+                        txtGurAddress.Text = gurdian.ADDRESS1;
+                        txtGurAddress2.Text = gurdian.ADDRESS2;
+                        txtGurAddress3.Text = gurdian.ADDRESS3;
+                        txtGurAge.Text = gurdian.AGE.ToString();
+                        cmbGurSex.Text = gurdian.SEX;
+                        txtGurICNO.Text = gurdian.ICNO_NEW;
+                        txtGurOldICNO.Text = gurdian.ICNO_OLD;
+                        cmbGurCity.SelectedValue = gurdian.CITY_CODE;
+                        cmbGurState.SelectedValue = gurdian.STATE_CODE;
+                        cmbGurCountry.Text = gurdian.COUNTRY;
+                        txtGurZipCode.Text = gurdian.ZIPCODE;
+                        txtGurPhNo.Text = gurdian.PHONE;
+                        txtGurMobileNo.Text = gurdian.MOBILE;
+                    }
                 }
             }
             catch (Exception ex)
@@ -2894,7 +3161,7 @@ namespace Nube.Transaction
                 {
                     dMember_Code = mm.MEMBER_CODE;
                     bIsUpdate = true;
-                    FormFill();
+                    LocalFormFill();
                 }
                 else
                 {

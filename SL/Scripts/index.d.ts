@@ -65,7 +65,7 @@ declare namespace Popper {
         x?: 'bottom' | 'top',
         y?: 'left' | 'right'
     };
-    [name: string]: (BaseModifier & Record<string, any>) | undefined;
+    //[name: string]: (BaseModifier & Record<string, any>) | undefined;
   }
 
   export interface Offset {
