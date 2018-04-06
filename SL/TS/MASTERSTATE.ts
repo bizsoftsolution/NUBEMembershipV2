@@ -1,25 +1,19 @@
 ﻿
 class MASTERSTATE {
-    STATE_CODE: number;
-    STATE_NAME: string;
-    DELETED: boolean;
-    Country: number;
+    STATE_CODE: KnockoutObservable<number>;
+    STATE_NAME: KnockoutObservable<string>;
+    DELETED: KnockoutObservable<boolean>;
+    Country: KnockoutObservable<number>;
     constructor() {
-        this.STATE_CODE = 0;
-        this.STATE_NAME = '';
-        this.DELETED = false;
-        this.Country = null;
+        this.STATE_CODE = ko.observable();
+        this.STATE_NAME = ko.observable();
+        this.DELETED = ko.observable();
+        this.Country = ko.observable();
     }
-    static _toList: MASTERSTATE[];
 
-    static toList(): any {
-        //let i: number = 0;
-        //while (MASTERSTATE._toList == undefined && i++ < 5) {
-        //    console.log("Try to get the state list #: ", i);
-        //    $.get("http://localhost/MembershipTest/Masterstate/tolist", { async: false }, (data) => {
-        //        MASTERSTATE._toList = data;
-        //    });
-        //}
+
+    static _toList: MASTERSTATE[];
+    static toList(): any {        
         if (MASTERSTATE._toList == undefined) {
             $.ajax({
                 url: 'http://localhost/MembershipTest/Masterstate/tolist',

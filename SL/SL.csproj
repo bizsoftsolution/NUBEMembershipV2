@@ -306,6 +306,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="TS\Main.ts" />
+    <TypeScriptCompile Include="TS\MASTERCITY.ts" />
     <TypeScriptCompile Include="TS\MASTERSTATE.ts" />
     <TypeScriptCompile Include="TS\Membership\Membership.ts" />
     <TypeScriptCompile Include="TS\Prg01.ts" />

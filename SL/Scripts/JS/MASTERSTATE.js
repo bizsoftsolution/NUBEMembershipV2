@@ -1,18 +1,11 @@
 var MASTERSTATE = /** @class */ (function () {
     function MASTERSTATE() {
-        this.STATE_CODE = 0;
-        this.STATE_NAME = '';
-        this.DELETED = false;
-        this.Country = null;
+        this.STATE_CODE = ko.observable();
+        this.STATE_NAME = ko.observable();
+        this.DELETED = ko.observable();
+        this.Country = ko.observable();
     }
     MASTERSTATE.toList = function () {
-        //let i: number = 0;
-        //while (MASTERSTATE._toList == undefined && i++ < 5) {
-        //    console.log("Try to get the state list #: ", i);
-        //    $.get("http://localhost/MembershipTest/Masterstate/tolist", { async: false }, (data) => {
-        //        MASTERSTATE._toList = data;
-        //    });
-        //}
         if (MASTERSTATE._toList == undefined) {
             $.ajax({
                 url: 'http://localhost/MembershipTest/Masterstate/tolist',
