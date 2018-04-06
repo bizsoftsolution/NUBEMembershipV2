@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/themes/base/all.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div>
+        <input id="txtBox01" type="text" data-bind="textInput:m1.Member_Name" />
+        <input id="btnOk" value="Ok" data-bind="click:btnOk_click" type="button" />
+        <br />
+        <input type="text" id="txtState" data-bind="jqAuto:{source:stateList, value: m1.STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" />
+
+    </div>
+    <p>
+        This is almost exactly what I needed. The accepted answer won't work for me because I do not have the freedom in my CMS to add spans that way. The only problem I had with the solution here, is that the margin left will pull the entire paragraph outside of a container. So I added 'position:relative' and 'left:2em' and it is perfect. Contrary to's comment, techillage's answer did not work for me at all, but maybe because I am not doing this on a list element.
+    </p>
+    <script src="~/Scripts/require.js"></script>
+    <script src="~/Scripts/JS/Main.js"></script>
+    <script>
+
+
+        require(['js/Prg01'], function (data) {
+            console.log(data);
+        });
+    </script>
+    <style>
+        p {
+            margin-left: 200px;
+        }
+
+            p:first-line {
+                margin-left: 0;
+            }
+        .ui-autocomplete {
+            max-height: 100px;
+            overflow-y: auto;
+            /* prevent horizontal scrollbar */
+            overflow-x: hidden;
+        }
+    </style>
+</body>
+</html>
