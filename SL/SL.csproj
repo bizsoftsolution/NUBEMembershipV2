@@ -220,6 +220,8 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\knockout-3.4.2.debug.js" />
     <Content Include="Scripts\knockout-3.4.2.js" />
+    <Content Include="Scripts\knockout-jqAutocomplete.js" />
+    <Content Include="Scripts\knockout-jqAutocomplete.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -304,6 +306,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="TS\Main.ts" />
+    <TypeScriptCompile Include="TS\MASTERSTATE.ts" />
     <TypeScriptCompile Include="TS\Membership\Membership.ts" />
     <TypeScriptCompile Include="TS\Prg01.ts" />
   </ItemGroup>
