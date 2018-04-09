@@ -12,13 +12,13 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
             this.ICNO_OLD = ko.observable();
             this.ICNO_NEW = ko.observable();
             this.BANK_CODE = ko.observable();
-            this.BRANCH_CODE = ko.observable();
+            this.BANKBRANCH_CODE = ko.observable();
             this.ADDRESS1 = ko.observable();
             this.ADDRESS2 = ko.observable();
             this.ADDRESS3 = ko.observable();
             this.CITY_CODE = ko.observable();
             this.STATE_CODE = ko.observable();
-            this.COUNTRY = ko.observable();
+            this.CountryName = ko.observable();
             this.ZIPCODE = ko.observable();
             this.PHONE = ko.observable();
             this.MOBILE = ko.observable();
@@ -30,6 +30,8 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
             this.MEMBERTYPE_CODE = ko.observable();
             this.SEX = ko.observable();
             this.RACE_CODE = ko.observable();
+            this.REJOINED = ko.observable();
+            this.OCCUPATION = ko.observable();
             ;
         }
         return MASTERMEMBER;

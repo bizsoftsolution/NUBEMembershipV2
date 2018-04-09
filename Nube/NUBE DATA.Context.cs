@@ -77,8 +77,8 @@ namespace Nube
         public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
         public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
         public virtual DbSet<GuardianInsertBranch> GuardianInsertBranches { get; set; }
-        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
         public virtual DbSet<NomineeInsertBranch> NomineeInsertBranches { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
     }
 }

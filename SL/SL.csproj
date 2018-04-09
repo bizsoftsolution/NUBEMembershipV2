@@ -321,12 +321,14 @@
     <TypeScriptCompile Include="node_modules\%40types\knockout\index.d.ts" />
     <TypeScriptCompile Include="node_modules\%40types\requirejs\index.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <TypeScriptCompile Include="TS\Joinup.ts" />
     <TypeScriptCompile Include="TS\Main.ts" />
     <TypeScriptCompile Include="TS\MasterBank.ts" />
     <TypeScriptCompile Include="TS\MasterBranch.ts" />
     <TypeScriptCompile Include="TS\MASTERCITY.ts" />
     <TypeScriptCompile Include="TS\MasterCountry.ts" />
     <TypeScriptCompile Include="TS\MasterMember.ts" />
+    <TypeScriptCompile Include="TS\MasterNominee.ts" />
     <TypeScriptCompile Include="TS\MasterRace.ts" />
     <TypeScriptCompile Include="TS\MasterRelation.ts" />
     <TypeScriptCompile Include="TS\MASTERSTATE.ts" />

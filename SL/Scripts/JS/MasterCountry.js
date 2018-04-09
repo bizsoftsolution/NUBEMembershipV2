@@ -26,5 +26,6 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         };
         return MASTERCOUNTRY;
     }());
+    exports.MASTERCOUNTRY = MASTERCOUNTRY;
 });
 //# sourceMappingURL=MasterCountry.js.map

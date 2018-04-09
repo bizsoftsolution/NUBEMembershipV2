@@ -30,3 +30,4 @@ class MASTERCOUNTRY {
     }
 
 }
+export { MASTERCOUNTRY };

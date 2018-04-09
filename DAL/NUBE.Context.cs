@@ -38,7 +38,7 @@ namespace DAL
         public virtual DbSet<GuardianInsertBranch> GuardianInsertBranches { get; set; }
         public virtual DbSet<NomineeInsertBranch> NomineeInsertBranches { get; set; }
         public virtual DbSet<CountrySetup> CountrySetups { get; set; }
-        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
     }
 }

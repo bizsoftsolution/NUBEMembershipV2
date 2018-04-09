@@ -21,134 +21,162 @@ namespace SL.Controllers
         {
             try
             {
-                int i = 0;
-                var mn = db.MASTERNAMESETUPs.FirstOrDefault();
-
-                TimeSpan ts = DateTime.Now - Convert.ToDateTime(wm.DATEOFBIRTH);
-                decimal age = Convert.ToInt32(ts.Days) / 365;
-
-                DAL.MemberInsertBranch mm = new DAL.MemberInsertBranch();
-
-                mm.MEMBERTYPE_CODE = wm.MEMBERTYPE_CODE;
-                mm.MEMBER_ID = 0;
-                mm.MEMBER_TITLE = wm.MEMBER_TITLE;
-                mm.MEMBER_NAME = wm.MEMBER_NAME;
-                mm.DATEOFBIRTH = wm.DATEOFBIRTH;
-                mm.AGE_IN_YEARS = age;
-                mm.SEX = wm.SEX;
-                mm.REJOINED = wm.REJOINED;
-                mm.RACE_CODE = wm.RACE_CODE;
-                mm.ICNO_NEW = wm.ICNO_NEW;
-                mm.ICNO_OLD = wm.ICNO_OLD;
-                mm.DATEOFJOINING = DateTime.Today;
-
-                mm.BANK_CODE = wm.BANK_CODE;
-                mm.BRANCH_CODE = wm.BRANCH_CODE;
-                mm.DATEOFEMPLOYMENT = wm.DATEOFEMPLOYMENT;
-                mm.Salary = wm.Salary;
-                mm.LEVY = "N/A";
-                mm.TDF = "N/A";
-                mm.LEVY_AMOUNT = 0;
-                mm.TDF_AMOUNT = 0;
-                //mm.LevyPaymentDate = DateTime.Now;
-                //mm.Tdf_PaymentDate = DateTime.Now;
-
-                if (mn != null)
+                if (string.IsNullOrWhiteSpace(wm.MEMBER_NAME))
                 {
-                    if (wm.REJOINED == 1)
-                    {
-                        mm.ENTRANCEFEE = mn.EnterenceFees + mn.RejoinAmount;
-                    }
-                    else
-                    {
-                        mm.ENTRANCEFEE = mn.EnterenceFees;
-                    }
-
-                    mm.MONTHLYBF = mn.BF;
-                    mm.ACCBF = mn.BF;
-                    mm.CURRENT_YTDBF = mn.BF;
-
-                    decimal dSalary = Convert.ToDecimal(wm.Salary);
-                    if (dSalary > 0)
-                    {
-                        decimal dAmount = ((dSalary * Convert.ToDecimal(mn.Subscription)) / 100);
-                        decimal dSubscription = dAmount - Convert.ToDecimal(mn.BF + mn.Insurance);
-
-                        mm.MONTHLYSUBSCRIPTION = dSubscription;
-                        mm.ACCSUBSCRIPTION = dSubscription;
-                        mm.CURRENT_YTDSUBSCRIPTION = dSubscription;
-                    }
+                    return Json(new { isSaved = false, ErrMsg = "Member Name is Empty" }, JsonRequestBehavior.AllowGet);
                 }
-
-                mm.ACCBENEFIT = 0;
-                mm.TOTALMONTHSPAID = 1;
-                mm.ADDRESS1 = wm.ADDRESS1;
-                mm.ADDRESS2 = wm.ADDRESS2;
-                mm.ADDRESS3 = wm.ADDRESS3;
-                mm.PHONE = wm.PHONE;
-                mm.MOBILE = wm.MOBILE;
-                mm.EMAIL = wm.EMAIL;
-                mm.CITY_CODE = wm.CITY_CODE;
-                mm.ZIPCODE = wm.ZIPCODE;
-                mm.STATE_CODE = wm.STATE_CODE;
-                mm.COUNTRY = wm.COUNTRY;
-                mm.UpdatedBy = 1;
-                mm.UpdatedOn = DateTime.Now;
-                mm.IsApproved = 0;
-
-                i = i + 1;
-                if (i == 1)
+                else if (string.IsNullOrWhiteSpace(wm.ICNO_NEW))
                 {
-                    db.MemberInsertBranches.Add(mm);
+                    return Json(new { isSaved = false, ErrMsg = "ICNO is Empty" }, JsonRequestBehavior.AllowGet);
+                }
+                else if (wm.BANK_CODE == 0 || string.IsNullOrWhiteSpace(wm.BANK_CODE.ToString()))
+                {
+                    return Json(new { isSaved = false, ErrMsg = "Bank is Empty" }, JsonRequestBehavior.AllowGet);
+                }
+                else if (wm.BANKBRANCH_CODE == 0 || string.IsNullOrWhiteSpace(wm.BANKBRANCH_CODE.ToString()))
+                {
+                    return Json(new { isSaved = false, ErrMsg = "Branch is Empty" }, JsonRequestBehavior.AllowGet);
+                }
+                else if (wm.Salary == 0 || string.IsNullOrWhiteSpace(wm.Salary.ToString()))
+                {
+                    return Json(new { isSaved = false, ErrMsg = "Salary is Empty" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    int i = 0;
+                    var mn = db.MASTERNAMESETUPs.FirstOrDefault();
+                    decimal age = 0;
+                    if (wm.DATEOFBIRTH != null)
+                    {
+                        TimeSpan ts = DateTime.Now - Convert.ToDateTime(wm.DATEOFBIRTH);
+                        age = Convert.ToInt32(ts.Days) / 365;
+                    }
+                    
+
+                    DAL.MemberInsertBranch mm = new DAL.MemberInsertBranch();
+
+                    mm.MEMBERTYPE_CODE = wm.MEMBERTYPE_CODE;
+                    mm.MEMBER_ID = 0;
+                    mm.MEMBER_TITLE = wm.MEMBER_TITLE;
+                    mm.MEMBER_NAME = wm.MEMBER_NAME;
+                    mm.DATEOFBIRTH = wm.DATEOFBIRTH;
+                    mm.AGE_IN_YEARS = age;
+                    mm.SEX = wm.SEX;
+                    mm.REJOINED = wm.REJOINED;
+                    mm.RACE_CODE = wm.RACE_CODE;
+                    mm.ICNO_NEW = wm.ICNO_NEW;
+                    mm.ICNO_OLD = wm.ICNO_OLD;
+                    mm.DATEOFJOINING = DateTime.Today;
+
+                    mm.BANK_CODE = wm.BANK_CODE;
+                    mm.BRANCH_CODE = wm.BANKBRANCH_CODE;
+                    mm.DATEOFEMPLOYMENT = wm.DATEOFEMPLOYMENT;
+                    mm.Salary = wm.Salary;
+                    mm.LEVY = "N/A";
+                    mm.TDF = "N/A";
+                    mm.LEVY_AMOUNT = 0;
+                    mm.TDF_AMOUNT = 0;
+                    //mm.LevyPaymentDate = DateTime.Now;
+                    //mm.Tdf_PaymentDate = DateTime.Now;
+
+                    if (mn != null)
+                    {
+                        if (wm.REJOINED == 1)
+                        {
+                            mm.ENTRANCEFEE = mn.EnterenceFees + mn.RejoinAmount;
+                        }
+                        else
+                        {
+                            mm.ENTRANCEFEE = mn.EnterenceFees;
+                        }
+
+                        mm.MONTHLYBF = mn.BF;
+                        mm.ACCBF = mn.BF;
+                        mm.CURRENT_YTDBF = mn.BF;
+
+                        decimal dSalary = Convert.ToDecimal(wm.Salary);
+                        if (dSalary > 0)
+                        {
+                            decimal dAmount = ((dSalary * Convert.ToDecimal(mn.Subscription)) / 100);
+                            decimal dSubscription = dAmount - Convert.ToDecimal(mn.BF + mn.Insurance);
+
+                            mm.MONTHLYSUBSCRIPTION = dSubscription;
+                            mm.ACCSUBSCRIPTION = dSubscription;
+                            mm.CURRENT_YTDSUBSCRIPTION = dSubscription;
+                        }
+                    }
+
+                    mm.ACCBENEFIT = 0;
+                    mm.TOTALMONTHSPAID = 1;
+                    mm.ADDRESS1 = wm.ADDRESS1;
+                    mm.ADDRESS2 = wm.ADDRESS2;
+                    mm.ADDRESS3 = wm.ADDRESS3;
+                    mm.PHONE = wm.PHONE;
+                    mm.MOBILE = wm.MOBILE;
+                    mm.EMAIL = wm.EMAIL;
+                    mm.CITY_CODE = wm.CITY_CODE;
+                    mm.ZIPCODE = wm.ZIPCODE;
+                    mm.STATE_CODE = wm.STATE_CODE;
+                    mm.COUNTRY = wm.COUNTRY;
+                    mm.UpdatedBy = 1;
+                    mm.UpdatedOn = DateTime.Now;
+                    mm.IsApproved = 0;
+                    mm.Occupation = wm.Occupation;
+
+                    i = i + 1;
+                    if (i == 1)
+                    {
+                        db.MemberInsertBranches.Add(mm);
+                        db.SaveChanges();
+                    }
+
+                    int iMemberCode = Convert.ToInt32(db.MemberInsertBranches.Max(x => x.MEMBER_CODE));
+
+                    if (wm.N_NAME != null)
+                    {
+                        DAL.NomineeInsertBranch ni = new DAL.NomineeInsertBranch();
+                        ni.MEMBER_CODE = iMemberCode;
+                        ni.NAME = wm.N_NAME;
+                        ni.ICNO_NEW = wm.N_ICNO_NEW;
+                        ni.SEX = wm.N_SEX;
+                        ni.AGE = wm.N_AGE;
+                        ni.RELATION_CODE = wm.N_RELATION_CODE;
+                        ni.ADDRESS1 = wm.N_ADDRESS1;
+                        ni.ADDRESS2 = wm.N_ADDRESS2;
+                        ni.CITY_CODE = wm.N_CITY_CODE;
+                        ni.STATE_CODE = wm.N_STATE_CODE;
+                        ni.COUNTRY = wm.N_COUNTRY;
+
+                        db.NomineeInsertBranches.Add(ni);
+                    }
+
+                    if (wm.G_NAME != null)
+                    {
+                        DAL.GuardianInsertBranch gi = new DAL.GuardianInsertBranch();
+                        gi.MEMBER_CODE = iMemberCode;
+                        gi.NAME = wm.G_NAME;
+                        gi.ICNO_NEW = wm.G_ICNO_NEW;
+                        gi.SEX = wm.G_SEX;
+                        gi.AGE = wm.G_AGE;
+                        gi.RELATION_CODE = wm.G_RELATION_CODE;
+                        gi.ADDRESS1 = wm.G_ADDRESS1;
+                        gi.ADDRESS2 = wm.G_ADDRESS2;
+                        gi.CITY_CODE = wm.G_CITY_CODE;
+                        gi.STATE_CODE = wm.G_STATE_CODE;
+                        gi.COUNTRY = wm.G_COUNTRY;
+                        db.GuardianInsertBranches.Add(gi);
+                    }
+
                     db.SaveChanges();
-                }                                
 
-                int iMemberCode = Convert.ToInt32(db.MemberInsertBranches.Max(x => x.MEMBER_CODE));
+                    return Json(new
+                    {
+                        isSaved = true,
+                        Membercode = iMemberCode,
+                        URL = wm.URL
+                    }, JsonRequestBehavior.AllowGet);
 
-                if (wm.N_NAME != null)
-                {
-                    DAL.NomineeInsertBranch ni = new DAL.NomineeInsertBranch();
-                    ni.MEMBER_CODE = iMemberCode;
-                    ni.NAME = wm.N_NAME;
-                    ni.ICNO_NEW = wm.N_ICNO_NEW;
-                    ni.SEX = wm.N_SEX;
-                    ni.AGE = wm.N_AGE;
-                    ni.RELATION_CODE = wm.N_RELATION_CODE;
-                    ni.ADDRESS1 = wm.N_ADDRESS1;
-                    ni.ADDRESS2 = wm.N_ADDRESS2;
-                    ni.CITY_CODE = wm.N_CITY_CODE;
-                    ni.STATE_CODE = wm.N_STATE_CODE;
-                    ni.COUNTRY = wm.N_COUNTRY;
-
-                    db.NomineeInsertBranches.Add(ni);
                 }
-
-                if (wm.G_NAME != null)
-                {
-                    DAL.GuardianInsertBranch gi = new DAL.GuardianInsertBranch();
-                    gi.MEMBER_CODE = iMemberCode;
-                    gi.NAME = wm.G_NAME;
-                    gi.ICNO_NEW = wm.G_ICNO_NEW;
-                    gi.SEX = wm.G_SEX;
-                    gi.AGE = wm.G_AGE;
-                    gi.RELATION_CODE = wm.G_RELATION_CODE;
-                    gi.ADDRESS1 = wm.G_ADDRESS1;
-                    gi.ADDRESS2 = wm.G_ADDRESS2;
-                    gi.CITY_CODE = wm.G_CITY_CODE;
-                    gi.STATE_CODE = wm.G_STATE_CODE;
-                    gi.COUNTRY = wm.G_COUNTRY;
-                    db.GuardianInsertBranches.Add(gi);
-                }
-
-                db.SaveChanges();
-
-                return Json(new
-                {
-                    isSaved = true,
-                    Membercode = iMemberCode,
-                    URL = wm.URL
-                }, JsonRequestBehavior.AllowGet);
-
             }
             catch (Exception ex)
             {
@@ -167,7 +195,7 @@ namespace SL.Controllers
             public string ICNO_OLD { get; set; }
             public string ICNO_NEW { get; set; }
             public Nullable<decimal> BANK_CODE { get; set; }
-            public Nullable<decimal> BRANCH_CODE { get; set; }
+            public Nullable<decimal> BANKBRANCH_CODE { get; set; }
             public string ADDRESS1 { get; set; }
             public string ADDRESS2 { get; set; }
             public string ADDRESS3 { get; set; }
@@ -242,6 +270,7 @@ namespace SL.Controllers
             public string AI_MemberNo { get; set; }
             public bool GE_Insurance { get; set; }
             public string GE_ContractNo { get; set; }
+            public string Occupation { get; set; }
             public string N_ICNO_NEW { get; set; }
             public string N_NAME { get; set; }
             public string N_SEX { get; set; }

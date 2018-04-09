@@ -39,5 +39,6 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         };
         return MASTERBRANCH;
     }());
+    exports.MASTERBRANCH = MASTERBRANCH;
 });
 //# sourceMappingURL=MasterBranch.js.map

@@ -18,14 +18,24 @@ namespace SL.Controllers
         }
 
         [NubeCrossSiteAttribute]
-        public JsonResult ToList(string term, int Bank_Code)
+        public JsonResult ToList(string term, int? Bank_Code)
         {
-            var l1 = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).Where(x => x.BANK_CODE == Bank_Code).ToList();
-            if (!string.IsNullOrWhiteSpace(term))
+            var l1 = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).ToList();
+            if (Bank_Code != null)
+            {
+                l1 = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).Where(x => x.BANK_CODE == Bank_Code).ToList();
+                if (!string.IsNullOrWhiteSpace(term))
+                {
+                    l1 = l1.Where(x => x.BANKBRANCH_NAME.ToLower().Contains(term.ToLower())).ToList();
+                }
+            }
+            else if (!string.IsNullOrWhiteSpace(term))
             {
                 l1 = l1.Where(x => x.BANKBRANCH_NAME.ToLower().Contains(term.ToLower())).ToList();
             }
-            return Json(l1, JsonRequestBehavior.AllowGet);
-        }       
+
+
+            return Json(l1.Take(100).Select(x => new { x.BANKBRANCH_CODE, x.BANKBRANCH_NAME }).ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

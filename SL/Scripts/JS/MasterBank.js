@@ -29,5 +29,6 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         };
         return MASTERBANK;
     }());
+    exports.MASTERBANK = MASTERBANK;
 });
 //# sourceMappingURL=MasterBank.js.map

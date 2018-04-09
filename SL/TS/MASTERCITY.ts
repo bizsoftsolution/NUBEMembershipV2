@@ -33,4 +33,5 @@ class MASTERCITY {
         return MASTERCITY._toList;
     }
 }
-   
+
+export { MASTERCITY };

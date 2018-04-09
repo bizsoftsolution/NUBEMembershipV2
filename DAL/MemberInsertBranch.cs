@@ -64,5 +64,6 @@ namespace DAL
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public int IsApproved { get; set; }
+        public string Occupation { get; set; }
     }
 }

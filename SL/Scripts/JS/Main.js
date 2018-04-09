@@ -5,6 +5,6 @@ require.config({
         "jqueryui": "jquery-ui-1.12.1.min",
         "knockout-jqAutocomplete": "knockout-jqAutocomplete"
     },
-    baseUrl: '../Scripts'
+    baseUrl: 'http://localhost/MembershipTest/Scripts/'
 });
 //# sourceMappingURL=Main.js.map

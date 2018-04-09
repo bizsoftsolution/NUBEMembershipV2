@@ -57,9 +57,9 @@
         <EntityTypeShape EntityType="nube18092017Model.TEMPVIEWMASTERMEMBER" Width="1.5" PointX="0.75" PointY="19.75" />
         <EntityTypeShape EntityType="nube18092017Model.TVMASTERMEMBER" Width="1.5" PointX="5.75" PointY="19.75" />
         <EntityTypeShape EntityType="nube18092017Model.GuardianInsertBranch" Width="1.5" PointX="25.375" PointY="20.75" />
-        <EntityTypeShape EntityType="nube18092017Model.MemberInsertBranch" Width="1.5" PointX="25.375" PointY="26.75" />
         <EntityTypeShape EntityType="nube18092017Model.NomineeInsertBranch" Width="1.5" PointX="27.375" PointY="9.75" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERMEMBER" Width="1.5" PointX="27.375" PointY="15.75" />
+        <EntityTypeShape EntityType="nube18092017Model.MemberInsertBranch" Width="1.5" PointX="21.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

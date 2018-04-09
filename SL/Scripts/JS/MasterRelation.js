@@ -27,5 +27,6 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         };
         return MASTERRELATION;
     }());
+    exports.MASTERRELATION = MASTERRELATION;
 });
 //# sourceMappingURL=MasterRelation.js.map

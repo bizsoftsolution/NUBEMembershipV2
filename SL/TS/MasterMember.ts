@@ -10,13 +10,13 @@ class MASTERMEMBER {
     ICNO_OLD: KnockoutObservable<string>;
     ICNO_NEW: KnockoutObservable<string>;
     BANK_CODE: KnockoutObservable<number>;
-    BRANCH_CODE: KnockoutObservable<number>;
+    BANKBRANCH_CODE: KnockoutObservable<number>;
     ADDRESS1: KnockoutObservable<string>;
     ADDRESS2: KnockoutObservable<string>;
     ADDRESS3: KnockoutObservable<string>;
     CITY_CODE: KnockoutObservable<number>;
     STATE_CODE: KnockoutObservable<number>;
-    COUNTRY: KnockoutObservable<string>;
+    CountryName: KnockoutObservable<string>;
     ZIPCODE: KnockoutObservable<string>;
     PHONE: KnockoutObservable<string>;
     MOBILE: KnockoutObservable<string>;
@@ -28,6 +28,8 @@ class MASTERMEMBER {
     MEMBERTYPE_CODE: KnockoutObservable<number>;
     SEX: KnockoutObservable<string>;
     RACE_CODE: KnockoutObservable<number>;
+    OCCUPATION: KnockoutObservable<string>;
+    REJOINED: KnockoutObservable<boolean>;
 
     constructor() {
 
@@ -40,13 +42,13 @@ class MASTERMEMBER {
         this.ICNO_OLD = ko.observable<string>();
         this.ICNO_NEW = ko.observable<string>();
         this.BANK_CODE = ko.observable<number>();
-        this.BRANCH_CODE = ko.observable<number>();
+        this.BANKBRANCH_CODE = ko.observable<number>();
         this.ADDRESS1 = ko.observable<string>();
         this.ADDRESS2 = ko.observable<string>();
         this.ADDRESS3 = ko.observable<string>();
         this.CITY_CODE = ko.observable<number>();
         this.STATE_CODE = ko.observable<number>();
-        this.COUNTRY = ko.observable<string>();
+        this.CountryName = ko.observable<string>();
         this.ZIPCODE = ko.observable<string>();
         this.PHONE = ko.observable<string>();
         this.MOBILE = ko.observable<string>();
@@ -57,7 +59,11 @@ class MASTERMEMBER {
         this.DATEOFEMPLOYMENT = ko.observable<Date>();
         this.MEMBERTYPE_CODE = ko.observable<number>();
         this.SEX = ko.observable<string>();
-        this.RACE_CODE = ko.observable<number>();;
+        this.RACE_CODE = ko.observable<number>();
+        this.REJOINED = ko.observable<boolean>();
+        this.OCCUPATION = ko.observable<string>();;
+
+
     }
 
 }

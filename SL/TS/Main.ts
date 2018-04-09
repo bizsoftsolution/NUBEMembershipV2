@@ -5,5 +5,5 @@
         "jqueryui": "jquery-ui-1.12.1.min",
         "knockout-jqAutocomplete": "knockout-jqAutocomplete"
     },
-    baseUrl:'../Scripts'
+    baseUrl:'http://localhost/MembershipTest/Scripts/'
 });
