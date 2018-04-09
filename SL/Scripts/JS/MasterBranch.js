@@ -1,7 +1,7 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MASTERBRANCH = (function () {
+    var MASTERBRANCH = /** @class */ (function () {
         function MASTERBRANCH() {
             this.BANKBRANCH_CODE = ko.observable();
             this.BANK_CODE = ko.observable();

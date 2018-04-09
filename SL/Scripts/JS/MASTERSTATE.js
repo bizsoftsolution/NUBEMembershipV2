@@ -1,7 +1,7 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MASTERSTATE = (function () {
+    var MASTERSTATE = /** @class */ (function () {
         function MASTERSTATE() {
             this.STATE_CODE = ko.observable();
             this.STATE_NAME = ko.observable();

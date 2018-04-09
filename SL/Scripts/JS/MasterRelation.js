@@ -1,7 +1,7 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var MASTERRELATION = (function () {
+    var MASTERRELATION = /** @class */ (function () {
         function MASTERRELATION() {
             this.RELATION_CODE = ko.observable();
             this.RELATION_NAME = ko.observable();

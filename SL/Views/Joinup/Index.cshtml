@@ -16,51 +16,29 @@
 </head>
 <body>
     <div> 
-
-        <script type="application/javascript">
-            /** After windod Load */
-            $(window).bind("load", function() {
-              window.setTimeout(function() {
-                $(".alert").fadeTo(300, 0).slideUp(500, function(){
-                    $(this).remove();
-                });
-            }, 4000);
-            });
-
-        </script>
         <style>
-                     .ui-autocomplete {
-                         max-height: 300px;
-                         overflow-y: auto;
-                         /* prevent horizontal scrollbar */
-                         overflow-x: hidden;
-                     }
-                     /* IE 6 doesn't support max-height
-            * we use height instead, but this forces the menu to always be this tall
-            */
-                     * html .ui-autocomplete {
-                         height: 300px;
-                     }
+            .ui-autocomplete {
+                max-height: 300px;
+                overflow-y: auto;
+                /* prevent horizontal scrollbar */
+                overflow-x: hidden;
+            }          
         </style>
-        <link href='http://fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
 
 
         <div class="container-fluid" style="padding-top:3%;">
             <center><h1 style=" padding:15px;">National Union of Bank Employees</h1></center>
         </div>
+
         <div class="container-fluid" style="margin-top:2%;">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
-
                     <style>
                         .testform {
                             min-height: 0px !important;
                         }
                     </style>
-
-                    <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/joinup'); ?>/simpleform.css" />
-                    <form class="testform" id="testform" action="<?php echo $custompath; ?>MasterMember/Insert" method="post" role="form" enctype="multipart/form-data" style="min-height:0px!important;">
                         <fieldset class="personal-data">
                             <h4>Check List New Membership</h4>
                             <ul>
@@ -77,17 +55,17 @@
                                 <li>Photocopy of Salary Slip</li>
                             </ul>
                             <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> Member Name: <?php //echo $custompath; ?></label>
-                                <input class="form-control" type="text" name="Member_Name" id="firstname" required />
+                                <label><span class="req">* </span> Member Name:</label>
+                                <input class="form-control" type="text" data-bind="textInput: MEMBER_NAME" required />
 
                             </div>
                             <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> IC No: </label>
-                                <input class="form-control" type="text" name="ICNO_NEW" id="identitycardno" required />
+                                <label><span class="req">* </span> IC No: </label>
+                                <input class="form-control" type="text"  data-bind="textInput: MEMBER_NAME" required />
 
                             </div>
                             <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> Profession or Occupation: </label>
+                                <label><span class="req">* </span> Profession or Occupation: </label>
                                 <input class="form-control" type="text" name="professionoccupation" required />
 
                             </div>
@@ -429,8 +407,7 @@
 
                         <div class="clear"></div>
                         <!--input type="submit" name="Submit" value="ADD" class="btn btn-default submit-button"-->
-                    </form>
-
+                
                     <script type="text/javascript">
 		$(".testform").simpleform({
 			speed : 500,

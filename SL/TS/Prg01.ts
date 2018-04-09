@@ -1,7 +1,7 @@
 ﻿import * as ko from "knockout";
 import * as $ from "jquery";
 import "jqueryui";
-import "js/masterstate";
+import {MASTERSTATE} from "./MASTERSTATE";
 import "knockout-jqAutocomplete";
 import { Membership } from "./Membership/Membership";
 

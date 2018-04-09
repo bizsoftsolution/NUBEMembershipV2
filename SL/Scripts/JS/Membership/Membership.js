@@ -1,7 +1,7 @@
 define(["require", "exports", "knockout"], function (require, exports, ko) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var Membership = (function () {
+    var Membership = /** @class */ (function () {
         function Membership() {
             this.MEMBER_CODE = ko.observable();
             this.MEMBER_NAME = ko.observable();

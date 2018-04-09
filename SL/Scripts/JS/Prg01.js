@@ -1,4 +1,4 @@
-define(["require", "exports", "knockout", "jquery", "./Membership/Membership", "jqueryui", "js/masterstate", "knockout-jqAutocomplete"], function (require, exports, ko, $, Membership_1) {
+define(["require", "exports", "knockout", "jquery", "./MASTERSTATE", "./Membership/Membership", "jqueryui", "knockout-jqAutocomplete"], function (require, exports, ko, $, MASTERSTATE_1, Membership_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var HelloViewModel = /** @class */ (function () {
@@ -6,7 +6,7 @@ define(["require", "exports", "knockout", "jquery", "./Membership/Membership", "
             this.language = ko.observable(language);
             this.framework = ko.observable(framework);
             this.m1 = new Membership_1.Membership();
-            this.stateList = MASTERSTATE.toList();
+            this.stateList = MASTERSTATE_1.MASTERSTATE.toList();
         }
         HelloViewModel.prototype.btnOk_click = function () {
             alert(this.m1.MEMBER_NAME);

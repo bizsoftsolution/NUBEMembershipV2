@@ -11,6 +11,7 @@ namespace SL.Controllers
         // GET: Joinup
         public ActionResult Index()
         {
+            return View();
         }
     }
 }
