@@ -1,6 +1,6 @@
 ﻿import * as ko from "knockout";
 
-class MASTERNOMINEE {
+class MASTERGUARDIAN {
     MEMBER_CODE: KnockoutObservable<number>;
     ICNO_OLD: KnockoutObservable<string>;
     ICNO_NEW: KnockoutObservable<string>;
@@ -19,7 +19,7 @@ class MASTERNOMINEE {
     MOBILE: KnockoutObservable<string>;
     USER_CODE: KnockoutObservable<number>;
     ENTRY_DATE: KnockoutObservable<Date>;
-    ENTRY_TIME: KnockoutObservable<Date>;              
+    ENTRY_TIME: KnockoutObservable<Date>;
 
     constructor() {
         this.MEMBER_CODE = ko.observable<number>();
@@ -36,34 +36,34 @@ class MASTERNOMINEE {
         this.STATE_CODE = ko.observable<number>();
         this.COUNTRY = ko.observable<string>();
         this.ZIPCODE = ko.observable<string>();
-        this.PHONE = ko.observable<string>();
         this.MOBILE = ko.observable<string>();
+        this.PHONE = ko.observable<string>();
         this.USER_CODE = ko.observable<number>();
         this.ENTRY_DATE = ko.observable<Date>();
-        this.ENTRY_TIME = ko.observable<Date>();        
+        this.ENTRY_TIME = ko.observable<Date>();
     }
 
 
-    //private static _toList: MASTERNOMINEE[];
-    //static toList(): any {
-    //    if (MASTERNOMINEE._toList == undefined) {
-    //        $.ajax({
-    //            url: 'http://localhost/MembershipTest/MasterCity/tolist',
-    //            type: 'get',
-    //            async: false,
-    //            cache: false,
-    //            timeout: 30000,
-    //            error: (err) => {
-    //                console.log(err);
-    //            },
-    //            success: (data) => {
-    //                MASTERNOMINEE._toList = data;
-    //            },
-    //        });
-    //    }
+    private static _toList: MASTERGUARDIAN[];
+    static toList(): any {
+        if (MASTERGUARDIAN._toList == undefined) {
+            $.ajax({
+                url: 'http://localhost/MembershipTest/MasterCity/tolist',
+                type: 'get',
+                async: false,
+                cache: false,
+                timeout: 30000,
+                error: (err) => {
+                    console.log(err);
+                },
+                success: (data) => {
+                    MASTERGUARDIAN._toList = data;
+                },
+            });
+        }
 
-    //    return MASTERNOMINEE._toList;
-    //}
+        return MASTERGUARDIAN._toList;
+    }
 }
 
-export { MASTERNOMINEE };
+export { MASTERGUARDIAN };

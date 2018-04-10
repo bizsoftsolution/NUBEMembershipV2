@@ -10,10 +10,11 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="~/Content/themes/base/all.css" rel="stylesheet" />
-   
+
     <script src="~/Scripts/jquery-3.0.0.min.js"></script>
-    <script src="~/Scripts/popper.min.js"></script>
+
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/require.js"></script>
     <script src="~/Scripts/JS/Main.js"></script>
@@ -22,17 +23,15 @@
     </script>
 </head>
 <body>
-    <div> 
+    <div>
         <style>
             .ui-autocomplete {
                 max-height: 300px;
                 overflow-y: auto;
                 /* prevent horizontal scrollbar */
                 overflow-x: hidden;
-            }          
+            }
         </style>
-
-
         <div class="container-fluid" style="padding-top:3%;">
             <center><h1 style=" padding:15px;">National Union of Bank Employees</h1></center>
         </div>
@@ -46,134 +45,317 @@
                             min-height: 0px !important;
                         }
                     </style>
-                        <fieldset class="personal-data">
-                            <h4>Check List New Membership</h4>
-                            <ul>
-                                <li>Original Membership Apllication Form</li>
-                                <li>2 Copies of consent letters (salary dedution)</li>
-                                <li>Bank draft/Cashier's order Payable to NUBE</li>
-                                <li>1% from Basic Salary Chq no: plus</li>
-                                <li>RM12.00 (Building, Education & badge Fee)</li>
-                                <li>RM 100.00 (Trade Dispute Fund)</li>
-                                <li>RM 50 per year(Late Joining fee)</li>
-                                <li>1 Piece of passport size photo</li>
-                                <li>Photocopy of identity Card</li>
-                                <li>Photocopy of Employment Letter</li>
-                                <li>Photocopy of Salary Slip</li>
-                            </ul>
-                            <div class="form-group">
-                                <label><span class="req">* </span> Member Name:</label>
-                                <input class="form-control" type="text" data-bind="textInput: data.MEMBER_NAME" required />
+                    <fieldset class="personal-data">
+                        <h4>Check List New Membership</h4>
+                        <ul>
+                            <li>Original Membership Apllication Form</li>
+                            <li>2 Copies of consent letters (salary dedution)</li>
+                            <li>Bank draft/Cashier's order Payable to NUBE</li>
+                            <li>1% from Basic Salary Chq no: plus</li>
+                            <li>RM12.00 (Building, Education & badge Fee)</li>
+                            <li>RM 100.00 (Trade Dispute Fund)</li>
+                            <li>RM 50 per year(Late Joining fee)</li>
+                            <li>1 Piece of passport size photo</li>
+                            <li>Photocopy of identity Card</li>
+                            <li>Photocopy of Employment Letter</li>
+                            <li>Photocopy of Salary Slip</li>
+                        </ul>
+                        <div class="form-group">
+                            <label><span class="req">* </span> Member Name:</label>
+                            <input class="form-control" type="text" data-bind="textInput: data.MEMBER_NAME" required />
 
-                            </div>
-                            <div class="form-group">
-                                <label><span class="req">* </span> IC No: </label>
-                                <input class="form-control" type="text"  data-bind="textInput: data.ICNO_NEW" required />
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span> IC No: </label>
+                            <input class="form-control" type="text" data-bind="textInput: data.ICNO_NEW" required />
 
-                            </div>
-                            <div class="form-group">
-                                <label><span class="req">* </span> Profession or Occupation: </label>
-                                <input class="form-control" type="text" data-bind="textInput: data.OCCUPATION" required />
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span> Profession or Occupation: </label>
+                            <input class="form-control" type="text" data-bind="textInput: data.OCCUPATION" required />
 
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname"><span class="req">* </span>Are you Clerical or Non Clerical ?: </label> <br>
-                                <label class="radio-inline">
-                                    <input type="radio" name="Membertype_Code" data-bind="checked:data.MEMBERTYPE_CODE"  value="1">Clerical
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="Membertype_Code" data-bind="checked:data.MEMBERTYPE_CODE" value="2">Non Clerical
-                                </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname"><span class="req">* </span>Are you Clerical or Non Clerical ?: </label> <br>
+                            <label class="radio-inline">
+                                <input type="radio" name="Membertype_Code" data-bind="checked:data.MEMBERTYPE_CODE" value="1">Clerical
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="Membertype_Code" data-bind="checked:data.MEMBERTYPE_CODE" value="2">Non Clerical
+                            </label>
 
-                                <div id="errFirst"></div>
-                            </div>
-                            <div class="form-group">
-                                <label ><span class="req">* </span>Have you been a member of this Union?: </label> <br>
-                                <label class="radio-inline">
-                                    <input type="radio" name="Rejoined" data-bind="checked:data.REJOINED" value="1">Yes
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="Rejoined" data-bind="checked:data.REJOINED" value="0">No
-                                </label>
+                            <div id="errFirst"></div>
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span>Have you been a member of this Union?: </label> <br>
+                            <label class="radio-inline">
+                                <input type="radio" name="Rejoined" data-bind="checked:data.REJOINED" value="1">Yes
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="Rejoined" data-bind="checked:data.REJOINED" value="0">No
+                            </label>
 
-                                <div id="errFirst"></div>
-                            </div>
-                            <div class="form-group">
-                                <label ><span class="req">* </span> Name of Bank: </label>
-                                <input type="text" class="form-control" data-bind="jqAuto:{source:bankList, value: data.BANK_CODE, valueProp:'BANK_CODE', inputProp:'BANK_NAME',labelProp:'BANK_NAME'}" /><br />                                
-                                
+                            <div id="errFirst"></div>
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span> Name of Bank: </label>
+                            <input type="text" class="form-control" data-bind="jqAuto:{source:bankList, value: data.BANK_CODE, valueProp:'BANK_CODE', inputProp:'BANK_NAME',labelProp:'BANK_NAME'}" /><br />
 
-                            </div>
-                            <div class="form-group">
-                                <label ><span class="req">* </span> Branch Name: </label>
-                                <input type="text" class="form-control" data-bind="jqAuto:{source:branchList, value: data.BANKBRANCH_CODE, valueProp:'BANKBRANCH_CODE', inputProp:'BANKBRANCH_NAME',labelProp:'BANKBRANCH_NAME'}"  /><br />
-                                
 
-                            </div>                       
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span> Branch Name: </label>
+                            <input type="text" class="form-control" data-bind="jqAuto:{source:branchList, value: data.BANKBRANCH_CODE, valueProp:'BANKBRANCH_CODE', inputProp:'BANKBRANCH_NAME',labelProp:'BANKBRANCH_NAME'}" /><br />
 
-                            <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> Private Address: </label>
-                                <input class="form-control" type="text" data-bind="textInput: data.ADDRESS1"  placeholder="Enter Address1" required />
-                                <input class="form-control" type="text" data-bind="textInput: data.ADDRESS2"  placeholder="Enter Address2" />
-                                <!--input class="form-control" type="text" name="privateaddress2" placeholder="Enter Address" -->
-                                <div id="errFirst"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> City Name: </label>
-                                <input class="form-control" type="text" data-bind="jqAuto:{source:cityList, value: data.CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}"   required />                                
-                                <div id="errFirst"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> State Name: </label>
-                                <input class="form-control" type="text"  data-bind="jqAuto:{source:stateList, value: data.STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}"  required />
-                                <input type="hidden" id="StateCode" name="State_Code" />
-                                <div id="errFirst"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> Country Name: </label>
-                                <input class="form-control" type="text"  data-bind="jqAuto:{source:countryList, value: data.CountryName, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}"  required />
-                                <input type="hidden" id="CountryCode" name="Country" />
-                                <div id="errFirst"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname"><span class="req">* </span> Date of Birth: </label>
-                                <input class="form-control" type="text" data-bind="value: data.DATEOFBIRTH,datepicke:{changeMonth: true,changeYear: true}" required />
-                                <div id="errLast"></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname"><span class="req">* </span> Sex: </label> <br>
-                                <label class="radio-inline">
-                                    <input type="radio" value="Male" name="sex">Male
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" value="Female" name="sex">Female
-                                </label>
 
-                                <div id="errFirst"></div>
-                            </div>
-                            <div class="form-group">
-                                <label><span class="req">* </span> Date of Employment: </label>
-                                <input class="form-control" type="text" data-bind="textInput: data.DATEOFEMPLOYMENT" required />                                
-                            </div>
-                            <div class="form-group">
-                                <label for="firstname"><span class="req">* </span> Race </label>
-                                <input type="text" class="form-control"  data-bind="jqAuto:{source:raceList, value: data.RACE_CODE, valueProp:'RACE_CODE', inputProp:'RACE_NAME',labelProp:'RACE_NAME'}" />                                
-                                <input type="hidden" id="RaceCode" name="Race_Code" />
+                        </div>
 
-                            </div>
-                            <div class="form-group">
-                                <label><span class="req">* </span> Salary: </label>
-                                <input class="form-control" type="text" data-bind="textInput: data.SALARY" required />
-                                <div id="errFirst"></div>
-                            </div>                         
-                            
-                            <input type="hidden" value="http://www.nube.org.my/" name="URL">
-                        </fieldset>           
+                        <div class="form-group">
+                            <label for="firstname"><span class="req">* </span> Private Address: </label>
+                            <input class="form-control" type="text" data-bind="textInput: data.ADDRESS1" placeholder="Enter Address1" required />
+                            <input class="form-control" type="text" data-bind="textInput: data.ADDRESS2" placeholder="Enter Address2" />
+                            <!--input class="form-control" type="text" name="privateaddress2" placeholder="Enter Address" -->
+                            <div id="errFirst"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname"><span class="req">* </span> City Name: </label>
+                            <input class="form-control" type="text" data-bind="jqAuto:{source:cityList, value: data.CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" required />
+                            <div id="errFirst"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname"><span class="req">* </span> State Name: </label>
+                            <input class="form-control" type="text" data-bind="jqAuto:{source:stateList, value: data.STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" required />
+                            <input type="hidden" id="StateCode" name="State_Code" />
+                            <div id="errFirst"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstname"><span class="req">* </span> Country Name: </label>
+                            <input class="form-control" type="text" data-bind="jqAuto:{source:countryList, value: data.CountryName, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" required />
+                            <input type="hidden" id="CountryCode" name="Country" />
+                            <div id="errFirst"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname"><span class="req">* </span> Date of Birth: </label>
+                            <input class="form-control" type="text" data-bind="textInput: data.DATEOFBIRTH" required />
+                            <div id="errLast"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname"><span class="req">* </span> Sex: </label> <br>
+                            <label class="radio-inline">
+                                <input type="radio" value="Male" name="sex">Male
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" value="Female" name="sex">Female
+                            </label>
 
-                        <div class="clear"></div>
-                        <input type="button" name="Submit" value="Submit" class="btn btn-default" data-bind="click:btnSave"/>
-                
-        
+                            <div id="errFirst"></div>
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span> Date of Employment: </label>
+                            <input class="form-control" type="text" data-bind="textInput: data.DATEOFEMPLOYMENT" required />
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span> Race </label>
+                            <input type="text" class="form-control" data-bind="jqAuto:{source:raceList, value: data.RACE_CODE, valueProp:'RACE_CODE', inputProp:'RACE_NAME',labelProp:'RACE_NAME'}" />
+                        </div>
+                        <div class="form-group">
+                            <label><span class="req">* </span> Salary: </label>
+                            <input class="form-control" type="text" data-bind="textInput: data.SALARY" required />
+                        </div>
+
+                        <input type="hidden" value="http://www.nube.org.my/" name="URL">
+
+                        <div class="form-group">
+                            <label><span class="req">* </span>Nominee </label> <br>
+                            <label class="radio-inline">
+                                <input type="radio" name="is_minor" value="Yes" data-bind="checked:nominee">Yes
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="is_minor" value="No" data-bind="checked:nominee">No
+                            </label>
+                            <div data-bind="if:nominee()=='Yes'">
+                                <div data-bind="foreach:nomineeList">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <div class="container-fluid">
+                                                Nominee #<span data-bind="text:$index()+1"></span>
+                                                <button class="btn btn-default pull-right" data-bind="click:$parent.RemoveNominee.bind($parent,$data)"><span class="glyphicon glyphicon-remove"></span></button>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> ICNO: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: ICNO_NEW" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> NAME: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: NAME" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> SEX: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: SEX" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> AGE: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: AGE" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> RELATION </label>
+                                                <input type="text" class="form-control" data-bind="jqAuto:{source:$parent.relationList, value: RELATION_CODE, valueProp:'RELATION_CODE', inputProp:'RELATION_NAME',labelProp:'RELATION_NAME'}" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> ADDRESS1: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: ADDRESS1" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> ADDRESS2: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: ADDRESS2" required />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> ADDRESS3: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: ADDRESS3" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> City Name: </label>
+                                                <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.cityList, value: CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> State Name: </label>
+                                                <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.stateList, value: STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> Country Name: </label>
+                                                <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.countryList, value: COUNTRY, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> ZIPCODE: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: ZIPCODE" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> PHONE: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: PHONE" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label><span class="req">* </span> MOBILE: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: MOBILE" required />
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <button data-bind="click: AddNominee">Add Nominee</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label><span class="req">* </span> Guardian </label> <br>
+                            <label class="radio-inline">
+                                <input type="radio" name="guardian" value="Yes" data-bind="checked:Guardian">Yes
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="guardian" value="No" data-bind="checked:Guardian">No
+                            </label>
+
+                            <div data-bind="if: Guardian()=='Yes'">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <div class="container-fluid">
+                                            Guardian                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> ICNO: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.ICNO_NEW" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> NAME: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.NAME" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> SEX: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.SEX" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> AGE: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.AGE" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> RELATION </label>
+                                            <input type="text" class="form-control" data-bind="jqAuto:{source:relationList, value: dataGuardian.RELATION_CODE, valueProp:'RELATION_CODE', inputProp:'RELATION_NAME',labelProp:'RELATION_NAME'}" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> ADDRESS1: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS1" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> ADDRESS2: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS2" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> ADDRESS3: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS3" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> City Name: </label>
+                                            <input class="form-control" type="text" data-bind="jqAuto:{source:cityList, value: dataGuardian.CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> State Name: </label>
+                                            <input class="form-control" type="text" data-bind="jqAuto:{source:stateList, value: dataGuardian.STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> Country Name: </label>
+                                            <input class="form-control" type="text" data-bind="jqAuto:{source:countryList, value: dataGuardian.COUNTRY, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> ZIPCODE: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.ZIPCODE" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> PHONE: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.PHONE" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label><span class="req">* </span> MOBILE: </label>
+                                            <input class="form-control" type="text" data-bind="textInput: dataGuardian.MOBILE" required />
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+
+                    <div class="clear"></div>
+                    <input type="button" name="Submit" value="Submit" class="btn btn-default" data-bind="click:btnSave" />
+
+
                 </div><!-- ends col-6 -->
 
                 <div class="col-md-1"></div>
