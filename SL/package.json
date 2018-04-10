@@ -12,6 +12,7 @@
     "@types/jquery": "^3.3.1",
     "@types/jqueryui": "^1.12.2",
     "@types/knockout": "^3.4.53",
-    "@types/requirejs": "^2.1.31"
+    "@types/requirejs": "^2.1.31",
+    "knockout-jqueryui": "^2.2.3"
   }
 }
