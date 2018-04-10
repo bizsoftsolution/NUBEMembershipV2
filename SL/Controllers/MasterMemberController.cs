@@ -51,7 +51,6 @@ namespace SL.Controllers
                         TimeSpan ts = DateTime.Now - Convert.ToDateTime(wm.DATEOFBIRTH);
                         age = Convert.ToInt32(ts.Days) / 365;
                     }
-                    
 
                     DAL.MemberInsertBranch mm = new DAL.MemberInsertBranch();
 
@@ -122,57 +121,14 @@ namespace SL.Controllers
                     mm.UpdatedOn = DateTime.Now;
                     mm.IsApproved = 0;
                     mm.Occupation = wm.Occupation;
-
-                    i = i + 1;
-                    if (i == 1)
-                    {
-                        db.MemberInsertBranches.Add(mm);
-                        db.SaveChanges();
-                    }
-
-                    int iMemberCode = Convert.ToInt32(db.MemberInsertBranches.Max(x => x.MEMBER_CODE));
-
-                    if (wm.N_NAME != null)
-                    {
-                        DAL.NomineeInsertBranch ni = new DAL.NomineeInsertBranch();
-                        ni.MEMBER_CODE = iMemberCode;
-                        ni.NAME = wm.N_NAME;
-                        ni.ICNO_NEW = wm.N_ICNO_NEW;
-                        ni.SEX = wm.N_SEX;
-                        ni.AGE = wm.N_AGE;
-                        ni.RELATION_CODE = wm.N_RELATION_CODE;
-                        ni.ADDRESS1 = wm.N_ADDRESS1;
-                        ni.ADDRESS2 = wm.N_ADDRESS2;
-                        ni.CITY_CODE = wm.N_CITY_CODE;
-                        ni.STATE_CODE = wm.N_STATE_CODE;
-                        ni.COUNTRY = wm.N_COUNTRY;
-
-                        db.NomineeInsertBranches.Add(ni);
-                    }
-
-                    if (wm.G_NAME != null)
-                    {
-                        DAL.GuardianInsertBranch gi = new DAL.GuardianInsertBranch();
-                        gi.MEMBER_CODE = iMemberCode;
-                        gi.NAME = wm.G_NAME;
-                        gi.ICNO_NEW = wm.G_ICNO_NEW;
-                        gi.SEX = wm.G_SEX;
-                        gi.AGE = wm.G_AGE;
-                        gi.RELATION_CODE = wm.G_RELATION_CODE;
-                        gi.ADDRESS1 = wm.G_ADDRESS1;
-                        gi.ADDRESS2 = wm.G_ADDRESS2;
-                        gi.CITY_CODE = wm.G_CITY_CODE;
-                        gi.STATE_CODE = wm.G_STATE_CODE;
-                        gi.COUNTRY = wm.G_COUNTRY;
-                        db.GuardianInsertBranches.Add(gi);
-                    }
-
-                    db.SaveChanges();
+                   
+                    db.MemberInsertBranches.Add(mm);
+                    db.SaveChanges();                    
 
                     return Json(new
                     {
                         isSaved = true,
-                        Membercode = iMemberCode,
+                        MEMBER_CODE = mm.MEMBER_CODE,
                         URL = wm.URL
                     }, JsonRequestBehavior.AllowGet);
 

@@ -29,41 +29,44 @@ class Joinup {
 
     constructor() {
         this.data = new MASTERMEMBER();
+        this.dataGuardian = new MASTERGUARDIAN();
+        this.nomineeList = ko.observableArray<MASTERNOMINEE>();
+        this.AddNominee();
+
         this.nominee = ko.observable<string>("No");
         this.Guardian = ko.observable<string>("No");
-        
+
         this.bankList = MASTERBANK.toList();
         this.branchList = MASTERBRANCH.toList();
         this.raceList = MASTERRACE.toList();
         this.cityList = MASTERCITY.toList();
         this.stateList = MASTERSTATE.toList();
-        this.countryList = MASTERCOUNTRY.toList();        
+        this.countryList = MASTERCOUNTRY.toList();
         this.relationList = MASTERRELATION.toList();
 
-        this.nomineeList = ko.observableArray<MASTERNOMINEE>();
-        this.AddNominee();
+
     }
 
     btnSave(): void {
         var d = ko.toJS(this.data);
         console.log(d);
-        $.post('./MasterMember/Insert', d,  (resMember)=> {
+        $.post('http://localhost/MembershipTest/MasterMember/Insert', d, (resMember) => {
             console.log(resMember);
             if (resMember.isSaved) {
                 if (this.nominee() == "Yes") {
                     ko.utils.arrayForEach(this.nomineeList(), (n) => {
-                        n.MEMBER_CODE(resMember.MEMBER_CODE());
+                        n.MEMBER_CODE(resMember.MEMBER_CODE);
                         var dN = ko.toJS(n);
-                        $.post('./MasterNominee/Insert', dN, (resNominee) => {
-                            
+                        $.post('http://localhost/MembershipTest/Nominee/Insert', dN, (resNominee) => {
+
                         });
                     });
                 }
 
                 if (this.Guardian() == "Yes") {
-                    this.Guardian.MEMBER_CODE(resMember.MEMBER_CODE());
+                    this.dataGuardian.MEMBER_CODE(resMember.MEMBER_CODE);
                     var dG = ko.toJS(this.dataGuardian);
-                    $.post('./MasterGuardian/Insert', dG, (resGuardian) => {
+                    $.post('http://localhost/MembershipTest/Guardian/Insert', dG, (resGuardian) => {
 
                     });
                 }
@@ -79,10 +82,22 @@ class Joinup {
     RemoveNominee(data: MASTERNOMINEE): void {
         if (confirm("Are you remove this nominee?")) {
             this.nomineeList.remove(x => {
-               return x == data;
+                return x == data;
             });
-        }        
+        }
     }
+
+    //AddGuardian(): void {
+    //    this.Guardian.push(new MASTERGUARDIAN());
+    //}
+
+    //RemoveGuardian(data: MASTERGUARDIAN): void {
+    //    if (confirm("Are you remove this Guardian?")) {
+    ////        this.dataGuardian.remove(x => {
+    ////            return x == data;
+    //        });
+    //    }
+    //}
 
 }
 ko.applyBindings(new Joinup());
