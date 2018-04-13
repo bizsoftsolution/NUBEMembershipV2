@@ -229,6 +229,7 @@
     <Content Include="Scripts\knockout-3.4.2.js" />
     <Content Include="Scripts\knockout-jqAutocomplete.js" />
     <Content Include="Scripts\knockout-jqAutocomplete.min.js" />
+    <Content Include="Scripts\knockout-jqueryui.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -319,6 +320,7 @@
     <TypeScriptCompile Include="node_modules\%40types\requirejs\index.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
     <TypeScriptCompile Include="TS\Joinup.ts" />
+    <TypeScriptCompile Include="TS\koDatePicker.ts" />
     <TypeScriptCompile Include="TS\Main.ts" />
     <TypeScriptCompile Include="TS\MasterBank.ts" />
     <TypeScriptCompile Include="TS\MasterBranch.ts" />
