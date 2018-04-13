@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f2c7774752ed4303acd88b9ef5371558" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="f2c7774752ed4303acd88b9ef5371558" Name="Diagram1" ZoomLevel="33">
         <EntityTypeShape EntityType="nubev2Model.MASTERBANK" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubev2Model.MASTERBANKBRANCH" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubev2Model.MASTERCITY" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -19,6 +19,7 @@
         <EntityTypeShape EntityType="nubev2Model.NomineeInsertBranch" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="nubev2Model.CountrySetup" Width="1.5" PointX="7.375" PointY="12.75" />
         <EntityTypeShape EntityType="nubev2Model.MASTERMEMBER" Width="1.5" PointX="13.375" PointY="6.75" />
+        <EntityTypeShape EntityType="nubev2Model.UserAccount" Width="1.5" PointX="5.375" PointY="9.75" />
         <EntityTypeShape EntityType="nubev2Model.MemberInsertBranch" Width="1.5" PointX="9.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>

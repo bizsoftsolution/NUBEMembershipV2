@@ -108,17 +108,7 @@ class Joinup {
         }
     }
 
-    //AddGuardian(): void {
-    //    this.Guardian.push(new MASTERGUARDIAN());
-    //}
-
-    //RemoveGuardian(data: MASTERGUARDIAN): void {
-    //    if (confirm("Are you remove this Guardian?")) {
-    ////        this.dataGuardian.remove(x => {
-    ////            return x == data;
-    //        });
-    //    }
-    //}
+    
 
 }
 Joinup.joinupVM = new Joinup();

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SL.Cross;
+using DAL;
 
 namespace SL.Controllers
 {
@@ -17,7 +18,7 @@ namespace SL.Controllers
         }
 
         [NubeCrossSiteAttribute]
-        public JsonResult Insert(MASTERMEMBERWITHOTHER wm)
+        public JsonResult Insert(MemberInsertBranch wm)
         {
             try
             {
@@ -66,9 +67,8 @@ namespace SL.Controllers
                     mm.ICNO_NEW = wm.ICNO_NEW;
                     mm.ICNO_OLD = wm.ICNO_OLD;
                     mm.DATEOFJOINING = DateTime.Today;
-
                     mm.BANK_CODE = wm.BANK_CODE;
-                    mm.BRANCH_CODE = wm.BANKBRANCH_CODE;
+                    mm.BANKBRANCH_CODE = wm.BANKBRANCH_CODE;
                     mm.DATEOFEMPLOYMENT = wm.DATEOFEMPLOYMENT;
                     mm.Salary = wm.Salary;
                     mm.LEVY = "N/A";
@@ -121,15 +121,14 @@ namespace SL.Controllers
                     mm.UpdatedOn = DateTime.Now;
                     mm.IsApproved = 0;
                     mm.Occupation = wm.Occupation;
-                   
+
                     db.MemberInsertBranches.Add(mm);
-                    db.SaveChanges();                    
+                    db.SaveChanges();
 
                     return Json(new
                     {
                         isSaved = true,
-                        MEMBER_CODE = mm.MEMBER_CODE,
-                        URL = wm.URL
+                        MEMBER_CODE = mm.MEMBER_CODE
                     }, JsonRequestBehavior.AllowGet);
 
                 }
@@ -140,114 +139,186 @@ namespace SL.Controllers
             }
         }
 
-        public partial class MASTERMEMBERWITHOTHER
+        [NubeCrossSiteAttribute]
+        public JsonResult ToList(int iApproveState)
         {
-            public decimal MEMBER_CODE { get; set; }
-            public string MEMBER_NAME { get; set; }
-            public Nullable<decimal> MEMBER_ID { get; set; }
-            public string MEMBER_TITLE { get; set; }
-            public string MEMBER_INITIAL { get; set; }
-            public Nullable<decimal> BF_NO { get; set; }
-            public string ICNO_OLD { get; set; }
-            public string ICNO_NEW { get; set; }
-            public Nullable<decimal> BANK_CODE { get; set; }
-            public Nullable<decimal> BANKBRANCH_CODE { get; set; }
-            public string ADDRESS1 { get; set; }
-            public string ADDRESS2 { get; set; }
-            public string ADDRESS3 { get; set; }
-            public Nullable<decimal> CITY_CODE { get; set; }
-            public Nullable<decimal> STATE_CODE { get; set; }
-            public string COUNTRY { get; set; }
-            public string ZIPCODE { get; set; }
-            public string PHONE { get; set; }
-            public string MOBILE { get; set; }
-            public string EMAIL { get; set; }
-            public Nullable<System.DateTime> DATEOFJOINING { get; set; }
-            public Nullable<System.DateTime> DATEOFBIRTH { get; set; }
-            public Nullable<decimal> AGE_IN_YEARS { get; set; }
-            public Nullable<System.DateTime> DATEOFEMPLOYMENT { get; set; }
-            public Nullable<decimal> MEMBERTYPE_CODE { get; set; }
-            public string SEX { get; set; }
-            public Nullable<decimal> RACE_CODE { get; set; }
-            public Nullable<decimal> REJOINED { get; set; }
-            public string PROPOSEDBY { get; set; }
-            public Nullable<decimal> PROPOSED_MEMBERID { get; set; }
-            public string SECONDEDBY { get; set; }
-            public Nullable<decimal> SECONDED_MEMBERID { get; set; }
-            public string CONFIRMEDAT { get; set; }
-            public Nullable<System.DateTime> HELDON { get; set; }
-            public Nullable<decimal> STATUS_CODE { get; set; }
-            public Nullable<decimal> PREVIOUS_STATUSCODE { get; set; }
-            public string LEVY { get; set; }
-            public Nullable<decimal> TOTALMONTHSPAID { get; set; }
-            public Nullable<decimal> ENTRANCEFEE { get; set; }
-            public Nullable<decimal> HQFEE { get; set; }
-            public Nullable<decimal> MONTHLYBF { get; set; }
-            public Nullable<decimal> MONTHLYSUBSCRIPTION { get; set; }
-            public Nullable<decimal> ACCBF { get; set; }
-            public Nullable<decimal> ACCSUBSCRIPTION { get; set; }
-            public Nullable<decimal> ACCBENEFIT { get; set; }
-            public Nullable<decimal> CURRENT_YTDBF { get; set; }
-            public Nullable<decimal> CURRENT_YTDSUBSCRIPTION { get; set; }
-            public Nullable<decimal> RESIGNED { get; set; }
-            public string PAYMENT_MODE { get; set; }
-            public Nullable<decimal> USER_CODE { get; set; }
-            public Nullable<System.DateTime> ENTRY_DATE { get; set; }
-            public string ENTRY_TIME { get; set; }
-            public Nullable<decimal> REGISTRATION_FEE { get; set; }
-            public Nullable<System.DateTime> LASTPAYMENT_DATE { get; set; }
-            public Nullable<decimal> BLACKLISTED { get; set; }
-            public string BLACKLISTREASON { get; set; }
-            public string DATEOFBIRTH_S { get; set; }
-            public string DATEOFEMPLOYMENT_S { get; set; }
-            public Nullable<decimal> STRUCKOFF { get; set; }
-            public string STRUCKOFF_REMARKS { get; set; }
-            public Nullable<System.DateTime> STRUCKOFF_DATE { get; set; }
-            public Nullable<System.DateTime> WAIVERDATE { get; set; }
-            public string WAIVERREASON { get; set; }
-            public Nullable<double> Salary { get; set; }
-            public Nullable<double> BatchAmt { get; set; }
-            public Nullable<decimal> LEVY_AMOUNT { get; set; }
-            public string TDF { get; set; }
-            public Nullable<decimal> TDF_AMOUNT { get; set; }
-            public Nullable<System.DateTime> LevyPaymentDate { get; set; }
-            public Nullable<System.DateTime> Tdf_PaymentDate { get; set; }
-            public string MemberName_ByBank { get; set; }
-            public string NRIC_ByBank { get; set; }
-            public Nullable<decimal> BankCode_ByBank { get; set; }
-            public Nullable<System.DateTime> CreatedOn { get; set; }
-            public Nullable<int> CreatedBy { get; set; }
-            public Nullable<System.DateTime> UpdatedOn { get; set; }
-            public Nullable<int> UpdatedBy { get; set; }
-            public bool IsCancel { get; set; }
-            public bool IsBranchRegister { get; set; }
-            public int TotalPaid { get; set; }
-            public bool AI_Insurance { get; set; }
-            public string AI_MemberNo { get; set; }
-            public bool GE_Insurance { get; set; }
-            public string GE_ContractNo { get; set; }
-            public string Occupation { get; set; }
-            public string N_ICNO_NEW { get; set; }
-            public string N_NAME { get; set; }
-            public string N_SEX { get; set; }
-            public Nullable<decimal> N_AGE { get; set; }
-            public Nullable<decimal> N_RELATION_CODE { get; set; }
-            public string N_ADDRESS1 { get; set; }
-            public string N_ADDRESS2 { get; set; }
-            public Nullable<decimal> N_CITY_CODE { get; set; }
-            public Nullable<decimal> N_STATE_CODE { get; set; }
-            public string N_COUNTRY { get; set; }
-            public string G_ICNO_NEW { get; set; }
-            public string G_NAME { get; set; }
-            public string G_SEX { get; set; }
-            public Nullable<decimal> G_AGE { get; set; }
-            public Nullable<decimal> G_RELATION_CODE { get; set; }
-            public string G_ADDRESS1 { get; set; }
-            public string G_ADDRESS2 { get; set; }
-            public Nullable<decimal> G_CITY_CODE { get; set; }
-            public Nullable<decimal> G_STATE_CODE { get; set; }
-            public string G_COUNTRY { get; set; }
-            public string URL { get; set; }
+            try
+            {
+                var l1 = db.SPMEMBERSHIPTOLIST(iApproveState).ToList();
+                if (l1 != null)
+                {
+                    return Json(l1, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { ErrMsg = "No Records Found" }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [NubeCrossSiteAttribute]
+        public JsonResult Approve(decimal MemberCode)
+        {
+            try
+            {
+                var wm = (from x in db.MemberInsertBranches where x.MEMBER_CODE == MemberCode select x).FirstOrDefault();
+                if (wm != null)
+                {
+                    decimal dMemberId = Convert.ToDecimal(db.MASTERMEMBERs.Max(x => x.MEMBER_ID)) + 1;
+
+                    MASTERMEMBER mm = new MASTERMEMBER();
+
+                    mm.MEMBERTYPE_CODE = wm.MEMBERTYPE_CODE;
+                    mm.MEMBER_ID = dMemberId;
+                    mm.MEMBER_TITLE = wm.MEMBER_TITLE;
+                    mm.MEMBER_NAME = wm.MEMBER_NAME;
+                    mm.DATEOFBIRTH = wm.DATEOFBIRTH;
+                    mm.AGE_IN_YEARS = wm.AGE_IN_YEARS;
+                    mm.SEX = wm.SEX;
+                    mm.REJOINED = wm.REJOINED;
+                    mm.RACE_CODE = wm.RACE_CODE;
+                    mm.ICNO_NEW = wm.ICNO_NEW;
+                    mm.ICNO_OLD = wm.ICNO_OLD;
+                    mm.DATEOFJOINING = wm.DATEOFJOINING;
+
+                    mm.BANK_CODE = wm.BANK_CODE;
+                    mm.BRANCH_CODE = wm.BANKBRANCH_CODE;
+                    mm.DATEOFEMPLOYMENT = wm.DATEOFEMPLOYMENT;
+                    mm.Salary = wm.Salary;
+                    mm.LEVY = wm.LEVY;
+                    mm.TDF = wm.TDF;
+                    mm.LEVY_AMOUNT = wm.LEVY_AMOUNT;
+                    mm.TDF_AMOUNT = wm.TDF_AMOUNT;
+                    //mm.LevyPaymentDate = DateTime.Now;
+                    //mm.Tdf_PaymentDate = DateTime.Now;
+
+                    mm.ENTRANCEFEE = wm.ENTRANCEFEE;
+                    mm.MONTHLYBF = wm.MONTHLYBF;
+                    mm.ACCBF = wm.ACCBF;
+                    mm.CURRENT_YTDBF = wm.CURRENT_YTDBF;
+                    mm.MONTHLYSUBSCRIPTION = wm.MONTHLYSUBSCRIPTION;
+                    mm.ACCSUBSCRIPTION = wm.ACCSUBSCRIPTION;
+                    mm.CURRENT_YTDSUBSCRIPTION = wm.CURRENT_YTDSUBSCRIPTION;
+                    mm.ACCBENEFIT = wm.ACCBENEFIT;
+                    mm.TOTALMONTHSPAID = wm.TOTALMONTHSPAID;
+                    mm.ADDRESS1 = wm.ADDRESS1;
+                    mm.ADDRESS2 = wm.ADDRESS2;
+                    mm.ADDRESS3 = wm.ADDRESS3;
+                    mm.PHONE = wm.PHONE;
+                    mm.MOBILE = wm.MOBILE;
+                    mm.EMAIL = wm.EMAIL;
+                    mm.CITY_CODE = wm.CITY_CODE;
+                    mm.ZIPCODE = wm.ZIPCODE;
+                    mm.STATE_CODE = wm.STATE_CODE;
+                    mm.COUNTRY = wm.COUNTRY;
+                    mm.UpdatedBy = 0;
+                    mm.UpdatedOn = DateTime.Now;
+                    mm.IsBranchRegister = true;
+                    mm.BranchMemberCode = Convert.ToInt32(MemberCode);
+
+                    db.MASTERMEMBERs.Add(mm);
+
+                    wm.IsApproved = 1;
+                    db.SaveChanges();
+
+                    int iMemberCode = Convert.ToInt32(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
+
+                    var ni = (from x in db.NomineeInsertBranches where x.MEMBER_CODE == MemberCode select x).FirstOrDefault();
+                    if (ni != null)
+                    {
+                        MASTERNOMINEE mn = new MASTERNOMINEE();
+                        mn.MEMBER_CODE = iMemberCode;
+                        mn.NAME = ni.NAME;
+                        mn.ICNO_NEW = ni.ICNO_NEW;
+                        mn.SEX = ni.SEX;
+                        mn.AGE = ni.AGE;
+                        mn.RELATION_CODE = ni.RELATION_CODE;
+                        mn.ADDRESS1 = ni.ADDRESS1;
+                        mn.ADDRESS2 = ni.ADDRESS2;
+                        mn.CITY_CODE = ni.CITY_CODE;
+                        mn.STATE_CODE = ni.STATE_CODE;
+                        mn.COUNTRY = ni.COUNTRY;
+                        db.MASTERNOMINEEs.Add(mn);
+                        db.SaveChanges();
+                    }
+
+                    var gi = (from x in db.GuardianInsertBranches where x.MEMBER_CODE == MemberCode select x).FirstOrDefault();
+                    if (gi != null)
+                    {
+                        MASTERGUARDIAN mg = new MASTERGUARDIAN();
+                        mg.MEMBER_CODE = iMemberCode;
+                        mg.NAME = gi.NAME;
+                        mg.ICNO_NEW = gi.ICNO_NEW;
+                        mg.SEX = gi.SEX;
+                        mg.AGE = gi.AGE;
+                        mg.RELATION_CODE = gi.RELATION_CODE;
+                        mg.ADDRESS1 = gi.ADDRESS1;
+                        mg.ADDRESS2 = gi.ADDRESS2;
+                        mg.CITY_CODE = gi.CITY_CODE;
+                        mg.STATE_CODE = gi.STATE_CODE;
+                        mg.COUNTRY = gi.COUNTRY;
+                        db.MASTERGUARDIANs.Add(mg);
+                        db.SaveChanges();
+                    }
+                    return Json(new { MemberId = mm.MEMBER_ID, Msg = "Approved Sucessfuly" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { ErrMsg = "No Records Found" }, JsonRequestBehavior.AllowGet);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [NubeCrossSiteAttribute]
+        public JsonResult Declain(decimal MemberCode)
+        {
+            try
+            {
+                var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == MemberCode select x).FirstOrDefault();
+                if (mm != null)
+                {
+                    var nm = (from x in db.MASTERNOMINEEs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
+                    if (nm != null)
+                    {
+                        db.MASTERNOMINEEs.Remove(nm);
+                    }
+
+                    var gr = (from x in db.MASTERGUARDIANs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
+                    if (gr != null)
+                    {
+                        db.MASTERGUARDIANs.Remove(gr);
+                    }
+
+                    db.MASTERMEMBERs.Remove(mm);
+                    db.SaveChanges();
+
+                    var wm = (from x in db.MemberInsertBranches where x.MEMBER_CODE == MemberCode select x).FirstOrDefault();
+                    if (wm != null)
+                    {
+                        wm.IsApproved = 2;
+                        db.SaveChanges();
+                    }
+                    return Json(new { MemberId = mm.MEMBER_ID, Msg = "Declained Sucessfuly" }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { ErrMsg = "No Records Found" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
