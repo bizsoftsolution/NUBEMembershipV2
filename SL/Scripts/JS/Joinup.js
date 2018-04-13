@@ -18,6 +18,16 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
             this.countryList = MasterCountry_1.MASTERCOUNTRY.toList();
             this.relationList = MasterRelation_1.MASTERRELATION.toList();
         }
+        Joinup.prototype.MemberAttachment = function (Member_Code, AttachmentName, file) {
+            if (file != undefined) {
+                var mFiles = new FormData();
+                mFiles.append('Member_Code', Member_Code);
+                mFiles.append('AttachmentName', AttachmentName);
+                mFiles.append('AttachmentFile', file.files[0]);
+                $.post('http://localhost/MembershipTest/MasterMember/Attachment', mFiles, function (res) {
+                });
+            }
+        };
         Joinup.prototype.btnSave = function () {
             var _this = this;
             var d = ko.toJS(this.data);
@@ -25,6 +35,10 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
             $.post('http://localhost/MembershipTest/MasterMember/Insert', d, function (resMember) {
                 console.log(resMember);
                 if (resMember.isSaved) {
+                    _this.MemberAttachment(resMember.MEMBER_CODE, "fPhoto", $('#fPhoto')[0]);
+                    _this.MemberAttachment(resMember.MEMBER_CODE, "fDSign", $('#fDSign')[0]);
+                    _this.MemberAttachment(resMember.MEMBER_CODE, "fIC", $('#fIC')[0]);
+                    _this.MemberAttachment(resMember.MEMBER_CODE, "fELetter", $('#fELetter')[0]);
                     if (_this.nominee() == "Yes") {
                         ko.utils.arrayForEach(_this.nomineeList(), function (n) {
                             n.MEMBER_CODE(resMember.MEMBER_CODE);
