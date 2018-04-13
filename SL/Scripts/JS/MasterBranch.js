@@ -19,22 +19,20 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
             this.DELETED = ko.observable();
             this.HEAD_QUARTERS = ko.observable();
         }
-        MASTERBRANCH.toList = function () {
-            if (MASTERBRANCH._toList == undefined) {
-                $.ajax({
-                    url: 'http://localhost/MembershipTest/MasterBranch/tolist',
-                    type: 'get',
-                    async: false,
-                    cache: false,
-                    timeout: 30000,
-                    error: function (err) {
-                        console.log(err);
-                    },
-                    success: function (data) {
-                        MASTERBRANCH._toList = data;
-                    },
-                });
-            }
+        MASTERBRANCH.toList = function (BankCode) {
+            $.ajax({
+                url: 'http://localhost/MembershipTest/MasterBranch/tolist?Bank_Code=' + BankCode,
+                type: 'get',
+                async: false,
+                cache: false,
+                timeout: 30000,
+                error: function (err) {
+                    console.log(err);
+                },
+                success: function (data) {
+                    MASTERBRANCH._toList = data;
+                },
+            });
             return MASTERBRANCH._toList;
         };
         return MASTERBRANCH;

@@ -1,8 +1,9 @@
-define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterBank", "./MasterBranch", "./MasterRace", "./MASTERCITY", "./MASTERSTATE", "./MasterCountry", "./MasterNominee", "./MasterGuardian", "./MasterRelation", "jqueryui", "knockout-jqAutocomplete"], function (require, exports, ko, $, MasterMember_1, MasterBank_1, MasterBranch_1, MasterRace_1, MASTERCITY_1, MASTERSTATE_1, MasterCountry_1, MasterNominee_1, MasterGuardian_1, MasterRelation_1) {
+define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterBank", "./MasterBranch", "./MasterRace", "./MASTERCITY", "./MASTERSTATE", "./MasterCountry", "./MasterNominee", "./MasterGuardian", "./MasterRelation", "bootstrap", "jqueryui", "knockout-jqAutocomplete"], function (require, exports, ko, $, MasterMember_1, MasterBank_1, MasterBranch_1, MasterRace_1, MASTERCITY_1, MASTERSTATE_1, MasterCountry_1, MasterNominee_1, MasterGuardian_1, MasterRelation_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Joinup = /** @class */ (function () {
         function Joinup() {
+            var _this = this;
             this.data = new MasterMember_1.MASTERMEMBER();
             this.dataGuardian = new MasterGuardian_1.MASTERGUARDIAN();
             this.nomineeList = ko.observableArray();
@@ -10,7 +11,7 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
             this.nominee = ko.observable("No");
             this.Guardian = ko.observable("No");
             this.bankList = MasterBank_1.MASTERBANK.toList();
-            this.branchList = MasterBranch_1.MASTERBRANCH.toList();
+            this.branchList = ko.computed(function () { return MasterBranch_1.MASTERBRANCH.toList(_this.data.BANK_CODE()); });
             this.raceList = MasterRace_1.MASTERRACE.toList();
             this.cityList = MASTERCITY_1.MASTERCITY.toList();
             this.stateList = MASTERSTATE_1.MASTERSTATE.toList();
@@ -53,6 +54,19 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
         };
         return Joinup;
     }());
-    ko.applyBindings(new Joinup());
+    exports.Joinup = Joinup;
+    Joinup.joinupVM = new Joinup();
+    ko.applyBindings(Joinup.joinupVM);
+    var dateOption = { dateFormat: 'dd/mm/yy' };
+    $('#dob').datepicker(dateOption);
+    $('#doe').datepicker(dateOption);
+    $('#dob').change(function (e) {
+        var dt = $(e.target).datepicker('getDate');
+        Joinup.joinupVM.data.DATEOFBIRTH(dt);
+    });
+    $('#doe').change(function (e) {
+        var dt = $(e.target).datepicker('getDate');
+        Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt);
+    });
 });
 //# sourceMappingURL=Joinup.js.map
