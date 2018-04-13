@@ -12,6 +12,8 @@ namespace DAL
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class nubebfsEntities : DbContext
     {
@@ -39,6 +41,16 @@ namespace DAL
         public virtual DbSet<NomineeInsertBranch> NomineeInsertBranches { get; set; }
         public virtual DbSet<CountrySetup> CountrySetups { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
+    
+        public virtual ObjectResult<SPMEMBERSHIPTOLIST_Result> SPMEMBERSHIPTOLIST(Nullable<int> aPPROVEDSTATE)
+        {
+            var aPPROVEDSTATEParameter = aPPROVEDSTATE.HasValue ?
+                new ObjectParameter("APPROVEDSTATE", aPPROVEDSTATE) :
+                new ObjectParameter("APPROVEDSTATE", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SPMEMBERSHIPTOLIST_Result>("SPMEMBERSHIPTOLIST", aPPROVEDSTATEParameter);
+        }
     }
 }

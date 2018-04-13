@@ -113,6 +113,12 @@
       <DependentUpon>NUBE.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SPMEMBERSHIPTOLIST_Result.cs">
+      <DependentUpon>NUBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserAccount.cs">
+      <DependentUpon>NUBE.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="NUBE.edmx">

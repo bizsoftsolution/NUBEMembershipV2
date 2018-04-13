@@ -10,9 +10,8 @@
 namespace DAL
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MemberInsertBranch
+    public partial class SPMEMBERSHIPTOLIST_Result
     {
         public decimal MEMBER_CODE { get; set; }
         public string MEMBER_NAME { get; set; }
@@ -21,12 +20,16 @@ namespace DAL
         public string ICNO_OLD { get; set; }
         public string ICNO_NEW { get; set; }
         public Nullable<decimal> BANK_CODE { get; set; }
-        public Nullable<decimal> BANKBRANCH_CODE { get; set; }
+        public string BANK_NAME { get; set; }
+        public Nullable<decimal> BRANCH_CODE { get; set; }
+        public string BANKBRANCH_NAME { get; set; }
         public string ADDRESS1 { get; set; }
         public string ADDRESS2 { get; set; }
         public string ADDRESS3 { get; set; }
         public Nullable<decimal> CITY_CODE { get; set; }
+        public string CITY_NAME { get; set; }
         public Nullable<decimal> STATE_CODE { get; set; }
+        public string STATE_NAME { get; set; }
         public string COUNTRY { get; set; }
         public string ZIPCODE { get; set; }
         public string PHONE { get; set; }
@@ -37,8 +40,10 @@ namespace DAL
         public Nullable<decimal> AGE_IN_YEARS { get; set; }
         public Nullable<System.DateTime> DATEOFEMPLOYMENT { get; set; }
         public Nullable<decimal> MEMBERTYPE_CODE { get; set; }
+        public string MEMBERTYPE_NAME { get; set; }
         public string SEX { get; set; }
         public Nullable<decimal> RACE_CODE { get; set; }
+        public string RACE_NAME { get; set; }
         public Nullable<decimal> REJOINED { get; set; }
         public string LEVY { get; set; }
         public Nullable<decimal> TOTALMONTHSPAID { get; set; }
@@ -52,18 +57,18 @@ namespace DAL
         public Nullable<decimal> CURRENT_YTDBF { get; set; }
         public Nullable<decimal> CURRENT_YTDSUBSCRIPTION { get; set; }
         public Nullable<decimal> RESIGNED { get; set; }
-        public Nullable<double> Salary { get; set; }
-        public Nullable<double> BatchAmt { get; set; }
+        public Nullable<double> SALARY { get; set; }
+        public Nullable<double> BATCHAMT { get; set; }
         public Nullable<decimal> LEVY_AMOUNT { get; set; }
         public string TDF { get; set; }
         public Nullable<decimal> TDF_AMOUNT { get; set; }
-        public Nullable<System.DateTime> LevyPaymentDate { get; set; }
-        public Nullable<System.DateTime> Tdf_PaymentDate { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedOn { get; set; }
-        public Nullable<int> UpdatedBy { get; set; }
-        public int IsApproved { get; set; }
-        public string Occupation { get; set; }
+        public Nullable<System.DateTime> LEVYPAYMENTDATE { get; set; }
+        public Nullable<System.DateTime> TDF_PAYMENTDATE { get; set; }
+        public Nullable<System.DateTime> CREATEDON { get; set; }
+        public Nullable<int> CREATEDBY { get; set; }
+        public Nullable<System.DateTime> UPDATEDON { get; set; }
+        public Nullable<int> UPDATEDBY { get; set; }
+        public int ISAPPROVED { get; set; }
+        public string OCCUPATION { get; set; }
     }
 }

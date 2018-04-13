@@ -8,6 +8,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    
         xmlns:local="clr-namespace:Nube"
         mc:Ignorable="d"
     xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
@@ -28,11 +29,11 @@
                 </StackPanel>
                 <StackPanel Margin="20,0,0,0" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                        <ComboBox Height="30" TextBoxBase.TextChanged="ddlLedger_TextChanged" HorizontalAlignment="Left" VerticalAlignment="Top" Name="ddlLedger" IsEditable="True" IsTextSearchEnabled="True" 
+                        <ComboBox Height="30" TextBoxBase.TextChanged="ddlLedger_TextChanged"  HorizontalAlignment="Left"  VerticalAlignment="Top" Name="ddlLedger" IsEditable="True" IsTextSearchEnabled="True" 
                   StaysOpenOnEdit="True" Width="165" SelectionChanged="ddlLedger_SelectionChanged" Margin="0,20,0,0">
                             <ComboBox.ItemTemplate>
                                 <DataTemplate >
-                                    <CheckBox Name="chkLedger"  Width="220"  Checked="AllCheckbocx_CheckedAndUnchecked" Unchecked="AllCheckbocx_CheckedAndUnchecked" Content="{Binding LEDGERNAME}"  IsChecked="{Binding LEDGER_Status}"  CommandParameter="{Binding LEDGERNAME}" ></CheckBox>
+                                    <CheckBox x:Name="chkLedger"   Width="220" Tag="{Binding}"  Checked="AllCheckbocx_CheckedAndUnchecked" Unchecked="chkLedger_Unchecked" Content="{Binding LEDGERNAME}" IsChecked="{Binding Check_Status,Mode=TwoWay}"  CommandParameter="{Binding LEDGERNAME}" ></CheckBox>
                                 </DataTemplate>
                             </ComboBox.ItemTemplate>
                         </ComboBox>
@@ -55,7 +56,7 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1" >
-            <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="597" VerticalAlignment="Top" Width="1170" FontSize="14" Background="Transparent" Margin="10,10,0,0" >
+            <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="597" VerticalAlignment="Top" Width="1170" FontSize="14" Background="Transparent" Margin="10,20,0,0" >
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -81,17 +82,17 @@
                         </Setter>
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="Pichart - 3D View" FontSize="14" >
+                <TabItem Header="Pichart - 3D View" FontSize="14" Visibility="Collapsed" >
                     <WindowsFormsHost HorizontalAlignment="Left" Height="540" Margin="10,10,0,0" VerticalAlignment="Top" Width="1136">
                         <rv:ReportViewer x:Name="ExpencesReport3"></rv:ReportViewer>
                     </WindowsFormsHost>
                 </TabItem>
-                <TabItem Header="Pichart - Line" FontSize="14" >
+                <TabItem Header="Pichart - Line" FontSize="14" Margin="10,0,0,0" IsSelected="True">
                     <WindowsFormsHost HorizontalAlignment="Left" Height="541" Margin="10,10,0,0" VerticalAlignment="Top" Width="1142">
                         <rv:ReportViewer x:Name="ExpencesReport"></rv:ReportViewer>
                     </WindowsFormsHost>
                 </TabItem>
-                <TabItem Header="Pichart - Shape" FontSize="14" >
+                <TabItem Header="Pichart - Shape" FontSize="14" Visibility="Collapsed">
                     <WindowsFormsHost HorizontalAlignment="Left" Height="535" Margin="10,10,0,0" VerticalAlignment="Top" Width="1141">
                         <rv:ReportViewer x:Name="ExpencesReport2"></rv:ReportViewer>
                     </WindowsFormsHost>
