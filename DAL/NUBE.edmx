@@ -346,6 +346,18 @@
           <Property Name="IsApproved" Type="int" Nullable="false" />
           <Property Name="Occupation" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="MembershipAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberCode" Type="int" />
+          <Property Name="AttachmentName" Type="varchar" MaxLength="50" />
+          <Property Name="AttachmentData" Type="varbinary(max)" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" />
+          <Property Name="FileType" Type="varchar" MaxLength="50" />
+          <Property Name="EntryDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="NomineeInsertBranch">
           <Key>
             <PropertyRef Name="Id" />
@@ -400,6 +412,7 @@
           <EntitySet Name="MASTERRELATION" EntityType="Self.MASTERRELATION" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MASTERSTATE" EntityType="Self.MASTERSTATE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberInsertBranch" EntityType="Self.MemberInsertBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MembershipAttachment" EntityType="Self.MembershipAttachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NomineeInsertBranch" EntityType="Self.NomineeInsertBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
@@ -586,10 +599,11 @@
           <EntitySet Name="CountrySetups" EntityType="nubev2Model.CountrySetup" />
           <EntitySet Name="MASTERMEMBERs" EntityType="nubev2Model.MASTERMEMBER" />
           <EntitySet Name="UserAccounts" EntityType="nubev2Model.UserAccount" />
-          <FunctionImport Name="SPMEMBERSHIPTOLIST" ReturnType="Collection(nubev2Model.SPMEMBERSHIPTOLIST_Result)">
-          <Parameter Name="APPROVEDSTATE" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="MemberInsertBranches" EntityType="nubev2Model.MemberInsertBranch" />
+          <EntitySet Name="MembershipAttachments" EntityType="nubev2Model.MembershipAttachment" />
+          <FunctionImport Name="SPMEMBERSHIPTOLIST" ReturnType="Collection(nubev2Model.SPMEMBERSHIPTOLIST_Result)">
+            <Parameter Name="APPROVEDSTATE" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="GuardianInsertBranch">
           <Key>
@@ -737,6 +751,8 @@
           <Property Name="GE_Insurance" Type="Boolean" Nullable="false" />
           <Property Name="GE_ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BranchMemberCode" Type="Int32" />
+          <Property Name="IsBranchRegister1" Type="Boolean" Nullable="false" />
+          <Property Name="BranchMemberCode1" Type="Int32" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
@@ -749,65 +765,6 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserType" Type="Int32" />
         </EntityType>
-        <ComplexType Name="SPMEMBERSHIPTOLIST_Result">
-          <Property Type="Decimal" Name="MEMBER_CODE" Nullable="false" Precision="10" Scale="0" />
-          <Property Type="String" Name="MEMBER_NAME" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="MEMBER_ID" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="String" Name="MEMBER_TITLE" Nullable="true" MaxLength="10" />
-          <Property Type="String" Name="ICNO_OLD" Nullable="true" MaxLength="30" />
-          <Property Type="String" Name="ICNO_NEW" Nullable="true" MaxLength="30" />
-          <Property Type="Decimal" Name="BANK_CODE" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="String" Name="BANK_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="BRANCH_CODE" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="String" Name="BANKBRANCH_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ADDRESS1" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ADDRESS2" Nullable="true" MaxLength="100" />
-          <Property Type="String" Name="ADDRESS3" Nullable="true" MaxLength="100" />
-          <Property Type="Decimal" Name="CITY_CODE" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="String" Name="CITY_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="STATE_CODE" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="String" Name="STATE_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="COUNTRY" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="ZIPCODE" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="MOBILE" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
-          <Property Type="DateTime" Name="DATEOFJOINING" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="DATEOFBIRTH" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="AGE_IN_YEARS" Nullable="true" Precision="3" Scale="0" />
-          <Property Type="DateTime" Name="DATEOFEMPLOYMENT" Nullable="true" Precision="23" />
-          <Property Type="Decimal" Name="MEMBERTYPE_CODE" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="String" Name="MEMBERTYPE_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="String" Name="SEX" Nullable="true" MaxLength="10" />
-          <Property Type="Decimal" Name="RACE_CODE" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="String" Name="RACE_NAME" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="REJOINED" Nullable="true" Precision="5" Scale="0" />
-          <Property Type="String" Name="LEVY" Nullable="true" MaxLength="10" />
-          <Property Type="Decimal" Name="TOTALMONTHSPAID" Nullable="true" Precision="10" Scale="0" />
-          <Property Type="Decimal" Name="ENTRANCEFEE" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="HQFEE" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="MONTHLYBF" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="MONTHLYSUBSCRIPTION" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="ACCBF" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="ACCSUBSCRIPTION" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="ACCBENEFIT" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="CURRENT_YTDBF" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="CURRENT_YTDSUBSCRIPTION" Nullable="true" Precision="10" Scale="2" />
-          <Property Type="Decimal" Name="RESIGNED" Nullable="true" Precision="5" Scale="0" />
-          <Property Type="Double" Name="SALARY" Nullable="true" />
-          <Property Type="Double" Name="BATCHAMT" Nullable="true" />
-          <Property Type="Decimal" Name="LEVY_AMOUNT" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="String" Name="TDF" Nullable="true" MaxLength="50" />
-          <Property Type="Decimal" Name="TDF_AMOUNT" Nullable="true" Precision="18" Scale="0" />
-          <Property Type="DateTime" Name="LEVYPAYMENTDATE" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="TDF_PAYMENTDATE" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="CREATEDON" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="CREATEDBY" Nullable="true" />
-          <Property Type="DateTime" Name="UPDATEDON" Nullable="true" Precision="23" />
-          <Property Type="Int32" Name="UPDATEDBY" Nullable="true" />
-          <Property Type="Int32" Name="ISAPPROVED" Nullable="false" />
-          <Property Type="String" Name="OCCUPATION" Nullable="true" MaxLength="50" />
-        </ComplexType>
         <EntityType Name="MemberInsertBranch">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -864,6 +821,77 @@
           <Property Name="IsApproved" Type="Int32" Nullable="false" />
           <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="MembershipAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberCode" Type="Int32" />
+          <Property Name="AttachmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AttachmentData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SPMEMBERSHIPTOLIST_Result">
+          <Property Type="Decimal" Name="MEMBER_CODE" Nullable="false" Precision="10" Scale="0" />
+          <Property Type="String" Name="MEMBER_NAME" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="MEMBER_ID" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="MEMBER_TITLE" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ICNO_OLD" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="ICNO_NEW" Nullable="true" MaxLength="30" />
+          <Property Type="Decimal" Name="BANK_CODE" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="BANK_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="BANKBRANCH_CODE" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="BANKBRANCH_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ADDRESS1" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ADDRESS2" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ADDRESS3" Nullable="true" MaxLength="100" />
+          <Property Type="Decimal" Name="CITY_CODE" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="CITY_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="STATE_CODE" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="STATE_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="COUNTRY" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ZIPCODE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PHONE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="MOBILE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="EMAIL" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="DATEOFJOINING" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="DATEOFBIRTH" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="AGE_IN_YEARS" Nullable="true" Precision="3" Scale="0" />
+          <Property Type="DateTime" Name="DATEOFEMPLOYMENT" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="MEMBERTYPE_CODE" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="MEMBERTYPE_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SEX" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="RACE_CODE" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="String" Name="RACE_NAME" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="REJOINED" Nullable="true" Precision="5" Scale="0" />
+          <Property Type="String" Name="LEVY" Nullable="true" MaxLength="10" />
+          <Property Type="Decimal" Name="TOTALMONTHSPAID" Nullable="true" Precision="10" Scale="0" />
+          <Property Type="Decimal" Name="ENTRANCEFEE" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="HQFEE" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="MONTHLYBF" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="MONTHLYSUBSCRIPTION" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="ACCBF" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="ACCSUBSCRIPTION" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="ACCBENEFIT" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="CURRENT_YTDBF" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="CURRENT_YTDSUBSCRIPTION" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="RESIGNED" Nullable="true" Precision="5" Scale="0" />
+          <Property Type="Double" Name="SALARY" Nullable="true" />
+          <Property Type="Double" Name="BATCHAMT" Nullable="true" />
+          <Property Type="Decimal" Name="LEVY_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="TDF" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TDF_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="DateTime" Name="LEVYPAYMENTDATE" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TDF_PAYMENTDATE" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CREATEDON" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CREATEDBY" Nullable="true" />
+          <Property Type="DateTime" Name="UPDATEDON" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="UPDATEDBY" Nullable="true" />
+          <Property Type="Int32" Name="ISAPPROVED" Nullable="false" />
+          <Property Type="String" Name="OCCUPATION" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1106,13 +1134,13 @@
           <EntitySetMapping Name="MASTERMEMBERs">
             <EntityTypeMapping TypeName="nubev2Model.MASTERMEMBER">
               <MappingFragment StoreEntitySet="MASTERMEMBER">
-                <ScalarProperty Name="BranchMemberCode" ColumnName="BranchMemberCode" />
+                <ScalarProperty Name="BranchMemberCode1" ColumnName="BranchMemberCode" />
+                <ScalarProperty Name="IsBranchRegister1" ColumnName="IsBranchRegister" />
                 <ScalarProperty Name="GE_ContractNo" ColumnName="GE_ContractNo" />
                 <ScalarProperty Name="GE_Insurance" ColumnName="GE_Insurance" />
                 <ScalarProperty Name="AI_MemberNo" ColumnName="AI_MemberNo" />
                 <ScalarProperty Name="AI_Insurance" ColumnName="AI_Insurance" />
                 <ScalarProperty Name="TotalPaid" ColumnName="TotalPaid" />
-                <ScalarProperty Name="IsBranchRegister" ColumnName="IsBranchRegister" />
                 <ScalarProperty Name="IsCancel" ColumnName="IsCancel" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
@@ -1206,69 +1234,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SPMEMBERSHIPTOLIST" FunctionName="nubev2Model.Store.SPMEMBERSHIPTOLIST">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="nubev2Model.SPMEMBERSHIPTOLIST_Result">
-                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
-                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
-                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
-                <ScalarProperty Name="MEMBER_TITLE" ColumnName="MEMBER_TITLE" />
-                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
-                <ScalarProperty Name="ICNO_NEW" ColumnName="ICNO_NEW" />
-                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
-                <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
-                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
-                <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
-                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
-                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
-                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
-                <ScalarProperty Name="CITY_CODE" ColumnName="CITY_CODE" />
-                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
-                <ScalarProperty Name="STATE_CODE" ColumnName="STATE_CODE" />
-                <ScalarProperty Name="STATE_NAME" ColumnName="STATE_NAME" />
-                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
-                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
-                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
-                <ScalarProperty Name="AGE_IN_YEARS" ColumnName="AGE_IN_YEARS" />
-                <ScalarProperty Name="DATEOFEMPLOYMENT" ColumnName="DATEOFEMPLOYMENT" />
-                <ScalarProperty Name="MEMBERTYPE_CODE" ColumnName="MEMBERTYPE_CODE" />
-                <ScalarProperty Name="MEMBERTYPE_NAME" ColumnName="MEMBERTYPE_NAME" />
-                <ScalarProperty Name="SEX" ColumnName="SEX" />
-                <ScalarProperty Name="RACE_CODE" ColumnName="RACE_CODE" />
-                <ScalarProperty Name="RACE_NAME" ColumnName="RACE_NAME" />
-                <ScalarProperty Name="REJOINED" ColumnName="REJOINED" />
-                <ScalarProperty Name="LEVY" ColumnName="LEVY" />
-                <ScalarProperty Name="TOTALMONTHSPAID" ColumnName="TOTALMONTHSPAID" />
-                <ScalarProperty Name="ENTRANCEFEE" ColumnName="ENTRANCEFEE" />
-                <ScalarProperty Name="HQFEE" ColumnName="HQFEE" />
-                <ScalarProperty Name="MONTHLYBF" ColumnName="MONTHLYBF" />
-                <ScalarProperty Name="MONTHLYSUBSCRIPTION" ColumnName="MONTHLYSUBSCRIPTION" />
-                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
-                <ScalarProperty Name="ACCSUBSCRIPTION" ColumnName="ACCSUBSCRIPTION" />
-                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
-                <ScalarProperty Name="CURRENT_YTDBF" ColumnName="CURRENT_YTDBF" />
-                <ScalarProperty Name="CURRENT_YTDSUBSCRIPTION" ColumnName="CURRENT_YTDSUBSCRIPTION" />
-                <ScalarProperty Name="RESIGNED" ColumnName="RESIGNED" />
-                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
-                <ScalarProperty Name="BATCHAMT" ColumnName="BATCHAMT" />
-                <ScalarProperty Name="LEVY_AMOUNT" ColumnName="LEVY_AMOUNT" />
-                <ScalarProperty Name="TDF" ColumnName="TDF" />
-                <ScalarProperty Name="TDF_AMOUNT" ColumnName="TDF_AMOUNT" />
-                <ScalarProperty Name="LEVYPAYMENTDATE" ColumnName="LEVYPAYMENTDATE" />
-                <ScalarProperty Name="TDF_PAYMENTDATE" ColumnName="TDF_PAYMENTDATE" />
-                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
-                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
-                <ScalarProperty Name="UPDATEDON" ColumnName="UPDATEDON" />
-                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
-                <ScalarProperty Name="ISAPPROVED" ColumnName="ISAPPROVED" />
-                <ScalarProperty Name="OCCUPATION" ColumnName="OCCUPATION" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="MemberInsertBranches">
             <EntityTypeMapping TypeName="nubev2Model.MemberInsertBranch">
               <MappingFragment StoreEntitySet="MemberInsertBranch">
@@ -1326,6 +1291,82 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="MembershipAttachments">
+            <EntityTypeMapping TypeName="nubev2Model.MembershipAttachment">
+              <MappingFragment StoreEntitySet="MembershipAttachment">
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="AttachmentData" ColumnName="AttachmentData" />
+                <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SPMEMBERSHIPTOLIST" FunctionName="nubev2Model.Store.SPMEMBERSHIPTOLIST">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="nubev2Model.SPMEMBERSHIPTOLIST_Result">
+                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
+                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="MEMBER_TITLE" ColumnName="MEMBER_TITLE" />
+                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
+                <ScalarProperty Name="ICNO_NEW" ColumnName="ICNO_NEW" />
+                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
+                <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
+                <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
+                <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
+                <ScalarProperty Name="CITY_CODE" ColumnName="CITY_CODE" />
+                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
+                <ScalarProperty Name="STATE_CODE" ColumnName="STATE_CODE" />
+                <ScalarProperty Name="STATE_NAME" ColumnName="STATE_NAME" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
+                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
+                <ScalarProperty Name="AGE_IN_YEARS" ColumnName="AGE_IN_YEARS" />
+                <ScalarProperty Name="DATEOFEMPLOYMENT" ColumnName="DATEOFEMPLOYMENT" />
+                <ScalarProperty Name="MEMBERTYPE_CODE" ColumnName="MEMBERTYPE_CODE" />
+                <ScalarProperty Name="MEMBERTYPE_NAME" ColumnName="MEMBERTYPE_NAME" />
+                <ScalarProperty Name="SEX" ColumnName="SEX" />
+                <ScalarProperty Name="RACE_CODE" ColumnName="RACE_CODE" />
+                <ScalarProperty Name="RACE_NAME" ColumnName="RACE_NAME" />
+                <ScalarProperty Name="REJOINED" ColumnName="REJOINED" />
+                <ScalarProperty Name="LEVY" ColumnName="LEVY" />
+                <ScalarProperty Name="TOTALMONTHSPAID" ColumnName="TOTALMONTHSPAID" />
+                <ScalarProperty Name="ENTRANCEFEE" ColumnName="ENTRANCEFEE" />
+                <ScalarProperty Name="HQFEE" ColumnName="HQFEE" />
+                <ScalarProperty Name="MONTHLYBF" ColumnName="MONTHLYBF" />
+                <ScalarProperty Name="MONTHLYSUBSCRIPTION" ColumnName="MONTHLYSUBSCRIPTION" />
+                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
+                <ScalarProperty Name="ACCSUBSCRIPTION" ColumnName="ACCSUBSCRIPTION" />
+                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
+                <ScalarProperty Name="CURRENT_YTDBF" ColumnName="CURRENT_YTDBF" />
+                <ScalarProperty Name="CURRENT_YTDSUBSCRIPTION" ColumnName="CURRENT_YTDSUBSCRIPTION" />
+                <ScalarProperty Name="RESIGNED" ColumnName="RESIGNED" />
+                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+                <ScalarProperty Name="BATCHAMT" ColumnName="BATCHAMT" />
+                <ScalarProperty Name="LEVY_AMOUNT" ColumnName="LEVY_AMOUNT" />
+                <ScalarProperty Name="TDF" ColumnName="TDF" />
+                <ScalarProperty Name="TDF_AMOUNT" ColumnName="TDF_AMOUNT" />
+                <ScalarProperty Name="LEVYPAYMENTDATE" ColumnName="LEVYPAYMENTDATE" />
+                <ScalarProperty Name="TDF_PAYMENTDATE" ColumnName="TDF_PAYMENTDATE" />
+                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
+                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
+                <ScalarProperty Name="UPDATEDON" ColumnName="UPDATEDON" />
+                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
+                <ScalarProperty Name="ISAPPROVED" ColumnName="ISAPPROVED" />
+                <ScalarProperty Name="OCCUPATION" ColumnName="OCCUPATION" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -94,6 +94,9 @@
     <Compile Include="MemberInsertBranch.cs">
       <DependentUpon>NUBE.tt</DependentUpon>
     </Compile>
+    <Compile Include="MembershipAttachment.cs">
+      <DependentUpon>NUBE.tt</DependentUpon>
+    </Compile>
     <Compile Include="NomineeInsertBranch.cs">
       <DependentUpon>NUBE.tt</DependentUpon>
     </Compile>

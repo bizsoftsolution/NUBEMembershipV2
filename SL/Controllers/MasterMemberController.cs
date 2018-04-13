@@ -320,5 +320,22 @@ namespace SL.Controllers
                 return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
         }
+
+
+        [NubeCrossSiteAttribute]
+        public JsonResult Attachment(int MemberCode,string AttachmentName)
+        {
+            try
+            {
+                DAL.MembershipAttachment d = new MembershipAttachment();
+
+                return Json(new { ErrMsg = "No Records Found" }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

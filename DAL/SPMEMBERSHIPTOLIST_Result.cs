@@ -21,7 +21,7 @@ namespace DAL
         public string ICNO_NEW { get; set; }
         public Nullable<decimal> BANK_CODE { get; set; }
         public string BANK_NAME { get; set; }
-        public Nullable<decimal> BRANCH_CODE { get; set; }
+        public Nullable<decimal> BANKBRANCH_CODE { get; set; }
         public string BANKBRANCH_NAME { get; set; }
         public string ADDRESS1 { get; set; }
         public string ADDRESS2 { get; set; }

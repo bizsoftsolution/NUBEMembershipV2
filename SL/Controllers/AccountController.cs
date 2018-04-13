@@ -41,7 +41,7 @@ namespace SL.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { isSaved = false, Msg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
 
