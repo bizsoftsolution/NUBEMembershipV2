@@ -99,7 +99,5 @@ namespace DAL
         public bool GE_Insurance { get; set; }
         public string GE_ContractNo { get; set; }
         public Nullable<int> BranchMemberCode { get; set; }
-        public bool IsBranchRegister1 { get; set; }
-        public Nullable<int> BranchMemberCode1 { get; set; }
     }
 }

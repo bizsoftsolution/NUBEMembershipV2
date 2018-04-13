@@ -20,12 +20,20 @@ namespace SL.Controllers
 
         public JsonResult ToList(string term)
         {
-            var l1 = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
-            if (!string.IsNullOrWhiteSpace(term))
+            try
             {
-                l1 = l1.Where(x => x.BANK_NAME.ToLower().Contains(term.ToLower())).ToList();
+                var l1 = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
+                if (!string.IsNullOrWhiteSpace(term))
+                {
+                    l1 = l1.Where(x => x.BANK_NAME.ToLower().Contains(term.ToLower())).ToList();
+                }
+                return Json(l1, JsonRequestBehavior.AllowGet);
             }
-            return Json(l1, JsonRequestBehavior.AllowGet);
+            catch (Exception ex)
+            {
+                return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+           
         }
     }
 }

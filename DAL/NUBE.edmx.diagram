@@ -18,10 +18,10 @@
         <EntityTypeShape EntityType="nubev2Model.GuardianInsertBranch" Width="1.5" PointX="3.375" PointY="12.75" />
         <EntityTypeShape EntityType="nubev2Model.NomineeInsertBranch" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="nubev2Model.CountrySetup" Width="1.5" PointX="7.375" PointY="12.75" />
-        <EntityTypeShape EntityType="nubev2Model.MASTERMEMBER" Width="1.5" PointX="13.375" PointY="6.75" />
         <EntityTypeShape EntityType="nubev2Model.UserAccount" Width="1.5" PointX="5.375" PointY="9.75" />
         <EntityTypeShape EntityType="nubev2Model.MemberInsertBranch" Width="1.5" PointX="9.375" PointY="12.75" />
         <EntityTypeShape EntityType="nubev2Model.MembershipAttachment" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="nubev2Model.MASTERMEMBER" Width="1.5" PointX="11.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

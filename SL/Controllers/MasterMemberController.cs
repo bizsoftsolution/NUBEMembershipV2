@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SL.Cross;
 using DAL;
+using System.IO;
 
 namespace SL.Controllers
 {
@@ -323,18 +324,45 @@ namespace SL.Controllers
 
 
         [NubeCrossSiteAttribute]
-        public JsonResult Attachment(int MemberCode,string AttachmentName)
+        public JsonResult AttachmentUpload(int MemberCode,string AttachmentName,HttpPostedFileBase AttachmentData)
         {
             try
             {
-                DAL.MembershipAttachment d = new MembershipAttachment();
 
+                byte[] fDatas;
+                using (BinaryReader br = new BinaryReader(AttachmentData.InputStream))
+                {
+                    fDatas = br.ReadBytes(AttachmentData.ContentLength);
+                }
+                DAL.MembershipAttachment d = new MembershipAttachment();
+                d.MemberCode = MemberCode;
+                d.FileName = AttachmentData.FileName;
+                d.FileType = AttachmentData.ContentType;
+                d.AttachmentName = AttachmentName;
+                d.AttachmentData = fDatas;
+                d.EntryDate = DateTime.Today;
+                db.MembershipAttachments.Add(d);
+                db.SaveChanges();
                 return Json(new { ErrMsg = "No Records Found" }, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)
             {
                 return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public FileResult AttachmentDownload(int MemberCode, string AttachmentName)
+        {
+            try
+            {
+                nubebfsEntities db = new nubebfsEntities();
+                var d= db.MembershipAttachments.FirstOrDefault(x => x.MemberCode == MemberCode && x.AttachmentName == AttachmentName);
+                return File(d.AttachmentData, d.FileType, d.FileName);
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

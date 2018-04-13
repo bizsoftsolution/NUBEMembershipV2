@@ -52,13 +52,20 @@ class Joinup {
         if (file != undefined) {
 
             var mFiles = new FormData();
-            mFiles.append('Member_Code', Member_Code);
+            mFiles.append('MemberCode', Member_Code);
             mFiles.append('AttachmentName', AttachmentName);
-            mFiles.append('AttachmentFile', file.files[0]);
-
-            $.post('http://localhost/MembershipTest/MasterMember/Attachment', mFiles, (res) => {
-
+            mFiles.append('AttachmentData', file.files[0]);
+            $.ajax({
+                url: 'http://localhost/MembershipTest/MasterMember/AttachmentUpload',
+                type: "POST",
+                data: mFiles,
+                processData: false,
+                contentType: false,
+                success: (d) => {
+                    console.log(d);
+                }
             });
+           
         }
     }
     btnSave(): void {
