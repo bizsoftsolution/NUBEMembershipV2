@@ -1,5 +1,6 @@
 ﻿import * as ko from "knockout";
 import * as $ from "jquery";
+import "bootstrap";
 import "jqueryui";
 import "knockout-jqAutocomplete";
 import { MASTERMEMBER } from "./MasterMember";
@@ -13,13 +14,16 @@ import { MASTERNOMINEE } from "./MasterNominee";
 import { MASTERGUARDIAN } from "./MasterGuardian";
 import { MASTERRELATION } from "./MasterRelation";
 
+
+
 class Joinup {
+    public static joinupVM: Joinup;
     data: MASTERMEMBER;
     dataGuardian: MASTERGUARDIAN;
     nominee: KnockoutObservable<string>;
     Guardian: KnockoutObservable<string>;
     bankList: MASTERBANK[];
-    branchList: MASTERBRANCH[];
+    branchList: KnockoutComputed<MASTERBRANCH[]>;
     raceList: MASTERRACE[];
     cityList: MASTERCITY[];
     stateList: MASTERSTATE[];
@@ -37,17 +41,16 @@ class Joinup {
         this.Guardian = ko.observable<string>("No");
 
         this.bankList = MASTERBANK.toList();
-        this.branchList = MASTERBRANCH.toList();
+        this.branchList = ko.computed(() => { return MASTERBRANCH.toList(this.data.BANK_CODE()); });
         this.raceList = MASTERRACE.toList();
         this.cityList = MASTERCITY.toList();
         this.stateList = MASTERSTATE.toList();
         this.countryList = MASTERCOUNTRY.toList();
-        this.relationList = MASTERRELATION.toList();
-
-
+        this.relationList = MASTERRELATION.toList();              
     }
 
     btnSave(): void {
+
         var d = ko.toJS(this.data);
         console.log(d);
         $.post('http://localhost/MembershipTest/MasterMember/Insert', d, (resMember) => {
@@ -100,5 +103,20 @@ class Joinup {
     //}
 
 }
-ko.applyBindings(new Joinup());
+Joinup.joinupVM = new Joinup();
+ko.applyBindings(Joinup.joinupVM);
+var dateOption = { dateFormat: 'dd/mm/yy' };
+$('#dob').datepicker(dateOption);
+$('#doe').datepicker(dateOption);
 
+$('#dob').change((e) => {
+    var dt = $(e.target).datepicker('getDate');
+    Joinup.joinupVM.data.DATEOFBIRTH(dt);
+});
+$('#doe').change((e) => {
+    var dt = $(e.target).datepicker('getDate');
+    Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt);
+});
+
+
+export { Joinup };

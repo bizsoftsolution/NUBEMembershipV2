@@ -35,22 +35,20 @@ class MASTERBRANCH {
     }
 
     private static _toList: MASTERBRANCH[];
-    static toList(): any {
-        if (MASTERBRANCH._toList == undefined) {
-            $.ajax({
-                url: 'http://localhost/MembershipTest/MasterBranch/tolist',
-                type: 'get',
-                async: false,
-                cache: false,
-                timeout: 30000,
-                error: (err) => {
-                    console.log(err);
-                },
-                success: (data) => {
-                    MASTERBRANCH._toList = data;
-                },
-            });
-        }
+    static toList(BankCode:Number): any {        
+        $.ajax({
+            url: 'http://localhost/MembershipTest/MasterBranch/tolist?Bank_Code=' + BankCode,
+            type: 'get',
+            async: false,
+            cache: false,
+            timeout: 30000,
+            error: (err) => {
+                console.log(err);
+            },
+            success: (data) => {
+                MASTERBRANCH._toList = data;
+            },
+        });
 
         return MASTERBRANCH._toList;
     }
