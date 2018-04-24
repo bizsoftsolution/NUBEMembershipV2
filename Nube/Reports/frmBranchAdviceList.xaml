@@ -36,8 +36,11 @@
         </Grid>
 
         <Grid Grid.Column="1" Grid.Row="1" >
-            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="355,21,734,647" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="91"/>
-            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="465,18,395,644" VerticalAlignment="Center" Width="320" Height="28"/>
+            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="214,21,875,647" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="91"/>
+            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="324,18,536,644" VerticalAlignment="Center" Width="320" Height="28"/>
+            <RadioButton x:Name="rbtResingDate" IsChecked="True" Content="Resign Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="858,24,0,0" VerticalAlignment="Top"/>
+            <RadioButton x:Name="rbtPaymentDate" Content="Payment Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="974,24,0,0" VerticalAlignment="Top"/>
+            <TextBlock x:Name="lblResignDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="678,21,361,643" TextWrapping="Wrap" Text="Resign Date Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="141"/>
             <Button x:Name="btnSearch" FontWeight="Bold" Content="Search" HorizontalAlignment="Center" Margin="595,59,500,599" VerticalAlignment="Center" Width="85" Height="32" Click="btnSearch_Click"/>
             <Button x:Name="btnBack" FontWeight="Bold" Content="Back" HorizontalAlignment="Center" Margin="845,59,260,598" VerticalAlignment="Center" Width="75" Height="33" RenderTransformOrigin="0.42,1.356" Click="btnBack_Click"/>
             <Button x:Name="btnClear" FontWeight="Bold"  Content="Clear" HorizontalAlignment="Center" Margin="720,60,370,598" VerticalAlignment="Center" Width="90" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
@@ -53,7 +56,7 @@
                 </Label.RenderTransform>
             </Label>
             <Grid Margin="0,0,0,10" HorizontalAlignment="Left" Width="1170">
-                <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="555" Margin="0,100,-15,25"  VerticalAlignment="Center" Width="1185" FontSize="14" Background="Transparent" BorderBrush="{StaticResource AccentColorBrush}">
+                <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="545" Margin="0,110,-15,25"  VerticalAlignment="Center" Width="1185" FontSize="14" Background="Transparent" BorderBrush="{StaticResource AccentColorBrush}">
                     <TabControl.Resources>
                         <Style TargetType="TabItem">
                             <Setter Property="Template">

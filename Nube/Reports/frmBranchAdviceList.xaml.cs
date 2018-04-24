@@ -59,12 +59,13 @@ namespace Nube
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(cmbBranch.Text))
-            {
-                MessageBox.Show("Branch Name is Empty!");
-                cmbBranch.Focus();
-            }
-            else if (string.IsNullOrEmpty(dtpDate.Text))
+            //if (string.IsNullOrEmpty(cmbBranch.Text))
+            //{
+            //    MessageBox.Show("Branch Name is Empty!");
+            //    cmbBranch.Focus();
+            //}
+            //else
+            if (string.IsNullOrEmpty(dtpDate.Text))
             {
                 MessageBox.Show("Select Month and Year");
                 dtpDate.Focus();
@@ -81,9 +82,23 @@ namespace Nube
                         NewMemberReport.LocalReport.DataSources.Add(masterData);
                         NewMemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.NUBEBranchAdviceList.rdlc";
                         ReportParameter[] rp = new ReportParameter[3];
-                        rp[0] = new ReportParameter("BranchName", cmbBranch.Text);
+                        if (!string.IsNullOrEmpty(cmbBranch.Text))
+                        {
+                            rp[0] = new ReportParameter("BranchName", cmbBranch.Text);
+                        }
+                        else
+                        {
+                            rp[0] = new ReportParameter("BranchName", "");
+                        }
                         rp[1] = new ReportParameter("Month", String.Format("{0:MMM-yyyy}", dtpDate.SelectedDate.Value));
-                        rp[2] = new ReportParameter("BranchCode", cmbBranch.SelectedValue.ToString());
+                        if (!string.IsNullOrEmpty(cmbBranch.Text))
+                        {
+                            rp[2] = new ReportParameter("BranchCode", cmbBranch.SelectedValue.ToString());
+                        }
+                        else
+                        {
+                            rp[2] = new ReportParameter("BranchCode", "");
+                        }
 
                         NewMemberReport.LocalReport.SetParameters(rp);
                         NewMemberReport.RefreshReport();
@@ -112,9 +127,23 @@ namespace Nube
                 ResignMemberReport.LocalReport.DataSources.Add(masterData);
                 ResignMemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptBranchAdviceList.rdlc";
                 ReportParameter[] rp = new ReportParameter[3];
-                rp[0] = new ReportParameter("BranchName", cmbBranch.Text);
+                if (!string.IsNullOrEmpty(cmbBranch.Text))
+                {
+                    rp[0] = new ReportParameter("BranchName", cmbBranch.Text);
+                }
+                else
+                {
+                    rp[0] = new ReportParameter("BranchName", "");
+                }
                 rp[1] = new ReportParameter("Month", String.Format("{0:MMM-yyyy}", dtpDate.SelectedDate.Value));
-                rp[2] = new ReportParameter("BranchCode", cmbBranch.SelectedValue.ToString());
+                if (!string.IsNullOrEmpty(cmbBranch.Text))
+                {
+                    rp[2] = new ReportParameter("BranchCode", cmbBranch.SelectedValue.ToString());
+                }
+                else
+                {
+                    rp[2] = new ReportParameter("BranchCode", "");
+                }
                 ResignMemberReport.LocalReport.SetParameters(rp);
 
                 ResignMemberReport.RefreshReport();
@@ -137,24 +166,38 @@ namespace Nube
                 qry = qry + " RESIGNED=1";
             }
 
-            if (!string.IsNullOrEmpty(qry))
+            if (rbtPaymentDate.IsChecked == true)
             {
-                qry = qry + string.Format(" AND MONTH(RESIGNATION_DATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(RESIGNATION_DATE)=YEAR('{0:dd/MMM/yyyy}')", dtpDate.SelectedDate);
+                if (!string.IsNullOrEmpty(qry))
+                {
+                    qry = qry + string.Format(" AND MONTH(VOUCHER_DATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(VOUCHER_DATE)=YEAR('{0:dd/MMM/yyyy}') ", dtpDate.SelectedDate);
+                }
+                else
+                {
+                    qry = qry + string.Format(" MONTH(VOUCHER_DATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(VOUCHER_DATE)=YEAR('{0:dd/MMM/yyyy}') ", dtpDate.SelectedDate);
+                }
             }
             else
             {
-                qry = qry + string.Format(" MONTH(RESIGNATION_DATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(RESIGNATION_DATE)=YEAR('{0:dd/MMM/yyyy}')", dtpDate.SelectedDate);
+                if (!string.IsNullOrEmpty(qry))
+                {
+                    qry = qry + string.Format(" AND MONTH(RESIGNATION_DATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(RESIGNATION_DATE)=YEAR('{0:dd/MMM/yyyy}') ", dtpDate.SelectedDate);
+                }
+                else
+                {
+                    qry = qry + string.Format(" MONTH(RESIGNATION_DATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(RESIGNATION_DATE)=YEAR('{0:dd/MMM/yyyy}') ", dtpDate.SelectedDate);
+                }
             }
 
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(connStr))
             {
 
-                SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANK_USERCODE,MEMBER_ID, \r" +
+                SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANKUSER_CODE BANK_USERCODE,MEMBER_ID, \r" +
                                                " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, \r" +
                                                " DATEOFJOINING,CASE WHEN ISNULL(MEMBERTYPE_NAME,'')='CLERICAL' THEN 'Y' ELSE 'N' END MEMBERTYPE_NAME,\r" +
                                                " ENTRANCEFEE,MONTHLYSUBSCRIPTION,MONTHLYBF,HQFEE,CASE WHEN ISNULL(REJOINED,0)=0 THEN 'N' ELSE 'R' END REJOINED\r" +
-                                               " FROM TEMPVIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
+                                               " FROM MEMBERSTATUSLOG(NOLOCK) WHERE " + qry +
                                                "  ORDER BY MEMBER_NAME", con);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
 
@@ -169,11 +212,15 @@ namespace Nube
             Wqry();
             if (!string.IsNullOrEmpty(dtpDate.Text))
             {
-                qry = qry + string.Format(" AND MONTH(DATEOFJOINING)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING)=YEAR('{0:dd/MMM/yyyy}')", dtpDate.SelectedDate);
-            }
-            else
-            {
-                qry = qry + string.Format(" MONTH(DATEOFJOINING)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING)=YEAR('{0:dd/MMM/yyyy}')", dtpDate.SelectedDate);
+                if (!string.IsNullOrEmpty(qry))
+                {
+                    qry = qry + string.Format(" AND MONTH(DATEOFJOINING)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING)=YEAR('{0:dd/MMM/yyyy}')", dtpDate.SelectedDate);
+                }
+                else
+                {
+                    qry = qry + string.Format(" MONTH(DATEOFJOINING)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(DATEOFJOINING)=YEAR('{0:dd/MMM/yyyy}')", dtpDate.SelectedDate);
+
+                }
             }
 
             if (!string.IsNullOrEmpty(qry))
@@ -188,12 +235,12 @@ namespace Nube
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANK_USERCODE,MEMBER_ID, \r" +
+                SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANKUSER_CODE BANK_USERCODE,MEMBER_ID, \r" +
                                                 " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, \r" +
                                                 " DATEOFJOINING,CASE WHEN ISNULL(MEMBERTYPE_NAME,'')='CLERICAL' THEN 'Y' ELSE 'N' END MEMBERTYPE_NAME,\r" +
                                                 " ENTRANCEFEE,MONTHLYSUBSCRIPTION,MONTHLYBF,HQFEE,CASE WHEN ISNULL(REJOINED,0)=0 THEN 'N' ELSE 'R' END REJOINED\r" +
-                                                " FROM TEMPVIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
-                                                "  ORDER BY MEMBER_NAME", con);
+                                                " FROM MEMBERSTATUSLOG(NOLOCK) WHERE " + qry +
+                                                " ORDER BY MEMBER_NAME", con);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
 
                 adp.Fill(dt);
@@ -209,11 +256,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND NUBEBANCHNAME='" + cmbBranch.Text + "' ";
+                    qry = qry + " AND NUBEBRANCH_NAME='" + cmbBranch.Text + "' ";
                 }
                 else
                 {
-                    qry = qry + " NUBEBANCHNAME='" + cmbBranch.Text + "' ";
+                    qry = qry + " NUBEBRANCH_NAME='" + cmbBranch.Text + "' ";
                 }
             }
 

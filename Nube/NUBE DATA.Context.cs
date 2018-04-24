@@ -73,12 +73,14 @@ namespace Nube
         public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
         public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
         public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
-        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
         public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
         public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
+        public virtual DbSet<MemberHistory> MemberHistories { get; set; }
+        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
         public virtual DbSet<GuardianInsertBranch> GuardianInsertBranches { get; set; }
+        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
+        public virtual DbSet<MembershipAttachment> MembershipAttachments { get; set; }
         public virtual DbSet<NomineeInsertBranch> NomineeInsertBranches { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
-        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
     }
 }

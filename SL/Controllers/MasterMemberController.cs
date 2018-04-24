@@ -324,26 +324,33 @@ namespace SL.Controllers
 
 
         [NubeCrossSiteAttribute]
-        public JsonResult AttachmentUpload(int MemberCode,string AttachmentName,HttpPostedFileBase AttachmentData)
+        public JsonResult AttachmentUpload(int MemberCode, string AttachmentName, HttpPostedFileBase AttachmentData)
         {
             try
             {
-
-                byte[] fDatas;
-                using (BinaryReader br = new BinaryReader(AttachmentData.InputStream))
+                if (AttachmentData != null)
                 {
-                    fDatas = br.ReadBytes(AttachmentData.ContentLength);
+                    byte[] fDatas;
+                    using (BinaryReader br = new BinaryReader(AttachmentData.InputStream))
+                    {
+                        fDatas = br.ReadBytes(AttachmentData.ContentLength);
+                    }
+                    DAL.MembershipAttachment d = new MembershipAttachment();
+                    d.MemberCode = MemberCode;
+                    d.FileName = AttachmentData.FileName;
+                    d.FileType = AttachmentData.ContentType;
+                    d.AttachmentName = AttachmentName;
+                    d.AttachmentData = fDatas;
+                    d.EntryDate = DateTime.Today;
+                    db.MembershipAttachments.Add(d);
+                    db.SaveChanges();
+                    return Json(new { Msg = "Attachment Sucessful" }, JsonRequestBehavior.AllowGet);
                 }
-                DAL.MembershipAttachment d = new MembershipAttachment();
-                d.MemberCode = MemberCode;
-                d.FileName = AttachmentData.FileName;
-                d.FileType = AttachmentData.ContentType;
-                d.AttachmentName = AttachmentName;
-                d.AttachmentData = fDatas;
-                d.EntryDate = DateTime.Today;
-                db.MembershipAttachments.Add(d);
-                db.SaveChanges();
-                return Json(new { ErrMsg = "No Records Found" }, JsonRequestBehavior.AllowGet);
+                else
+                {
+                    return Json(new { ErrMsg = "Attachment Not Found" }, JsonRequestBehavior.AllowGet);
+                }
+                
 
             }
             catch (Exception ex)
@@ -357,7 +364,7 @@ namespace SL.Controllers
             try
             {
                 nubebfsEntities db = new nubebfsEntities();
-                var d= db.MembershipAttachments.FirstOrDefault(x => x.MemberCode == MemberCode && x.AttachmentName == AttachmentName);
+                var d = db.MembershipAttachments.FirstOrDefault(x => x.MemberCode == MemberCode && x.AttachmentName == AttachmentName);
                 return File(d.AttachmentData, d.FileType, d.FileName);
             }
             catch (Exception ex)

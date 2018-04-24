@@ -56,5 +56,9 @@ namespace Nube
         public bool ISCANCEL { get; set; }
         public bool AI_Insurance { get; set; }
         public bool GE_Insurance { get; set; }
+        public decimal ENTRANCEFEE { get; set; }
+        public decimal MONTHLYSUBSCRIPTION { get; set; }
+        public decimal MONTHLYBF { get; set; }
+        public decimal HQFEE { get; set; }
     }
 }

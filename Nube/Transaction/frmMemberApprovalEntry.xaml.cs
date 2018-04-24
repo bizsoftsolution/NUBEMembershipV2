@@ -259,7 +259,7 @@ namespace Nube.Transaction
                             mm.DATEOFJOINING = wm.DATEOFJOINING;
 
                             mm.BANK_CODE = wm.BANK_CODE;
-                            mm.BRANCH_CODE = wm.BRANCH_CODE;
+                            mm.BRANCH_CODE = wm.BANKBRANCH_CODE;
                             mm.DATEOFEMPLOYMENT = wm.DATEOFEMPLOYMENT;
                             mm.Salary = wm.Salary;
                             mm.LEVY = wm.LEVY;

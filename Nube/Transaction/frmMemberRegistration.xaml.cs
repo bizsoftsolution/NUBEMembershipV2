@@ -1780,7 +1780,7 @@ namespace Nube.Transaction
                 var brnch = (from bc in db.MASTERBANKBRANCHes
                              join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
                              join st in db.MASTERSTATEs on bc.BANKBRANCH_STATE_CODE equals st.STATE_CODE
-                             where bc.BANKBRANCH_CODE == qry.BRANCH_CODE
+                             where bc.BANKBRANCH_CODE == qry.BANKBRANCH_CODE
                              select new
                              {
                                  bc.BANKBRANCH_ADDRESS1,
@@ -1901,8 +1901,8 @@ namespace Nube.Transaction
 
                     cmbBankCode.SelectedValue = qry.BANK_CODE;
                     cmbBankName.SelectedValue = qry.BANK_CODE;
-                    cmbBranchCode.SelectedValue = qry.BRANCH_CODE;
-                    cmbBranchName.SelectedValue = qry.BRANCH_CODE;
+                    cmbBranchCode.SelectedValue = qry.BANKBRANCH_CODE;
+                    cmbBranchName.SelectedValue = qry.BANKBRANCH_CODE;
                     dtpDOEmp.SelectedDate = Convert.ToDateTime(qry.DATEOFEMPLOYMENT);
                     txtSalary.Text = qry.Salary.ToString();
                     if (qry.TDF != null)
