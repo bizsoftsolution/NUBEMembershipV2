@@ -61,6 +61,8 @@
             <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="138,585,0,-563" Height="28" Click="btnSearch_Click"/>
             <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="245,585,0,-563" Height="28" Click="btnHome_Click"/>
             <Button x:Name="btnMembercard" Content="Member Card" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="124,638,0,-615" Height="27" Click="btnMembercard_Click"/>
+            <Button x:Name="btnApprove" Content="Approve" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="138,585,0,-563" Height="27" Click="btnApprove_Click"/>
+            <Button x:Name="btnDenied" Content="Denied" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="138,585,0,-563" Height="27" Click="btnDenied_Click"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="555" VerticalAlignment="Top" Width="875" FontSize="14" Background="Transparent" Margin="10,10,0,0" >
@@ -268,7 +270,7 @@
                                 </ComboBox>
                                 <ComboBox x:Name="cmbAI_Insurance" FontWeight="Bold" Background="White" HorizontalAlignment="Left" VerticalAlignment="Top" Width="97" IsEditable="True" materialDesign:HintAssist.Hint="AI Insurance"  materialDesign:HintAssist.HintOpacity=".26" Height="29" Margin="254,24,0,0">
                                     <ComboBoxItem>N/A</ComboBoxItem>
-                                    <ComboBoxItem>Available</ComboBoxItem>                                    
+                                    <ComboBoxItem>Available</ComboBoxItem>
                                 </ComboBox>
                                 <TextBox x:Name="txtTakaful" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Margin="550,3,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="60" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
                                 <TextBox x:Name="txtTotalMonthsDueIns3" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="57,133,0,0" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="50" RenderTransformOrigin="-2.887,2.667"  IsReadOnly="True" IsUndoEnabled="False"/>
@@ -404,36 +406,23 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Photo" x:Name="tiPhoto" FontSize="14">
+                <TabItem Header="Attachments" Visibility="Collapsed" x:Name="tiPhoto" FontSize="14">
                     <Grid>
-                        <WebBrowser  x:Name="wbPhoto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                        <StackPanel Margin="10,10,0,0" Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" >
+                                <Label Margin="0,3,0,0" Content="Attachment Type" FontWeight="Bold" />
+                                <RadioButton x:Name="rbtPhoto" Margin="10" IsChecked="True" Content="Photo" FontWeight="Bold"/>
+                                <RadioButton x:Name="rbtDSign" Margin="10" Content="Digital Signature" FontWeight="Bold"/>
+                                <RadioButton x:Name="rbtIC" Margin="10" Content="IC" FontWeight="Bold"/>
+                                <RadioButton x:Name="rbtELetter" Margin="10" Content="Employment Letter" FontWeight="Bold"/>
+                                <RadioButton x:Name="rbtEPPayment" Margin="10" Content="Prove of Payment" FontWeight="Bold"/>
+                                <Button x:Name="btnView" Content="View" HorizontalAlignment="Left" VerticalAlignment="Center" Width="93" Margin="20,0,0,0"  Height="28" Click="btnView_Click"/>
+                            </StackPanel>
+                            <WebBrowser Margin="10" x:Name="wbPhoto" Height="450" Visibility="Visible"  HorizontalAlignment="Center" VerticalAlignment="Center" />                            
+                        </StackPanel>
+
                     </Grid>
                 </TabItem>
-
-                <TabItem Header="Digital Signature"  x:Name="tiDigitalSignature" FontSize="14">
-                    <Grid>
-                        <WebBrowser  x:Name="wbDigitalSignature" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="IC"  x:Name="tiIC" FontSize="14">
-                    <Grid>
-                        <WebBrowser  x:Name="wbIC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="Employment Letter"  x:Name="tiEmploymentLetter" FontSize="14">
-                    <Grid>
-                        <WebBrowser  x:Name="wbEmploymentLetter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    </Grid>
-                </TabItem>
-
-                <TabItem Header="Prove of Payment"  x:Name="tiProveofPayment" FontSize="14">
-                    <Grid>
-                        <WebBrowser  x:Name="wbProveofPayment" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
-                    </Grid>
-                </TabItem>
-
             </TabControl>
 
             <Label x:Name="lblStatus" Foreground="#FFEC4227" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,570,0,0" VerticalAlignment="Top" Width="865" Height="50" FontSize="24" FontWeight="Bold"/>

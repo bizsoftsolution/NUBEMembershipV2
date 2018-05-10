@@ -186,6 +186,7 @@ namespace Nube.Transaction
                             frm.Height = 600;
                             frm.Width = 1000;
                             frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            frm.tiPhoto.Visibility = Visibility.Visible;
                             frm.btnNew.Visibility = Visibility.Collapsed;
                             frm.btnSave.Visibility = Visibility.Collapsed;
                             frm.btnDelete.Visibility = Visibility.Collapsed;

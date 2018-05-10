@@ -1775,6 +1775,7 @@ namespace Nube.Transaction
 
                 var qry = (from x in db.MemberInsertBranches where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
 
+
                 //var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 var brnch = (from bc in db.MASTERBANKBRANCHes
@@ -1965,7 +1966,7 @@ namespace Nube.Transaction
 
                     dtpLastPay.IsEnabled = false;
                     txtBadgeAmt.Text = qry.BatchAmt.ToString();
-                    txtResEmail.Text = (qry.EMAIL != null ? qry.EMAIL.ToString() : ""); 
+                    txtResEmail.Text = (qry.EMAIL != null ? qry.EMAIL.ToString() : "");
 
 
 
@@ -3172,7 +3173,63 @@ namespace Nube.Transaction
         }
 
 
-        #endregion        
+        #endregion
 
+        private void btnView_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string sURL = "";
+                if (rbtPhoto.IsChecked == true)
+                {
+                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fPhoto";
+                }
+                else if (rbtDSign.IsChecked == true)
+                {
+                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fDSign";
+                }
+                else if (rbtELetter.IsChecked == true)
+                {
+                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fELetter";
+                }
+                else if (rbtIC.IsChecked == true)
+                {
+                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fIC";
+                }
+                else if (rbtEPPayment.IsChecked == true)
+                {
+                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fEPPayment";
+                }
+                wbPhoto.Navigate(sURL);
+
+                //wbPhoto.Source = new Uri(sURL);
+                //string[] SplitHTML = fileName.Split('.');
+                //string NameNoExt = SplitHTML[0];
+                //string FileAsHtml = NameNoExt + ".html";
+
+                ////Word with the document
+                //Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+                //Microsoft.Office.Interop.Word.Document _doc = wordApp.Documents.Open(uri);
+                //_doc.SaveAs2(FileAsHtml, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatHTML);
+                //_doc.Close(false);
+                //wordApp.Quit();
+                //System.Runtime.InteropServices.Marshal.ReleaseComObject(_doc);
+                //browser.Navigate(FileAsHtml);
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+        }
+
+        private void btnApprove_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnDenied_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
