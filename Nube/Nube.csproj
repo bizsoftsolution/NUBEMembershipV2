@@ -301,9 +301,6 @@
     <Compile Include="MASTERSTATU.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
-    <Compile Include="MemberHistory.cs">
-      <DependentUpon>NUBE DATA.tt</DependentUpon>
-    </Compile>
     <Compile Include="MemberInsertBranch.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
@@ -529,6 +526,9 @@
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="VIEWNOMINEE.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNomineeInsertBranch.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="VIEWRESIGNREPORT.cs">

@@ -134,38 +134,51 @@ namespace Nube.Reports
 
                     if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
                     {
-                        sWhere = " AND NUBEBANCHCODE=" + cmbNubeBranch.SelectedValue;
+                        sWhere = " AND BB.NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
                     }
 
                     if (!string.IsNullOrEmpty(cmbBank.Text))
                     {
-                        sWhere = sWhere + " AND BANK_NAME='" + cmbBank.Text + "'";
+                        sWhere = sWhere + " AND MB.BANK_NAME='" + cmbBank.Text + "'";
                     }
 
                     if (!string.IsNullOrEmpty(cmbBranch.Text))
                     {
-                        sWhere = sWhere + " AND BRANCHNAME='" + cmbBranch.Text + "'";
+                        sWhere = sWhere + " AND BB.BANKBRANCH_NAME='" + cmbBranch.Text + "'";
                     }
 
 
                     if (chkMelaka.IsChecked == true && chkNegeriSembilan.IsChecked == false)
                     {
-                        sWhere = sWhere + " AND(BRANCHSTATE LIKE '%MELAKA%') ";
+                        sWhere = sWhere + " AND (MS.BRANCHSTATE LIKE '%MELAKA%') ";
                     }
                     else if (chkMelaka.IsChecked == false && chkNegeriSembilan.IsChecked == true)
                     {
-                        sWhere = sWhere + " AND(BRANCHSTATE NOT LIKE '%MELAKA%') ";
+                        sWhere = sWhere + " AND (MS.BRANCHSTATE NOT LIKE '%MELAKA%') ";
                     }
 
+                    //  Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY BANK_NAME,MEMBER_NAME ASC) AS RNO,MEMBER_ID,ISNULL(MEMBER_NAME,'')MEMBER_NAME, \r" +
+                    //" BANK_USERCODE+'/'+BRANCHUSERCODE BANKBRANCH_NAME,BANK_NAME,CASE WHEN SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
+                    //" CASE WHEN ISNULL(ICNO_NEW,'')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, \r" +
+                    //" CASE WHEN MEMBERTYPE_NAME='CLERICAL' THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
+                    //" DATEOFJOINING,CASE WHEN MEMBERSTATUS='ACTIVE' THEN 'A' ELSE 'D' END STATUS_NAME \r" +
+                    //" FROM TEMPVIEWMASTERMEMBER (NOLOCK) \r" +
+                    //" WHERE ISCANCEL=0 AND MEMBERSTATUSCODE IN (1,2) AND DATEOFJOINING< '" + dtfirstDayOfNextMonth + "' " + sWhere + " \r" +
+                    //" ORDER BY BANK_NAME,MEMBER_NAME");
 
-                    Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY BANK_NAME,MEMBER_NAME ASC) AS RNO,MEMBER_ID,ISNULL(MEMBER_NAME,'')MEMBER_NAME, \r" +
-                " BANK_USERCODE+'/'+BRANCHUSERCODE BANKBRANCH_NAME,BANK_NAME,CASE WHEN SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
-                " CASE WHEN ISNULL(ICNO_NEW,'')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, \r" +
-                " CASE WHEN MEMBERTYPE_NAME='CLERICAL' THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
-                " DATEOFJOINING,CASE WHEN MEMBERSTATUS='ACTIVE' THEN 'A' ELSE 'D' END STATUS_NAME \r" +
-                " FROM TEMPVIEWMASTERMEMBER (NOLOCK) \r" +
-                " WHERE ISCANCEL=0 AND MEMBERSTATUSCODE IN (1,2) AND DATEOFJOINING< '" + dtfirstDayOfNextMonth + "' " + sWhere + " \r" +
-                " ORDER BY BANK_NAME,MEMBER_NAME");
+                    Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MB.BANK_NAME,MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,  \r" +
+                                        " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANKBRANCH_NAME,MB.BANK_NAME,CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
+                                        " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(ICNO_OLD, '') END ICNO_NEW,\r" +
+                                        " CASE WHEN MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME,\r" +
+                                        " MM.DATEOFJOINING, CASE WHEN MEMBERSTATUSCODE = 1 THEN 'A' ELSE 'D' END STATUS_NAME\r" +
+                                        " FROM ACTIVEMEMBERHISTORY ST(NOLOCK)\r" +
+                                        " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBERCODE\r" +
+                                        " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANKCODE\r" +
+                                        " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCHCODE\r" +
+                                        " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE\r" + 
+                                        " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                                        " WHERE ST.MEMBERSTATUSCODE IN(1,2) AND MONTH(ST.ENTRYDATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(ST.ENTRYDATE)=YEAR('{0:dd/MMM/yyyy}') " + sWhere, dtpDOB.SelectedDate);
+
                     SqlCommand cmd = new SqlCommand(Qry, con);
                     SqlDataAdapter sdp = new SqlDataAdapter(cmd);
                     sdp.SelectCommand.CommandTimeout = 0;
@@ -230,12 +243,7 @@ namespace Nube.Reports
             }
         }
 
-
-
-
-
         #endregion
-
 
     }
 }

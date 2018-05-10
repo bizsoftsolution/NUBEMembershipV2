@@ -200,7 +200,6 @@ namespace Nube.MasterSetup
         {
             try
             {
-
                 Reports.frmBankReport frm = new Reports.frmBankReport();
                 frm.ShowDialog();
             }
@@ -208,7 +207,6 @@ namespace Nube.MasterSetup
             {
                 Nube.ExceptionLogging.SendErrorToText(ex);
             }
-
         }
 
         private void dgvBank_MouseDoubleClick(object sender, MouseButtonEventArgs e)

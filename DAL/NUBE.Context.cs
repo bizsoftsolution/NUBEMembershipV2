@@ -42,8 +42,8 @@ namespace DAL
         public virtual DbSet<CountrySetup> CountrySetups { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
-        public virtual DbSet<MembershipAttachment> MembershipAttachments { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual DbSet<MembershipAttachment> MembershipAttachments { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIPTOLIST_Result> SPMEMBERSHIPTOLIST(Nullable<int> aPPROVEDSTATE)
         {

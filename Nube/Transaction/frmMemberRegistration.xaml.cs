@@ -1796,7 +1796,7 @@ namespace Nube.Transaction
                              }
                               ).FirstOrDefault();
 
-                var nominee = (from x in db.VIEWNOMINEEs where x.MEMBER_CODE == dMember_Code orderby x.ID descending select x).ToList();
+                var nominee = (from x in db.ViewNomineeInsertBranches where x.MEMBER_CODE == dMember_Code orderby x.ID descending select x).ToList();
                 if (nominee != null)
                 {
                     DataTable dt = new DataTable();
@@ -1831,7 +1831,7 @@ namespace Nube.Transaction
                     }
                 }
 
-                var gurdian = (from gr in db.MASTERGUARDIANs
+                var gurdian = (from gr in db.GuardianInsertBranches
                                where gr.MEMBER_CODE == dMember_Code
                                select new
                                {
@@ -1854,19 +1854,19 @@ namespace Nube.Transaction
                                ).FirstOrDefault();
 
                 DataTable dtFee = new DataTable();
-                using (SqlConnection con = new SqlConnection(AppLib.connStr))
-                {
-                    SqlCommand cmd;
-                    string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
-                                 " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
-                                 " FROM FEESDETAILS(NOLOCK)" +
-                                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND ISNOTMATCH=0 AND MEMBERCODE=" + dMember_Code;
+                //using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                //{
+                //    SqlCommand cmd;
+                //    string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
+                //                 " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
+                //                 " FROM FEESDETAILS(NOLOCK)" +
+                //                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND ISNOTMATCH=0 AND MEMBERCODE=" + dMember_Code;
 
-                    cmd = new SqlCommand(str, con);
-                    cmd.CommandType = CommandType.Text;
-                    SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                    adp.Fill(dtFee);
-                }
+                //    cmd = new SqlCommand(str, con);
+                //    cmd.CommandType = CommandType.Text;
+                //    SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                //    adp.Fill(dtFee);
+                //}
 
                 BF = 0; UC = 0; Ins = 0; Subs = 0; dTotlMonthsPaid = 0; dTotlMonthsPaidUC = 0;
                 //foreach (DataRow dr in dtFee.Rows)
@@ -1882,7 +1882,7 @@ namespace Nube.Transaction
                 if (qry != null)
                 {
                     cmbMemberType.SelectedValue = qry.MEMBERTYPE_CODE;
-                    txtMemberNo.Text = qry.MEMBER_ID.ToString();
+                    txtMemberNo.Text = qry.MEMBER_CODE.ToString();
                     cmbMemberInit.Text = qry.MEMBER_TITLE;
                     txtMemberName.Text = qry.MEMBER_NAME;
                     txtAge.Text = qry.AGE_IN_YEARS.ToString();
@@ -1965,7 +1965,7 @@ namespace Nube.Transaction
 
                     dtpLastPay.IsEnabled = false;
                     txtBadgeAmt.Text = qry.BatchAmt.ToString();
-                    txtResEmail.Text = qry.EMAIL.ToString();
+                    txtResEmail.Text = (qry.EMAIL != null ? qry.EMAIL.ToString() : ""); 
 
 
 
@@ -1985,7 +1985,7 @@ namespace Nube.Transaction
                     {
                         cmbResCountry.Text = qry.COUNTRY;
                     }
-                    lblStatus.Content = "Active Member; 0 Arrears Pending";
+                    lblStatus.Content = "New Member; 0 Arrears Pending";
 
 
                     if (brnch != null)

@@ -80,6 +80,7 @@ class Joinup {
                 this.MemberAttachment(resMember.MEMBER_CODE, "fDSign", $('#fDSign')[0] as HTMLInputElement);
                 this.MemberAttachment(resMember.MEMBER_CODE, "fIC", $('#fIC')[0] as HTMLInputElement);
                 this.MemberAttachment(resMember.MEMBER_CODE, "fELetter", $('#fELetter')[0] as HTMLInputElement);
+                this.MemberAttachment(resMember.MEMBER_CODE, "fEPPayment", $('#fEPPayment')[0] as HTMLInputElement);
                
                 if (this.nominee() == "Yes") {
                     ko.utils.arrayForEach(this.nomineeList(), (n) => {

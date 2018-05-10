@@ -30,23 +30,24 @@ namespace Nube
             InitializeComponent();
             sFormName = FormN;
         }
+
         public void FormLoad(decimal id, DateTime doj, string bank, string branch, string monBF, string monSub, string Type)
         {
             try
             {
                 InitializeComponent();
-                txtBankName.Text = bank;
-                txtBranchkName.Text = branch;
+                txtMemberID.Text = id.ToString();
                 dtpDOJ.SelectedDate = doj.Date;
-                txtType.Text = Type.ToString();
+                txtBankName.Text = bank;
+                txtBranchkName.Text = branch;                                
                 txtMonthlyBF.Text = monBF.ToString();
                 txtMonthlySub.Text = monSub.ToString();
-                txtMemberID.Text = id.ToString();
+                txtType.Text = Type.ToString();
 
-                var vm = (from x in dbBFS.ViewMasterMembers where x.MEMBER_ID == id select x).FirstOrDefault();
+                var vm = (from x in dbBFS.MemberStatusLogs where x.MEMBER_ID == id select x).FirstOrDefault();
                 if (vm != null)
                 {
-                    txtBankName.Text = vm.BANK_USERCODE.ToString();
+                    txtBankName.Text = vm.BANKUSER_CODE.ToString();
                     txtMemberName.Text = vm.MEMBER_NAME.ToString();
                     txtStatus.Text = vm.MEMBERSTATUS.ToString();
                     txtLastPaymentDate.Text = string.Format("{0:MMM-yyyy}", vm.LASTPAYMENT_DATE);

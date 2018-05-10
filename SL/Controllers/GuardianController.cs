@@ -16,7 +16,6 @@ namespace SL.Controllers
             return View();
         }
 
-
         [NubeCrossSiteAttribute]
         public JsonResult Insert(DAL.GuardianInsertBranch wm)
         {

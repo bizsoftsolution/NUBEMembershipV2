@@ -37,6 +37,13 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock x:Name="lblNubeBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
                         <ComboBox x:Name="cmbNubeBranch" Margin="10,0,0,0" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <TextBox x:Name="txtMemberNoFrom" Margin="50,0,0,0" HorizontalAlignment="Left" Height="40" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo From" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
+                            <TextBlock x:Name="lblFromDate" Margin="30,20,0,0" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="90"/>
+                            <DatePicker x:Name="dtpFromDate" Margin="10,20,0,0" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Height="28" Width="109" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
+                            <TextBlock x:Name="lblDate" Margin="30,20,0,0"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TO Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="79"/>
+                            <DatePicker x:Name="dtpToDate" Margin="10,20,0,0" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Height="28" Width="128" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
+                        </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
@@ -45,29 +52,20 @@
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
                         <ComboBox x:Name="cmbBranch" Margin="10,0,0,0" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" >
+                            <TextBox x:Name="txtMemberNoTo" Margin="50,0,0,0"  HorizontalAlignment="Center" Height="40" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
+                            <CheckBox x:Name="chkRejoin" Margin="30,20,0,0" Content="Rejoined" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <Button x:Name="btnSearch" Margin="100,0,0,0" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="89" Height="32" Click="btnSearch_Click"/>
+                            <Button x:Name="btnClear" Margin="10,0,0,0" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
+                            <Button x:Name="btnExit" Margin="10,0,0,0" Content="Back" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
-                <StackPanel Margin="20,0,0,0" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                        <TextBox x:Name="txtMemberNoFrom" HorizontalAlignment="Left" Height="50" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo From" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
-                        <TextBlock x:Name="lblFromDate" Margin="10,20,0,0" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="90"/>
-                        <DatePicker x:Name="dtpFromDate" Margin="10,20,0,0" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Height="28" Width="109" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
-                        <TextBlock x:Name="lblDate" Margin="10,20,0,0"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="TO Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="79"/>
-                        <DatePicker x:Name="dtpToDate" Margin="10,20,0,0" HorizontalAlignment="Left" FontWeight="Bold"  VerticalAlignment="Top" Height="28" Width="128" IsTodayHighlighted="True" DisplayDate="2017-05-01" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" RenderTransformOrigin="0.555,1.286" />
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" >
-                        <TextBox x:Name="txtMemberNoTo" HorizontalAlignment="Left" Height="52" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
-                        <CheckBox x:Name="chkRejoin" Margin="30,30,0,0" Content="Rejoined" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <Button x:Name="btnSearch" Margin="100,0,0,0" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="89" Height="32" Click="btnSearch_Click"/>
-                        <Button x:Name="btnClear" Margin="10,0,0,0" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
-                        <Button x:Name="btnExit" Margin="10,0,0,0" Content="Back" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click"/>
-                    </StackPanel>
-                </StackPanel>
+                </StackPanel>               
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="2">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
-                <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="517" Margin="10" VerticalAlignment="Center" Width="1180" FontSize="14" Background="Transparent" >
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Height="507" Margin="0,30,0,0">
+                <TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="543" Margin="10" VerticalAlignment="Center" Width="1180" FontSize="14" Background="Transparent" >
                     <TabControl.Resources>
                         <Style TargetType="TabItem">
                             <Setter Property="Template">

@@ -297,7 +297,7 @@ namespace Nube
                                          " ISNULL(MM.MEMBERTYPE_NAME, '')MEMBERTYPE_NAME, ISNULL(MM.LEVY, '')LEVY, ISNULL(MM.TDF, '')TDF, ISNULL(MM.SEX, '')SEX, \r" +
                                          " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(MM.ICNO_OLD, '') END ICNO_NEW, \r" +
                                          " MM.BANKUSER_CODE + '/' + MM.BRANCH_USER_CODE BANK_USERCODE, MM.DATEOFJOINING, MM.BANKUSER_CODE BANK, MM.BRANCH_USER_CODE BANKBRANCH_USERCODE, \r" +
-                                         " MM.LASTPAYMENT_DATE LASTPAYMENT_DATE,MM.BANK_CODE,MM.BRANCH_CODE,MM.NUBEBRANCH_CODE NUBE_BRANCH_CODE \r" + 
+                                         " MM.LASTPAYMENT_DATE LASTPAYMENT_DATE,MM.BANK_CODE,MM.BRANCH_CODE,MM.NUBEBRANCH_CODE NUBE_BRANCH_CODE \r" +
                                          " FROM MEMBERSTATUSLOG MM(NOLOCK) \r" +
                                          " WHERE MM.ISCANCEL=0 AND " + sDate +
                                          " ORDER BY MEMBER_NAME", con);
@@ -315,68 +315,71 @@ namespace Nube
                     adp.Fill(dt);
                 }
 
-                string sWhere = "";
+                if (dt.Rows.Count > 0)
+                {
+                    string sWhere = "";
 
-                if (!string.IsNullOrEmpty(cmbBank.Text))
-                {
-                    sWhere = sWhere + " BANK_CODE=" + cmbBank.SelectedValue;
-                }
-
-                if (!string.IsNullOrEmpty(cmbBranch.Text) && !string.IsNullOrEmpty(sWhere))
-                {
-                    sWhere = sWhere + " AND BRANCH_CODE=" + cmbBranch.SelectedValue;
-                }
-                else if (!string.IsNullOrEmpty(cmbBranch.Text))
-                {
-                    sWhere = sWhere + " BRANCH_CODE=" + cmbBranch.SelectedValue;
-                }
-
-                if (!string.IsNullOrEmpty(cmbNubeBranch.Text) && !string.IsNullOrEmpty(sWhere))
-                {
-                    sWhere = sWhere + " AND NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
-                }
-                else if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
-                {
-                    sWhere = sWhere + " NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
-                }
-
-                if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(txtMemberNoTo.Text) && !string.IsNullOrEmpty(sWhere))
-                {
-                    sWhere = sWhere + string.Format(" AND MEMBER_ID >={0} AND MEMBER_ID<={1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
-                }
-                else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(txtMemberNoTo.Text))
-                {
-                    sWhere = sWhere + string.Format(" MEMBER_ID >= {0} AND MEMBER_ID<={1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
-                }
-                else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(qry))
-                {
-                    sWhere = sWhere + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoFrom.Text);
-                }
-                else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text))
-                {
-                    sWhere = sWhere + string.Format(" MEMBER_ID ={0} ", txtMemberNoFrom.Text);
-                }
-                else if (!string.IsNullOrEmpty(txtMemberNoTo.Text) && !string.IsNullOrEmpty(sWhere))
-                {
-                    sWhere = sWhere + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoTo.Text);
-                }
-                else if (!string.IsNullOrEmpty(txtMemberNoTo.Text))
-                {
-                    sWhere = sWhere + string.Format(" MEMBER_ID ={0} ", txtMemberNoTo.Text);
-                }
-
-                if (!string.IsNullOrEmpty(sWhere))
-                {
-                    DataView dv = new DataView(dt);
-                    dv.RowFilter = sWhere;
-                    dt = dv.ToTable();
-                    int i = 0;
-                    foreach (DataRow row in dt.Rows)
+                    if (!string.IsNullOrEmpty(cmbBank.Text))
                     {
-                        row["RNO"] = i + 1;
-                        i++;
+                        sWhere = sWhere + " BANK_CODE=" + cmbBank.SelectedValue;
                     }
-                }
+
+                    if (!string.IsNullOrEmpty(cmbBranch.Text) && !string.IsNullOrEmpty(sWhere))
+                    {
+                        sWhere = sWhere + " AND BRANCH_CODE=" + cmbBranch.SelectedValue;
+                    }
+                    else if (!string.IsNullOrEmpty(cmbBranch.Text))
+                    {
+                        sWhere = sWhere + " BRANCH_CODE=" + cmbBranch.SelectedValue;
+                    }
+
+                    if (!string.IsNullOrEmpty(cmbNubeBranch.Text) && !string.IsNullOrEmpty(sWhere))
+                    {
+                        sWhere = sWhere + " AND NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
+                    }
+                    else if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                    {
+                        sWhere = sWhere + " NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
+                    }
+
+                    if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(txtMemberNoTo.Text) && !string.IsNullOrEmpty(sWhere))
+                    {
+                        sWhere = sWhere + string.Format(" AND MEMBER_ID >={0} AND MEMBER_ID<={1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                    }
+                    else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(txtMemberNoTo.Text))
+                    {
+                        sWhere = sWhere + string.Format(" MEMBER_ID >= {0} AND MEMBER_ID<={1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                    }
+                    else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(qry))
+                    {
+                        sWhere = sWhere + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                    }
+                    else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text))
+                    {
+                        sWhere = sWhere + string.Format(" MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                    }
+                    else if (!string.IsNullOrEmpty(txtMemberNoTo.Text) && !string.IsNullOrEmpty(sWhere))
+                    {
+                        sWhere = sWhere + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoTo.Text);
+                    }
+                    else if (!string.IsNullOrEmpty(txtMemberNoTo.Text))
+                    {
+                        sWhere = sWhere + string.Format(" MEMBER_ID ={0} ", txtMemberNoTo.Text);
+                    }
+
+                    if (!string.IsNullOrEmpty(sWhere))
+                    {
+                        DataView dv = new DataView(dt);
+                        dv.RowFilter = sWhere;
+                        dt = dv.ToTable();
+                        int i = 0;
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            row["RNO"] = i + 1;
+                            i++;
+                        }
+                    }
+                }                
             }
             return dt;
         }

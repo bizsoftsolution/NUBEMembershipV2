@@ -357,8 +357,6 @@
                                 <DataGridTextColumn Header="RELATION_CODE" FontWeight="Bold" Width="100" Binding="{Binding RELATION_CODE }" Visibility="Hidden"/>
                             </DataGrid.Columns>
                         </DataGrid>
-
-
                     </Grid>
                 </TabItem>
 
@@ -406,37 +404,35 @@
                     </Grid>
                 </TabItem>
 
-                <!--<TabItem Header="Insurance Details" FontSize="14">
+                <TabItem Header="Photo" x:Name="tiPhoto" FontSize="14">
                     <Grid>
-                        <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="875" Margin="0,2,-10,118" />
-                        <TextBox x:Name="txtInsName" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="21,83,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="298"/>
-                        <ComboBox x:Name="cmbInsRelation" FontWeight="Bold" Background="White" Margin="135,140,546,0" VerticalAlignment="Top" IsEditable="True" materialDesign:HintAssist.Hint="Relationship"  materialDesign:HintAssist.HintOpacity=".26"/>
-                        <TextBox x:Name="txtInsAge" FontWeight="Bold" HorizontalAlignment="Left" Height="52" Margin="341,71,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Age" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="84" RenderTransformOrigin="-0.014,0.175" />
-                        <TextBlock x:Name="lblInsYears" FontWeight="Bold" HorizontalAlignment="Left" Margin="430,96,0,0" TextWrapping="Wrap" Text="Years" VerticalAlignment="Top" Width="41" RenderTransformOrigin="-0.049,-1.289"/>
-                        <TextBox x:Name="txtInsICNO" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="341,126,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="NRIC-N" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="214"/>
-                        <ComboBox x:Name="cmbInsSex" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="654,96,0,0" VerticalAlignment="Top" Width="171" IsEditable="True" materialDesign:HintAssist.Hint="SEX"  materialDesign:HintAssist.HintOpacity=".26" RenderTransformOrigin="0.586,-0.72">
-                            <ComboBoxItem>Male</ComboBoxItem>
-                            <ComboBoxItem>Female</ComboBoxItem>
-                        </ComboBox>
-                        <TextBlock x:Name="lblInsSex" FontWeight="Bold" HorizontalAlignment="Left" Margin="600,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="54" RenderTransformOrigin="1.854,0.368"><Run Text="SEX"/><LineBreak/><Run/></TextBlock>
-                        <TextBox x:Name="txtInsOldICNO" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="600,126,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="NRIC-O" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.205,0.625"/>
-                        <ComboBox x:Name="cmbInsCity" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="384,186,0,0" VerticalAlignment="Top" Width="171" IsEditable="True" materialDesign:HintAssist.Hint="City"  materialDesign:HintAssist.HintOpacity=".26"/>
-                        <TextBox x:Name="txtInsZipCode" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="600,171,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Postal code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="225" RenderTransformOrigin="-0.205,0.625"/>
-                        <ComboBox x:Name="cmbInsState" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="384,231,0,0" VerticalAlignment="Top" Width="171" IsEditable="True" materialDesign:HintAssist.Hint="State"  materialDesign:HintAssist.HintOpacity=".26"/>
-                        <TextBox x:Name="txtInsCountry" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="600,216,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Country" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="231" RenderTransformOrigin="-0.205,0.625"/>
-                        <TextBox x:Name="txtInsPhNo" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="643,261,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Phone No" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="182" RenderTransformOrigin="-0.205,0.625"/>
-                        <TextBox x:Name="txtNInsMobileNo" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="384,261,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Mobile No" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="171" RenderTransformOrigin="-0.205,0.625" />
-                        <materialDesign:PackIcon Kind="Phone" Foreground="{Binding BorderBrush, ElementName=txtGurMobileNo}" Margin="341,261,0,0" Height="40" Width="38"/>
-                        <materialDesign:PackIcon Kind="Phone" Foreground="{Binding BorderBrush, ElementName=txtGurPhNo}" Margin="600,261,0,0" Height="40" Width="38"/>
-                        <TextBlock x:Name="lblInsCity" FontWeight="Bold" HorizontalAlignment="Left" Margin="341,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.854,0.368" Height="25" Text="City"/>
-                        <TextBlock x:Name="lblInsCity_Copy" FontWeight="Bold" HorizontalAlignment="Left" Margin="341,231,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="38" RenderTransformOrigin="1.854,0.368" Height="25" Text="State"/>
-                        <TextBlock x:Name="lblInsCity_Copy1" FontWeight="Bold" HorizontalAlignment="Left" Margin="21,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="94" RenderTransformOrigin="1.854,0.368" Height="25" Text="Relationship"/>
-                        <TextBox x:Name="txtInsAddress" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="21,171,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="298" RenderTransformOrigin="-0.205,0.625" />
-                        <TextBox x:Name="txtInsAddress2" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="21,216,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address 2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="298" RenderTransformOrigin="-0.205,0.625" />
-                        <TextBox x:Name="txtInsAddress3" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="21,261,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Address 3" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="298" RenderTransformOrigin="-0.205,0.625" />
-
+                        <WebBrowser  x:Name="wbPhoto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                     </Grid>
-                </TabItem>-->
+                </TabItem>
+
+                <TabItem Header="Digital Signature"  x:Name="tiDigitalSignature" FontSize="14">
+                    <Grid>
+                        <WebBrowser  x:Name="wbDigitalSignature" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="IC"  x:Name="tiIC" FontSize="14">
+                    <Grid>
+                        <WebBrowser  x:Name="wbIC" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Employment Letter"  x:Name="tiEmploymentLetter" FontSize="14">
+                    <Grid>
+                        <WebBrowser  x:Name="wbEmploymentLetter" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </Grid>
+                </TabItem>
+
+                <TabItem Header="Prove of Payment"  x:Name="tiProveofPayment" FontSize="14">
+                    <Grid>
+                        <WebBrowser  x:Name="wbProveofPayment" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+                    </Grid>
+                </TabItem>
 
             </TabControl>
 

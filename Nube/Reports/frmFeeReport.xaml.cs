@@ -293,7 +293,7 @@ namespace Nube.Reports
                     if (rbtnNotMatch.IsChecked == true || rbtnUnPaid.IsChecked == true)
                     {
                         str = " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID, \r" +
-                        " ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC, \r" +
+                        " ISNULL(MM.MEMBER_NAME,FD.MEMBERNAME_BANK)MEMBER_NAME,CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE ISNULL(FD.NRIC_Bank,'') END NRIC, \r" +
                         " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON \r" +
                         " FROM FEESDETAILSNOTMATCH FD(NOLOCK) \r" +
                         " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID=FD.FEEID \r" +
@@ -326,7 +326,7 @@ namespace Nube.Reports
                          sWhere + sWhere2 + "\r" +
                          " UNION ALL\r" +
                          " SELECT '' NO, FD.DETAILID, FD.FEEID, FD.MEMBERCODE, ISNULL(MM.MEMBER_ID, 0)MEMBERID,\r" +
-                         " ISNULL(MM.MEMBER_NAME, '')MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,\r" +
+                         " ISNULL(MM.MEMBER_NAME,FD.MEMBERNAME_BANK)MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE ISNULL(FD.NRIC_Bank,'') END NRIC,\r" +
                          " FD.TOTALAMOUNT, ISNULL(FD.DEPT, '')DEPT, FD.AMOUNTBF, AMOUNTINS, AMTSUBS, ISNULL(REASON, '')REASON\r" +
                          " FROM FEESDETAILSNOTMATCH FD(NOLOCK)\r" +
                          " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID\r" +

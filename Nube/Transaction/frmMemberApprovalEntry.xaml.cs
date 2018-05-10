@@ -300,7 +300,7 @@ namespace Nube.Transaction
 
                             int iMemberCode = Convert.ToInt32(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
 
-                            var ni = (from x in db.NomineeInsertBranches where x.MEMBER_CODE == dMemberCode select x).FirstOrDefault();
+                            var ni = (from x in db.MASTERNOMINEEs where x.MEMBER_CODE == dMemberCode select x).FirstOrDefault();
                             if (ni != null)
                             {
                                 MASTERNOMINEE mn = new MASTERNOMINEE();
@@ -480,6 +480,7 @@ namespace Nube.Transaction
                     SqlCommand cmd;
                     cmd = new SqlCommand("SPMEMBERAPPROVAL", con);
                     cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.Add(new SqlParameter("@STATUS", "0"));
                     SqlDataAdapter adp = new SqlDataAdapter(cmd);
                     progressBar1.Value = 5;
                     System.Windows.Forms.Application.DoEvents();

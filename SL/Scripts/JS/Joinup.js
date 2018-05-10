@@ -47,6 +47,7 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
                     _this.MemberAttachment(resMember.MEMBER_CODE, "fDSign", $('#fDSign')[0]);
                     _this.MemberAttachment(resMember.MEMBER_CODE, "fIC", $('#fIC')[0]);
                     _this.MemberAttachment(resMember.MEMBER_CODE, "fELetter", $('#fELetter')[0]);
+                    _this.MemberAttachment(resMember.MEMBER_CODE, "fEPPayment", $('#fEPPayment')[0]);
                     if (_this.nominee() == "Yes") {
                         ko.utils.arrayForEach(_this.nomineeList(), function (n) {
                             n.MEMBER_CODE(resMember.MEMBER_CODE);

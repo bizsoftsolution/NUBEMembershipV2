@@ -92,6 +92,11 @@ namespace Nube
                     }
                 }
             }
+            else if (string.IsNullOrEmpty(dtpFromDate.Text) && string.IsNullOrEmpty(dtpToDate.Text))
+            {
+                MessageBox.Show("Date is Empty!", "Empty");
+                dtpFromDate.Focus();
+            }
             else
             {
                 LoadReport();
@@ -353,7 +358,7 @@ namespace Nube
                     else
                     {
                         qry = qry + string.Format(" AND RESIGNATION_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
-                    }                    
+                    }
                 }
 
                 cmd = new SqlCommand("SELECT * FROM VIEWMASTERMEMBER(NOLOCK)  where " + qry + " ORDER BY MEMBER_NAME", con);

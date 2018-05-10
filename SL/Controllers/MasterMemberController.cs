@@ -10,8 +10,7 @@ using System.IO;
 namespace SL.Controllers
 {
     public class MasterMemberController : Controller
-    {
-        DAL.nubebfsEntities db = new DAL.nubebfsEntities();
+    {       
         // GET: MasterMember
         public ActionResult Index()
         {
@@ -23,6 +22,7 @@ namespace SL.Controllers
         {
             try
             {
+                DAL.nubebfsEntities db = new DAL.nubebfsEntities();
                 if (string.IsNullOrWhiteSpace(wm.MEMBER_NAME))
                 {
                     return Json(new { isSaved = false, ErrMsg = "Member Name is Empty" }, JsonRequestBehavior.AllowGet);
@@ -145,6 +145,7 @@ namespace SL.Controllers
         {
             try
             {
+                DAL.nubebfsEntities db = new DAL.nubebfsEntities();
                 var l1 = db.SPMEMBERSHIPTOLIST(iApproveState).ToList();
                 if (l1 != null)
                 {
@@ -167,6 +168,7 @@ namespace SL.Controllers
         {
             try
             {
+                DAL.nubebfsEntities db = new DAL.nubebfsEntities();
                 var wm = (from x in db.MemberInsertBranches where x.MEMBER_CODE == MemberCode select x).FirstOrDefault();
                 if (wm != null)
                 {
@@ -285,6 +287,7 @@ namespace SL.Controllers
         {
             try
             {
+                DAL.nubebfsEntities db = new DAL.nubebfsEntities();
                 var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == MemberCode select x).FirstOrDefault();
                 if (mm != null)
                 {
@@ -322,13 +325,13 @@ namespace SL.Controllers
             }
         }
 
-
         [NubeCrossSiteAttribute]
         public JsonResult AttachmentUpload(int MemberCode, string AttachmentName, HttpPostedFileBase AttachmentData)
         {
             try
             {
-                if (AttachmentData != null)
+                DAL.nubebfsEntities db = new DAL.nubebfsEntities();
+                if (AttachmentData != null && AttachmentData.ContentLength>0)
                 {
                     byte[] fDatas;
                     using (BinaryReader br = new BinaryReader(AttachmentData.InputStream))
@@ -349,9 +352,7 @@ namespace SL.Controllers
                 else
                 {
                     return Json(new { ErrMsg = "Attachment Not Found" }, JsonRequestBehavior.AllowGet);
-                }
-                
-
+                }                
             }
             catch (Exception ex)
             {
@@ -359,11 +360,12 @@ namespace SL.Controllers
             }
         }
 
+        [NubeCrossSiteAttribute]
         public FileResult AttachmentDownload(int MemberCode, string AttachmentName)
         {
             try
             {
-                nubebfsEntities db = new nubebfsEntities();
+                DAL.nubebfsEntities db = new DAL.nubebfsEntities();
                 var d = db.MembershipAttachments.FirstOrDefault(x => x.MemberCode == MemberCode && x.AttachmentName == AttachmentName);
                 return File(d.AttachmentData, d.FileType, d.FileName);
             }

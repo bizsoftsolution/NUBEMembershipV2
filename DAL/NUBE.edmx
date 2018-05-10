@@ -352,10 +352,10 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MemberCode" Type="int" />
-          <Property Name="AttachmentName" Type="varchar" MaxLength="50" />
+          <Property Name="AttachmentName" Type="varchar" MaxLength="200" />
           <Property Name="AttachmentData" Type="varbinary(max)" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="100" />
-          <Property Name="FileType" Type="varchar" MaxLength="50" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="300" />
+          <Property Name="FileType" Type="varchar" MaxLength="200" />
           <Property Name="EntryDate" Type="datetime" />
         </EntityType>
         <EntityType Name="NomineeInsertBranch">
@@ -394,9 +394,6 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="UserType" Type="int" />
         </EntityType>
-        <Function Name="SPMEMBERSHIPTOLIST" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="APPROVEDSTATE" Type="int" Mode="In" />
-        </Function>
         <EntityContainer Name="nubev2ModelStoreContainer">
           <EntitySet Name="CountrySetup" EntityType="Self.CountrySetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuardianInsertBranch" EntityType="Self.GuardianInsertBranch" Schema="dbo" store:Type="Tables" />
@@ -599,11 +596,11 @@
           <EntitySet Name="CountrySetups" EntityType="nubev2Model.CountrySetup" />
           <EntitySet Name="UserAccounts" EntityType="nubev2Model.UserAccount" />
           <EntitySet Name="MemberInsertBranches" EntityType="nubev2Model.MemberInsertBranch" />
-          <EntitySet Name="MembershipAttachments" EntityType="nubev2Model.MembershipAttachment" />
           <FunctionImport Name="SPMEMBERSHIPTOLIST" ReturnType="Collection(nubev2Model.SPMEMBERSHIPTOLIST_Result)">
           <Parameter Name="APPROVEDSTATE" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="MASTERMEMBERs" EntityType="nubev2Model.MASTERMEMBER" />
+          <EntitySet Name="MembershipAttachments" EntityType="nubev2Model.MembershipAttachment" />
         </EntityContainer>
         <EntityType Name="GuardianInsertBranch">
           <Key>
@@ -728,18 +725,6 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="IsApproved" Type="Int32" Nullable="false" />
           <Property Name="Occupation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="MembershipAttachment">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MemberCode" Type="Int32" />
-          <Property Name="AttachmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="AttachmentData" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="FileType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EntryDate" Type="DateTime" Precision="3" />
         </EntityType>
         <ComplexType Name="SPMEMBERSHIPTOLIST_Result">
           <Property Type="Decimal" Name="MEMBER_CODE" Nullable="false" Precision="10" Scale="0" />
@@ -889,6 +874,18 @@
           <Property Name="GE_Insurance" Type="Boolean" Nullable="false" />
           <Property Name="GE_ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BranchMemberCode" Type="Int32" />
+        </EntityType>
+        <EntityType Name="MembershipAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberCode" Type="Int32" />
+          <Property Name="AttachmentName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AttachmentData" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="FileName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="FileType" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EntryDate" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1198,82 +1195,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MembershipAttachments">
-            <EntityTypeMapping TypeName="nubev2Model.MembershipAttachment">
-              <MappingFragment StoreEntitySet="MembershipAttachment">
-                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
-                <ScalarProperty Name="FileType" ColumnName="FileType" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
-                <ScalarProperty Name="AttachmentData" ColumnName="AttachmentData" />
-                <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
-                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="SPMEMBERSHIPTOLIST" FunctionName="nubev2Model.Store.SPMEMBERSHIPTOLIST">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="nubev2Model.SPMEMBERSHIPTOLIST_Result">
-                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
-                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
-                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
-                <ScalarProperty Name="MEMBER_TITLE" ColumnName="MEMBER_TITLE" />
-                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
-                <ScalarProperty Name="ICNO_NEW" ColumnName="ICNO_NEW" />
-                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
-                <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
-                <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
-                <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
-                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
-                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
-                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
-                <ScalarProperty Name="CITY_CODE" ColumnName="CITY_CODE" />
-                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
-                <ScalarProperty Name="STATE_CODE" ColumnName="STATE_CODE" />
-                <ScalarProperty Name="STATE_NAME" ColumnName="STATE_NAME" />
-                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
-                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
-                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
-                <ScalarProperty Name="AGE_IN_YEARS" ColumnName="AGE_IN_YEARS" />
-                <ScalarProperty Name="DATEOFEMPLOYMENT" ColumnName="DATEOFEMPLOYMENT" />
-                <ScalarProperty Name="MEMBERTYPE_CODE" ColumnName="MEMBERTYPE_CODE" />
-                <ScalarProperty Name="MEMBERTYPE_NAME" ColumnName="MEMBERTYPE_NAME" />
-                <ScalarProperty Name="SEX" ColumnName="SEX" />
-                <ScalarProperty Name="RACE_CODE" ColumnName="RACE_CODE" />
-                <ScalarProperty Name="RACE_NAME" ColumnName="RACE_NAME" />
-                <ScalarProperty Name="REJOINED" ColumnName="REJOINED" />
-                <ScalarProperty Name="LEVY" ColumnName="LEVY" />
-                <ScalarProperty Name="TOTALMONTHSPAID" ColumnName="TOTALMONTHSPAID" />
-                <ScalarProperty Name="ENTRANCEFEE" ColumnName="ENTRANCEFEE" />
-                <ScalarProperty Name="HQFEE" ColumnName="HQFEE" />
-                <ScalarProperty Name="MONTHLYBF" ColumnName="MONTHLYBF" />
-                <ScalarProperty Name="MONTHLYSUBSCRIPTION" ColumnName="MONTHLYSUBSCRIPTION" />
-                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
-                <ScalarProperty Name="ACCSUBSCRIPTION" ColumnName="ACCSUBSCRIPTION" />
-                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
-                <ScalarProperty Name="CURRENT_YTDBF" ColumnName="CURRENT_YTDBF" />
-                <ScalarProperty Name="CURRENT_YTDSUBSCRIPTION" ColumnName="CURRENT_YTDSUBSCRIPTION" />
-                <ScalarProperty Name="RESIGNED" ColumnName="RESIGNED" />
-                <ScalarProperty Name="SALARY" ColumnName="SALARY" />
-                <ScalarProperty Name="BATCHAMT" ColumnName="BATCHAMT" />
-                <ScalarProperty Name="LEVY_AMOUNT" ColumnName="LEVY_AMOUNT" />
-                <ScalarProperty Name="TDF" ColumnName="TDF" />
-                <ScalarProperty Name="TDF_AMOUNT" ColumnName="TDF_AMOUNT" />
-                <ScalarProperty Name="LEVYPAYMENTDATE" ColumnName="LEVYPAYMENTDATE" />
-                <ScalarProperty Name="TDF_PAYMENTDATE" ColumnName="TDF_PAYMENTDATE" />
-                <ScalarProperty Name="CREATEDON" ColumnName="CREATEDON" />
-                <ScalarProperty Name="CREATEDBY" ColumnName="CREATEDBY" />
-                <ScalarProperty Name="UPDATEDON" ColumnName="UPDATEDON" />
-                <ScalarProperty Name="UPDATEDBY" ColumnName="UPDATEDBY" />
-                <ScalarProperty Name="ISAPPROVED" ColumnName="ISAPPROVED" />
-                <ScalarProperty Name="OCCUPATION" ColumnName="OCCUPATION" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <EntitySetMapping Name="MASTERMEMBERs">
             <EntityTypeMapping TypeName="nubev2Model.MASTERMEMBER">
               <MappingFragment StoreEntitySet="MASTERMEMBER">
@@ -1362,6 +1283,19 @@
                 <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
                 <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
                 <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MembershipAttachments">
+            <EntityTypeMapping TypeName="nubev2Model.MembershipAttachment">
+              <MappingFragment StoreEntitySet="MembershipAttachment">
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="AttachmentData" ColumnName="AttachmentData" />
+                <ScalarProperty Name="AttachmentName" ColumnName="AttachmentName" />
+                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
