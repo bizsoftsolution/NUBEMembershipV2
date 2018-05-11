@@ -25,11 +25,11 @@ class MASTERMEMBER {
     DATEOFBIRTH: KnockoutObservable<Date>;
     AGE_IN_YEARS: KnockoutObservable<number>;
     DATEOFEMPLOYMENT: KnockoutObservable<Date>;
-    MEMBERTYPE_CODE: KnockoutObservable<number>;
+    MEMBERTYPE_CODE: KnockoutObservable<string>;
     SEX: KnockoutObservable<string>;
     RACE_CODE: KnockoutObservable<number>;
     OCCUPATION: KnockoutObservable<string>;
-    REJOINED: KnockoutObservable<boolean>;
+    REJOINED: KnockoutObservable<string>;
 
     constructor() {
 
@@ -57,10 +57,10 @@ class MASTERMEMBER {
         this.DATEOFBIRTH = ko.observable<Date>();
         this.AGE_IN_YEARS = ko.observable<number>();
         this.DATEOFEMPLOYMENT = ko.observable<Date>();
-        this.MEMBERTYPE_CODE = ko.observable<number>();
+        this.MEMBERTYPE_CODE = ko.observable<string>();
         this.SEX = ko.observable<string>();
         this.RACE_CODE = ko.observable<number>();
-        this.REJOINED = ko.observable<boolean>();
+        this.REJOINED = ko.observable<string>();
         this.OCCUPATION = ko.observable<string>();;
 
 

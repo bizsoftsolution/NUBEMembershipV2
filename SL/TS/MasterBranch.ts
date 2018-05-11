@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout"
+import { AppLib } from "./AppLib";
 
 class MASTERBRANCH {
     BANKBRANCH_CODE: KnockoutObservable<number>;
@@ -37,7 +38,7 @@ class MASTERBRANCH {
     private static _toList: MASTERBRANCH[];
     static toList(BankCode:Number): any {        
         $.ajax({
-            url: 'http://localhost/MembershipTest/MasterBranch/tolist?Bank_Code=' + BankCode,
+            url: AppLib.SLURL + 'MasterBranch/tolist?Bank_Code=' + BankCode,
             type: 'get',
             async: false,
             cache: false,

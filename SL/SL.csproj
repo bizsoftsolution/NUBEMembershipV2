@@ -242,6 +242,7 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="Scripts\utils.js" />
+    <Content Include="Scripts\validation.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -321,6 +322,7 @@
     <TypeScriptCompile Include="node_modules\%40types\knockout\index.d.ts" />
     <TypeScriptCompile Include="node_modules\%40types\requirejs\index.d.ts" />
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <TypeScriptCompile Include="TS\AppLib.ts" />
     <TypeScriptCompile Include="TS\Joinup.ts" />
     <TypeScriptCompile Include="TS\koDatePicker.ts" />
     <TypeScriptCompile Include="TS\Main.ts" />

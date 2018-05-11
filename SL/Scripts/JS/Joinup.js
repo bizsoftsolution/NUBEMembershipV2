@@ -1,4 +1,4 @@
-define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterBank", "./MasterBranch", "./MasterRace", "./MASTERCITY", "./MASTERSTATE", "./MasterCountry", "./MasterNominee", "./MasterGuardian", "./MasterRelation", "bootstrap", "jqueryui", "knockout-jqAutocomplete"], function (require, exports, ko, $, MasterMember_1, MasterBank_1, MasterBranch_1, MasterRace_1, MASTERCITY_1, MASTERSTATE_1, MasterCountry_1, MasterNominee_1, MasterGuardian_1, MasterRelation_1) {
+define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterBank", "./MasterBranch", "./MasterRace", "./MASTERCITY", "./MASTERSTATE", "./MasterCountry", "./MasterNominee", "./MasterGuardian", "./MasterRelation", "./AppLib", "jquery-validation", "bootstrap", "jqueryui", "knockout-jqAutocomplete"], function (require, exports, ko, $, MasterMember_1, MasterBank_1, MasterBranch_1, MasterRace_1, MASTERCITY_1, MASTERSTATE_1, MasterCountry_1, MasterNominee_1, MasterGuardian_1, MasterRelation_1, AppLib_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Joinup = /** @class */ (function () {
@@ -8,6 +8,8 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
             this.dataGuardian = new MasterGuardian_1.MASTERGUARDIAN();
             this.nomineeList = ko.observableArray();
             this.AddNominee();
+            this.data.MEMBERTYPE_CODE = ko.observable("2");
+            this.data.REJOINED = ko.observable("0");
             this.nominee = ko.observable("No");
             this.Guardian = ko.observable("No");
             this.bankList = MasterBank_1.MASTERBANK.toList();
@@ -25,7 +27,7 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
                 mFiles.append('AttachmentName', AttachmentName);
                 mFiles.append('AttachmentData', file.files[0]);
                 $.ajax({
-                    url: 'http://localhost/MembershipTest/MasterMember/AttachmentUpload',
+                    url: AppLib_1.AppLib.SLURL + 'MasterMember/AttachmentUpload',
                     type: "POST",
                     data: mFiles,
                     processData: false,
@@ -38,32 +40,39 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
         };
         Joinup.prototype.btnSave = function () {
             var _this = this;
-            var d = ko.toJS(this.data);
-            console.log(d);
-            $.post('http://localhost/MembershipTest/MasterMember/Insert', d, function (resMember) {
-                console.log(resMember);
-                if (resMember.isSaved) {
-                    _this.MemberAttachment(resMember.MEMBER_CODE, "fPhoto", $('#fPhoto')[0]);
-                    _this.MemberAttachment(resMember.MEMBER_CODE, "fDSign", $('#fDSign')[0]);
-                    _this.MemberAttachment(resMember.MEMBER_CODE, "fIC", $('#fIC')[0]);
-                    _this.MemberAttachment(resMember.MEMBER_CODE, "fELetter", $('#fELetter')[0]);
-                    _this.MemberAttachment(resMember.MEMBER_CODE, "fEPPayment", $('#fEPPayment')[0]);
-                    if (_this.nominee() == "Yes") {
-                        ko.utils.arrayForEach(_this.nomineeList(), function (n) {
-                            n.MEMBER_CODE(resMember.MEMBER_CODE);
-                            var dN = ko.toJS(n);
-                            $.post('http://localhost/MembershipTest/Nominee/Insert', dN, function (resNominee) {
+            if (!$('#frmMember').valid()) {
+                alert("Please enter  the all required data");
+            }
+            else {
+                var d = ko.toJS(this.data);
+                console.log(d);
+                $.post(AppLib_1.AppLib.SLURL + 'MasterMember/Insert', d, function (resMember) {
+                    console.log(resMember);
+                    if (resMember.isSaved) {
+                        _this.MemberAttachment(resMember.MEMBER_CODE, "fPhoto", $('#fPhoto')[0]);
+                        _this.MemberAttachment(resMember.MEMBER_CODE, "fDSign", $('#fDSign')[0]);
+                        _this.MemberAttachment(resMember.MEMBER_CODE, "fIC", $('#fIC')[0]);
+                        _this.MemberAttachment(resMember.MEMBER_CODE, "fELetter", $('#fELetter')[0]);
+                        _this.MemberAttachment(resMember.MEMBER_CODE, "fEPPayment", $('#fEPPayment')[0]);
+                        if (_this.nominee() == "Yes") {
+                            ko.utils.arrayForEach(_this.nomineeList(), function (n) {
+                                n.MEMBER_CODE(resMember.MEMBER_CODE);
+                                var dN = ko.toJS(n);
+                                $.post(AppLib_1.AppLib.SLURL + 'Nominee/Insert', dN, function (resNominee) {
+                                });
                             });
-                        });
+                        }
+                        if (_this.Guardian() == "Yes") {
+                            _this.dataGuardian.MEMBER_CODE(resMember.MEMBER_CODE);
+                            var dG = ko.toJS(_this.dataGuardian);
+                            $.post(AppLib_1.AppLib.SLURL + 'Guardian/Insert', dG, function (resGuardian) {
+                            });
+                        }
+                        alert("Your Data's Saved Successfully !");
+                        window.location.replace("http://www.nube.org.my");
                     }
-                    if (_this.Guardian() == "Yes") {
-                        _this.dataGuardian.MEMBER_CODE(resMember.MEMBER_CODE);
-                        var dG = ko.toJS(_this.dataGuardian);
-                        $.post('http://localhost/MembershipTest/Guardian/Insert', dG, function (resGuardian) {
-                        });
-                    }
-                }
-            });
+                });
+            }
         };
         Joinup.prototype.AddNominee = function () {
             this.nomineeList.push(new MasterNominee_1.MASTERNOMINEE());
@@ -80,7 +89,10 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
     exports.Joinup = Joinup;
     Joinup.joinupVM = new Joinup();
     ko.applyBindings(Joinup.joinupVM);
-    var dateOption = { dateFormat: 'dd/mm/yy' };
+    var dateOption = {
+        dateFormat: 'dd/mm/yy', changeMonth: true,
+        changeYear: true, yearRange: "-100:+0"
+    };
     $('#dob').datepicker(dateOption);
     $('#doe').datepicker(dateOption);
     $('#dob').change(function (e) {
@@ -90,6 +102,32 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
     $('#doe').change(function (e) {
         var dt = $(e.target).datepicker('getDate');
         Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt);
+    });
+    $('#frmMember').validate({
+        rules: {
+            dob: {
+                required: true,
+                date: true
+            },
+            MEMBERTYPE_CODE: {
+                required: true
+            },
+            REJOINED: {
+                required: true
+            },
+            BANK_NAME: {
+                required: true
+            },
+            BANKBRANCH_NAME: {
+                required: true
+            },
+            SALARY: {
+                required: true
+            },
+            RACE_NAME: {
+                required: true
+            },
+        }
     });
 });
 //# sourceMappingURL=Joinup.js.map

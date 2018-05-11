@@ -1,7 +1,10 @@
-﻿require.config({
+﻿
+require.config({
     shim: {
         "bootstrap": { "deps": ['jquery'] },
-        "jqueryui": { "deps": ['jquery'] }
+        "jqueryui": { "deps": ['jquery'] },
+        "jquery-validation": { "deps": ['jquery'] }
+
     },
     paths: {
         "knockout": "knockout-3.4.2",
@@ -13,7 +16,8 @@
         "datepicker": "datepicker",
         "utils":"utils",
         "knockout-jqAutocomplete": "knockout-jqAutocomplete",
-        "knockout-jqueryui":"knockout-jqueryui"
+        "knockout-jqueryui": "knockout-jqueryui",
+        "jquery-validation":"validation.min"
     },
-    baseUrl:'http://localhost/MembershipTest/Scripts/'
+    baseUrl: 'http://localhost/MembershipTest/Scripts/'
 });

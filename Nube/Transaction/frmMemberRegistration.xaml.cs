@@ -3182,39 +3182,25 @@ namespace Nube.Transaction
                 string sURL = "";
                 if (rbtPhoto.IsChecked == true)
                 {
-                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fPhoto";
+                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fPhoto";
                 }
                 else if (rbtDSign.IsChecked == true)
                 {
-                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fDSign";
+                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fDSign";
                 }
                 else if (rbtELetter.IsChecked == true)
                 {
-                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fELetter";
+                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fELetter";
                 }
                 else if (rbtIC.IsChecked == true)
                 {
-                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fIC";
+                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fIC";
                 }
                 else if (rbtEPPayment.IsChecked == true)
                 {
-                    sURL = "http://localhost/MembershipTest/MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fEPPayment";
+                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fEPPayment";
                 }
-                wbPhoto.Navigate(sURL);
-
-                //wbPhoto.Source = new Uri(sURL);
-                //string[] SplitHTML = fileName.Split('.');
-                //string NameNoExt = SplitHTML[0];
-                //string FileAsHtml = NameNoExt + ".html";
-
-                ////Word with the document
-                //Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
-                //Microsoft.Office.Interop.Word.Document _doc = wordApp.Documents.Open(uri);
-                //_doc.SaveAs2(FileAsHtml, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatHTML);
-                //_doc.Close(false);
-                //wordApp.Quit();
-                //System.Runtime.InteropServices.Marshal.ReleaseComObject(_doc);
-                //browser.Navigate(FileAsHtml);
+                wbPhoto.Navigate(sURL);               
             }
             catch (Exception ex)
             {

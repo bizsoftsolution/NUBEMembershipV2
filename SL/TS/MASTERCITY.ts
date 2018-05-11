@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import { AppLib } from "./AppLib";
 
 class MASTERCITY {
     CITY_CODE: KnockoutObservable<number>;
@@ -16,7 +17,7 @@ class MASTERCITY {
     static toList(): any {
         if (MASTERCITY._toList == undefined) {
             $.ajax({
-                url: 'http://localhost/MembershipTest/MasterCity/tolist',
+                url: AppLib.SLURL + 'MasterCity/tolist',
                 type: 'get',
                 async: false,
                 cache: false,

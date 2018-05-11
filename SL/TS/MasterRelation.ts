@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout"
+import { AppLib } from "./AppLib";
 
 class MASTERRELATION {
     RELATION_CODE: KnockoutObservable<number>;
@@ -14,7 +15,7 @@ class MASTERRELATION {
     static toList(): any {
         if (MASTERRELATION._toList == undefined) {
             $.ajax({
-                url: 'http://localhost/MembershipTest/MasterRelation/tolist',
+                url: AppLib.SLURL+ 'MasterRelation/tolist',
                 type: 'get',
                 async: false,
                 cache: false,

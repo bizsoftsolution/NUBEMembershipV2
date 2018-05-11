@@ -1,4 +1,4 @@
-define(["require", "exports", "knockout"], function (require, exports, ko) {
+define(["require", "exports", "knockout", "./AppLib"], function (require, exports, ko, AppLib_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var MASTERGUARDIAN = /** @class */ (function () {
@@ -26,7 +26,7 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         MASTERGUARDIAN.toList = function () {
             if (MASTERGUARDIAN._toList == undefined) {
                 $.ajax({
-                    url: 'http://localhost/MembershipTest/MasterCity/tolist',
+                    url: AppLib_1.AppLib.SLURL + 'MasterCity/tolist',
                     type: 'get',
                     async: false,
                     cache: false,

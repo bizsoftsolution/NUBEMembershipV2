@@ -1,5 +1,6 @@
 ﻿import * as ko from "knockout";
 import * as $ from "jquery";
+import "jquery-validation";
 import "bootstrap";
 import "jqueryui";
 import "knockout-jqAutocomplete";
@@ -13,6 +14,7 @@ import { MASTERCOUNTRY } from "./MasterCountry";
 import { MASTERNOMINEE } from "./MasterNominee";
 import { MASTERGUARDIAN } from "./MasterGuardian";
 import { MASTERRELATION } from "./MasterRelation";
+import { AppLib } from "./AppLib";
 
 
 
@@ -37,6 +39,8 @@ class Joinup {
         this.nomineeList = ko.observableArray<MASTERNOMINEE>();
         this.AddNominee();
 
+        this.data.MEMBERTYPE_CODE = ko.observable<string>("2");
+        this.data.REJOINED = ko.observable<string>("0");
         this.nominee = ko.observable<string>("No");
         this.Guardian = ko.observable<string>("No");
 
@@ -46,7 +50,7 @@ class Joinup {
         this.cityList = MASTERCITY.toList();
         this.stateList = MASTERSTATE.toList();
         this.countryList = MASTERCOUNTRY.toList();
-        this.relationList = MASTERRELATION.toList();              
+        this.relationList = MASTERRELATION.toList();
     }
     MemberAttachment(Member_Code: string, AttachmentName: string, file: HTMLInputElement): void {
         if (file != undefined) {
@@ -56,7 +60,7 @@ class Joinup {
             mFiles.append('AttachmentName', AttachmentName);
             mFiles.append('AttachmentData', file.files[0]);
             $.ajax({
-                url: 'http://localhost/MembershipTest/MasterMember/AttachmentUpload',
+                url: AppLib.SLURL + 'MasterMember/AttachmentUpload',
                 type: "POST",
                 data: mFiles,
                 processData: false,
@@ -65,42 +69,49 @@ class Joinup {
                     console.log(d);
                 }
             });
-           
+
         }
     }
     btnSave(): void {
+        if (!$('#frmMember').valid()) {
+            alert("Please enter  the all required data");
+        }
+        else {
+            var d = ko.toJS(this.data);
+            console.log(d);
+            $.post(AppLib.SLURL + 'MasterMember/Insert', d, (resMember) => {
+                console.log(resMember);
+                if (resMember.isSaved) {
 
-        var d = ko.toJS(this.data);
-        console.log(d);
-        $.post('http://localhost/MembershipTest/MasterMember/Insert', d, (resMember) => {
-            console.log(resMember);
-            if (resMember.isSaved) {
+                    this.MemberAttachment(resMember.MEMBER_CODE, "fPhoto", $('#fPhoto')[0] as HTMLInputElement);
+                    this.MemberAttachment(resMember.MEMBER_CODE, "fDSign", $('#fDSign')[0] as HTMLInputElement);
+                    this.MemberAttachment(resMember.MEMBER_CODE, "fIC", $('#fIC')[0] as HTMLInputElement);
+                    this.MemberAttachment(resMember.MEMBER_CODE, "fELetter", $('#fELetter')[0] as HTMLInputElement);
+                    this.MemberAttachment(resMember.MEMBER_CODE, "fEPPayment", $('#fEPPayment')[0] as HTMLInputElement);
 
-                this.MemberAttachment(resMember.MEMBER_CODE, "fPhoto", $('#fPhoto')[0] as HTMLInputElement);
-                this.MemberAttachment(resMember.MEMBER_CODE, "fDSign", $('#fDSign')[0] as HTMLInputElement);
-                this.MemberAttachment(resMember.MEMBER_CODE, "fIC", $('#fIC')[0] as HTMLInputElement);
-                this.MemberAttachment(resMember.MEMBER_CODE, "fELetter", $('#fELetter')[0] as HTMLInputElement);
-                this.MemberAttachment(resMember.MEMBER_CODE, "fEPPayment", $('#fEPPayment')[0] as HTMLInputElement);
-               
-                if (this.nominee() == "Yes") {
-                    ko.utils.arrayForEach(this.nomineeList(), (n) => {
-                        n.MEMBER_CODE(resMember.MEMBER_CODE);
-                        var dN = ko.toJS(n);
-                        $.post('http://localhost/MembershipTest/Nominee/Insert', dN, (resNominee) => {
+                    if (this.nominee() == "Yes") {
+                        ko.utils.arrayForEach(this.nomineeList(), (n) => {
+                            n.MEMBER_CODE(resMember.MEMBER_CODE);
+                            var dN = ko.toJS(n);
+                            $.post(AppLib.SLURL + 'Nominee/Insert', dN, (resNominee) => {
+
+                            });
+                        });
+                    }
+
+                    if (this.Guardian() == "Yes") {
+                        this.dataGuardian.MEMBER_CODE(resMember.MEMBER_CODE);
+                        var dG = ko.toJS(this.dataGuardian);
+                        $.post(AppLib.SLURL + 'Guardian/Insert', dG, (resGuardian) => {
 
                         });
-                    });
+                    }
+                    alert("Your Data's Saved Successfully !");
+                    window.location.replace("http://www.nube.org.my");
                 }
+            });
+        }
 
-                if (this.Guardian() == "Yes") {
-                    this.dataGuardian.MEMBER_CODE(resMember.MEMBER_CODE);
-                    var dG = ko.toJS(this.dataGuardian);
-                    $.post('http://localhost/MembershipTest/Guardian/Insert', dG, (resGuardian) => {
-
-                    });
-                }
-            }
-        });
 
     }
 
@@ -116,12 +127,15 @@ class Joinup {
         }
     }
 
-    
+
 
 }
 Joinup.joinupVM = new Joinup();
 ko.applyBindings(Joinup.joinupVM);
-var dateOption = { dateFormat: 'dd/mm/yy' };
+var dateOption = {
+    dateFormat: 'dd/mm/yy', changeMonth: true,
+    changeYear: true, yearRange: "-100:+0"
+};
 $('#dob').datepicker(dateOption);
 $('#doe').datepicker(dateOption);
 
@@ -133,6 +147,34 @@ $('#doe').change((e) => {
     var dt = $(e.target).datepicker('getDate');
     Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt);
 });
+
+$('#frmMember').validate(
+    {
+        rules: {
+            dob: {
+                required: true,
+                date: true
+            },
+            MEMBERTYPE_CODE: {
+                required: true
+            },
+            REJOINED: {
+                required: true
+            },
+            BANK_NAME: {
+                required: true
+            },
+            BANKBRANCH_NAME: {
+                required: true
+            },
+            SALARY: {
+                required: true
+            },
+            RACE_NAME: {
+                required: true
+            },
+        }
+    });
 
 
 export { Joinup };

@@ -1,4 +1,5 @@
 ﻿import * as ko from "knockout";
+import { AppLib } from "./AppLib";
 
 class MASTERSTATE {
     STATE_CODE: KnockoutObservable<number>;
@@ -14,10 +15,10 @@ class MASTERSTATE {
 
 
     private static _toList: MASTERSTATE[];
-    static toList(): any {        
+    static toList(): any {
         if (MASTERSTATE._toList == undefined) {
             $.ajax({
-                url: 'http://localhost/MembershipTest/Masterstate/tolist',
+                url: AppLib.SLURL + 'Masterstate/tolist',
                 type: 'get',
                 async: false,
                 cache: false,
@@ -30,7 +31,7 @@ class MASTERSTATE {
                 },
             });
         }
-        
+
         return MASTERSTATE._toList;
     }
 }

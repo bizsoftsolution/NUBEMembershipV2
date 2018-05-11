@@ -1,4 +1,4 @@
-define(["require", "exports", "knockout"], function (require, exports, ko) {
+define(["require", "exports", "knockout", "./AppLib"], function (require, exports, ko, AppLib_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var MASTERBANK = /** @class */ (function () {
@@ -12,7 +12,7 @@ define(["require", "exports", "knockout"], function (require, exports, ko) {
         MASTERBANK.toList = function () {
             if (MASTERBANK._toList == undefined) {
                 $.ajax({
-                    url: 'http://localhost/MembershipTest/MasterBank/tolist',
+                    url: AppLib_1.AppLib.SLURL + 'MasterBank/tolist',
                     type: 'get',
                     async: false,
                     cache: false,
