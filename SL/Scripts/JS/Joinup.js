@@ -68,8 +68,7 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
                             $.post(AppLib_1.AppLib.SLURL + 'Guardian/Insert', dG, function (resGuardian) {
                             });
                         }
-                        alert("Your Data's Saved Successfully !");
-                        window.location.replace("http://www.nube.org.my");
+                        window.location.replace("Sucessfully");
                     }
                 });
             }
@@ -97,11 +96,11 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
     $('#doe').datepicker(dateOption);
     $('#dob').change(function (e) {
         var dt = $(e.target).datepicker('getDate');
-        Joinup.joinupVM.data.DATEOFBIRTH(dt);
+        Joinup.joinupVM.data.DATEOFBIRTH(dt.getFullYear() + "/" + dt.getMonth() + "/" + dt.getDay());
     });
     $('#doe').change(function (e) {
         var dt = $(e.target).datepicker('getDate');
-        Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt);
+        Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt.getFullYear() + "/" + dt.getMonth() + "/" + dt.getDay());
     });
     $('#frmMember').validate({
         rules: {

@@ -23,7 +23,7 @@ namespace Nube
         public static string AppName = "";
         public static string DBBFS = "nubebfs";
         public static string DBStatus = "nubestatus";
-        public static string SLURL = "http://localhost/MembershipTest/";
+        public static string SLURL = "http://membership.nube.org.my/";
         public static int iFundId = 0;
         //public static NubeAccountReport frmNubeAccountReport = new NubeAccountReport();
         public static string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["NUBEBFS"].ConnectionString;

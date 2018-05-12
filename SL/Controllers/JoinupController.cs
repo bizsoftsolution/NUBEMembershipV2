@@ -13,5 +13,10 @@ namespace SL.Controllers
         {
             return View();
         }
+
+        public ActionResult Sucessfully()
+        {
+            return View();
+        }
     }
 }

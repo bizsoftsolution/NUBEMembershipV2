@@ -19,5 +19,6 @@ require.config({
         "knockout-jqueryui": "knockout-jqueryui",
         "jquery-validation":"validation.min"
     },
-    baseUrl: 'http://localhost/MembershipTest/Scripts/'
+    baseUrl: 'http://membership.nube.org.my/Scripts/'
+    //baseUrl: 'http://localhost/MembershipTest/Scripts/'
 });

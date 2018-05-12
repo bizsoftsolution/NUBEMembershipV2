@@ -22,9 +22,9 @@ class MASTERMEMBER {
     MOBILE: KnockoutObservable<string>;
     EMAIL: KnockoutObservable<string>;
     DATEOFJOINING: KnockoutObservable<Date>;
-    DATEOFBIRTH: KnockoutObservable<Date>;
+    DATEOFBIRTH: KnockoutObservable<string>;
     AGE_IN_YEARS: KnockoutObservable<number>;
-    DATEOFEMPLOYMENT: KnockoutObservable<Date>;
+    DATEOFEMPLOYMENT: KnockoutObservable<string>;
     MEMBERTYPE_CODE: KnockoutObservable<string>;
     SEX: KnockoutObservable<string>;
     RACE_CODE: KnockoutObservable<number>;
@@ -54,9 +54,9 @@ class MASTERMEMBER {
         this.MOBILE = ko.observable<string>();
         this.EMAIL = ko.observable<string>();
         this.DATEOFJOINING = ko.observable<Date>();
-        this.DATEOFBIRTH = ko.observable<Date>();
+        this.DATEOFBIRTH = ko.observable<string>();
         this.AGE_IN_YEARS = ko.observable<number>();
-        this.DATEOFEMPLOYMENT = ko.observable<Date>();
+        this.DATEOFEMPLOYMENT = ko.observable<string>();
         this.MEMBERTYPE_CODE = ko.observable<string>();
         this.SEX = ko.observable<string>();
         this.RACE_CODE = ko.observable<number>();

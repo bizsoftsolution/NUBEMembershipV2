@@ -117,6 +117,8 @@ namespace Nube.Transaction
                                 frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, true);
                                 frm.Height = 600;
                                 frm.Width = 1000;
+                                frm.btnApprove.Visibility = Visibility.Visible;
+                                frm.btnDenied.Visibility = Visibility.Collapsed;
                                 frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                                 frm.btnNew.Visibility = Visibility.Collapsed;
                                 frm.btnSave.Visibility = Visibility.Collapsed;
@@ -128,6 +130,7 @@ namespace Nube.Transaction
                                 frm.btnNomAdd.Visibility = Visibility.Collapsed;
                                 frm.btnNomClear.Visibility = Visibility.Collapsed;
                                 frm.ShowDialog();
+                                filteration();
                             }
                             else
                             {
@@ -139,9 +142,11 @@ namespace Nube.Transaction
                             var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
                             if (mm != null)
                             {
-                                frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, true);
+                                frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, false);
                                 frm.Height = 600;
                                 frm.Width = 1000;
+                                frm.btnApprove.Visibility = Visibility.Collapsed;
+                                frm.btnDenied.Visibility = Visibility.Visible;
                                 frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                                 frm.btnNew.Visibility = Visibility.Collapsed;
                                 frm.btnSave.Visibility = Visibility.Collapsed;
@@ -153,6 +158,7 @@ namespace Nube.Transaction
                                 frm.btnNomAdd.Visibility = Visibility.Collapsed;
                                 frm.btnNomClear.Visibility = Visibility.Collapsed;
                                 frm.ShowDialog();
+                                filteration();
                             }
                             else
                             {
@@ -186,6 +192,8 @@ namespace Nube.Transaction
                             frm.Height = 600;
                             frm.Width = 1000;
                             frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                            frm.btnApprove.Visibility = Visibility.Visible;
+                            frm.btnDenied.Visibility = Visibility.Collapsed;
                             frm.tiPhoto.Visibility = Visibility.Visible;
                             frm.btnNew.Visibility = Visibility.Collapsed;
                             frm.btnSave.Visibility = Visibility.Collapsed;
@@ -197,6 +205,7 @@ namespace Nube.Transaction
                             frm.btnNomAdd.Visibility = Visibility.Collapsed;
                             frm.btnNomClear.Visibility = Visibility.Collapsed;
                             frm.ShowDialog();
+                            filteration();
                         }
                         else
                         {
@@ -208,9 +217,11 @@ namespace Nube.Transaction
                         var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
                         if (mm != null)
                         {
-                            frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, true);
+                            frmMemberRegistration frm = new frmMemberRegistration(mm.MEMBER_CODE, false);
                             frm.Height = 600;
                             frm.Width = 1000;
+                            frm.btnApprove.Visibility = Visibility.Collapsed;
+                            frm.btnDenied.Visibility = Visibility.Visible;
                             frm.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                             frm.btnNew.Visibility = Visibility.Collapsed;
                             frm.btnSave.Visibility = Visibility.Collapsed;
@@ -222,6 +233,7 @@ namespace Nube.Transaction
                             frm.btnNomAdd.Visibility = Visibility.Collapsed;
                             frm.btnNomClear.Visibility = Visibility.Collapsed;
                             frm.ShowDialog();
+                            filteration();
                         }
                         else
                         {
@@ -288,7 +300,7 @@ namespace Nube.Transaction
                             mm.CITY_CODE = wm.CITY_CODE;
                             mm.ZIPCODE = wm.ZIPCODE;
                             mm.STATE_CODE = wm.STATE_CODE;
-                            mm.COUNTRY = wm.COUNTRY;
+                            mm.COUNTRY = wm.CountryName;
                             mm.UpdatedBy = AppLib.iUserCode;
                             mm.UpdatedOn = DateTime.Now;
                             mm.IsBranchRegister = true;
@@ -301,7 +313,7 @@ namespace Nube.Transaction
 
                             int iMemberCode = Convert.ToInt32(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
 
-                            var ni = (from x in db.MASTERNOMINEEs where x.MEMBER_CODE == dMemberCode select x).FirstOrDefault();
+                            var ni = (from x in db.NomineeInsertBranches where x.MEMBER_CODE == dMemberCode select x).FirstOrDefault();
                             if (ni != null)
                             {
                                 MASTERNOMINEE mn = new MASTERNOMINEE();
@@ -448,8 +460,8 @@ namespace Nube.Transaction
 
         private void rbtPending_Click(object sender, RoutedEventArgs e)
         {
-            filteration();
             dgvMemberApproval.Columns[9].Header = "Approve";
+            filteration();
         }
 
         private void rbtApproved_Click(object sender, RoutedEventArgs e)

@@ -19,7 +19,7 @@
     <script src="~/Scripts/JS/Main.js"></script>
     <script>
         var vm;
-        require(['js/Joinup'], function (j) {
+        require(['JS/Joinup'], function (j) {
             vm = j.Joinup;
         });
 
@@ -30,6 +30,10 @@
     <style>
         .error {
             color: red
+        }
+
+        .form-group {
+            margin: 15px 0px;
         }
     </style>
 
@@ -45,7 +49,7 @@
             }
         </style>
         <div class="container-fluid" style="padding-top:3%;">
-            <center><h1 style=" padding:15px;">National Union of Bank Employees</h1></center>
+            <center><h1 style=" padding:15px;color:#e81a22;font-weight: 700;">National Union of Bank Employees</h1></center>
         </div>
         <div class="container-fluid" style="margin-top:2%;">
             <div class="row">
@@ -58,10 +62,13 @@
                     </style>
                     <form id="frmMember" class="testform">
                         <fieldset class="personal-data">
-                            <h4>Check List New Membership</h4>
-                            <ul>
-                                <li>Original Membership Apllication Form</li>
-                                <li>2 Copies of consent letters (salary dedution)</li>
+                            <h4 style="font-size: 20px;color: #1c0cec;font-weight: 600;
+        margin: 0px 0 15px 0;">
+                                Check List New Membership
+                            </h4>
+                            <ul style="    margin-bottom: 25px;    text-align: justify;">
+                                <li>Original Membership Application Form</li>
+                                <li>2 Copies of consent letters (salary deduction)</li>
                                 <li>Bank draft/Cashier's order Payable to NUBE</li>
                                 <li>1% from Basic Salary Chq no: plus</li>
                                 <li>RM12.00 (Building, Education & badge Fee)</li>
@@ -73,35 +80,34 @@
                                 <li>Photocopy of Salary Slip</li>
                             </ul>
                             <div class="form-group">
-                                <label><span class="req">* </span> Member Name:</label>
+                                <label><span class="req">* </span>Member Name :</label>
                                 <input class="form-control" type="text" data-bind="textInput: data.MEMBER_NAME" name="MEMBER_NAME" id="MEMBER_NAME" required />
                             </div>
                             <div class="form-group">
-                                <label><span class="req">* </span> IC No: </label>
+                                <label><span class="req">* </span>IC No : </label>
                                 <input class="form-control" type="text" data-bind="textInput: data.ICNO_NEW" required />
                             </div>
                             <div class="form-group">
-                                <label for="lastname"><span class="req">* </span> Date of Birth: </label>
+                                <label for="lastname"><span class="req">* </span>Date of Birth : </label>
                                 <input class="form-control" type="text" id="dob" name="dob" required readonly />
                                 <div id="errLast"></div>
                             </div>
                             <div class="form-group">
-                                <label for="lastname"><span class="req"> </span> Sex: </label> <br>
+                                <label for="lastname"><span class="req"> </span>Sex : </label> <br>
                                 <label class="radio-inline">
-                                    <input type="radio" value="Male" name="sex" id="sex">Male
+                                    <input type="radio" data-bind="checked:data.SEX" value="Male" name="SEX" id="SEX">Male
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" value="Female" name="sex" id="sex">Female
+                                    <input type="radio" data-bind="checked:data.SEX" value="Female" name="SEX" id="SEX">Female
                                 </label>
-
                                 <div id="errFirst"></div>
                             </div>
                             <div class="form-group">
-                                <label><span class="req"> </span> Profession or Occupation: </label>
+                                <label><span class="req"> </span>Profession or Occupation : </label>
                                 <input class="form-control" type="text" data-bind="textInput: data.OCCUPATION" />
                             </div>
-                            <div class="form-group">
-                                <label for="lastname"><span class="req">* </span>Are you Clerical or Non Clerical ?: </label> <br>
+                            <div class="form-group" style="margin: 20px 0px;">
+                                <label for="lastname"><span class="req">* </span>Are you Clerical or Non Clerical ? </label> <br>
                                 <label class="radio-inline">
                                     <input type="radio" name="MEMBERTYPE_CODE" id="MEMBERTYPE_CODE" data-bind="checked:data.MEMBERTYPE_CODE" value="1">Clerical
                                 </label>
@@ -112,7 +118,7 @@
                                 <div id="errFirst"></div>
                             </div>
                             <div class="form-group">
-                                <label><span class="req">* </span>Have you been a member of this Union?: </label> <br>
+                                <label><span class="req">* </span>Have you been a member of this Union? </label> <br>
                                 <label class="radio-inline">
                                     <input type="radio" name="REJOINED" id="REJOINED" data-bind="checked:data.REJOINED" value="1">Yes
                                 </label>
@@ -122,68 +128,69 @@
                                 <div id="errFirst"></div>
                             </div>
                             <div class="form-group">
-                                <label><span class="req">* </span> Date of Employment: </label>
+                                <label><span class="req">* </span>Date of Employment : </label>
                                 <input class="form-control" type="text" id="doe" name="doe" required readonly />
+                                <div id="errLast"></div>
                             </div>
                             <div class="form-group">
-                                <label><span class="req">* </span> Name of Bank: </label>
-                                <p></p><input type="text" id="BANK_NAME" name="BANK_NAME" class="form-control" data-bind="jqAuto:{source:bankList, value: data.BANK_CODE, valueProp:'BANK_CODE', inputProp:'BANK_NAME',labelProp:'BANK_NAME'}" required /></p><br />
+                                <label><span class="req">* </span>Name of Bank : </label>
+                                <p></p><input type="text" id="BANK_NAME" name="BANK_NAME" class="form-control" data-bind="jqAuto:{source:bankList, value: data.BANK_CODE, valueProp:'BANK_CODE', inputProp:'BANK_NAME',labelProp:'BANK_NAME'}" required /></p>
                             </div>
                             <div class="form-group">
-                                <label><span class="req">* </span> Branch Name: </label>
-                                <input type="text" id="BANKBRANCH_NAME" name="BANKBRANCH_NAME" class="form-control" data-bind="jqAuto:{source:branchList, value: data.BANKBRANCH_CODE, valueProp:'BANKBRANCH_CODE', inputProp:'BANKBRANCH_NAME',labelProp:'BANKBRANCH_NAME'}" required /><br />
+                                <label><span class="req">* </span>Branch Name : </label>
+                                <input type="text" id="BANKBRANCH_NAME" name="BANKBRANCH_NAME" class="form-control" data-bind="jqAuto:{source:branchList, value: data.BANKBRANCH_CODE, valueProp:'BANKBRANCH_CODE', inputProp:'BANKBRANCH_NAME',labelProp:'BANKBRANCH_NAME'}" required />
                             </div>
                             <div class="form-group">
-                                <label><span class="req">* </span> Race </label>
+                                <label><span class="req">* </span>Race :</label>
                                 <input type="text" id="RACE_NAME" name="RACE_NAME" class="form-control" data-bind="jqAuto:{source:raceList, value: data.RACE_CODE, valueProp:'RACE_CODE', inputProp:'RACE_NAME',labelProp:'RACE_NAME'}" />
                             </div>
                             <div class="form-group">
-                                <label for="firstname"><span class="req"> </span> Private Address: </label>
-                                <input class="form-control" type="text" data-bind="textInput: data.ADDRESS1" placeholder="Enter Address1" required />
+                                <label for="firstname"><span class="req"> </span>Private Address : </label>
+                                <input class="form-control" type="text" data-bind="textInput: data.ADDRESS1" placeholder="Enter Address1" required /><br>
                                 <input class="form-control" type="text" data-bind="textInput: data.ADDRESS2" placeholder="Enter Address2" />
                                 <!--input class="form-control" type="text" name="privateaddress2" placeholder="Enter Address" -->
                                 <div id="errFirst"></div>
                             </div>
                             <div class="form-group">
-                                <label for="firstname"><span class="req"> </span> City Name: </label>
+                                <label for="firstname"><span class="req"> </span>City Name : </label>
                                 <input class="form-control" type="text" data-bind="jqAuto:{source:cityList, value: data.CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" required />
                                 <div id="errFirst"></div>
                             </div>
                             <div class="form-group">
-                                <label for="firstname"><span class="req"> </span> State Name: </label>
+                                <label for="firstname"><span class="req"> </span>State Name : </label>
                                 <input class="form-control" type="text" data-bind="jqAuto:{source:stateList, value: data.STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" required />
                                 <input type="hidden" id="StateCode" name="State_Code" />
                                 <div id="errFirst"></div>
                             </div>
                             <div class="form-group">
-                                <label for="firstname"><span class="req"> </span> Country Name: </label>
+                                <label for="firstname"><span class="req"> </span>Country Name : </label>
                                 <input class="form-control" type="text" data-bind="jqAuto:{source:countryList, value: data.CountryName, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" required />
-                                <input type="hidden" id="CountryCode" name="Country" />
+                                <input type="hidden" id="CountryName" name="CountryName" />
                                 <div id="errFirst"></div>
                             </div>
                             <div class="form-group">
-                                <label><span class="req"> </span> Postal Code: </label>
+                                <label><span class="req"> </span>Postal Code : </label>
                                 <input class="form-control" type="text" data-bind="textInput: data.ZIPCODE" required />
                             </div>
                             <div class="form-group">
-                                <label><span class="req"> </span> Phone No: </label>
+                                <label><span class="req"> </span>Phone No : </label>
                                 <input class="form-control" type="tel" data-bind="textInput: data.PHONE" required />
                             </div>
                             <div class="form-group">
-                                <label><span class="req"> </span> Mobile No: </label>
+                                <label><span class="req"> </span>Mobile No : </label>
                                 <input class="form-control" type="tel" data-bind="textInput: data.MOBILE" required />
                             </div>
                             <div class="form-group">
-                                <label><span class="req"> </span> Email : </label>
-                                <input class="form-control" id="EMAIL" name="EMAIL" type="email" data-bind="textInput: data.EMAIL" required />
+                                <label><span class="req"> </span>Email : </label>
+                                <input class="form-control" id="EMAIL" name="EMAIL" type="email" data-bind="textInput: data.EMAIL" />
                             </div>
 
                             <div class="form-group">
-                                <label><span class="req">* </span> Salary: </label>
+                                <label><span class="req">* </span>Salary : </label>
                                 <input class="form-control" id="SALARY" name="SALARY" type="text" data-bind="textInput: data.SALARY" required />
                             </div>
 
-                            <input type="hidden" value="http://www.nube.org.my/" name="URL">
+                            @*<input type="hidden" value="http://www.nube.org.my/" name="URL">*@
 
                             <div class="form-group">
                                 <label><span class="req">* </span>Nominee </label> <br>
@@ -205,67 +212,67 @@
                                             <div class="panel-body">
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> ICNO: </label>
+                                                    <label><span class="req">* </span> IC No : </label>
                                                     <input class="form-control" type="text" data-bind="textInput: ICNO_NEW" required />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> NAME: </label>
+                                                    <label><span class="req">* </span> Name : </label>
                                                     <input class="form-control" type="text" data-bind="textInput: NAME" required />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> SEX: </label>
+                                                    <label><span class="req">* </span> Sex : </label>
                                                     <input class="form-control" type="text" data-bind="textInput: SEX" required />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> AGE: </label>
-                                                    <input class="form-control" type="text" data-bind="textInput: AGE" required />
+                                                    <label><span class="req"> </span> Age : </label>
+                                                    <input class="form-control" type="text" data-bind="textInput: AGE" />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> RELATION </label>
+                                                    <label><span class="req">* </span> Relation :</label>
                                                     <input type="text" class="form-control" data-bind="jqAuto:{source:$parent.relationList, value: RELATION_CODE, valueProp:'RELATION_CODE', inputProp:'RELATION_NAME',labelProp:'RELATION_NAME'}" />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> ADDRESS1: </label>
-                                                    <input class="form-control" type="text" data-bind="textInput: ADDRESS1" required />
+                                                    <label><span class="req"> </span> Address 1 : </label>
+                                                    <input class="form-control" type="text" data-bind="textInput: ADDRESS1" />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> ADDRESS2: </label>
-                                                    <input class="form-control" type="text" data-bind="textInput: ADDRESS2" required />
+                                                    <label><span class="req"> </span> Address 2 : </label>
+                                                    <input class="form-control" type="text" data-bind="textInput: ADDRESS2" />
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> ADDRESS3: </label>
-                                                    <input class="form-control" type="text" data-bind="textInput: ADDRESS3" required />
+                                                    <label><span class="req"> </span>Address 3 : </label>
+                                                    <input class="form-control" type="text" data-bind="textInput: ADDRESS3" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> City Name: </label>
-                                                    <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.cityList, value: CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" required />
+                                                    <label><span class="req"> </span>City Name : </label>
+                                                    <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.cityList, value: CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> State Name: </label>
-                                                    <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.stateList, value: STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" required />
+                                                    <label><span class="req"> </span>State Name : </label>
+                                                    <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.stateList, value: STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> Country Name: </label>
-                                                    <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.countryList, value: COUNTRY, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" required />
+                                                    <label><span class="req"> </span>Country Name : </label>
+                                                    <input class="form-control" type="text" data-bind="jqAuto:{source:$parent.countryList, value: COUNTRY, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> ZIPCODE: </label>
-                                                    <input class="form-control" type="text" data-bind="textInput: ZIPCODE" required />
+                                                    <label><span class="req"> </span>Postal Code : </label>
+                                                    <input class="form-control" type="text" data-bind="textInput: ZIPCODE" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> PHONE: </label>
-                                                    <input class="form-control" type="text" data-bind="textInput: PHONE" required />
+                                                    <label><span class="req"> </span>Phone No : </label>
+                                                    <input class="form-control" type="text" data-bind="textInput: PHONE" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><span class="req">* </span> MOBILE: </label>
-                                                    <input class="form-control" type="text" data-bind="textInput: MOBILE" required />
+                                                    <label><span class="req"> </span>Mobile No : </label>
+                                                    <input class="form-control" type="text" data-bind="textInput: MOBILE" />
                                                 </div>
 
                                             </div>
@@ -296,71 +303,71 @@
                                         <div class="panel-body">
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> ICNO: </label>
+                                                <label><span class="req">* </span>IC No : </label>
                                                 <input class="form-control" type="text" data-bind="textInput: dataGuardian.ICNO_NEW" required />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> NAME: </label>
+                                                <label><span class="req">* </span>Name : </label>
                                                 <input class="form-control" type="text" data-bind="textInput: dataGuardian.NAME" required />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> SEX: </label>
+                                                <label><span class="req">* </span>Sex : </label>
                                                 <input class="form-control" type="text" data-bind="textInput: dataGuardian.SEX" required />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> AGE: </label>
-                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.AGE" required />
+                                                <label><span class="req"> </span> Age : </label>
+                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.AGE" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> RELATION </label>
+                                                <label><span class="req">* </span>Relation :</label>
                                                 <input type="text" class="form-control" data-bind="jqAuto:{source:relationList, value: dataGuardian.RELATION_CODE, valueProp:'RELATION_CODE', inputProp:'RELATION_NAME',labelProp:'RELATION_NAME'}" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> ADDRESS1: </label>
-                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS1" required />
+                                                <label><span class="req"> </span>Address 1: </label>
+                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS1" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> ADDRESS2: </label>
-                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS2" required />
+                                                <label><span class="req"> </span>Address 2 : </label>
+                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS2" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> ADDRESS3: </label>
-                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS3" required />
+                                                <label><span class="req"> </span>Address 3 : </label>
+                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ADDRESS3" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> City Name: </label>
-                                                <input class="form-control" type="text" data-bind="jqAuto:{source:cityList, value: dataGuardian.CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" required />
+                                                <label><span class="req"> </span>City Name : </label>
+                                                <input class="form-control" type="text" data-bind="jqAuto:{source:cityList, value: dataGuardian.CITY_CODE, valueProp:'CITY_CODE', inputProp:'CITY_NAME',labelProp:'CITY_NAME'}" />
                                             </div>
                                             <div class="form-group">
-                                                <label><span class="req">* </span> State Name: </label>
-                                                <input class="form-control" type="text" data-bind="jqAuto:{source:stateList, value: dataGuardian.STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" required />
+                                                <label><span class="req"> </span>State Name : </label>
+                                                <input class="form-control" type="text" data-bind="jqAuto:{source:stateList, value: dataGuardian.STATE_CODE, valueProp:'STATE_CODE', inputProp:'STATE_NAME',labelProp:'STATE_NAME'}" />
                                             </div>
                                             <div class="form-group">
-                                                <label><span class="req">* </span> Country Name: </label>
-                                                <input class="form-control" type="text" data-bind="jqAuto:{source:countryList, value: dataGuardian.COUNTRY, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" required />
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label><span class="req">* </span> ZIPCODE: </label>
-                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ZIPCODE" required />
+                                                <label><span class="req"> </span>Country Name : </label>
+                                                <input class="form-control" type="text" data-bind="jqAuto:{source:countryList, value: dataGuardian.COUNTRY, valueProp:'CountryName', inputProp:'CountryName',labelProp:'CountryName'}" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> PHONE: </label>
-                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.PHONE" required />
+                                                <label><span class="req"> </span>Postal Code : </label>
+                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.ZIPCODE" />
                                             </div>
 
                                             <div class="form-group">
-                                                <label><span class="req">* </span> MOBILE: </label>
-                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.MOBILE" required />
+                                                <label><span class="req"> </span>Phone No : </label>
+                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.PHONE" />
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label><span class="req"> </span>Mobile No : </label>
+                                                <input class="form-control" type="text" data-bind="textInput: dataGuardian.MOBILE" />
                                             </div>
 
                                         </div>
@@ -372,44 +379,44 @@
                             <fieldset class="personal-data">
                                 <hr>
                                 <div class="form-group">
-                                    <label><span class="req">* </span> Photo: </label>
+                                    <label><span class="req">* </span> Photo : </label>
                                     <input class="form-control" type="file" name="photo" id="fPhoto" required />
                                     <div id="errFirst"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label><span class="req">* </span> Digital Signature: </label>
+                                    <label><span class="req">* </span>Digital Signature : </label>
                                     <input class="form-control" type="file" name="digitalsignature" id="fDSign" required />
                                     <div id="errFirst"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label><span class="req">* </span> IC: </label>
+                                    <label><span class="req">* </span>IC : </label>
                                     <input class="form-control" type="file" name="ic" id="fIC" />
                                     <div id="errFirst"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label><span class="req">* </span> Employment Letter: </label>
+                                    <label><span class="req">* </span>Employment Letter : </label>
                                     <input class="form-control" type="file" name="employmentletter" id="fELetter" required />
                                     <div id="errFirst"></div>
                                 </div>
                                 <div class="form-group">
-                                    <label><span class="req">* </span> Prove of Payment – Cash Deposit / Online Transfer: </label>
+                                    <label><span class="req">* </span>Prof of Payment – Cash Deposit / Online Transfer : </label>
                                     <input class="form-control" type="file" name="ProveofPayment" id="fEPPayment" required />
                                     <div id="errFirst"></div>
                                 </div>
-                                <h5>Terms & Condition</h5>
-                                <ul>
-                                    <li>I have read and fully uderstood the constitution and Rules of NUBE and the Bye-laws of the NUBE Benevolent Fund and undertake to abide by them and such additions and/or alteration there to as amy be made from time to time</li>
-                                    <li>I declare that the information given below is to the best of knowledge and belif true</li>
-                                    <li>I hereby authorise my paying officer to deduct from my salary all my dues to the union</li>
+                                <h5 style="font-size: 20px;color: #1c0cec;font-weight: 600; margin: 21px 0 8px 0;">
+                                    Terms & Condition
+                                </h5>
+                                <ul style="    margin-bottom: 23px;    text-align: justify;">
+                                    <li>I have read and fully understood the constitution and Rules of NUBE and the By-laws of the NUBE Benevolent Fund and undertake to abide by them and such additions and/or alteration there to as any be made from time to time.</li>
+                                    <li>I declare that the information given above is to the best of knowledge and belief true.</li>
+                                    <li>I hereby authorise my paying officer to deduct from my salary all my dues to the union.</li>
                                 </ul>
-
                             </fieldset>
-
                         </fieldset>
                         <div class="clear"></div>
-                        <input type="button" name="Submit" value="Submit" class="btn btn-default" data-bind="click:btnSave" />
+                        <input type="button" name="Submit" value="Submit" class="btn btn-primary" data-bind="click:btnSave" />
 
-                    </form>                    
+                    </form>
 
                 </div>
 

@@ -71,7 +71,6 @@ namespace Nube.Transaction
 
                 bIsUpdate = true;
             }
-
         }
 
         #region "BUTTON EVENTS"
@@ -1982,9 +1981,9 @@ namespace Nube.Transaction
                     {
                         cmbResState.SelectedValue = qry.STATE_CODE;
                     }
-                    if (qry.COUNTRY != null)
+                    if (qry.CountryName != null)
                     {
-                        cmbResCountry.Text = qry.COUNTRY;
+                        cmbResCountry.Text = qry.CountryName;
                     }
                     lblStatus.Content = "New Member; 0 Arrears Pending";
 
@@ -3175,32 +3174,261 @@ namespace Nube.Transaction
 
         #endregion
 
-        private void btnView_Click(object sender, RoutedEventArgs e)
+        //private void btnView_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        var att = (from x in db.MembershipAttachments where x.MemberCode == dMember_Code select x).ToList();              
+        //        string sURL = "";
+        //        if (rbtPhoto.IsChecked == true)
+        //        {
+        //            // sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fPhoto";
+        //            var rec = att.FirstOrDefault(x=> x.AttachmentName== "");
+        //            if (rec != null) {
+        //                File.WriteAllBytes("C:\\Hussain\\" + rec.FileName, rec.AttachmentData);
+        //                System.Diagnostics.Process.Start("C:\\Hussain\\" + rec.FileName);
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Attechment Not Found");
+        //            }
+
+        //        }
+        //        else if (rbtDSign.IsChecked == true)
+        //        {
+        //            //sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fDSign";
+        //            var rec = att.FirstOrDefault(x => x.AttachmentName == "fDSign"); 
+        //            if (rec != null)
+        //            {
+        //                File.WriteAllBytes("C:\\Hussain\\" + rec.FileName, rec.AttachmentData);
+        //                System.Diagnostics.Process.Start("C:\\Hussain\\" + rec.FileName);
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Attechment Not Found");
+        //            }
+        //        }
+        //        else if (rbtELetter.IsChecked == true)
+        //        {
+        //            //sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fELetter";
+        //            var rec = att.FirstOrDefault(x => x.AttachmentName == "fELetter"); 
+        //            if (rec != null)
+        //            {
+        //                File.WriteAllBytes("C:\\Hussain\\" + rec.FileName, rec.AttachmentData);
+        //                System.Diagnostics.Process.Start("C:\\Hussain\\" + rec.FileName);
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Attechment Not Found");
+        //            }
+        //        }
+        //        else if (rbtIC.IsChecked == true)
+        //        {
+        //            //sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fIC";
+        //            var rec = att.FirstOrDefault(x => x.AttachmentName == "fIC");
+        //            if (rec != null)
+        //            {
+        //                File.WriteAllBytes("C:\\Hussain\\" + rec.FileName, rec.AttachmentData);
+        //                System.Diagnostics.Process.Start("C:\\Hussain\\" + rec.FileName);
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Attechment Not Found");
+        //            }
+        //        }
+        //        else if (rbtEPPayment.IsChecked == true)
+        //        {                    
+
+        //        }
+        //        wbPhoto.Navigate(sURL);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ExceptionLogging.SendErrorToText(ex);
+        //    }
+        //}
+
+        void ShowMembershipAttachment(MembershipAttachment data)
+        {
+            if (data != null)
+            {
+                File.WriteAllBytes("C:\\Hussain\\" + data.FileName, data.AttachmentData);
+                System.Diagnostics.Process.Start("C:\\Hussain\\" + data.FileName);
+            }
+            else
+            {
+                MessageBox.Show("Attachment Not Found");
+            }
+        }
+
+        private void btnApprove_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                string sURL = "";
-                if (rbtPhoto.IsChecked == true)
+                if (MessageBox.Show(this, "Are you Sure to Approve this Member? It will Affect Current Data!", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fPhoto";
+                    var wm = (from x in db.MemberInsertBranches where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                    if (wm != null)
+                    {
+                        decimal dMemberId = Convert.ToDecimal(db.MASTERMEMBERs.Max(x => x.MEMBER_ID)) + 1;
+
+                        MASTERMEMBER mm = new MASTERMEMBER();
+
+                        mm.MEMBERTYPE_CODE = wm.MEMBERTYPE_CODE;
+                        mm.MEMBER_ID = dMemberId;
+                        mm.MEMBER_TITLE = wm.MEMBER_TITLE;
+                        mm.MEMBER_NAME = wm.MEMBER_NAME;
+                        mm.DATEOFBIRTH = wm.DATEOFBIRTH;
+                        mm.AGE_IN_YEARS = wm.AGE_IN_YEARS;
+                        mm.SEX = wm.SEX;
+                        mm.REJOINED = wm.REJOINED;
+                        mm.RACE_CODE = wm.RACE_CODE;
+                        mm.ICNO_NEW = wm.ICNO_NEW;
+                        mm.ICNO_OLD = wm.ICNO_OLD;
+                        mm.DATEOFJOINING = wm.DATEOFJOINING;
+
+                        mm.BANK_CODE = wm.BANK_CODE;
+                        mm.BRANCH_CODE = wm.BANKBRANCH_CODE;
+                        mm.DATEOFEMPLOYMENT = wm.DATEOFEMPLOYMENT;
+                        mm.Salary = wm.Salary;
+                        mm.LEVY = wm.LEVY;
+                        mm.TDF = wm.TDF;
+                        mm.LEVY_AMOUNT = wm.LEVY_AMOUNT;
+                        mm.TDF_AMOUNT = wm.TDF_AMOUNT;
+                        //mm.LevyPaymentDate = DateTime.Now;
+                        //mm.Tdf_PaymentDate = DateTime.Now;
+
+                        mm.ENTRANCEFEE = wm.ENTRANCEFEE;
+                        mm.MONTHLYBF = wm.MONTHLYBF;
+                        mm.ACCBF = wm.ACCBF;
+                        mm.CURRENT_YTDBF = wm.CURRENT_YTDBF;
+                        mm.MONTHLYSUBSCRIPTION = wm.MONTHLYSUBSCRIPTION;
+                        mm.ACCSUBSCRIPTION = wm.ACCSUBSCRIPTION;
+                        mm.CURRENT_YTDSUBSCRIPTION = wm.CURRENT_YTDSUBSCRIPTION;
+                        mm.ACCBENEFIT = wm.ACCBENEFIT;
+                        mm.TOTALMONTHSPAID = wm.TOTALMONTHSPAID;
+                        mm.ADDRESS1 = wm.ADDRESS1;
+                        mm.ADDRESS2 = wm.ADDRESS2;
+                        mm.ADDRESS3 = wm.ADDRESS3;
+                        mm.PHONE = wm.PHONE;
+                        mm.MOBILE = wm.MOBILE;
+                        mm.EMAIL = wm.EMAIL;
+                        mm.CITY_CODE = wm.CITY_CODE;
+                        mm.ZIPCODE = wm.ZIPCODE;
+                        mm.STATE_CODE = wm.STATE_CODE;
+                        mm.COUNTRY = wm.CountryName;
+                        mm.UpdatedBy = AppLib.iUserCode;
+                        mm.UpdatedOn = DateTime.Now;
+                        mm.IsBranchRegister = true;
+                        mm.BranchMemberCode = Convert.ToInt32(dMember_Code);
+
+                        db.MASTERMEMBERs.Add(mm);
+
+                        wm.IsApproved = 1;
+                        db.SaveChanges();
+
+                        int iMemberCode = Convert.ToInt32(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
+
+                        var ni = (from x in db.NomineeInsertBranches where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                        if (ni != null)
+                        {
+                            MASTERNOMINEE mn = new MASTERNOMINEE();
+                            mn.MEMBER_CODE = iMemberCode;
+                            mn.NAME = ni.NAME;
+                            mn.ICNO_NEW = ni.ICNO_NEW;
+                            mn.SEX = ni.SEX;
+                            mn.AGE = ni.AGE;
+                            mn.RELATION_CODE = ni.RELATION_CODE;
+                            mn.ADDRESS1 = ni.ADDRESS1;
+                            mn.ADDRESS2 = ni.ADDRESS2;
+                            mn.CITY_CODE = ni.CITY_CODE;
+                            mn.STATE_CODE = ni.STATE_CODE;
+                            mn.COUNTRY = ni.COUNTRY;
+                            db.MASTERNOMINEEs.Add(mn);
+                            db.SaveChanges();
+                        }
+
+                        var gi = (from x in db.GuardianInsertBranches where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                        if (gi != null)
+                        {
+                            MASTERGUARDIAN mg = new MASTERGUARDIAN();
+                            mg.MEMBER_CODE = iMemberCode;
+                            mg.NAME = gi.NAME;
+                            mg.ICNO_NEW = gi.ICNO_NEW;
+                            mg.SEX = gi.SEX;
+                            mg.AGE = gi.AGE;
+                            mg.RELATION_CODE = gi.RELATION_CODE;
+                            mg.ADDRESS1 = gi.ADDRESS1;
+                            mg.ADDRESS2 = gi.ADDRESS2;
+                            mg.CITY_CODE = gi.CITY_CODE;
+                            mg.STATE_CODE = gi.STATE_CODE;
+                            mg.COUNTRY = gi.COUNTRY;
+                            db.MASTERGUARDIANs.Add(mg);
+                            db.SaveChanges();
+                        }
+                        MessageBox.Show("Member Added Sucessfully!", "Submit Sucessfully");
+                    }
                 }
-                else if (rbtDSign.IsChecked == true)
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        private void btnDenied_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show(this, "Are you Sure to Diclain this Member? It will Affect Current Data!", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fDSign";
+                    var mm = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                    if (mm != null)
+                    {
+                        var nm = (from x in db.MASTERNOMINEEs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
+                        if (nm != null)
+                        {
+                            db.MASTERNOMINEEs.Remove(nm);
+                        }
+
+                        var gr = (from x in db.MASTERGUARDIANs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
+                        if (gr != null)
+                        {
+                            db.MASTERGUARDIANs.Remove(gr);
+                        }
+
+                        db.MASTERMEMBERs.Remove(mm);
+                        db.SaveChanges();
+                    }
+
+                    var wm = (from x in db.MemberInsertBranches where x.MEMBER_CODE == mm.BranchMemberCode select x).FirstOrDefault();
+                    if (wm != null)
+                    {
+                        wm.IsApproved = 2;
+                        db.SaveChanges();
+                    }
                 }
-                else if (rbtELetter.IsChecked == true)
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnPhoto_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var Attachment = (from x in db.MembershipAttachments where x.MemberCode == dMember_Code && x.AttachmentName == "fPhoto" select x).FirstOrDefault();
+                if (Attachment != null)
                 {
-                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fELetter";
+                    ShowMembershipAttachment(Attachment);
                 }
-                else if (rbtIC.IsChecked == true)
+                else
                 {
-                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fIC";
-                }
-                else if (rbtEPPayment.IsChecked == true)
-                {
-                    sURL = AppLib.SLURL + "MasterMember/AttachmentDownload?MemberCode=" + dMember_Code + "&&AttachmentName=fEPPayment";
-                }
-                wbPhoto.Navigate(sURL);               
+                    MessageBox.Show("Attachment Not Found");
+                }                
             }
             catch (Exception ex)
             {
@@ -3208,14 +3436,84 @@ namespace Nube.Transaction
             }
         }
 
-        private void btnApprove_Click(object sender, RoutedEventArgs e)
+        private void btnDSign_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                var Attachment = (from x in db.MembershipAttachments where x.MemberCode == dMember_Code && x.AttachmentName == "fDSign" select x).FirstOrDefault();
+                if (Attachment != null)
+                {
+                    ShowMembershipAttachment(Attachment);
+                }
+                else
+                {
+                    MessageBox.Show("Attachment Not Found");
+                }                
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
         }
 
-        private void btnDenied_Click(object sender, RoutedEventArgs e)
+        private void btnIC_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var Attachment = (from x in db.MembershipAttachments where x.MemberCode == dMember_Code && x.AttachmentName == "fIC" select x).FirstOrDefault();
+                if (Attachment != null)
+                {
+                    ShowMembershipAttachment(Attachment);
+                }
+                else
+                {
+                    MessageBox.Show("Attachment Not Found");
+                }                
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+        }
 
+        private void btnELetter_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var Attachment = (from x in db.MembershipAttachments where x.MemberCode == dMember_Code && x.AttachmentName == "fELetter" select x).FirstOrDefault();
+                if (Attachment != null)
+                {
+                    ShowMembershipAttachment(Attachment);
+                }
+                else
+                {
+                    MessageBox.Show("Attachment Not Found");
+                }                
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
+        }
+
+        private void btnEPPayment_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var Attachment = (from x in db.MembershipAttachments where x.MemberCode == dMember_Code && x.AttachmentName == "fEPPayment" select x).FirstOrDefault();
+                if (Attachment != null)
+                {
+                    ShowMembershipAttachment(Attachment);
+                }
+                else
+                {
+                    MessageBox.Show("Attachment Not Found");
+                }                
+            }
+            catch (Exception ex)
+            {
+                ExceptionLogging.SendErrorToText(ex);
+            }
         }
     }
 }

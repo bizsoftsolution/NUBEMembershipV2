@@ -4,7 +4,7 @@ define(["require", "exports"], function (require, exports) {
     var AppLib = /** @class */ (function () {
         function AppLib() {
         }
-        AppLib.SLURL = 'http://localhost/MembershipTest/';
+        AppLib.SLURL = 'http://membership.nube.org.my/';
         return AppLib;
     }());
     exports.AppLib = AppLib;

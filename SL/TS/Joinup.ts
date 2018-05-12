@@ -105,9 +105,8 @@ class Joinup {
                         $.post(AppLib.SLURL + 'Guardian/Insert', dG, (resGuardian) => {
 
                         });
-                    }
-                    alert("Your Data's Saved Successfully !");
-                    window.location.replace("http://www.nube.org.my");
+                    }                   
+                    window.location.replace("Sucessfully");
                 }
             });
         }
@@ -141,11 +140,11 @@ $('#doe').datepicker(dateOption);
 
 $('#dob').change((e) => {
     var dt = $(e.target).datepicker('getDate');
-    Joinup.joinupVM.data.DATEOFBIRTH(dt);
+    Joinup.joinupVM.data.DATEOFBIRTH(dt.getFullYear() + "/" + dt.getMonth() + "/" + dt.getDay());
 });
 $('#doe').change((e) => {
     var dt = $(e.target).datepicker('getDate');
-    Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt);
+    Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt.getFullYear() + "/" + dt.getMonth() + "/" + dt.getDay());
 });
 
 $('#frmMember').validate(
