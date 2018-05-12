@@ -325,9 +325,13 @@ namespace Nube.Transaction
                                 mn.RELATION_CODE = ni.RELATION_CODE;
                                 mn.ADDRESS1 = ni.ADDRESS1;
                                 mn.ADDRESS2 = ni.ADDRESS2;
+                                mn.ADDRESS3 = ni.ADDRESS3;
                                 mn.CITY_CODE = ni.CITY_CODE;
                                 mn.STATE_CODE = ni.STATE_CODE;
                                 mn.COUNTRY = ni.COUNTRY;
+                                mn.ZIPCODE = ni.ZIPCODE;
+                                mn.PHONE = ni.PHONE;
+                                mn.MOBILE = ni.MOBILE;                                
                                 db.MASTERNOMINEEs.Add(mn);
                                 db.SaveChanges();
                             }
@@ -344,13 +348,17 @@ namespace Nube.Transaction
                                 mg.RELATION_CODE = gi.RELATION_CODE;
                                 mg.ADDRESS1 = gi.ADDRESS1;
                                 mg.ADDRESS2 = gi.ADDRESS2;
+                                mg.ADDRESS3 = gi.ADDRESS3;
                                 mg.CITY_CODE = gi.CITY_CODE;
                                 mg.STATE_CODE = gi.STATE_CODE;
                                 mg.COUNTRY = gi.COUNTRY;
+                                mg.ZIPCODE = gi.ZIPCODE;
+                                mg.PHONE = gi.PHONE;
+                                mg.MOBILE = gi.MOBILE;
                                 db.MASTERGUARDIANs.Add(mg);
                                 db.SaveChanges();
                             }
-                            MessageBox.Show("Member Added Sucessfully!", "Submit Sucessfully");
+                            MessageBox.Show("Member Added Sucessfully!", "Sucessfully");
                             txtBankName.Text = "";
                             txtBranchName.Text = "";
                             txtMF.Text = "";
@@ -370,7 +378,7 @@ namespace Nube.Transaction
                 DataRowView drv = (DataRowView)dgvMemberApproval.SelectedItem;
                 if (drv != null)
                 {
-                    if (MessageBox.Show(this, "Are you Sure to Diclain this Member? It will Affect Current Data!", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if (MessageBox.Show(this, "Are you Sure to Decline this Member? It will Affect Current Data!", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         decimal dMemberCode = Convert.ToDecimal(drv["MEMBER_CODE"]);
                         var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
@@ -398,7 +406,18 @@ namespace Nube.Transaction
                             wm.IsApproved = 2;
                             db.SaveChanges();
                         }
-                    }
+                        MessageBox.Show("Member Decline Sucessfully!", "Sucessfully");
+                        txtBankName.Text = "";
+                        txtBranchName.Text = "";
+                        txtMF.Text = "";
+                        txtICNo.Text = "";
+                        txtMemberName.Text = "";
+                        txtNubeBranch.Text = "";
+                        txtMemberType.Text = "";
+                        txtMemberNo.Text = "";
+                        txtNoofMembers.Text = "";
+                        load_Form();
+                    }                    
                 }
             }
         }
@@ -467,7 +486,7 @@ namespace Nube.Transaction
         private void rbtApproved_Click(object sender, RoutedEventArgs e)
         {
             filteration();
-            dgvMemberApproval.Columns[9].Header = "declin";
+            dgvMemberApproval.Columns[9].Header = "Decline";
         }
 
         private void rbtDeclain_Click(object sender, RoutedEventArgs e)

@@ -362,10 +362,10 @@
                     </Grid>
                 </TabItem>
 
-                <TabItem Header="Gaurdian" FontSize="14">
+                <TabItem Header="Guardian" FontSize="14">
                     <Grid>
                         <Rectangle Fill="White" Stroke="Black" StrokeThickness="0" HorizontalAlignment="Left" Width="875" Margin="0,2,-10,150" />
-                        <TextBox x:Name="txGurName" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Margin="11,51,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Gaurdian Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="260"/>
+                        <TextBox x:Name="txGurName" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Margin="11,51,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Guardian Name" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="260"/>
                         <ComboBox x:Name="cmbGurRelation" FontWeight="Bold" Background="White" Margin="110,125,594,0" VerticalAlignment="Top" IsEditable="True"                               materialDesign:HintAssist.Hint="Relationship"  materialDesign:HintAssist.HintOpacity=".26"/>
                         <Button x:Name="btnSetGurRelation" ToolTip="Add Relation" Background="Transparent"  BorderBrush="Transparent" HorizontalAlignment="Left" VerticalAlignment="Top" Width="63" Height="45" Margin="278,116,0,0" Click="btnSetGurRelation_Click" RenderTransformOrigin="0.5,0.5" >
                             <materialDesign:PackIcon Kind="Settings" Height="20" Width="29"  Foreground="{DynamicResource PrimaryHueLightBrush}" HorizontalAlignment="Left" RenderTransformOrigin="-0.35,0.526"  />

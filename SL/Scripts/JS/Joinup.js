@@ -96,11 +96,11 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
     $('#doe').datepicker(dateOption);
     $('#dob').change(function (e) {
         var dt = $(e.target).datepicker('getDate');
-        Joinup.joinupVM.data.DATEOFBIRTH(dt.getFullYear() + "/" + dt.getMonth() + "/" + dt.getDay());
+        Joinup.joinupVM.data.DATEOFBIRTH(dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getDay());
     });
     $('#doe').change(function (e) {
         var dt = $(e.target).datepicker('getDate');
-        Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt.getFullYear() + "/" + dt.getMonth() + "/" + dt.getDay());
+        Joinup.joinupVM.data.DATEOFEMPLOYMENT(dt.getFullYear() + "-" + dt.getMonth() + "-" + dt.getDay());
     });
     $('#frmMember').validate({
         rules: {

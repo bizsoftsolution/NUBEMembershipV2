@@ -3248,12 +3248,15 @@ namespace Nube.Transaction
         //    }
         //}
 
+        #region Member Approval Events
+
         void ShowMembershipAttachment(MembershipAttachment data)
         {
             if (data != null)
             {
-                File.WriteAllBytes("C:\\Hussain\\" + data.FileName, data.AttachmentData);
-                System.Diagnostics.Process.Start("C:\\Hussain\\" + data.FileName);
+                string filepath = System.IO.Path.Combine(Environment.CurrentDirectory);
+                File.WriteAllBytes(filepath + "\\" + data.FileName, data.AttachmentData);
+                System.Diagnostics.Process.Start(filepath + "\\" + data.FileName);
             }
             else
             {
@@ -3341,9 +3344,13 @@ namespace Nube.Transaction
                             mn.RELATION_CODE = ni.RELATION_CODE;
                             mn.ADDRESS1 = ni.ADDRESS1;
                             mn.ADDRESS2 = ni.ADDRESS2;
+                            mn.ADDRESS3 = ni.ADDRESS3;
                             mn.CITY_CODE = ni.CITY_CODE;
                             mn.STATE_CODE = ni.STATE_CODE;
                             mn.COUNTRY = ni.COUNTRY;
+                            mn.ZIPCODE = ni.ZIPCODE;
+                            mn.PHONE = ni.PHONE;
+                            mn.MOBILE = ni.MOBILE;                          
                             db.MASTERNOMINEEs.Add(mn);
                             db.SaveChanges();
                         }
@@ -3351,7 +3358,7 @@ namespace Nube.Transaction
                         var gi = (from x in db.GuardianInsertBranches where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
                         if (gi != null)
                         {
-                            MASTERGUARDIAN mg = new MASTERGUARDIAN();
+                            MASTERGUARDIAN mg = new MASTERGUARDIAN();                        
                             mg.MEMBER_CODE = iMemberCode;
                             mg.NAME = gi.NAME;
                             mg.ICNO_NEW = gi.ICNO_NEW;
@@ -3360,13 +3367,18 @@ namespace Nube.Transaction
                             mg.RELATION_CODE = gi.RELATION_CODE;
                             mg.ADDRESS1 = gi.ADDRESS1;
                             mg.ADDRESS2 = gi.ADDRESS2;
+                            mg.ADDRESS3 = gi.ADDRESS3;
                             mg.CITY_CODE = gi.CITY_CODE;
                             mg.STATE_CODE = gi.STATE_CODE;
                             mg.COUNTRY = gi.COUNTRY;
-                            db.MASTERGUARDIANs.Add(mg);
+                            mg.ZIPCODE = gi.ZIPCODE;
+                            mg.PHONE = gi.PHONE;
+                            mg.MOBILE = gi.MOBILE;
+                            db.MASTERGUARDIANs.Add(mg);                           
                             db.SaveChanges();
                         }
-                        MessageBox.Show("Member Added Sucessfully!", "Submit Sucessfully");
+                        MessageBox.Show("Member Added Sucessfully!", "Sucessfully");
+                        this.Close();
                     }
                 }
             }
@@ -3381,7 +3393,7 @@ namespace Nube.Transaction
         {
             try
             {
-                if (MessageBox.Show(this, "Are you Sure to Diclain this Member? It will Affect Current Data!", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show(this, "Are you Sure to Decline this Member? It will Affect Current Data!", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     var mm = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
                     if (mm != null)
@@ -3408,6 +3420,8 @@ namespace Nube.Transaction
                         wm.IsApproved = 2;
                         db.SaveChanges();
                     }
+                    MessageBox.Show("Member Decline Sucessfully!", "Sucessfully");
+                    this.Close();
                 }
             }
             catch (Exception ex)
@@ -3428,7 +3442,7 @@ namespace Nube.Transaction
                 else
                 {
                     MessageBox.Show("Attachment Not Found");
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -3448,7 +3462,7 @@ namespace Nube.Transaction
                 else
                 {
                     MessageBox.Show("Attachment Not Found");
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -3468,7 +3482,7 @@ namespace Nube.Transaction
                 else
                 {
                     MessageBox.Show("Attachment Not Found");
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -3488,7 +3502,7 @@ namespace Nube.Transaction
                 else
                 {
                     MessageBox.Show("Attachment Not Found");
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -3508,12 +3522,15 @@ namespace Nube.Transaction
                 else
                 {
                     MessageBox.Show("Attachment Not Found");
-                }                
+                }
             }
             catch (Exception ex)
             {
                 ExceptionLogging.SendErrorToText(ex);
             }
         }
+
+        #endregion
     }
 }
+
