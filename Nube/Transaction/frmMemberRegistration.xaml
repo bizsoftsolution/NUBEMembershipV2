@@ -62,7 +62,7 @@
             <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="93" Margin="245,585,0,-563" Height="28" Click="btnHome_Click"/>
             <Button x:Name="btnMembercard" Content="Member Card" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="124,638,0,-615" Height="27" Click="btnMembercard_Click"/>
             <Button x:Name="btnApprove" Visibility="Collapsed" Content="Approve" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="138,585,0,-563" Height="27" Click="btnApprove_Click"/>
-            <Button x:Name="btnDenied" Visibility="Collapsed" Content="Denied" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="138,585,0,-563" Height="27" Click="btnDenied_Click"/>
+            <Button x:Name="btnDenied" Visibility="Collapsed" Content="Decline" HorizontalAlignment="Left" VerticalAlignment="Top" Width="87" Margin="138,585,0,-563" Height="27" Click="btnDenied_Click"/>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
             <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="555" VerticalAlignment="Top" Width="875" FontSize="14" Background="Transparent" Margin="10,10,0,0" >

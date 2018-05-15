@@ -68,7 +68,7 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
                             $.post(AppLib_1.AppLib.SLURL + 'Guardian/Insert', dG, function (resGuardian) {
                             });
                         }
-                        window.location.replace("Sucessfully");
+                        window.location.replace("http://membership.nube.org.my/Joinup/sucessfully");
                     }
                 });
             }
@@ -106,7 +106,6 @@ define(["require", "exports", "knockout", "jquery", "./MasterMember", "./MasterB
         rules: {
             dob: {
                 required: true,
-                date: true
             },
             MEMBERTYPE_CODE: {
                 required: true

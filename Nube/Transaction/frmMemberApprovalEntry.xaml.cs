@@ -129,6 +129,7 @@ namespace Nube.Transaction
                                 frm.btnMembercard.Visibility = Visibility.Collapsed;
                                 frm.btnNomAdd.Visibility = Visibility.Collapsed;
                                 frm.btnNomClear.Visibility = Visibility.Collapsed;
+                                frm.tiPhoto.Visibility = Visibility.Visible;
                                 frm.ShowDialog();
                                 filteration();
                             }
@@ -157,6 +158,7 @@ namespace Nube.Transaction
                                 frm.btnMembercard.Visibility = Visibility.Collapsed;
                                 frm.btnNomAdd.Visibility = Visibility.Collapsed;
                                 frm.btnNomClear.Visibility = Visibility.Collapsed;
+                                frm.tiPhoto.Visibility = Visibility.Visible;
                                 frm.ShowDialog();
                                 filteration();
                             }
@@ -311,6 +313,75 @@ namespace Nube.Transaction
                             wm.IsApproved = 1;
                             db.SaveChanges();
 
+                            var bk = (from x in db.MASTERBANKs where x.BANK_CODE == wm.BANK_CODE select x).FirstOrDefault();
+                            var bb = (from x in db.MASTERBANKBRANCHes where x.BANKBRANCH_CODE == wm.BANKBRANCH_CODE select x).FirstOrDefault();
+
+                            MemberStatusLog ms = new MemberStatusLog();
+                            ms.MEMBER_CODE = Convert.ToInt32(mm.MEMBER_CODE);
+                            ms.MEMBER_NAME = wm.MEMBER_NAME;
+                            ms.MEMBER_ID = Convert.ToInt32(mm.MEMBER_ID);
+                            ms.MEMBERTYPE_CODE = Convert.ToInt32(wm.MEMBERTYPE_CODE);
+                            if (Convert.ToInt32(wm.MEMBERTYPE_CODE) == 1)
+                            {
+                                ms.MEMBERTYPE_NAME = "C";
+                            }
+                            else
+                            {
+                                ms.MEMBERTYPE_NAME = "N";
+                            }
+                            ms.SEX = wm.SEX;
+
+                            if (wm.SEX == "Male")
+                            {
+                                ms.SEX_MF = "M";
+                            }
+                            else
+                            {
+                                ms.SEX_MF = "F";
+                            }
+
+                            if (wm.RACE_CODE == 1)
+                            {
+                                ms.RACE = "M";
+                            }
+                            else if (wm.RACE_CODE == 2)
+                            {
+                                ms.RACE = "I";
+                            }
+                            else if (wm.RACE_CODE == 3)
+                            {
+                                ms.RACE = "C";
+                            }
+                            else
+                            {
+                                ms.RACE = "O";
+                            }
+
+                            ms.ICNO_NEW = string.IsNullOrEmpty(wm.ICNO_NEW) ? "" : wm.ICNO_NEW;
+                            ms.ICNO_OLD = string.IsNullOrEmpty(wm.ICNO_OLD) ? "" : wm.ICNO_OLD;
+                            ms.Levy = wm.LEVY;
+                            ms.TDF = wm.TDF;
+                            ms.CITY_CODE = Convert.ToInt32(wm.CITY_CODE);
+                            ms.STATE_CODE = Convert.ToInt32(wm.STATE_CODE);
+                            ms.MOBILE_NO = wm.MOBILE;
+                            ms.DATEOFBIRTH = wm.DATEOFBIRTH;
+                            ms.BANK_CODE = Convert.ToInt32(wm.BANK_CODE);
+                            ms.BANKUSER_CODE = bk.BANK_USERCODE;
+
+                            ms.BRANCH_CODE = Convert.ToInt32(wm.BANKBRANCH_CODE);
+                            ms.BRANCH_USER_CODE = bb.BANKBRANCH_USERCODE;
+                            ms.BRANCH_NAME = bb.BANKBRANCH_NAME;
+                            ms.DATEOFJOINING = wm.DATEOFJOINING;
+                            ms.REJOINED = Convert.ToBoolean(wm.REJOINED);
+                            ms.TOTALMONTHSPAID = 1;
+                            ms.TOTALMOTHSDUE = 0;
+                            ms.LASTPAYMENT_DATE = DateTime.Today;
+                            ms.MEMBERSTATUS = "ACTIVE";
+                            ms.MEMBERSTATUSCODE = 1;
+                            db.MemberStatusLogs.Add(ms);
+                            db.SaveChanges();
+
+
                             int iMemberCode = Convert.ToInt32(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
 
                             var ni = (from x in db.NomineeInsertBranches where x.MEMBER_CODE == dMemberCode select x).FirstOrDefault();
@@ -331,7 +402,7 @@ namespace Nube.Transaction
                                 mn.COUNTRY = ni.COUNTRY;
                                 mn.ZIPCODE = ni.ZIPCODE;
                                 mn.PHONE = ni.PHONE;
-                                mn.MOBILE = ni.MOBILE;                                
+                                mn.MOBILE = ni.MOBILE;
                                 db.MASTERNOMINEEs.Add(mn);
                                 db.SaveChanges();
                             }
@@ -384,6 +455,12 @@ namespace Nube.Transaction
                         var mm = (from x in db.MASTERMEMBERs where x.BranchMemberCode == dMemberCode select x).FirstOrDefault();
                         if (mm != null)
                         {
+                            var sl = (from x in db.MemberStatusLogs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
+                            if (sl != null)
+                            {
+                                db.MemberStatusLogs.Remove(sl);
+                            }
+
                             var nm = (from x in db.MASTERNOMINEEs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
                             if (nm != null)
                             {
@@ -417,7 +494,7 @@ namespace Nube.Transaction
                         txtMemberNo.Text = "";
                         txtNoofMembers.Text = "";
                         load_Form();
-                    }                    
+                    }
                 }
             }
         }
@@ -479,19 +556,23 @@ namespace Nube.Transaction
 
         private void rbtPending_Click(object sender, RoutedEventArgs e)
         {
+            dgvMemberApproval.Columns[1].Header = "Temp Membership No";
             dgvMemberApproval.Columns[9].Header = "Approve";
+
             filteration();
         }
 
         private void rbtApproved_Click(object sender, RoutedEventArgs e)
         {
             filteration();
+            dgvMemberApproval.Columns[1].Header = "Membership No";
             dgvMemberApproval.Columns[9].Header = "Decline";
         }
 
         private void rbtDeclain_Click(object sender, RoutedEventArgs e)
         {
             filteration();
+            dgvMemberApproval.Columns[1].Header = "Temp Membership No";
             dgvMemberApproval.Columns[9].Header = "Approve";
         }
 

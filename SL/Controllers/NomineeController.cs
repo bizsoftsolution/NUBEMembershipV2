@@ -46,14 +46,12 @@ namespace SL.Controllers
                 db.NomineeInsertBranches.Add(nm);
                 db.SaveChanges();
 
-
                 return Json(new { isSaved = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 return Json(new { isSaved = false, ErrMsg = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-
         }
     }
 }

@@ -1401,7 +1401,6 @@ namespace Nube.Transaction
         {
             try
             {
-
                 var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
 
                 var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
@@ -1760,6 +1759,17 @@ namespace Nube.Transaction
                     txtGurPhNo.Text = gurdian.PHONE;
                     txtGurMobileNo.Text = gurdian.MOBILE;
                 }
+
+                var Attachment = (from x in db.MembershipAttachments where x.MemberCode == dMember_Code select x).ToList();
+                if (Attachment != null)
+                {
+                    tiPhoto.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    tiPhoto.Visibility = Visibility.Collapsed;
+                }
+
             }
             catch (Exception ex)
             {
@@ -1773,9 +1783,6 @@ namespace Nube.Transaction
             {
 
                 var qry = (from x in db.MemberInsertBranches where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
-
-
-                //var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 var brnch = (from bc in db.MASTERBANKBRANCHes
                              join ct in db.MASTERCITies on bc.BANKBRANCH_CITY_CODE equals ct.CITY_CODE
@@ -1853,31 +1860,7 @@ namespace Nube.Transaction
                                }
                                ).FirstOrDefault();
 
-                DataTable dtFee = new DataTable();
-                //using (SqlConnection con = new SqlConnection(AppLib.connStr))
-                //{
-                //    SqlCommand cmd;
-                //    string str = "SELECT ISNULL(AMOUNTBF,0)AMOUNTBF,ISNULL(UNIONCONTRIBUTION,0)UNIONCONTRIBUTION,ISNULL(AMOUNTINS,0)AMOUNTINS, \r" +
-                //                 " ISNULL(AMTSUBS,0)AMTSUBS,ISNULL(TOTALMONTHSPAID, 0)TOTALMONTHSPAID,ISNULL(TOTALMONTHSPAIDINS, 0)TOTALMONTHSPAIDINS \r" +
-                //                 " FROM FEESDETAILS(NOLOCK)" +
-                //                 " WHERE UPDATEDSTATUS = 'NOT UPDATED' AND ISNOTMATCH=0 AND MEMBERCODE=" + dMember_Code;
-
-                //    cmd = new SqlCommand(str, con);
-                //    cmd.CommandType = CommandType.Text;
-                //    SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                //    adp.Fill(dtFee);
-                //}
-
                 BF = 0; UC = 0; Ins = 0; Subs = 0; dTotlMonthsPaid = 0; dTotlMonthsPaidUC = 0;
-                //foreach (DataRow dr in dtFee.Rows)
-                //{
-                //    BF = BF + (dr["AmountBf"] != null ? Convert.ToDecimal(dr["AmountBf"]) : 0);
-                //    UC = UC + Convert.ToDecimal(dr["UnionContribution"]);
-                //    Ins = Ins + Convert.ToDecimal(dr["AmountIns"]);
-                //    Subs = Subs + Convert.ToDecimal(dr["AmtSubs"]);
-                //    dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TotalMonthsPaid"]);
-                //    dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TotalMonthsPaidIns"]);
-                //}               
 
                 if (qry != null)
                 {
@@ -3326,6 +3309,72 @@ namespace Nube.Transaction
                         mm.BranchMemberCode = Convert.ToInt32(dMember_Code);
 
                         db.MASTERMEMBERs.Add(mm);
+                        db.SaveChanges();
+
+                        MemberStatusLog ms = new MemberStatusLog();
+                        ms.MEMBER_CODE = Convert.ToInt32(mm.MEMBER_CODE);
+                        ms.MEMBER_NAME = txtMemberName.Text;
+                        ms.MEMBER_ID = Convert.ToInt32(mm.MEMBER_ID);
+                        ms.MEMBERTYPE_CODE = Convert.ToInt32(wm.MEMBERTYPE_CODE);
+                        if (Convert.ToInt32(cmbMemberType.SelectedValue) == 1)
+                        {
+                            ms.MEMBERTYPE_NAME = "C";
+                        }
+                        else
+                        {
+                            ms.MEMBERTYPE_NAME = "N";
+                        }
+                        ms.SEX = cmbGender.Text;
+
+                        if (cmbGender.Text == "Male")
+                        {
+                            ms.SEX_MF = "M";
+                        }
+                        else
+                        {
+                            ms.SEX_MF = "F";
+                        }
+
+                        if (cmbRace.Text == "MALAY")
+                        {
+                            ms.RACE = "M";
+                        }
+                        else if (cmbRace.Text == "INDIAN")
+                        {
+                            ms.RACE = "I";
+                        }
+                        else if (cmbRace.Text == "CHINESE")
+                        {
+                            ms.RACE = "C";
+                        }
+                        else if (cmbRace.Text == "OTHERS")
+                        {
+                            ms.RACE = "O";
+                        }
+
+                        ms.ICNO_NEW = string.IsNullOrEmpty(txtNewIC.Text) ? "" : txtNewIC.Text;
+                        ms.ICNO_OLD = string.IsNullOrEmpty(txtOldIC.Text) ? "" : txtOldIC.Text;
+                        ms.Levy = cmbLevy.Text;
+                        ms.TDF = cmbTDF.Text;
+                        ms.CITY_CODE = Convert.ToInt32(wm.CITY_CODE);
+                        ms.STATE_CODE = Convert.ToInt32(wm.STATE_CODE);
+                        ms.MOBILE_NO = txtResMobileNo.Text;
+                        ms.DATEOFBIRTH = dtpDOB.SelectedDate;
+                        ms.BANK_CODE = Convert.ToInt32(cmbBankCode.SelectedValue);
+                        ms.BANKUSER_CODE = cmbBankCode.Text;
+
+                        ms.BRANCH_CODE = Convert.ToInt32(cmbBranchCode.SelectedValue);
+                        ms.BRANCH_USER_CODE = cmbBranchCode.Text;
+                        ms.BRANCH_NAME = cmbBranchName.Text;
+                        ms.DATEOFJOINING = dtpDOJ.SelectedDate;
+                        ms.REJOINED = Convert.ToBoolean(ckbRejoined.IsChecked);
+                        ms.TOTALMONTHSPAID = 1;
+                        ms.TOTALMOTHSDUE = 0;
+                        ms.LASTPAYMENT_DATE = DateTime.Today;
+                        ms.MEMBERSTATUS = "ACTIVE";
+                        ms.MEMBERSTATUSCODE = 1;
+                        db.MemberStatusLogs.Add(ms);
+                        db.SaveChanges();
 
                         wm.IsApproved = 1;
                         db.SaveChanges();
@@ -3350,7 +3399,7 @@ namespace Nube.Transaction
                             mn.COUNTRY = ni.COUNTRY;
                             mn.ZIPCODE = ni.ZIPCODE;
                             mn.PHONE = ni.PHONE;
-                            mn.MOBILE = ni.MOBILE;                          
+                            mn.MOBILE = ni.MOBILE;
                             db.MASTERNOMINEEs.Add(mn);
                             db.SaveChanges();
                         }
@@ -3358,7 +3407,7 @@ namespace Nube.Transaction
                         var gi = (from x in db.GuardianInsertBranches where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
                         if (gi != null)
                         {
-                            MASTERGUARDIAN mg = new MASTERGUARDIAN();                        
+                            MASTERGUARDIAN mg = new MASTERGUARDIAN();
                             mg.MEMBER_CODE = iMemberCode;
                             mg.NAME = gi.NAME;
                             mg.ICNO_NEW = gi.ICNO_NEW;
@@ -3374,7 +3423,7 @@ namespace Nube.Transaction
                             mg.ZIPCODE = gi.ZIPCODE;
                             mg.PHONE = gi.PHONE;
                             mg.MOBILE = gi.MOBILE;
-                            db.MASTERGUARDIANs.Add(mg);                           
+                            db.MASTERGUARDIANs.Add(mg);
                             db.SaveChanges();
                         }
                         MessageBox.Show("Member Added Sucessfully!", "Sucessfully");
@@ -3398,6 +3447,12 @@ namespace Nube.Transaction
                     var mm = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
                     if (mm != null)
                     {
+                        var sl = (from x in db.MemberStatusLogs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
+                        if (sl != null)
+                        {
+                            db.MemberStatusLogs.Remove(sl);
+                        }
+
                         var nm = (from x in db.MASTERNOMINEEs where x.MEMBER_CODE == mm.MEMBER_CODE select x).FirstOrDefault();
                         if (nm != null)
                         {

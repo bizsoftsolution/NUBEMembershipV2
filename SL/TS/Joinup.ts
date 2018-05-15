@@ -106,7 +106,7 @@ class Joinup {
 
                         });
                     }                   
-                    window.location.replace("Sucessfully");
+                    window.location.replace("http://membership.nube.org.my/Joinup/sucessfully");
                 }
             });
         }
@@ -151,8 +151,7 @@ $('#frmMember').validate(
     {
         rules: {
             dob: {
-                required: true,
-                date: true
+                required: true,               
             },
             MEMBERTYPE_CODE: {
                 required: true
