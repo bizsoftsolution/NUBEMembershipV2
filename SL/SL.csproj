@@ -321,6 +321,7 @@
     <Content Include="Scripts\JS\Membership\Membership.js.map" />
     <Content Include="Scripts\JS\Prg01.js.map" />
     <Content Include="Views\Joinup\Sucessfully.cshtml" />
+    <Content Include="Views\MasterMember\Info.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -337,7 +338,6 @@
     <Folder Include="Views\MasterBranch\" />
     <Folder Include="Views\MasterCity\" />
     <Folder Include="Views\MasterCountry\" />
-    <Folder Include="Views\MasterMember\" />
     <Folder Include="Views\MasterRace\" />
     <Folder Include="Views\MasterRelation\" />
     <Folder Include="Views\MasterState\" />

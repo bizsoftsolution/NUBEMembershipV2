@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = null;
+    DAL.MASTERMEMBER mm = ViewBag.Member as DAL.MASTERMEMBER;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Info</title>
+</head>
+<body>
+    <div>
+        Member Name : @mm.MEMBER_NAME
+        Membership No : @mm.MEMBER_ID
+        NRIC : @mm.ICNO_NEW
+    </div>
+</body>
+</html>

@@ -165,6 +165,33 @@
     <Compile Include="FeesMaster.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="FEE_STATUS.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_1980.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_1985.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_1990.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_1995.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_2000.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_2005.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_2010.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FEE_STATUS_UPTO_2016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
     <Compile Include="frmAccountsExpenceReport.xaml.cs">
       <DependentUpon>frmAccountsExpenceReport.xaml</DependentUpon>
     </Compile>
@@ -230,6 +257,12 @@
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERMEMBER.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MASTERMEMBERNEW.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MasterMemberStatu.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MASTERMEMBERTYPE.cs">
@@ -438,6 +471,120 @@
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="STATUS012017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS012018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS022017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS022018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS032017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS032018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS042016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS042017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS042018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS052016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS052017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS052018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS062016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS062017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS062018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS072016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS072017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS072018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS082016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS082017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS082018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS092016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS092017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS092018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS102016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS102017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS102018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS112016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS112017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS112018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS122016.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS122017.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="STATUS122018.cs">
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusData.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatusData.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusData.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatusData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StatusData.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StatusData.edmx</DependentUpon>
+    </Compile>
     <Compile Include="StatusModify.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
@@ -882,6 +1029,13 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <EntityDeploy Include="StatusData.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StatusData.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="StatusData.edmx.diagram">
+      <DependentUpon>StatusData.edmx</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -951,6 +1105,16 @@
     </Content>
     <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StatusData.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StatusData.edmx</DependentUpon>
+      <LastGenOutput>StatusData.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="StatusData.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StatusData.edmx</DependentUpon>
+      <LastGenOutput>StatusData.cs</LastGenOutput>
     </Content>
     <Resource Include="Image\accept.png" />
     <Content Include="NUBE DATA.Context.tt">

@@ -16,6 +16,13 @@ namespace SL.Controllers
         {
             return View();
         }
+        [NubeCrossSiteAttribute]
+        public ActionResult Info(int Id)
+        {
+            var db = new DAL.nubebfsEntities();
+            ViewBag.Member = db.MASTERMEMBERs.Where(x => x.MEMBER_ID == Id).FirstOrDefault();
+            return View();
+        }
 
         [NubeCrossSiteAttribute]
         public JsonResult Insert(MemberInsertBranch wm)

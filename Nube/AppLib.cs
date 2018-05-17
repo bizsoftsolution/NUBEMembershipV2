@@ -16,6 +16,7 @@ namespace Nube
 {
     public static class AppLib
     {
+        public enum MemberStatus { Active=1, Defaulter=2, StruckOff=3, Resigned=4};
         public static string sProjectName = "";
         public static int iUserCode = 0;
         public static Boolean bIsSuperAdmin = false;
@@ -35,7 +36,7 @@ namespace Nube
         public static DataTable dtMemberQuery = new DataTable();        
         public static DataTable dtAnnualStatement = new DataTable();
         public static nubebfsEntity db = new nubebfsEntity();
-
+        
         public static void CheckIsNumeric(TextCompositionEventArgs e)
         {
             try

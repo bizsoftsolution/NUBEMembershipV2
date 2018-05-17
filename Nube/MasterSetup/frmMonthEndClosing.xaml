@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube.MasterSetup"
         mc:Ignorable="d"
-        Title="frmMonthEndClosing"  Height="700" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized">
+        Title="Month End Closing"  Height="700" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized">
     <metro:MetroWindow.Background>
         <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
     </metro:MetroWindow.Background>
@@ -31,11 +31,27 @@
             </materialDesign:Card>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <Label x:Name="label" Content="Colsing Month" FontWeight="Bold" HorizontalAlignment="Left" Margin="490,123,0,0" VerticalAlignment="Top" Width="101"/>
-            <DatePicker x:Name="dtpDate" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date Of Joining" FontWeight="Bold" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="611,125,0,0" FontSize="14" VerticalAlignment="Top" Width="134"/>
-            <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" Margin="490,189,0,0" VerticalAlignment="Top" Width="92" Click="btnHome_Click"/>
-            <Button x:Name="btnLoad" Content="Save" HorizontalAlignment="Left" Margin="625,189,0,0" VerticalAlignment="Top" Width="92" Click="btnLoad_Click"/>
-            <ProgressBar x:Name="progressBar1" HorizontalAlignment="Left" Height="25" Margin="260,239,0,0" VerticalAlignment="Top" Width="646"/>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ProgressBar x:Name="progressBar1" HorizontalAlignment="Left" Height="25"  VerticalAlignment="Top" Width="500"/>
+            <GroupBox HorizontalAlignment="Center" Margin="0,20,0,0" Height="200" Width="500" VerticalAlignment="Center" FontWeight="Bold" Header="Month End Closing">
+                <Grid>
+                        <StackPanel Orientation="Vertical" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <StackPanel Orientation="Horizontal">
+                                <Label x:Name="label" Content="Colsing Month" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101"/>
+                                <DatePicker x:Name="dtpDate" Margin="20,0,0,0" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date Of Month" FontWeight="Bold" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  FontSize="14" VerticalAlignment="Top" Width="134"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="20,50,0,0">
+                                <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="92" Click="btnHome_Click"/>
+                                <Button x:Name="btnLoad" Margin="20,0,0,0" Content="Load" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="92" Click="btnLoad_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    
+                    
+                    
+                </Grid>
+            </GroupBox>
+            
+            </StackPanel>
         </Grid>
 
     </Grid>
