@@ -399,17 +399,17 @@ namespace Nube.Transaction
                     }
                     else
                     {
-                        SqlCommand cmd;
-                        cmd = new SqlCommand("SPMEMBERSHIP", con);
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                        //SqlCommand cmd;
+                        //cmd = new SqlCommand("SPMEMBERSHIP", con);
+                        //cmd.CommandType = CommandType.StoredProcedure;
+                        //SqlDataAdapter adp = new SqlDataAdapter(cmd);
                         progressBar1.Value = 5;
-                        System.Windows.Forms.Application.DoEvents();
-                        dtMember.Rows.Clear();
-                        adp.SelectCommand.CommandTimeout = 0;
-                        adp.Fill(dtMember);
-                        //var ms = (from x in db.MemberStatusLogs orderby x.MEMBER_NAME ascending select x).ToList();
-                        // dtMember = AppLib.LINQResultToDataTable(ms);
+                        //System.Windows.Forms.Application.DoEvents();
+                        //dtMember.Rows.Clear();
+                        //adp.SelectCommand.CommandTimeout = 0;
+                        //adp.Fill(dtMember);
+                        var ms = db.SPMEMBERSHIP().ToList();                        
+                        dtMember = AppLib.LINQResultToDataTable(ms);
                         dgvDetails.ItemsSource = dtMember.DefaultView;
                         AppLib.dtMemberQuery = dtMember.Copy();
                     }
@@ -425,24 +425,7 @@ namespace Nube.Transaction
                         filteration();
                     }
                     progressBar1.Value = 10;
-                    System.Windows.Forms.Application.DoEvents();
-
-                    //txtBankName.Text = "";
-                    //txtBranchName.Text = "";
-                    //txtBankUserCode.Text = "";
-                    //txtICNo.Text = "";
-                    //txtMemberName.Text = "";
-                    //txtNubeBranch.Text = "";
-                    //txtMemberType.Text = "";
-                    //txtMemberNo.Text = "";
-                    //txtNoofMembers.Text = "";
-
-                    //ckbActive.IsChecked = false;
-                    //ckbDefaulter.IsChecked = false;
-                    //ckbResigned.IsChecked = false;
-                    //ckbstrukoff.IsChecked = false;
-                    //dtpFromDate.Text = "";
-                    //dtpTodate.Text = "";
+                    System.Windows.Forms.Application.DoEvents();                    
                 }
             }
             catch (Exception ex)

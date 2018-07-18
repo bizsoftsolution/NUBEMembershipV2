@@ -42,11 +42,12 @@
 
             <materialDesign:PopupBox x:Name="btnPopup" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                               Foreground="{DynamicResource PrimaryHueDarkBrush}"   Background="Beige"
-                                         PlacementMode="BottomAndAlignCentres"
+                                         PlacementMode="RightAndAlignMiddles"
                                          ToolTipService.Placement="Right"
-                                         ToolTip="Payment Entry For Arrear, LEVY  &amp; TDF" Margin="190,388,0,144" Width="50" Height="Auto">
+                                         ToolTip="Payment Entry For Fees, Arrear, LEVY  &amp; TDF" Margin="190,388,0,144" Width="50" Height="Auto">
                 <StackPanel>
-                    <Button x:Name="btnFeeCheck" Background="White" ToolTip="FeeEntry" Tag="FeeEntry" Click="btnFeeCheck_Click" >FeeEntry</Button>                    
+                    <Button x:Name="btnFeeCheck" Background="White" ToolTip="FeeEntry" Tag="FeeEntry" Click="btnFeeCheck_Click" >Fee Entry</Button>
+                    <Button x:Name="btnArrearEntry" Background="White" ToolTip="ArrearEntry" Tag="ArrearEntry" Click="btnArrearEntry_Click" >Arrear Entry</Button>
                     <Button x:Name="btnLevy" Background="White" ToolTip="Levy" Tag="LEVY" Click="btnLevy_Click" >Levy</Button>
                     <Button x:Name="btnTDF" Background="White" ToolTip="TDF" Tag="TDF" Click="btnTDF_Click" >TDF</Button>
                     <Button x:Name="btnPreApr16" Background="White" ToolTip="Pre-Apr16" Tag="Pre Arrear 16" Click="btnPreApr16_Click">Pre-Apr16</Button>

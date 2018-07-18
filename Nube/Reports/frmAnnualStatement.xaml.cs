@@ -92,6 +92,7 @@ namespace Nube.Reports
                 cmbBank.Text = "";
                 cmbBranch.Text = "";
                 txtMemberNo.Text = "";
+                ReportViewer.Clear();
             }
             catch (Exception ex)
             {

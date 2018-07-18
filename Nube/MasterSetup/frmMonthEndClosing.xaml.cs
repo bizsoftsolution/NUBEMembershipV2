@@ -51,111 +51,213 @@ namespace Nube.MasterSetup
                 else
                 {
                     DateTime dt = dtpDate.SelectedDate.Value;
-                    DateTime dtFrom = new DateTime(dt.Year, dt.Month, 1);
-                    DateTime dtTo = dtFrom.AddMonths(1);
+                    int iFeeyear = dt.Year, iFeeMonth = dt.Month;
 
-
-                    var lstMember = db.MASTERMEMBERNEWs.Where(x => x.DATEOFJOINING < dtTo).ToList();
-                    var lstFees = db.FeesDetails.Where(x => x.FeeYear == dtFrom.Year && x.FeeMonth == dtFrom.Month).ToList();
-
-                    var lstMemberAndFees = from mm in lstMember
-                                           from fee in lstFees
-                                           where mm.MEMBER_CODE == fee.MemberCode
-                                           select new { code = mm.MEMBER_CODE, Member = mm, Fee = fee };
-
-                    var lstMemberAndFeesGroupByCode = lstMemberAndFees.GroupBy(x => x.code).ToList();
-
-                    progressBar1.Minimum = 5;
-                    progressBar1.Maximum = lstMemberAndFeesGroupByCode.Count;
-                    progressBar1.Visibility = Visibility.Visible;
-                    int i = 0;
-                    foreach (var d in lstMemberAndFeesGroupByCode)
+                    var Fs = db.MasterMemberStatus.Where(x => x.FeeYear == iFeeyear && x.FeeMonth == iFeeMonth).ToList();
+                    if (Fs != null && Fs.Count > 0)
                     {
-                        progressBar1.Value += 1;
-                        System.Windows.Forms.Application.DoEvents();
-
-                        var MM = d.FirstOrDefault().Member;
-                        int MonDue = 0;
-                        if (MM.RESIGNED && MM.ResignationDate < dtFrom)
+                        if (MessageBox.Show("Already Monthend Closed, Do You want to Close Once Again ?", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                         {
-                            continue;
+                            db.MasterMemberStatus.RemoveRange(db.MasterMemberStatus.Where(x => x.FeeYear == iFeeyear && x.FeeMonth == iFeeMonth));
+                            db.SaveChanges();
+                            sMonthEnd();
                         }
-                        else
-                        {
-                            var feeAmt = d.Sum(x => x.Fee.TotalAmount);
-                            if (feeAmt > 0)
-                            {
-                                MM.LASTPAYMENT_DATE = dtTo.AddDays(-1);
-                                MM.TOTALMONTHSPAID += d.Sum(x => x.Fee.TotalMonthsPaid);
-                                MM.ACCSUBSCRIPTION += d.Sum(x => x.Fee.AmtSubs);
-                                MM.ACCBF += d.Sum(x => x.Fee.AmountBF);
-                            }
-
-                            if (MM.REJOINED && MM.ResignationDate <= dtTo)
-                            {
-                                MM.STATUS_CODE = (int)AppLib.MemberStatus.Resigned;
-                            }
-                            else
-                            {
-                                MonDue = Math.Abs( (int)Math.Abs(MM.DATEOFJOINING.Value.Subtract(dtFrom).Days / (365.25 / 12)) - MM.TOTALMONTHSPAID.Value);
-                                if (MonDue <= 3)
-                                {
-                                    MM.STATUS_CODE = (int)AppLib.MemberStatus.Active;
-                                }
-                                else if (Math.Abs((int)(MM.LASTPAYMENT_DATE.Value.Subtract(dtFrom).Days / (365.25 / 12))) <= 12)
-                                {
-                                    MM.STATUS_CODE = (int)AppLib.MemberStatus.Defaulter;
-                                }
-                                else
-                                {
-                                    MM.STATUS_CODE = (int)AppLib.MemberStatus.StruckOff;
-                                    MM.STRUCKOFF = true;
-                                }
-                            }
-                        }
-
-                        MasterMemberStatu ss = new MasterMemberStatu()
-                        {
-                            MEMBER_CODE = MM.MEMBER_CODE,
-                            MEMBERTYPE_CODE = MM.MEMBERTYPE_CODE,
-                            BANK_CODE = MM.BANK_CODE,
-                            BRANCH_CODE = MM.BRANCH_CODE,
-                            NUBE_BRANCH_CODE = 0,
-                            SUBSCRIPTION_AMOUNT = MM.MONTHLYSUBSCRIPTION,
-                            BF_AMOUNT = MM.MONTHLYBF,
-                            LASTPAYMENTDATE = dtTo.AddDays(-1),
-                            TOTALSUBCRP_AMOUNT = d.Sum(x => x.Fee.AmtSubs),
-                            TOTALBF_AMOUNT = d.Sum(x => x.Fee.AmountBF),
-                            TOTAL_MONTHS = d.Sum(x => x.Fee.TotalMonthsPaid),
-                            ENTRYMODE = "",
-                            DEFAULTINGMONTHS = "",
-                            TOTALMONTHSDUE = MonDue,
-                            TOTALMONTHSPAID = MM.TOTALMONTHSPAID + d.Sum(x => x.Fee.TotalMonthsPaid),
-                            SUBSCRIPTIONDUE = 0,
-                            BFDUE = 0,
-                            ACCSUBSCRIPTION = MM.ACCSUBSCRIPTION + d.Sum(x => x.Fee.AmtSubs),
-                            ACCBF = MM.ACCBF + d.Sum(x => x.Fee.AmountBF),
-                            ACCBENEFIT = MM.ACCBENEFIT,
-                            CURRENT_YDTBF = MM.CURRENT_YTDBF + d.Sum(x => x.Fee.AmountBF),
-                            CURRENT_YDTSUBSCRIPTION = MM.CURRENT_YTDSUBSCRIPTION + d.Sum(x => x.Fee.AmtSubs),
-                            STATUS_CODE = MM.STATUS_CODE,
-                            RESIGNED = Convert.ToDecimal(MM.RESIGNED),
-                            CANCELLED = 0,
-                            USER_CODE = 1,
-                            ENTRY_DATE = DateTime.Now,
-                            ENTRY_TIME = DateTime.Now.TimeOfDay.ToString(),
-                            STRUCKOFF = MM.STATUS_CODE == 3 ? 1 : 0
-                        };
-                        db.MasterMemberStatus.Add(ss);
                     }
-                    db.SaveChanges();
-                    MessageBox.Show("Done");
+                    else
+                    {
+                        if (MessageBox.Show("Do You want to save this Record?", "MonthEnd Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                        {
+                            sMonthEnd();
+                        }
+                    }
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        void sMonthEnd()
+        {
+            DateTime dt = dtpDate.SelectedDate.Value;
+            DateTime dtFrom = new DateTime(dt.Year, dt.Month, 1);
+            DateTime dtTo = dtFrom.AddMonths(1);
+            int iFeeyear = dt.Year, iFeeMonth = dt.Month;
+
+            var lstMember = db.MASTERMEMBERNEWs.Where(x => x.DATEOFJOINING < dtTo).ToList();
+            var lstFees = db.FeesDetails.Where(x => x.FeeYear == dtFrom.Year && x.FeeMonth == dtFrom.Month).ToList();
+
+            var lstMemberAndFees = from mm in lstMember
+                                   join fee in lstFees on mm.MEMBER_CODE equals fee.MemberCode into FD
+                                   from subfee in FD.DefaultIfEmpty()
+                                   select new { code = mm.MEMBER_CODE, Member = mm, Fee = subfee };
+
+            var lstMemberAndFeesGroupByCode = lstMemberAndFees.GroupBy(x => x.code).ToList();
+            lblMsg.Content = "0/0";
+            progressBar1.Minimum = 0;
+            progressBar1.Maximum = lstMemberAndFeesGroupByCode.Count;
+            System.Windows.Forms.Application.DoEvents();
+            progressBar1.Visibility = Visibility.Visible;
+            List<MasterMemberStatu> lstMasterMemberStatus = new List<MasterMemberStatu>();
+            int i = 0;
+            foreach (var d in lstMemberAndFeesGroupByCode)
+            {
+                i += 1;
+                progressBar1.Value = i;
+                lblMsg.Content = string.Format("{0}/{1}", progressBar1.Value, progressBar1.Maximum);
+                System.Windows.Forms.Application.DoEvents();
+
+                var MM = d.FirstOrDefault().Member;
+                int MonDue = 0;              
+
+                if (MM.RESIGNED && MM.ResignationDate < dtFrom)
+                {
+                    continue;
+                }
+                else
+                {
+                    MonDue = AppLib.MonthDiff(MM.DATEOFJOINING.Value, dtFrom) - MM.TOTALMONTHSPAID.Value;
+
+                    if (d.Select(x => x.Fee).FirstOrDefault() != null)
+                    {
+                        var feeAmt = d.Sum(x => x.Fee.TotalAmount == null ? 0 : x.Fee.TotalAmount);
+                        if (feeAmt > 0)
+                        {
+                            MM.LASTPAYMENT_DATE = dtTo.AddDays(-1);
+                            MM.TOTALMONTHSPAID += d.Sum(x => x.Fee.TotalMonthsPaid);
+                            MM.ACCSUBSCRIPTION += d.Sum(x => x.Fee.AmtSubs);
+                            MM.ACCBF += d.Sum(x => x.Fee.AmountBF);
+                        }
+                        else
+                        {
+                            MonDue = MonDue + 1;
+                        }
+                    }
+                    else
+                    {
+                        if (dtFrom.Year == MM.DATEOFJOINING.Value.Year && dtFrom.Month == MM.DATEOFJOINING.Value.Month)
+                        {
+                            MM.LASTPAYMENT_DATE = MM.DATEOFJOINING;
+                        }                        
+                        MonDue = MonDue + 1;
+                    }
+
+
+                    if (MM.REJOINED && MM.ResignationDate <= dtTo)
+                    {
+                        MM.STATUS_CODE = (int)AppLib.MemberStatus.Resigned;
+                    }
+                    else
+                    {
+                        if (MonDue <= 3)
+                        {
+                            MM.STATUS_CODE = (int)AppLib.MemberStatus.Active;
+                        }
+                        else if (MM.LASTPAYMENT_DATE != null)
+                        {
+                            if (AppLib.MonthDiff(MM.LASTPAYMENT_DATE.Value, dtFrom) <= 12)
+                            {
+                                MM.STATUS_CODE = (int)AppLib.MemberStatus.Defaulter;
+                            }
+                            else
+                            {
+                                MM.STATUS_CODE = (int)AppLib.MemberStatus.StruckOff;
+                                MM.STRUCKOFF = true;
+                            }
+                        }
+                        //else if (AppLib.MonthDiff(MM.DATEOFJOINING.Value, dtFrom) <= 12)
+                        //{
+                        //    MM.STATUS_CODE = (int)AppLib.MemberStatus.Defaulter;
+                        //}
+                        //else
+                        //{
+                        //    MM.STATUS_CODE = (int)AppLib.MemberStatus.StruckOff;
+                        //    MM.STRUCKOFF = true;
+                        //}
+                    }
+                }
+                //db.SaveChanges();
+                if (d.Select(x => x.Fee).FirstOrDefault() != null)
+                {
+                    MasterMemberStatu ss = new MasterMemberStatu()
+                    {
+                        FeeYear = iFeeyear,
+                        FeeMonth = iFeeMonth,
+                        MEMBER_CODE = MM.MEMBER_CODE,
+                        MEMBERTYPE_CODE = MM.MEMBERTYPE_CODE,
+                        BANK_CODE = MM.BANK_CODE,
+                        BRANCH_CODE = MM.BRANCH_CODE,
+                        NUBE_BRANCH_CODE = 0,
+                        SUBSCRIPTION_AMOUNT = MM.MONTHLYSUBSCRIPTION,
+                        BF_AMOUNT = MM.MONTHLYBF,
+                        LASTPAYMENTDATE = dtTo.AddDays(-1),
+                        TOTALSUBCRP_AMOUNT = d.Sum(x => x.Fee.AmtSubs),
+                        TOTALBF_AMOUNT = d.Sum(x => x.Fee.AmountBF),
+                        TOTAL_MONTHS = d.Sum(x => x.Fee.TotalMonthsPaid),
+                        ENTRYMODE = "",
+                        DEFAULTINGMONTHS = "",
+                        TOTALMONTHSDUE = MonDue,
+                        TOTALMONTHSPAID = MM.TOTALMONTHSPAID,
+                        SUBSCRIPTIONDUE = 0,
+                        BFDUE = 0,
+                        ACCSUBSCRIPTION = MM.ACCSUBSCRIPTION,
+                        ACCBF = MM.ACCBF,
+                        ACCBENEFIT = MM.ACCBENEFIT,
+                        CURRENT_YDTBF = MM.CURRENT_YTDBF + d.Sum(x => x.Fee.AmountBF),
+                        CURRENT_YDTSUBSCRIPTION = MM.CURRENT_YTDSUBSCRIPTION + d.Sum(x => x.Fee.AmtSubs),
+                        STATUS_CODE = MM.STATUS_CODE,
+                        RESIGNED = Convert.ToDecimal(MM.RESIGNED),
+                        CANCELLED = 0,
+                        USER_CODE = 1,
+                        ENTRY_DATE = DateTime.Now,
+                        ENTRY_TIME = string.Format("{0:hh:mm}", DateTime.Now),
+                        STRUCKOFF = MM.STATUS_CODE == 3 ? 1 : 0
+                    };
+                    lstMasterMemberStatus.Add(ss);
+                }
+                else
+                {
+                    MasterMemberStatu ss = new MasterMemberStatu()
+                    {
+                        FeeYear = iFeeyear,
+                        FeeMonth = iFeeMonth,
+                        MEMBER_CODE = MM.MEMBER_CODE,
+                        MEMBERTYPE_CODE = MM.MEMBERTYPE_CODE,
+                        BANK_CODE = MM.BANK_CODE,
+                        BRANCH_CODE = MM.BRANCH_CODE,
+                        NUBE_BRANCH_CODE = 0,
+                        SUBSCRIPTION_AMOUNT = MM.MONTHLYSUBSCRIPTION,
+                        BF_AMOUNT = MM.MONTHLYBF,
+                        LASTPAYMENTDATE = MM.LASTPAYMENT_DATE,
+                        TOTALSUBCRP_AMOUNT = 0,
+                        TOTALBF_AMOUNT = 0,
+                        TOTAL_MONTHS = 0,
+                        ENTRYMODE = "",
+                        DEFAULTINGMONTHS = "",
+                        TOTALMONTHSDUE = MonDue,
+                        TOTALMONTHSPAID = MM.TOTALMONTHSPAID,
+                        SUBSCRIPTIONDUE = 0,
+                        BFDUE = 0,
+                        ACCSUBSCRIPTION = MM.ACCSUBSCRIPTION,
+                        ACCBF = MM.ACCBF,
+                        ACCBENEFIT = MM.ACCBENEFIT,
+                        CURRENT_YDTBF = MM.CURRENT_YTDBF,
+                        CURRENT_YDTSUBSCRIPTION = MM.CURRENT_YTDSUBSCRIPTION,
+                        STATUS_CODE = MM.STATUS_CODE,
+                        RESIGNED = Convert.ToDecimal(MM.RESIGNED),
+                        CANCELLED = 0,
+                        USER_CODE = 1,
+                        ENTRY_DATE = DateTime.Now,
+                        ENTRY_TIME = string.Format("{0:hh:mm}", DateTime.Now),
+                        STRUCKOFF = MM.STATUS_CODE == 3 ? 1 : 0
+                    };
+                    lstMasterMemberStatus.Add(ss);
+                }
+            }
+            db.MasterMemberStatus.AddRange(lstMasterMemberStatus);
+            db.SaveChanges();
+            MessageBox.Show("Done", "Success");
         }
 
         private void btnLoad_Click1(object sender, RoutedEventArgs e)

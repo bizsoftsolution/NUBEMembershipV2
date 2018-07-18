@@ -111,6 +111,7 @@ namespace Nube.Reports
             lblState.Visibility = Visibility.Collapsed;
             chkMelaka.Visibility = Visibility.Collapsed;
             chkNegeriSembilan.Visibility = Visibility.Collapsed;
+            ReportViewer.Clear();
         }
 
 
@@ -120,126 +121,152 @@ namespace Nube.Reports
 
         void GetDetails()
         {
-            try
+            if (string.IsNullOrEmpty(dtpDOB.Text))
             {
-                //string dateMonth = string.Format("{0:MMyyyy}", dtpDOB.SelectedDate.Value);
-                DataTable dt = new DataTable();
-                using (SqlConnection con = new SqlConnection(AppLib.connStr))
-                {
-                    con.Open();
-                    string sWhere = "";
-                    string Qry = "";
+                MessageBox.Show("Date is empty", "Empty");
+                dtpDOB.Focus();
 
-                    DateTime dtfirstDayOfNextMonth = new DateTime(Convert.ToDateTime(dtpDOB.SelectedDate).Year, Convert.ToDateTime(dtpDOB.SelectedDate).Month, 1).AddMonths(1);
-
-                    if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
-                    {
-                        sWhere = " AND BB.NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
-                    }
-
-                    if (!string.IsNullOrEmpty(cmbBank.Text))
-                    {
-                        sWhere = sWhere + " AND MB.BANK_NAME='" + cmbBank.Text + "'";
-                    }
-
-                    if (!string.IsNullOrEmpty(cmbBranch.Text))
-                    {
-                        sWhere = sWhere + " AND BB.BANKBRANCH_NAME='" + cmbBranch.Text + "'";
-                    }
-
-
-                    if (chkMelaka.IsChecked == true && chkNegeriSembilan.IsChecked == false)
-                    {
-                        sWhere = sWhere + " AND (MS.BRANCHSTATE LIKE '%MELAKA%') ";
-                    }
-                    else if (chkMelaka.IsChecked == false && chkNegeriSembilan.IsChecked == true)
-                    {
-                        sWhere = sWhere + " AND (MS.BRANCHSTATE NOT LIKE '%MELAKA%') ";
-                    }
-
-                    //  Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY BANK_NAME,MEMBER_NAME ASC) AS RNO,MEMBER_ID,ISNULL(MEMBER_NAME,'')MEMBER_NAME, \r" +
-                    //" BANK_USERCODE+'/'+BRANCHUSERCODE BANKBRANCH_NAME,BANK_NAME,CASE WHEN SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
-                    //" CASE WHEN ISNULL(ICNO_NEW,'')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, \r" +
-                    //" CASE WHEN MEMBERTYPE_NAME='CLERICAL' THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
-                    //" DATEOFJOINING,CASE WHEN MEMBERSTATUS='ACTIVE' THEN 'A' ELSE 'D' END STATUS_NAME \r" +
-                    //" FROM TEMPVIEWMASTERMEMBER (NOLOCK) \r" +
-                    //" WHERE ISCANCEL=0 AND MEMBERSTATUSCODE IN (1,2) AND DATEOFJOINING< '" + dtfirstDayOfNextMonth + "' " + sWhere + " \r" +
-                    //" ORDER BY BANK_NAME,MEMBER_NAME");
-
-                    Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MB.BANK_NAME,MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,  \r" +
-                                        " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANKBRANCH_NAME,MB.BANK_NAME,CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
-                                        " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(ICNO_OLD, '') END ICNO_NEW,\r" +
-                                        " CASE WHEN MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME,\r" +
-                                        " MM.DATEOFJOINING, CASE WHEN MEMBERSTATUSCODE = 1 THEN 'A' ELSE 'D' END STATUS_NAME\r" +
-                                        " FROM ACTIVEMEMBERHISTORY ST(NOLOCK)\r" +
-                                        " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBERCODE\r" +
-                                        " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANKCODE\r" +
-                                        " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCHCODE\r" +
-                                        " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE\r" + 
-                                        " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
-                                        " WHERE ST.MEMBERSTATUSCODE IN(1,2) AND MONTH(ST.ENTRYDATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(ST.ENTRYDATE)=YEAR('{0:dd/MMM/yyyy}') " + sWhere, dtpDOB.SelectedDate);
-
-                    SqlCommand cmd = new SqlCommand(Qry, con);
-                    SqlDataAdapter sdp = new SqlDataAdapter(cmd);
-                    sdp.SelectCommand.CommandTimeout = 0;
-                    sdp.Fill(dt);
-                }
-
-                if (dt.Rows.Count > 0)
-                {
-                    DataTable dtActive = new DataTable();
-                    DataTable dtDefaulter = new DataTable();
-                    DataView dvAc = new DataView(dt);
-                    dvAc.RowFilter = " STATUS_NAME='A' ";
-                    dtActive = dvAc.ToTable();
-                    DataView dvDF = new DataView(dt);
-                    dvDF.RowFilter = " STATUS_NAME='D' ";
-                    dtDefaulter = dvDF.ToTable();
-
-                    ReportViewer.Reset();
-                    ReportDataSource masterData = new ReportDataSource("STATUSREPORT", dt);
-                    ReportViewer.LocalReport.DataSources.Add(masterData);
-                    ReportViewer.LocalReport.ReportEmbeddedResource = "Nube.Reports.BranchStatusReport.rdlc";
-
-                    ReportParameter[] NB = new ReportParameter[6];
-                    NB[0] = new ReportParameter("DATE", string.Format("{0:MMM-yyyy}", dtpDOB.SelectedDate));
-                    NB[1] = new ReportParameter("ACTIVE", dtActive.Rows.Count.ToString());
-                    NB[2] = new ReportParameter("DEFAULTER", dtDefaulter.Rows.Count.ToString());
-                    NB[3] = new ReportParameter("TOTAL", dt.Rows.Count.ToString());
-
-                    if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
-                    {
-                        NB[4] = new ReportParameter("NUBEBRANCH", cmbNubeBranch.Text.ToString());
-                    }
-                    else
-                    {
-                        NB[4] = new ReportParameter("NUBEBRANCH", "");
-                    }
-
-                    if (chkMelaka.IsChecked == true && chkNegeriSembilan.IsChecked == false)
-                    {
-                        NB[5] = new ReportParameter("STATE", "MELAKA");
-                    }
-                    else if (chkMelaka.IsChecked == false && chkNegeriSembilan.IsChecked == true)
-                    {
-                        NB[5] = new ReportParameter("STATE", "NEGERI SEMBILAN");
-                    }
-                    else
-                    {
-                        NB[5] = new ReportParameter("STATE", "");
-                    }
-
-                    ReportViewer.LocalReport.SetParameters(NB);
-                    ReportViewer.RefreshReport();
-                }
-                else
-                {
-                    MessageBox.Show("No Records Found!");
-                }
             }
-            catch (Exception ex)
+            else
             {
-                ExceptionLogging.SendErrorToText(ex);
+                try
+                {
+                    //if (dtpDOB.SelectedDate > Convert.ToDateTime("28/FEB/2018").Date)
+                    //{
+                        //string dateMonth = string.Format("{0:MMyyyy}", dtpDOB.SelectedDate.Value);
+                        DataTable dt = new DataTable();
+                        using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                        {
+                            con.Open();
+                            string sWhere = "";
+                            string Qry = "";
+
+                            DateTime dtfirstDayOfNextMonth = new DateTime(Convert.ToDateTime(dtpDOB.SelectedDate).Year, Convert.ToDateTime(dtpDOB.SelectedDate).Month, 1).AddMonths(1);
+
+                            if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                            {
+                                sWhere = " AND BB.NUBE_BRANCH_CODE=" + cmbNubeBranch.SelectedValue;
+                            }
+
+                            if (!string.IsNullOrEmpty(cmbBank.Text))
+                            {
+                                sWhere = sWhere + " AND MB.BANK_NAME='" + cmbBank.Text + "'";
+                            }
+
+                            if (!string.IsNullOrEmpty(cmbBranch.Text))
+                            {
+                                sWhere = sWhere + " AND BB.BANKBRANCH_NAME='" + cmbBranch.Text + "'";
+                            }
+
+
+                            if (chkMelaka.IsChecked == true && chkNegeriSembilan.IsChecked == false)
+                            {
+                                sWhere = sWhere + " AND (MS.STATE_NAME LIKE '%MELAKA%') ";
+                            }
+                            else if (chkMelaka.IsChecked == false && chkNegeriSembilan.IsChecked == true)
+                            {
+                                sWhere = sWhere + " AND (MS.STATE_NAME NOT LIKE '%MELAKA%') ";
+                            }
+                        if ((Convert.ToDateTime(dtpDOB.SelectedDate).Year >= 2016 && Convert.ToDateTime(dtpDOB.SelectedDate).Month > 3) || Convert.ToDateTime(dtpDOB.SelectedDate).Year > 2016)
+                        {
+                            Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MB.BANK_NAME,MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,  \r" +
+                                                " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANKBRANCH_NAME,MB.BANK_NAME,CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
+                                                " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(ICNO_OLD, '') END ICNO_NEW,\r" +
+                                                " CASE WHEN MM.MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME,\r" +
+                                                " MM.DATEOFJOINING, CASE WHEN ST.STATUS_CODE = 1 THEN 'A' ELSE 'D' END STATUS_NAME\r" +
+                                                " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
+                                                " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
+                                                " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = MM.BANK_CODE \r" +
+                                                " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
+                                                " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE \r" +
+                                                " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                                                " WHERE ST.STATUS_CODE IN(1,2) " + sWhere, dtpDOB.SelectedDate);
+                        }
+                        else
+                        {
+                            Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MB.BANK_NAME,MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,  \r" +
+                                                " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANKBRANCH_NAME,MB.BANK_NAME,CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
+                                                " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(ICNO_OLD, '') END ICNO_NEW,\r" +
+                                                " CASE WHEN MM.MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME,\r" +
+                                                " MM.DATEOFJOINING, CASE WHEN ST.STATUS_CODE = 1 THEN 'A' ELSE 'D' END STATUS_NAME\r" +
+                                                " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
+                                                " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
+                                                " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANK_CODE \r" +
+                                                " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCH_CODE \r" +
+                                                " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = ST.NUBE_BRANCH_CODE \r" +
+                                                " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                                                " WHERE ST.STATUS_CODE IN(1,2) " + sWhere, dtpDOB.SelectedDate);
+                        }
+
+                            
+
+                            SqlCommand cmd = new SqlCommand(Qry, con);
+                            SqlDataAdapter sdp = new SqlDataAdapter(cmd);
+                            sdp.SelectCommand.CommandTimeout = 0;
+                            sdp.Fill(dt);
+                        }
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            DataTable dtActive = new DataTable();
+                            DataTable dtDefaulter = new DataTable();
+                            DataView dvAc = new DataView(dt);
+                            dvAc.RowFilter = " STATUS_NAME='A' ";
+                            dtActive = dvAc.ToTable();
+                            DataView dvDF = new DataView(dt);
+                            dvDF.RowFilter = " STATUS_NAME='D' ";
+                            dtDefaulter = dvDF.ToTable();
+
+                            ReportViewer.Reset();
+                            ReportDataSource masterData = new ReportDataSource("STATUSREPORT", dt);
+                            ReportViewer.LocalReport.DataSources.Add(masterData);
+                            ReportViewer.LocalReport.ReportEmbeddedResource = "Nube.Reports.BranchStatusReport.rdlc";
+
+                            ReportParameter[] NB = new ReportParameter[6];
+                            NB[0] = new ReportParameter("DATE", string.Format("{0:MMM-yyyy}", dtpDOB.SelectedDate));
+                            NB[1] = new ReportParameter("ACTIVE", dtActive.Rows.Count.ToString());
+                            NB[2] = new ReportParameter("DEFAULTER", dtDefaulter.Rows.Count.ToString());
+                            NB[3] = new ReportParameter("TOTAL", dt.Rows.Count.ToString());
+
+                            if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                            {
+                                NB[4] = new ReportParameter("NUBEBRANCH", "NUBE BRANCH : " + cmbNubeBranch.Text.ToString());
+                            }
+                            else
+                            {
+                                NB[4] = new ReportParameter("NUBEBRANCH", "");
+                            }
+
+                            if (chkMelaka.IsChecked == true && chkNegeriSembilan.IsChecked == false)
+                            {
+                                NB[5] = new ReportParameter("STATE", "MELAKA");
+                            }
+                            else if (chkMelaka.IsChecked == false && chkNegeriSembilan.IsChecked == true)
+                            {
+                                NB[5] = new ReportParameter("STATE", "NEGERI SEMBILAN");
+                            }
+                            else
+                            {
+                                NB[5] = new ReportParameter("STATE", "");
+                            }
+
+                            ReportViewer.LocalReport.SetParameters(NB);
+                            ReportViewer.RefreshReport();
+                        }
+                        else
+                        {
+                            MessageBox.Show("No Records Found!");
+                        }
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show("No Records Found!");
+                    //}
+                }
+                catch (Exception ex)
+                {
+                    ExceptionLogging.SendErrorToText(ex);
+                }
             }
         }
 

@@ -92,12 +92,12 @@
                         </Style>
                     </TabControl.Resources>
                     <TabItem Header="Member Report" FontWeight="Bold" FontSize="14">
-                        <WindowsFormsHost HorizontalAlignment="Left" Height="424" Margin="10" VerticalAlignment="Top" Width="1173">
+                        <WindowsFormsHost HorizontalAlignment="Left" Height="445" Margin="10" VerticalAlignment="Top" Width="1173">
                             <rv:ReportViewer x:Name="MemberReport"></rv:ReportViewer>
                         </WindowsFormsHost>
                     </TabItem>
                     <TabItem Header="NUBE Branch Report" FontWeight="Bold" FontSize="14">
-                        <WindowsFormsHost HorizontalAlignment="Left" Height="483" Margin="10" VerticalAlignment="Top" Width="1173">
+                        <WindowsFormsHost HorizontalAlignment="Left" Height="445" Margin="10" VerticalAlignment="Top" Width="1173">
                             <rv:ReportViewer x:Name="NUBEMemberReport"></rv:ReportViewer>
                         </WindowsFormsHost>
                     </TabItem>

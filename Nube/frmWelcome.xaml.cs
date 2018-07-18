@@ -25,17 +25,19 @@ namespace Nube
     /// </summary>
     public partial class frmWelcome : Window
     {
+        bool bIsClose = false;
         public frmWelcome()
         {
             InitializeComponent();
-            lblUpdated.Content = string.Format("UPDATED ON - 12-MAY-2018 ");    
+            lblUpdated.Content = string.Format("UPDATED ON - 27-Jun-2018 ");
         }
 
         private void image_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            bIsClose = true;
             frmLogin frm = new frmLogin();
-            frm.ShowDialog();
-            //this.Close();
+            frm.Show();
+            this.Close();
         }
 
         private void image_MouseEnter(object sender, MouseEventArgs e)
@@ -47,13 +49,16 @@ namespace Nube
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            if (MessageBox.Show(this, "Are you sure to exit?", "Exit Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            if (bIsClose == false)
             {
-                System.Windows.Forms.Application.Exit();
-            }
-            else
-            {
-                e.Cancel = true;
+                if (MessageBox.Show(this, "Are you sure to exit?", "Exit Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    System.Windows.Forms.Application.Exit();
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
             }           
         }
     }

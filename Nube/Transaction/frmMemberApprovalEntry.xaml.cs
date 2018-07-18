@@ -302,7 +302,7 @@ namespace Nube.Transaction
                             mm.CITY_CODE = wm.CITY_CODE;
                             mm.ZIPCODE = wm.ZIPCODE;
                             mm.STATE_CODE = wm.STATE_CODE;
-                            mm.COUNTRY = wm.CountryName;
+                            mm.COUNTRY = wm.COUNTRY;
                             mm.UpdatedBy = AppLib.iUserCode;
                             mm.UpdatedOn = DateTime.Now;
                             mm.IsBranchRegister = true;

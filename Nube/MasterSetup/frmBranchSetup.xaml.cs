@@ -128,6 +128,7 @@ namespace Nube.MasterSetup
                             mb.HEAD_QUARTERS = Convert.ToDecimal(ckbHeadOffice.IsChecked);
 
                             db.SaveChanges();
+                            AppLib.lstMASTERBANKBRANCH = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(mb);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERBANKBRANCH");
@@ -156,6 +157,7 @@ namespace Nube.MasterSetup
 
                             db.MASTERBANKBRANCHes.Add(mb);
                             db.SaveChanges();
+                            AppLib.lstMASTERBANKBRANCH = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(mb);
                             AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERBANKBRANCH");
@@ -250,7 +252,7 @@ namespace Nube.MasterSetup
                     cmbNUBEBranch.SelectedValue = Convert.ToInt32(drv["NUBE_BRANCH_CODE"]);
                     cmbState.SelectedValue = Convert.ToInt32(drv["BANKBRANCH_STATE_CODE"]);
                     ckbHeadOffice.IsChecked = Convert.ToBoolean(drv["HEAD_QUARTERS"]);
-                    txtPostalCode.Text= drv["BANKBRANCH_ZIPCODE"].ToString();
+                    txtPostalCode.Text = drv["BANKBRANCH_ZIPCODE"].ToString();
 
                     TCBranchSetup.TabIndex = 1;
                     TCBranchSetup.SelectedIndex = 1;
@@ -326,7 +328,7 @@ namespace Nube.MasterSetup
                                  " FROM MASTERBANKBRANCH BR(NOLOCK)" +
                                  " LEFT JOIN MASTERBANK BK(NOLOCK) ON BK.BANK_CODE=BR.BANK_CODE" +
                                  " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BR.NUBE_BRANCH_CODE" +
-                                 " WHERE BANKBRANCH_NAME<>'' AND BR.BANK_CODE={0} ORDER BY BR.BANKBRANCH_NAME", cmbBrBankName.SelectedValue);
+                                 " WHERE BANKBRANCH_NAME<>'' AND ISNULL(BR.DELETED,0)=0 AND BR.BANK_CODE={0} ORDER BY BR.BANKBRANCH_NAME", cmbBrBankName.SelectedValue);
 
                             SqlCommand cmd = new SqlCommand(ST, conn);
                             SqlDataAdapter sdp = new SqlDataAdapter(cmd);
@@ -417,28 +419,28 @@ namespace Nube.MasterSetup
         {
             try
             {
-                var bank = db.MASTERBANKs.ToList();
-                cmbBankName.ItemsSource = bank;
+                //var bank = db.MASTERBANKs.ToList();
+                cmbBankName.ItemsSource = AppLib.lstMASTERBANK;
                 cmbBankName.SelectedValuePath = "BANK_CODE";
                 cmbBankName.DisplayMemberPath = "BANK_NAME";
 
-                cmbBrBankName.ItemsSource = bank;
+                cmbBrBankName.ItemsSource = AppLib.lstMASTERBANK;
                 cmbBrBankName.SelectedValuePath = "BANK_CODE";
                 cmbBrBankName.DisplayMemberPath = "BANK_NAME";
 
-                cmbCity.ItemsSource = db.MASTERCITies.ToList();
+                cmbCity.ItemsSource = AppLib.lstMASTERCITY;
                 cmbCity.SelectedValuePath = "CITY_CODE";
                 cmbCity.DisplayMemberPath = "CITY_NAME";
 
-                cmbState.ItemsSource = db.MASTERSTATEs.ToList();
+                cmbState.ItemsSource = AppLib.lstMASTERSTATE;
                 cmbState.SelectedValuePath = "STATE_CODE";
                 cmbState.DisplayMemberPath = "STATE_NAME";
 
-                cmbCountry.ItemsSource = db.CountrySetups.ToList();
+                cmbCountry.ItemsSource = AppLib.lstCountrySetup;
                 cmbCountry.SelectedValuePath = "CountryName";
                 cmbCountry.DisplayMemberPath = "CountryName";
 
-                cmbNUBEBranch.ItemsSource = db.MASTERNUBEBRANCHes.ToList();
+                cmbNUBEBranch.ItemsSource = db.MASTERNUBEBRANCHes.OrderBy(x => x.NUBE_BRANCH_NAME).ToList();
                 cmbNUBEBranch.SelectedValuePath = "NUBE_BRANCH_CODE";
                 cmbNUBEBranch.DisplayMemberPath = "NUBE_BRANCH_NAME";
 
@@ -459,7 +461,7 @@ namespace Nube.MasterSetup
                              " FROM MASTERBANKBRANCH BR(NOLOCK)" +
                              " LEFT JOIN MASTERBANK BK(NOLOCK) ON BK.BANK_CODE=BR.BANK_CODE" +
                              " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BR.NUBE_BRANCH_CODE" +
-                             " WHERE BANKBRANCH_NAME<>'' AND BR.BANKBRANCH_CODE={0} ORDER BY BR.BANKBRANCH_NAME", cmbBranchSrch.SelectedValue);
+                             " WHERE BANKBRANCH_NAME<>'' AND ISNULL(BR.DELETED,0)=0 AND BR.BANKBRANCH_CODE={0} ORDER BY BR.BANKBRANCH_NAME", cmbBranchSrch.SelectedValue);
 
                         SqlCommand cmd = new SqlCommand(ST, conn);
                         SqlDataAdapter sdp = new SqlDataAdapter(cmd);
@@ -479,7 +481,7 @@ namespace Nube.MasterSetup
                              " FROM MASTERBANKBRANCH BR(NOLOCK)" +
                              " LEFT JOIN MASTERBANK BK(NOLOCK) ON BK.BANK_CODE=BR.BANK_CODE" +
                              " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BR.NUBE_BRANCH_CODE" +
-                             " WHERE BANKBRANCH_NAME<>'' ORDER BY BR.BANKBRANCH_NAME";
+                             " WHERE BANKBRANCH_NAME<>'' AND ISNULL(BR.DELETED,0)=0  ORDER BY BR.BANKBRANCH_NAME";
 
                         SqlCommand cmd = new SqlCommand(ST, conn);
                         SqlDataAdapter sdp = new SqlDataAdapter(cmd);

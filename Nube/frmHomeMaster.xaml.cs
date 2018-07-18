@@ -349,7 +349,8 @@ namespace Nube
         private void btnYearEndClosing_Click(object sender, RoutedEventArgs e)
         {
             //frmYearEnd frm = new frmYearEnd();
-            frmAccountsExpenceReport frm = new frmAccountsExpenceReport();
+            //frmAccountsExpenceReport frm = new frmAccountsExpenceReport();
+            frmDataAuditing frm = new frmDataAuditing();
             this.Close();
             frm.ShowDialog();
         }

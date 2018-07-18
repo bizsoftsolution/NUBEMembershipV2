@@ -84,7 +84,7 @@ namespace Nube
                         ReportParameter[] rp = new ReportParameter[3];
                         if (!string.IsNullOrEmpty(cmbBranch.Text))
                         {
-                            rp[0] = new ReportParameter("BranchName", cmbBranch.Text);
+                            rp[0] = new ReportParameter("BranchName","Branch Name : " +cmbBranch.Text);
                         }
                         else
                         {
@@ -93,7 +93,7 @@ namespace Nube
                         rp[1] = new ReportParameter("Month", String.Format("{0:MMM-yyyy}", dtpDate.SelectedDate.Value));
                         if (!string.IsNullOrEmpty(cmbBranch.Text))
                         {
-                            rp[2] = new ReportParameter("BranchCode", cmbBranch.SelectedValue.ToString());
+                            rp[2] = new ReportParameter("BranchCode", "Branch Code : " +cmbBranch.SelectedValue.ToString());
                         }
                         else
                         {
@@ -129,7 +129,7 @@ namespace Nube
                 ReportParameter[] rp = new ReportParameter[3];
                 if (!string.IsNullOrEmpty(cmbBranch.Text))
                 {
-                    rp[0] = new ReportParameter("BranchName", cmbBranch.Text);
+                    rp[0] = new ReportParameter("BranchName", "Branch Name : " +cmbBranch.Text);
                 }
                 else
                 {
@@ -138,7 +138,7 @@ namespace Nube
                 rp[1] = new ReportParameter("Month", String.Format("{0:MMM-yyyy}", dtpDate.SelectedDate.Value));
                 if (!string.IsNullOrEmpty(cmbBranch.Text))
                 {
-                    rp[2] = new ReportParameter("BranchCode", cmbBranch.SelectedValue.ToString());
+                    rp[2] = new ReportParameter("BranchCode", "Branch Code : "  +cmbBranch.SelectedValue.ToString());
                 }
                 else
                 {
@@ -194,7 +194,7 @@ namespace Nube
             {
 
                 SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANKUSER_CODE BANK_USERCODE,MEMBER_ID, \r" +
-                                               " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, \r" +
+                                               " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, Branch_Name  As BRANCHNAME, \r" +
                                                " DATEOFJOINING,CASE WHEN ISNULL(MEMBERTYPE_NAME,'')='CLERICAL' THEN 'Y' ELSE 'N' END MEMBERTYPE_NAME,\r" +
                                                " ENTRANCEFEE,MONTHLYSUBSCRIPTION,MONTHLYBF,HQFEE,CASE WHEN ISNULL(REJOINED,0)=0 THEN 'N' ELSE 'R' END REJOINED\r" +
                                                " FROM MEMBERSTATUSLOG(NOLOCK) WHERE " + qry +
@@ -236,7 +236,7 @@ namespace Nube
             using (SqlConnection con = new SqlConnection(connStr))
             {
                 SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANKUSER_CODE BANK_USERCODE,MEMBER_ID, \r" +
-                                                " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, \r" +
+                                                " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, Branch_Name  As BRANCHNAME, \r" +
                                                 " DATEOFJOINING,CASE WHEN ISNULL(MEMBERTYPE_NAME,'')='CLERICAL' THEN 'Y' ELSE 'N' END MEMBERTYPE_NAME,\r" +
                                                 " ENTRANCEFEE,MONTHLYSUBSCRIPTION,MONTHLYBF,HQFEE,CASE WHEN ISNULL(REJOINED,0)=0 THEN 'N' ELSE 'R' END REJOINED\r" +
                                                 " FROM MEMBERSTATUSLOG(NOLOCK) WHERE " + qry +
@@ -277,7 +277,9 @@ namespace Nube
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             cmbBranch.Text = "";
-            dtpDate.SelectedDate = DateTime.UtcNow.Date;
+            dtpDate.Text ="";
+            NewMemberReport.Clear();
+            ResignMemberReport.Clear();
         }
 
     }

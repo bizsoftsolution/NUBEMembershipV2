@@ -8,6 +8,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         xmlns:local="clr-namespace:Nube.Reports"
         mc:Ignorable="d"
         Title="Financial Half Share Report" Height="800" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized" >
@@ -17,14 +18,15 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="1160"/>
             <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="630"/>
+            <RowDefinition Height="700"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
+        
         <Grid Grid.Row="0" Grid.ColumnSpan="3">
             <materialDesign:Card Height="51" >
                 <TextBox x:Name="txtHeading" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="41" TextWrapping="Wrap" Text="HALF SHARE REPORT" VerticalAlignment="Top" FontSize="18" Margin="520,0,0,0" />
@@ -40,23 +42,58 @@
 
 
             <ProgressBar x:Name="progressBar1" HorizontalAlignment="Left" Height="15" Margin="20,90,0,0" VerticalAlignment="Top" Width="1140"/>
-            <DataGrid x:Name="dgvHalfShare" HorizontalAlignment="Left" Height="456" IsReadOnly="True" AutoGenerateColumns="False" Margin="20,114,0,60" VerticalAlignment="Center"   Width="1140" >
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="512" Margin="0,118,0,0"  VerticalAlignment="Top" Width="1180" FontSize="14" Background="Transparent" >
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Grid Name="Panel">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Panel" Property="Background" Value="White" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
                     </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="NUBEBANCHNAME" FontWeight="Bold" Width="250" Binding="{Binding NUBEBANCHNAME}"/>
-                    <DataGridTextColumn Header="TOTAL" FontWeight="Bold" Width="150" Binding="{Binding TOTAL}" />
-                    <DataGridTextColumn Header="BF" FontWeight="Bold" Width="150" Binding="{Binding BF}"/>
-                    <DataGridTextColumn Header="SUBS" FontWeight="Bold" Width="150" Binding="{Binding SUBS}"/>
-                    <DataGridTextColumn Header="HALFSHARE" FontWeight="Bold" Width="150"  Binding="{Binding HALFSHARE}"/>
-                    <DataGridTextColumn Header="EDU 10% Fund" Width="150" FontWeight="Bold" Binding="{Binding FUND}"/>
-                    <DataGridTextColumn Header="TOTALAMOUNT" Width="150" FontWeight="Bold" Binding="{Binding TOTALAMOUNT}"/>
-                </DataGrid.Columns>
-            </DataGrid>
+                </TabControl.Resources>
+                <TabItem Header="Half Share Report" FontWeight="Bold" FontSize="14">
+                    <WindowsFormsHost Height="470" Margin="-1,6,0,0" VerticalAlignment="Center" Width="1177" RenderTransformOrigin="0.5,0.5">
+                        <rv:ReportViewer x:Name="HalfShareReport" ></rv:ReportViewer>
+                    </WindowsFormsHost>
+                </TabItem>
+                <TabItem Header="Half Share Grid" FontWeight="Bold" FontSize="14">
+                    <DataGrid x:Name="dgvHalfShare" HorizontalAlignment="Left" Height="569" IsReadOnly="True" AutoGenerateColumns="False" Margin="-1,6,0,0"   Width="1140" >
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="NUBE BRANCH NAME" FontWeight="Bold" Width="250" Binding="{Binding NUBEBANCHNAME}"/>
+                            <DataGridTextColumn Header="TOTAL" FontWeight="Bold" Width="150" Binding="{Binding TOTAL}" />
+                            <DataGridTextColumn Header="BF" FontWeight="Bold" Width="150" Binding="{Binding BF}"/>
+                            <DataGridTextColumn Header="SUBS" FontWeight="Bold" Width="150" Binding="{Binding SUBS}"/>
+                            <DataGridTextColumn Header="HALFSHARE" FontWeight="Bold" Width="150"  Binding="{Binding HALFSHARE}"/>
+                            <DataGridTextColumn Header="EDU 10% Fund" Width="150" FontWeight="Bold" Binding="{Binding FUND}"/>
+                            <DataGridTextColumn Header="TOTALAMOUNT" Width="150" FontWeight="Bold" Binding="{Binding TOTALAMOUNT}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+         
         </Grid>
 
     </Grid>

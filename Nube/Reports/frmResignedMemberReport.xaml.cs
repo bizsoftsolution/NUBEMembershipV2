@@ -73,17 +73,21 @@ namespace Nube
         {
             if (chkPrint.IsChecked == true)
             {
-                if (string.IsNullOrEmpty(txtMemberNoFrom.Text) && string.IsNullOrEmpty(txtMemberNoTo.Text))
+                if (string.IsNullOrEmpty(txtMemberNo.Text))
                 {
                     MessageBox.Show("Membership No Empty!");
-                    txtMemberNoFrom.Focus();
+                    txtMemberNo.Focus();
                 }
+               
                 else
                 {
-                    DataTable dt = getData();
-                    if (dt.Rows.Count > 0)
+                    //DataTable dt = getData();
+                    var m = db.VIEWRESIGNREPORTs.ToList();
+                    int n = Convert.ToInt32(txtMemberNo.Text);
+                    var vm = m.Where(x => x.MEMBER_ID == n).FirstOrDefault();
+                    if (vm!=null)
                     {
-                        frmResignReport frm = new frmResignReport(Convert.ToDecimal(dt.Rows[0]["MEMBER_CODE"]), "RTEST");
+                        frmResignReport frm = new frmResignReport(Convert.ToDecimal( vm.MEMBER_CODE), "RTEST");
                         frm.ShowDialog();
                     }
                     else
@@ -92,10 +96,19 @@ namespace Nube
                     }
                 }
             }
-            else if (string.IsNullOrEmpty(dtpFromDate.Text) && string.IsNullOrEmpty(dtpToDate.Text))
+            else if (string.IsNullOrEmpty(dtpFromDate.Text) )
             {
-                MessageBox.Show("Date is Empty!", "Empty");
+                MessageBox.Show("From Date is Empty!", "Empty");
                 dtpFromDate.Focus();
+            }
+            else if (string.IsNullOrEmpty(dtpToDate.Text))
+            {
+                MessageBox.Show("To Date is Empty!", "Empty");
+                dtpToDate.Focus();
+            }
+            else if (dtpFromDate.SelectedDate > dtpToDate.SelectedDate)
+            {
+                MessageBox.Show("From Date is Greater than To Date!");
             }
             else
             {
@@ -113,6 +126,10 @@ namespace Nube
             cmbReasonBranch.Text = "";
             txtMemberNoFrom.Text = "";
             txtMemberNoTo.Text = "";
+            NUBEMemberReport.Clear();
+            MemberReport.Clear();
+            txtMemberNo.Text="";
+            rbtResingDate.IsChecked = true;
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
@@ -129,7 +146,7 @@ namespace Nube
             {
                 MemberReport.Reset();
                 DataTable dt = getData();
-
+                DataTable rt = getResignData();
                 if (dt.Rows.Count > 0)
                 {
                     //if (chkSimple.IsChecked == true)
@@ -141,6 +158,9 @@ namespace Nube
                     ReportDataSource masterData = new ReportDataSource("Resign", dt);
 
                     MemberReport.LocalReport.DataSources.Add(masterData);
+                    ReportDataSource master = new ReportDataSource("ResignStatus", rt);
+
+                    MemberReport.LocalReport.DataSources.Add(master);
                     MemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptResign.rdlc";
                     ReportParameter RP = new ReportParameter("TotalMember", dt.Rows.Count.ToString());
                     MemberReport.LocalReport.SetParameters(RP);
@@ -169,7 +189,7 @@ namespace Nube
                 ReportDataSource Data = new ReportDataSource("ViewMasterMember", dt1);
 
                 NUBEMemberReport.LocalReport.DataSources.Add(Data);
-                NUBEMemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.NUBEBranchMemberReport.rdlc";
+                NUBEMemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.NubeResignedReport.rdlc";
                 ReportParameter RP1 = new ReportParameter("Title", "NUBE BRANCH MEMBER REPORT");
                 NUBEMemberReport.LocalReport.SetParameters(RP1);
 
@@ -328,11 +348,104 @@ namespace Nube
                     i++;
                 }
                 qry = "";
-            }
-            //}
-            return dt;
-        }
 
+                //}
+                return dt;
+
+            }
+        }
+        private DataTable getResignData()
+        {
+            DataTable dt = new DataTable();
+            using (SqlConnection con = new SqlConnection(connStr))
+            {
+                SqlCommand cmd;
+                Wqry();
+                if (!string.IsNullOrEmpty(dtpFromDate.Text))
+                {
+                    if (rbtPaymentDate.IsChecked == true)
+                    {
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" VOUCHER_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(qry))
+                        {
+                            qry = qry + string.Format(" AND RESIGNATION_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
+                        else
+                        {
+                            qry = qry + string.Format(" RESIGNATION_DATE BETWEEN '{0:dd/MMM/yyyy}' AND '{1:dd/MMM/yyyy}' ", dtpFromDate.SelectedDate, dtpToDate.SelectedDate);
+                        }
+                    }
+                }
+                if (!string.IsNullOrEmpty(cmbReasonBranch.Text))
+                {
+                    if (!string.IsNullOrEmpty(qry))
+                    {
+                        qry = qry + string.Format(" AND STATUSCODE=" + cmbReasonBranch.SelectedValue);
+                    }
+                    else
+                    {
+                        qry = qry + string.Format(" STATUSCODE=" + cmbReasonBranch.SelectedValue);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(txtMemberNoFrom.Text) && !string.IsNullOrEmpty(txtMemberNoTo.Text))
+                {
+                    if (!string.IsNullOrEmpty(qry))
+                    {
+                        qry = qry + string.Format(" AND MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                    }
+                    else
+                    {
+                        qry = qry + string.Format(" MEMBER_ID BETWEEN {0} AND {1} ", txtMemberNoFrom.Text, txtMemberNoTo.Text);
+                    }
+
+                }
+                else if (!string.IsNullOrEmpty(txtMemberNoFrom.Text))
+                {
+                    if (!string.IsNullOrEmpty(qry))
+                    {
+                        qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                    }
+                    else
+                    {
+                        qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoFrom.Text);
+                    }
+                }
+
+                else if (!string.IsNullOrEmpty(txtMemberNoTo.Text))
+                {
+                    if (!string.IsNullOrEmpty(qry))
+                    {
+                        qry = qry + string.Format(" AND MEMBER_ID ={0} ", txtMemberNoTo.Text);
+                    }
+                    else
+                    {
+                        qry = qry + string.Format(" MEMBER_ID ={0} ", txtMemberNoTo.Text);
+                    }
+                }
+
+
+                cmd = new SqlCommand("Select distinct(ms.RESIGNSTATUS_SHORTCODE)RESIGNSTATUS_CODE,ms.RESIGNSTATUS_NAME from MASTERRESIGNSTATUS(nolock) ms\r" +
+                                      "left join VIEWRESIGNREPORT(nolock) vp on vp.STATUSCODE = ms.RESIGNSTATUS_CODE\r" + "" +
+                                      "WHERE " + qry + " order by ms.RESIGNSTATUS_SHORTCODE", con);
+                SqlDataAdapter adp1 = new SqlDataAdapter(cmd);
+                adp1.SelectCommand.CommandTimeout = 0;
+                adp1.Fill(dt);
+                //}
+                return dt;
+
+            }
+        }
         private DataTable getNUBEData()
         {
             Wqry();
@@ -369,6 +482,43 @@ namespace Nube
             }
             return dt;
 
+        }
+
+        private void chkPrint_Click(object sender, RoutedEventArgs e)
+        {
+            if (chkPrint.IsChecked == true)
+            {
+                lblDate.Visibility = Visibility.Hidden;
+                lblToDate.Visibility = Visibility.Hidden;
+                lblReason.Visibility = Visibility.Hidden;
+                dtpFromDate.Visibility = Visibility.Hidden;
+                dtpToDate.Visibility = Visibility.Hidden;
+                lblToDate_Copy.Visibility = Visibility.Hidden;
+                chkSimple.Visibility = Visibility.Hidden;
+                rbtResingDate.Visibility = Visibility.Hidden;
+                rbtPaymentDate.Visibility = Visibility.Hidden;
+                txtMemberNoTo.Visibility = Visibility.Hidden;
+                cmbReasonBranch.Visibility = Visibility.Hidden;
+                txtMemberNoFrom.Visibility = Visibility.Collapsed;
+                txtMemberNo.Visibility = Visibility.Visible;
+            }
+            else 
+            {
+                lblDate.Visibility = Visibility.Visible;
+                lblToDate.Visibility = Visibility.Visible;
+                lblReason.Visibility = Visibility.Visible;
+                dtpFromDate.Visibility = Visibility.Visible;
+                dtpToDate.Visibility = Visibility.Visible;
+                lblToDate_Copy.Visibility = Visibility.Visible;
+                
+                rbtResingDate.Visibility = Visibility.Visible;
+                rbtPaymentDate.Visibility = Visibility.Visible;
+                txtMemberNoTo.Visibility = Visibility.Visible;
+                cmbReasonBranch.Visibility = Visibility.Visible;
+                txtMemberNo.Visibility = Visibility.Collapsed;
+                txtMemberNoFrom.Visibility = Visibility.Visible;
+                txtMemberNo.Text = "";
+            }
         }
 
         public string Wqry()

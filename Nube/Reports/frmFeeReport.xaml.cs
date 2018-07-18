@@ -81,6 +81,10 @@ namespace Nube.Reports
                 cmbBank.Text = "";
                 cmbBranch.Text = "";
                 cmbNubeBranch.Text = "";
+                txtTotalAmount.Text = "";
+                txtTotalBF.Text = "";
+                txtTotalIns.Text = "";
+                txtTotalSubs.Text = "";
             }
             catch (Exception ex)
             {
@@ -294,7 +298,7 @@ namespace Nube.Reports
                     {
                         str = " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID, \r" +
                         " ISNULL(MM.MEMBER_NAME,FD.MEMBERNAME_BANK)MEMBER_NAME,CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE ISNULL(FD.NRIC_Bank,'') END NRIC, \r" +
-                        " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON \r" +
+                        " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,FD.UNIONCONTRIBUTION AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON \r" +
                         " FROM FEESDETAILSNOTMATCH FD(NOLOCK) \r" +
                         " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID=FD.FEEID \r" +
                         " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE \r" +
@@ -305,7 +309,7 @@ namespace Nube.Reports
                     {
                         str = " SELECT '' NO,FD.DETAILID,FD.FEEID,FD.MEMBERCODE,ISNULL(MM.MEMBER_ID,0)MEMBERID, \r" +
                        " ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,CASE WHEN ISNULL(MM.ICNO_NEW,'')<>'' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC, \r" +
-                       " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON \r" +
+                       " FD.TOTALAMOUNT,ISNULL(FD.DEPT, '')DEPT,FD.AMOUNTBF,FD.UNIONCONTRIBUTION AMOUNTINS,AMTSUBS,ISNULL(REASON, '')REASON \r" +
                        " FROM FEESDETAILS FD(NOLOCK) \r" +
                        " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID=FD.FEEID \r" +
                        " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE \r" +
@@ -318,7 +322,7 @@ namespace Nube.Reports
                          " FROM(\r" +
                          " SELECT '' NO, FD.DETAILID, FD.FEEID, FD.MEMBERCODE, ISNULL(MM.MEMBER_ID, 0)MEMBERID,\r" +
                          " ISNULL(MM.MEMBER_NAME, '')MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,\r" +
-                         " FD.TOTALAMOUNT, ISNULL(FD.DEPT, '')DEPT, FD.AMOUNTBF, AMOUNTINS, AMTSUBS, ISNULL(REASON, '')REASON\r" +
+                         " FD.TOTALAMOUNT, ISNULL(FD.DEPT, '')DEPT, FD.AMOUNTBF,FD.UNIONCONTRIBUTION AMOUNTINS, AMTSUBS, ISNULL(REASON, '')REASON\r" +
                          " FROM FEESDETAILS FD(NOLOCK)\r" +
                          " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID\r" +
                          " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE\r" +
@@ -327,7 +331,7 @@ namespace Nube.Reports
                          " UNION ALL\r" +
                          " SELECT '' NO, FD.DETAILID, FD.FEEID, FD.MEMBERCODE, ISNULL(MM.MEMBER_ID, 0)MEMBERID,\r" +
                          " ISNULL(MM.MEMBER_NAME,FD.MEMBERNAME_BANK)MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE ISNULL(FD.NRIC_Bank,'') END NRIC,\r" +
-                         " FD.TOTALAMOUNT, ISNULL(FD.DEPT, '')DEPT, FD.AMOUNTBF, AMOUNTINS, AMTSUBS, ISNULL(REASON, '')REASON\r" +
+                         " FD.TOTALAMOUNT, ISNULL(FD.DEPT, '')DEPT, FD.AMOUNTBF,FD.UNIONCONTRIBUTION AMOUNTINS, AMTSUBS, ISNULL(REASON, '')REASON\r" +
                          " FROM FEESDETAILSNOTMATCH FD(NOLOCK)\r" +
                          " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID\r" +
                          " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE\r" +

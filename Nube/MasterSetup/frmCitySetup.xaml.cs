@@ -108,6 +108,7 @@ namespace Nube.MasterSetup
                             c.CITY_NAME = txtCity.Text;
                             c.STATE_CODE = Convert.ToDecimal(cmbState.SelectedValue);
                             db.SaveChanges();
+                            AppLib.lstMASTERCITY = db.MASTERCITies.OrderBy(x => x.CITY_NAME).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(c);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERCITY");
@@ -122,6 +123,7 @@ namespace Nube.MasterSetup
                             c.STATE_CODE = Convert.ToDecimal(cmbState.SelectedValue);
                             db.MASTERCITies.Add(c);
                             db.SaveChanges();
+                            AppLib.lstMASTERCITY = db.MASTERCITies.OrderBy(x => x.CITY_NAME).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(c);
                             AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERCITY");

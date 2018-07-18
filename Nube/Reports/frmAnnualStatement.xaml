@@ -46,7 +46,7 @@
             <Button x:Name="btnSelect" Content="Select" HorizontalAlignment="Left" Margin="773,78,0,0" VerticalAlignment="Top" Width="87" Height="35" RenderTransformOrigin="0.5,0.5" Click="btnSelect_Click" />
             <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="888,78,0,0" VerticalAlignment="Top" Width="87" Height="35" RenderTransformOrigin="0.5,0.5" Click="btnClear_Click" />
             <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="1008,78,0,0" VerticalAlignment="Top" Width="87" Height="35" RenderTransformOrigin="0.5,0.5" Click="btnBack_Click" />
-            <WindowsFormsHost HorizontalAlignment="Left" Height="530" Margin="25,140,0,-40" VerticalAlignment="Top" Width="1130">
+            <WindowsFormsHost HorizontalAlignment="Left" Height="490" Margin="25,140,0,-40" VerticalAlignment="Top" Width="1130">
                 <rv:ReportViewer x:Name="ReportViewer"></rv:ReportViewer>
             </WindowsFormsHost>
             <CheckBox x:Name="chkSummary" Content="Summary" FontWeight="Bold" HorizontalAlignment="Left" Margin="1015,19,0,0" VerticalAlignment="Top" Height="27"/>

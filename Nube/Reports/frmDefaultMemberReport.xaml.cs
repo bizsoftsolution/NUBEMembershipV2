@@ -85,7 +85,7 @@ namespace Nube
             if (string.IsNullOrEmpty(dtpToDate.Text))
             {
                 MessageBox.Show("Date is Empty!");
-                dtpFromDate.Focus();
+                dtpToDate.Focus();
                 return;
             }
             else
@@ -101,6 +101,8 @@ namespace Nube
             cmbBranch.Text = "";
             dtpFromDate.Text = "";
             dtpToDate.Text = "";
+            MemberReport.Clear();
+            NUBEMemberReport.Clear();
         }
 
         //User defined
@@ -142,7 +144,17 @@ namespace Nube
 
                 NUBEMemberReport.LocalReport.DataSources.Add(Data);
                 NUBEMemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.NUBEBranchMemberReport.rdlc";
-                ReportParameter RP1 = new ReportParameter("Title", "NUBE BRANCH MEMBER REPORT");
+                ReportParameter RP1 = new ReportParameter();
+                if(!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                {
+                 RP1 = new ReportParameter("Title", "NUBE " +cmbNubeBranch.Text+" BRANCH MEMBER REPORT");
+                }
+                else
+                {
+                    RP1 = new ReportParameter("Title", "NUBE BRANCH MEMBER REPORT");
+                }
+
+              
                 NUBEMemberReport.LocalReport.SetParameters(RP1);
 
                 NUBEMemberReport.RefreshReport();
@@ -160,17 +172,25 @@ namespace Nube
             using (SqlConnection con = new SqlConnection(connStr))
             {                
                 SqlCommand cmd;
-                //cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_ID,MEMBER_NAME,ISNULL(MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,\r" +
-                //                                           " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW,\r" +
-                //                                           " BANK_USERCODE+'/'+BRANCHUSERCODE BANK_USERCODE,DATEOFJOINING,LEVY,TDF,LASTPAYMENT_DATE,\r" +
-                //                                           " ISNULL(TOTALMOTHSDUE,0)TOTALMOTHSDUE,ISNULL(SEX,'')SEX,DATEOFJOINING\r" +
-                //                                           " FROM TEMPVIEWMASTERMEMBER(NOLOCK) WHERE " + qry +
-                //                                           " ORDER BY MEMBER_NAME", con);
-                cmd = new SqlCommand("SPMEMBERSTATUS", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@ENTRYDATE", dtpToDate.SelectedDate);
-                cmd.Parameters.AddWithValue("@MEMBERSTATUSCODE", 2);
+                string str = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,ST.MEMBER_CODE,MM.MEMBER_ID,MM.MEMBER_NAME, \r" +
+                                               " CASE WHEN ST.MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
+                                               " CASE  WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END ICNO_NEW, \r" +
+                                               " MB.BANK_USERCODE BANK_USERCODE, ST.BANK_CODE, ST.BRANCH_CODE, BB.BANKBRANCH_USERCODE BANKBRANCH_USERCODE, \r" +
+                                               " BB.NUBE_BRANCH_CODE, MB.BANK_USERCODE BANK, MM.LEVY, MM.TDF, ST.LASTPAYMENTDATE LASTPAYMENT_DATE, \r" +
+                                               " MM.SEX, MM.DATEOFJOINING, MS.STATUS_NAME, ST.STATUS_CODE MEMBERSTATUSCODE, ST.TOTALMONTHSDUE TOTALMOTHSDUE \r" +
+                                               " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK) \r" +
+                                               " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
+                                               " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANK_CODE \r" +
+                                               " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCH_CODE \r" +
+                                               " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = ST.NUBE_BRANCH_CODE \r" +
+                                               " LEFT JOIN MASTERSTATUS MS(NOLOCK) ON MS.STATUS_CODE = ST.STATUS_CODE \r" +
+                                               " WHERE ST.STATUS_CODE=2 AND ISCANCEL = 0 \r" +
+                                               " GROUP BY ST.MEMBER_CODE, MM.MEMBER_ID, MM.MEMBER_NAME, \r" +
+                                               " ST.MEMBERTYPE_CODE, MM.ICNO_NEW, MM.ICNO_OLD, MB.BANK_USERCODE, ST.BANK_CODE, ST.BRANCH_CODE, BB.BANKBRANCH_USERCODE, ST.STATUS_CODE, \r" +
+                                               " BB.NUBE_BRANCH_CODE, MB.BANK_USERCODE, MM.LEVY, MM.TDF, ST.LASTPAYMENTDATE, MM.SEX, MM.DATEOFJOINING, MS.STATUS_NAME, ST.TOTALMONTHSDUE", dtpToDate.SelectedDate);
+                cmd = new SqlCommand(str, con);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                adp.SelectCommand.CommandTimeout = 0;
                 adp.Fill(dt);
 
                 string sWhere = "";

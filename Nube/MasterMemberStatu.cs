@@ -15,6 +15,8 @@ namespace Nube
     public partial class MasterMemberStatu
     {
         public int Id { get; set; }
+        public Nullable<int> FeeYear { get; set; }
+        public Nullable<int> FeeMonth { get; set; }
         public Nullable<decimal> MEMBER_CODE { get; set; }
         public Nullable<decimal> MEMBERTYPE_CODE { get; set; }
         public Nullable<decimal> BANK_CODE { get; set; }

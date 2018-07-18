@@ -11,14 +11,16 @@ using System.Windows.Forms;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Data.SqlClient;
 
 namespace Nube
 {
     public static class AppLib
     {
-        public enum MemberStatus { Active=1, Defaulter=2, StruckOff=3, Resigned=4};
+        public enum MemberStatus { Active = 1, Defaulter = 2, StruckOff = 3, Resigned = 4 };
         public static string sProjectName = "";
         public static int iUserCode = 0;
+        public static int iUsertypeId = 0;
         public static Boolean bIsSuperAdmin = false;
         public static string sAccFundName = "";
         public static string AppName = "";
@@ -31,12 +33,22 @@ namespace Nube
         public static string connstatus = System.Configuration.ConfigurationManager.ConnectionStrings["NUBESTATUS"].ConnectionString;
         public static List<UserPrevilage> lstUsreRights = new List<UserPrevilage>();
         public static List<TVMASTERMEMBER> lstTVMasterMember = new List<TVMASTERMEMBER>();
-        public static List<ViewMasterMember> lstMstMember = new List<ViewMasterMember>();        
+        public static List<MemberStatusLog> lstMstMember = new List<MemberStatusLog>();
+        public static List<MASTERCITY> lstMASTERCITY = new List<MASTERCITY>();
+        public static List<MASTERSTATE> lstMASTERSTATE = new List<MASTERSTATE>();
+        public static List<CountrySetup> lstCountrySetup = new List<CountrySetup>();
+        public static List<MASTERRELATION> lstMASTERRELATION = new List<MASTERRELATION>();
+        public static List<NameTitleSetup> lstNameTitleSetup = new List<NameTitleSetup>();
+        public static List<MASTERBANK> lstMASTERBANK = new List<MASTERBANK>();
+        public static List<MASTERBANKBRANCH> lstMASTERBANKBRANCH = new List<MASTERBANKBRANCH>();
+        public static List<MASTERMEMBERTYPE> lstMASTERMEMBERTYPE = new List<MASTERMEMBERTYPE>();
+        public static List<MASTERRACE> lstMASTERRACE = new List<MASTERRACE>();
+        public static DataTable dtEmailId = new DataTable();
 
-        public static DataTable dtMemberQuery = new DataTable();        
+        public static DataTable dtMemberQuery = new DataTable();
         public static DataTable dtAnnualStatement = new DataTable();
         public static nubebfsEntity db = new nubebfsEntity();
-        
+
         public static void CheckIsNumeric(TextCompositionEventArgs e)
         {
             try
@@ -80,7 +92,7 @@ namespace Nube
 
         public static int MonthDiff(this DateTime date1, DateTime date2)
         {
-            return (int)((date1.Year - date2.Year) * 12) + (date1.Month - date2.Month);
+            return (int)((date2.Year - date1.Year) * 12) + (date2.Month - date1.Month);
         }
 
         public static DataTable LINQResultToDataTable<T>(IEnumerable<T> Linqlist)
@@ -124,5 +136,20 @@ namespace Nube
             return dt;
         }
 
+        public static void BindEmail()
+        {
+            using (SqlConnection con = new SqlConnection(AppLib.connStr))
+            {
+                SqlCommand cmd;
+                string str = " SELECT '@'+EMAIL EMAILID FROM (SELECT SUBSTRING(EMAIL, CHARINDEX('@', EMAIL) + 1, LEN(EMAIL))EMAIL \r " +
+                             " FROM MASTERMEMBER(NOLOCK) WHERE ISNULL(EMAIL,'')<> '')TEMP \r " +
+                             " WHERE LEN(EMAIL) > 3 \r " +
+                             " GROUP BY EMAIL";
+                cmd = new SqlCommand(str, con);
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                adp.SelectCommand.CommandTimeout = 0;
+                adp.Fill(dtEmailId);
+            }
+        }
     }
 }

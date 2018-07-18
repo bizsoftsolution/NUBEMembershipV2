@@ -33,7 +33,7 @@
         <Grid Grid.Row="1" Grid.Column="1">
             <TextBox x:Name="txtMonth" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="43,6,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Month" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="66" RenderTransformOrigin="-0.288,0.6"/>
             <TextBox x:Name="txtYear" FontWeight="Bold" HorizontalAlignment="Left" Height="40" Margin="122,6,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Year" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="73"/>
-            <ComboBox x:Name="cmbBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="255,24,0,0" VerticalAlignment="Top" Width="272" IsEditable="True" materialDesign:HintAssist.Hint="Bank Name"  materialDesign:HintAssist.HintOpacity=".26"/>
+            <ComboBox x:Name="cmbBankName" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="255,24,0,0" VerticalAlignment="Top" Width="272" IsEditable="True" materialDesign:HintAssist.Hint="Bank Name"  materialDesign:HintAssist.HintOpacity=".26" SelectionChanged="cmbBankName_SelectionChanged"/>
             <TextBlock x:Name="lblBankName" FontWeight="Bold" HorizontalAlignment="Left" Margin="215,28,0,0" TextWrapping="Wrap" Text="Bank" VerticalAlignment="Top" Width="40" RenderTransformOrigin="0.5,1"/>
             <PasswordBox x:Name="txtXLPassword" Foreground="{DynamicResource PrimaryHueDarkBrush}" materialDesign:HintAssist.Hint="XL Password" FontSize="14.667" FontWeight="Bold" Margin="635,14,447,576" MaxWidth="121" MaxHeight="40" RenderTransformOrigin="1.02,0.475" Height="40" />
             <Button x:Name="btnImport" Content="Import" HorizontalAlignment="Left" Margin="995,22,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="-0.347,0.909" Click="btnImport_Click" />
@@ -67,7 +67,36 @@
                         </Setter>
                     </Style>
                 </TabControl.Resources>
-                <TabItem Header="Fee Details" FontSize="14">
+
+                <TabItem Header="Overall Member Details" FontSize="14">
+                    <DataGrid x:Name="dgOverAllMember" CanUserAddRows="True" AutoGenerateColumns="False" IsReadOnly="False" Margin="-3,1,1,0" VerticalAlignment="Top" Height="433" Grid.ColumnSpan="3">
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Effect>
+                            <DropShadowEffect/>
+                        </DataGrid.Effect>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="S.No" FontWeight="Bold" Width="70" Binding="{Binding ID }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Bank Name" FontWeight="Bold" Width="120" Binding="{Binding BANK_NAME }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Status Code" FontWeight="Bold" Width="50" Binding="{Binding STATUS_CODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="NRIC" FontWeight="Bold" Width="150" Binding="{Binding NRIC }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Name" FontWeight="Bold" Width="300" Binding="{Binding MemberName }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Depart/Branch" FontWeight="Bold" Width="110" Binding="{Binding DEPARTMENT }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Amount" FontWeight="Bold" Width="80" Binding="{Binding Amount }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="BF" FontWeight="Bold" Width="60" Binding="{Binding BF }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="80" Binding="{Binding INSURANCE }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="140" Binding="{Binding SUBSCRIPTION }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="BankCode" FontWeight="Bold" Width="100" Binding="{Binding BANKCODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Last Pay Date" FontWeight="Bold" Width="110" Binding="{Binding LAST_PAY_DATE }" IsReadOnly="True" Visibility="Hidden" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+
+                <TabItem Header="Matched Member's" FontSize="14">
                     <DataGrid x:Name="dgFeeDetails" CanUserAddRows="True" AutoGenerateColumns="False" IsReadOnly="False" Margin="-3,1,1,0" VerticalAlignment="Top" Height="433" Grid.ColumnSpan="3">
                         <DataGrid.ColumnHeaderStyle>
                             <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -83,6 +112,19 @@
                             <DataGridTextColumn Header="MemberCode" FontWeight="Bold" Width="50" Binding="{Binding MEMBERCODE }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Status Code" FontWeight="Bold" Width="50" Binding="{Binding STATUS_CODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="NRIC" FontWeight="Bold" Width="150" Binding="{Binding NRIC }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Name" FontWeight="Bold" Width="300" Binding="{Binding MemberName }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Depart/Branch" FontWeight="Bold" Width="165" Binding="{Binding DEPARTMENT }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Amount" FontWeight="Bold" Width="100" Binding="{Binding Amount }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="BF" FontWeight="Bold" Width="80" Binding="{Binding BF }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="100" Binding="{Binding INSURANCE }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="140" Binding="{Binding SUBSCRIPTION }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="BankCode" FontWeight="Bold" Width="100" Binding="{Binding BANKCODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Last Pay Date" FontWeight="Bold" Width="110" Binding="{Binding LAST_PAY_DATE }" IsReadOnly="True" Visibility="Hidden" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+
+                            <!--<DataGridTextColumn Header="S.No" FontWeight="Bold" Width="70" Binding="{Binding ID }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="MemberCode" FontWeight="Bold" Width="50" Binding="{Binding MEMBERCODE }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Status Code" FontWeight="Bold" Width="50" Binding="{Binding STATUS_CODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="NRIC" FontWeight="Bold" Width="150" Binding="{Binding NRIC }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Name" FontWeight="Bold" Width="300" Binding="{Binding MEMBERNAME }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Depart/Branch" FontWeight="Bold" Width="165" Binding="{Binding DEPARTMENT }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Amount" FontWeight="Bold" Width="100" Binding="{Binding AMOUNT }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
@@ -90,7 +132,7 @@
                             <DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="100" Binding="{Binding INSURANCE }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="140" Binding="{Binding SUBSCRIPTION }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="BankCode" FontWeight="Bold" Width="100" Binding="{Binding BANKCODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                            <DataGridTextColumn Header="Last Pay Date" FontWeight="Bold" Width="110" Binding="{Binding LAST_PAY_DATE }" IsReadOnly="True" Visibility="Hidden" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Last Pay Date" FontWeight="Bold" Width="110" Binding="{Binding LAST_PAY_DATE }" IsReadOnly="True" Visibility="Hidden" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>-->
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>
@@ -111,14 +153,14 @@
                             <DataGridTextColumn Header="MemberCode" FontWeight="Bold" Width="50" Binding="{Binding MEMBERCODE }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Status Code" FontWeight="Bold" Width="50" Binding="{Binding STATUS_CODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="NRIC" FontWeight="Bold" Width="130" Binding="{Binding NRIC }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                            <DataGridTextColumn Header="Name" FontWeight="Bold" Width="300" Binding="{Binding MEMBERNAME }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Name" FontWeight="Bold" Width="300" Binding="{Binding MemberName }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Depart/Branch" FontWeight="Bold" Width="130" Binding="{Binding DEPARTMENT }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                            <DataGridTextColumn Header="Amount" FontWeight="Bold" Width="80" Binding="{Binding AMOUNT }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Amount" FontWeight="Bold" Width="80" Binding="{Binding Amount }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="BF" FontWeight="Bold" Width="60" Binding="{Binding BF }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="90" Binding="{Binding INSURANCE }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="100" Binding="{Binding SUBSCRIPTION }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="BankCode" FontWeight="Bold" Width="100" Binding="{Binding BANKCODE }" IsReadOnly="True" Visibility="Hidden"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
-                            <DataGridTextColumn Header="Reason" FontWeight="Bold" Width="150" Binding="{Binding REASON }" IsReadOnly="True" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                            <DataGridTextColumn Header="Reason" FontWeight="Bold" Width="150" Binding="{Binding REASON }" IsReadOnly="False" Visibility="Visible"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                             <DataGridTextColumn Header="Last Pay Date" FontWeight="Bold" Width="110" Binding="{Binding LAST_PAY_DATE }" IsReadOnly="True" Visibility="Hidden" EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>

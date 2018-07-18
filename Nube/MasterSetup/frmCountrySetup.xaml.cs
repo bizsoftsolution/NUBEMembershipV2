@@ -92,6 +92,7 @@ namespace Nube.MasterSetup
 
                             c.CountryName = txtCountry.Text;
                             db.SaveChanges();
+                            AppLib.lstCountrySetup = db.CountrySetups.OrderBy(x => x.CountryName).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(c);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "CountrySetup");
@@ -106,6 +107,7 @@ namespace Nube.MasterSetup
                             c.CountryName = txtCountry.Text;
                             db.CountrySetups.Add(c);
                             db.SaveChanges();
+                            AppLib.lstCountrySetup = db.CountrySetups.OrderBy(x => x.CountryName).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(c);
 

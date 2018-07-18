@@ -18,5 +18,9 @@ namespace Nube
         public Nullable<System.DateTime> EntryDate { get; set; }
         public Nullable<int> UserId { get; set; }
         public Nullable<System.DateTime> UpdatedTime { get; set; }
+        public Nullable<System.DateTime> MonthEnd { get; set; }
+        public Nullable<System.DateTime> MonthEndUpdatedOn { get; set; }
+        public Nullable<System.DateTime> YearEnd { get; set; }
+        public Nullable<System.DateTime> YearEndUpdatedOn { get; set; }
     }
 }

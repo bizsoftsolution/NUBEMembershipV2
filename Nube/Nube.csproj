@@ -298,6 +298,9 @@
     <Compile Include="MasterSetup\frmCountrySetup.xaml.cs">
       <DependentUpon>frmCountrySetup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MasterSetup\frmDataAuditing.xaml.cs">
+      <DependentUpon>frmDataAuditing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MasterSetup\frmMonthEndClosing.xaml.cs">
       <DependentUpon>frmMonthEndClosing.xaml</DependentUpon>
     </Compile>
@@ -470,6 +473,9 @@
     <Compile Include="SalutationSetup.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="SPMEMBERSHIP_Result.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="STATUS012017.cs">
       <DependentUpon>StatusData.tt</DependentUpon>
@@ -597,6 +603,9 @@
     <Compile Include="Transaction\frmArrearDueList.xaml.cs">
       <DependentUpon>frmArrearDueList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Transaction\frmArrearEntry.xaml.cs">
+      <DependentUpon>frmArrearEntry.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Transaction\frmArrearPost16.xaml.cs">
       <DependentUpon>frmArrearPost16.xaml</DependentUpon>
     </Compile>
@@ -605,9 +614,6 @@
     </Compile>
     <Compile Include="Transaction\frmFeesEntry.xaml.cs">
       <DependentUpon>frmFeesEntry.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Transaction\frmFeesEntryTest.xaml.cs">
-      <DependentUpon>frmFeesEntryTest.xaml</DependentUpon>
     </Compile>
     <Compile Include="Transaction\frmLevy.xaml.cs">
       <DependentUpon>frmLevy.xaml</DependentUpon>
@@ -649,6 +655,9 @@
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewBankBranchAdvice.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewBranch.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewBranchMonthlyStatement.cs">
@@ -755,6 +764,10 @@
     <Page Include="MasterSetup\frmCountrySetup.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MasterSetup\frmDataAuditing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MasterSetup\frmMonthEndClosing.xaml">
       <SubType>Designer</SubType>
@@ -904,6 +917,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Transaction\frmArrearEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Transaction\frmArrearPost16.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -913,10 +930,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Transaction\frmFeesEntry.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Transaction\frmFeesEntryTest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -983,6 +996,7 @@
     <EmbeddedResource Include="Reports\NUBEActiveMember.rdlc" />
     <EmbeddedResource Include="Reports\NUBEBranchAdviceList.rdlc" />
     <EmbeddedResource Include="Reports\NUBEBranchMemberReport.rdlc" />
+    <EmbeddedResource Include="Reports\NubeResignedReport.rdlc" />
     <EmbeddedResource Include="Reports\ResignReport.rdlc" />
     <EmbeddedResource Include="Reports\rptBankReport.rdlc" />
     <EmbeddedResource Include="Reports\rptBranchAdviceList.rdlc" />
@@ -991,6 +1005,7 @@
     <EmbeddedResource Include="Reports\rptBranchStaticsReportNubeBranch.rdlc" />
     <EmbeddedResource Include="Reports\rptCityState.rdlc" />
     <EmbeddedResource Include="Reports\rptCountryReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptFinancialHalfShareReport.rdlc" />
     <EmbeddedResource Include="Reports\rptNubeBranchSetup.rdlc" />
     <EmbeddedResource Include="Reports\rptReasonReport.rdlc" />
     <EmbeddedResource Include="Reports\rptRelationReport.rdlc" />
@@ -1000,11 +1015,11 @@
     <EmbeddedResource Include="Reports\rptStateDetails.rdlc" />
     <EmbeddedResource Include="Reports\rptStateReport.rdlc" />
     <EmbeddedResource Include="Reports\rptTitleReport.rdlc" />
+    <EmbeddedResource Include="Reports\rptVariationReport.rdlc" />
     <EmbeddedResource Include="Reports\StateReport.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport2.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport3.rdlc" />
-    <None Include="ClassDiagram1.cd" />
     <EntityDeploy Include="NUBE DATA.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>NUBE DATA.Designer.cs</LastGenOutput>

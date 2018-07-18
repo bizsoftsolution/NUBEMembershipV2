@@ -136,6 +136,7 @@ namespace Nube.MasterSetup
 
                             ms.TitleName = txtPersonTitle.Text;
                             db.SaveChanges();
+                            AppLib.lstNameTitleSetup = db.NameTitleSetups.ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(ms);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "NameTitleSetup");
@@ -156,6 +157,7 @@ namespace Nube.MasterSetup
                                 ms.TitleName = txtPersonTitle.Text;
                                 db.NameTitleSetups.Add(ms);
                                 db.SaveChanges();
+                                AppLib.lstNameTitleSetup = db.NameTitleSetups.ToList();
 
                                 var NewData = new JSonHelper().ConvertObjectToJSon(ms);
                                 AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "NameTitleSetup");

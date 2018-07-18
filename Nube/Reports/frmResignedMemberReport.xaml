@@ -33,33 +33,42 @@
             </materialDesign:Card>
         </Grid>
         <Grid  Grid.Row="1" Grid.Column="1">
-            <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="28" Width="116" Margin="5,98,1059,74"/>
-            <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="-16,164,1056,14" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="140"/>
-            <TextBox x:Name="txtMemberNoFrom" HorizontalAlignment="Left" Height="52" Margin="540,148,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo From" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
-            <TextBox x:Name="txtMemberNoTo" HorizontalAlignment="Left" Height="52" Margin="711,146,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
-            <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="585,35,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
-            <DatePicker x:Name="dtpToDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="782,34,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
-            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="857,171,241,1" VerticalAlignment="Center" Width="82" Height="28" Click="btnSearch_Click"/>
-            <CheckBox x:Name="chkPrint" Content="Benefit Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="500,102,0,0" VerticalAlignment="Top" Height="20" Width="118"/>
-            <CheckBox x:Name="chkSimple" Content="Simple Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="1006,100,0,0" VerticalAlignment="Top" Height="20" Width="118"/>
-            <Button x:Name="btnExit" Content="Back" HorizontalAlignment="Center" Margin="1088,170,10,2" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click" />
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock x:Name="lblNubeBranch"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="Nube Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="116"/>
+                    <ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="324" Height="33" />
+                   
+                    <TextBlock x:Name="lblDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="98"/>
+                    <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="5,10,0,0" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
+                    <TextBlock x:Name="lblToDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="24" Width="72"/>
+                    <DatePicker x:Name="dtpToDate" HorizontalAlignment="Left" FontWeight="Bold"  Margin="10" VerticalAlignment="Top" Height="25" Width="102" IsTodayHighlighted="True" DisplayDate="2017-07-04" SelectedDate="{Binding Path=DateOfBirth,StringFormat='MMM/yyy'}" />
+                    <TextBlock x:Name="lblReason"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="Reason" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="50"/>
+                    <ComboBox x:Name="cmbReasonBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="178" Height="33" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="28" Width="116" Margin="10"/>
+                    <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="324" Height="32" SelectionChanged="cmbBank_SelectionChanged"/>
+                    <CheckBox x:Name="chkPrint" Content="Benefit Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Height="20" Width="118" Click="chkPrint_Click"/>
+                    <TextBlock x:Name="lblToDate_Copy"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="Date Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="72"/>
+                    <RadioButton x:Name="rbtResingDate" IsChecked="True" Content="Resign Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="rbtPaymentDate" Content="Payment Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="10" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="120"/>
+                    <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="324" Height="33"/>
 
-            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="131,94,725,74" VerticalAlignment="Center" Width="324" Height="32" SelectionChanged="cmbBank_SelectionChanged"/>
-            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="131,157,725,10" VerticalAlignment="Center" Width="324" Height="33"/>
-            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="973,170,125,2" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
-            <TextBlock x:Name="lblNubeBranch"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="8,41,1056,133" TextWrapping="Wrap" Text="Nube Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="116"/>
-            <TextBlock x:Name="lblDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="474,37,608,137" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="98"/>
-            <TextBlock x:Name="lblToDate"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="700,36,408,140" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="24" Width="72"/>
-            <TextBlock x:Name="lblReason"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="909,37,197,137" TextWrapping="Wrap" Text="Reason" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="74"/>
-
-            <ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="131,34,725,133" VerticalAlignment="Center" Width="324" Height="33" />
-            <ComboBox x:Name="cmbReasonBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="992,34,10,133" VerticalAlignment="Center" Width="178" Height="33" />
-            <RadioButton x:Name="rbtResingDate" IsChecked="True" Content="Resign Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="729,102,0,0" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbtPaymentDate" Content="Payment Date" FontWeight="Bold" HorizontalAlignment="Left" Margin="830,102,0,0" VerticalAlignment="Top"/>
-            <TextBlock x:Name="lblToDate_Copy"  FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="641,98,467,76" TextWrapping="Wrap" Text="Date Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="26" Width="72"/>
+                    <TextBox x:Name="txtMemberNoFrom" HorizontalAlignment="Left" Height="52" Margin="10" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo From" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
+                    <TextBox x:Name="txtMemberNo" HorizontalAlignment="Left" Height="52" Margin="10" Visibility="Collapsed" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="130" FontWeight="Bold" />
+                    <TextBox x:Name="txtMemberNoTo" HorizontalAlignment="Left" Height="52" Margin="10" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
+                    <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="50,10,10,10" VerticalAlignment="Center" Width="82" Height="28" Click="btnSearch_Click"/>
+                    <Button x:Name="btnExit" Content="Back" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click" />
+                    <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="10" VerticalAlignment="Center" Width="82" Height="28" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
+                    <CheckBox x:Name="chkSimple" Visibility="Collapsed" Content="Simple Report" FontWeight="Bold" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Height="20" Width="118"/>
+                </StackPanel>
+            </StackPanel>
         </Grid>
         <Grid Grid.Row="2" Grid.Column="1" >
-            <TabControl x:Name="tabControl" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1166" FontSize="14" Background="Transparent" Margin="22,10,22,-19" >
+            <TabControl x:Name="tabControl" HorizontalAlignment="Center" VerticalAlignment="Center" Width="1166" FontSize="14" Background="Transparent" Margin="10,5,22,5" >
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -108,12 +117,12 @@
                     </DataGrid>
                 </TabItem>-->
                 <TabItem Header="Member Report" FontSize="14" Margin="0,0,-15,0">
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="465" Margin="10,8,0,0" VerticalAlignment="Top" Width="1138">
+                    <WindowsFormsHost HorizontalAlignment="Left" Height="410" Margin="5,8,0,0" VerticalAlignment="Top" Width="1138">
                         <rv:ReportViewer x:Name="MemberReport"></rv:ReportViewer>
                     </WindowsFormsHost>
                 </TabItem>
                 <TabItem Header="NUBE Branch Report" FontSize="14" Margin="15,0,-18,0">
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="466" Margin="10,7,0,0" VerticalAlignment="Top" Width="1132">
+                    <WindowsFormsHost HorizontalAlignment="Left" Height="410" Margin="10,7,0,0" VerticalAlignment="Top" Width="1138">
                         <rv:ReportViewer x:Name="NUBEMemberReport"></rv:ReportViewer>
                     </WindowsFormsHost>
                 </TabItem>

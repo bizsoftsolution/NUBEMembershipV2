@@ -72,14 +72,17 @@ namespace Nube
             if (sForm_Name == "NewMemberReport" && (string.IsNullOrEmpty(dtpFromDate.Text) || string.IsNullOrEmpty(dtpToDate.Text)))
             {
                 MessageBox.Show("Date is Empty!");
-                dtpFromDate.Focus();
+
                 return;
             }
-
+            else if (dtpFromDate.SelectedDate > dtpToDate.SelectedDate)
+            {
+                MessageBox.Show("From Date is Greater than To Date!");
+            }
             else if (sForm_Name != "NewMemberReport" && string.IsNullOrEmpty(dtpToDate.Text))
             {
                 MessageBox.Show("Date is Empty!");
-                dtpFromDate.Focus();
+                dtpToDate.Focus();
                 return;
             }
             else
@@ -100,6 +103,8 @@ namespace Nube
                 txtMemberNoFrom.Text = "";
                 txtMemberNoTo.Text = "";
                 chkRejoin.IsChecked = false;
+                MemberReport.Clear();
+                NUBEMemberReport.Clear();
             }
             catch (Exception ex)
             {
@@ -177,6 +182,9 @@ namespace Nube
                     ReportDataSource masterData = new ReportDataSource("ActiveMember", dt);
 
                     MemberReport.LocalReport.DataSources.Add(masterData);
+                    ReportDataSource Data = new ReportDataSource("DataSet1", dt);
+
+                    MemberReport.LocalReport.DataSources.Add(Data);
                     MemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.frmActiveMemberReport.rdlc";
                     ReportParameter[] NB = new ReportParameter[5];
                     if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
@@ -240,7 +248,15 @@ namespace Nube
                 ReportDataSource Data = new ReportDataSource("ViewMasterMember", dtBranch);
                 NUBEMemberReport.LocalReport.DataSources.Add(Data);
                 NUBEMemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.NUBEBranchMemberReport.rdlc";
-                ReportParameter RP1 = new ReportParameter("Title", "NUBE BRANCH MEMBER REPORT");
+                ReportParameter RP1 = new ReportParameter();
+                if (!string.IsNullOrEmpty(cmbNubeBranch.Text))
+                {
+                    RP1 = new ReportParameter("Title", "NUBE " + cmbNubeBranch.Text + " BRANCH MEMBER REPORT");
+                }
+                else
+                {
+                    RP1 = new ReportParameter("Title", "NUBE BRANCH MEMBER REPORT");
+                }
                 NUBEMemberReport.LocalReport.SetParameters(RP1);
 
                 NUBEMemberReport.RefreshReport();
@@ -279,20 +295,6 @@ namespace Nube
                         sDate = sDate + " AND MM.REJOINED=1 ";
                     }
 
-
-                    //cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME, \r" +
-                    //                 " ISNULL(MT.MEMBERTYPE_NAME,'')MEMBERTYPE_NAME,ISNULL(MM.LEVY,'')LEVY,ISNULL(MM.TDF,'')TDF,ISNULL(MM.SEX,'')SEX,\r" +
-                    //                 " CASE WHEN ISNULL(MM.ICNO_NEW, '')<>'' THEN ISNULL(MM.ICNO_NEW,'') ELSE ISNULL(MM.ICNO_OLD,'') END ICNO_NEW,\r" +
-                    //                 " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANK_USERCODE,MM.DATEOFJOINING,MB.BANK_USERCODE BANK,BB.BANKBRANCH_USERCODE, \r" +
-                    //                 " ISNULL(VT.LASTPAIDDATE,MM.LASTPAYMENT_DATE)LASTPAYMENT_DATE,MM.BANK_CODE,MM.BRANCH_CODE,BB.NUBE_BRANCH_CODE \r" +
-                    //                 " FROM MASTERMEMBER MM(NOLOCK) \r" +
-                    //                 " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = MM.BANK_CODE \r" +
-                    //                 " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
-                    //                 " LEFT JOIN MASTERMEMBERTYPE MT(NOLOCK) ON MT.MEMBERTYPE_CODE = MM.MEMBERTYPE_CODE \r" +
-                    //                 " LEFT JOIN VIEWTOTALDUE VT(NOLOCK) ON VT.MEMBER_CODE = MM.MEMBER_CODE \r" +
-                    //                 " WHERE MM.ISCANCEL=0 AND " + sDate +
-                    //                 " ORDER BY MEMBER_NAME", con);
-
                     cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME,  \r" +
                                          " ISNULL(MM.MEMBERTYPE_NAME, '')MEMBERTYPE_NAME, ISNULL(MM.LEVY, '')LEVY, ISNULL(MM.TDF, '')TDF, ISNULL(MM.SEX, '')SEX, \r" +
                                          " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(MM.ICNO_OLD, '') END ICNO_NEW, \r" +
@@ -303,15 +305,30 @@ namespace Nube
                                          " ORDER BY MEMBER_NAME", con);
 
                     SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    adp.SelectCommand.CommandTimeout = 0;
                     adp.Fill(dt);
                 }
                 else
                 {
-                    cmd = new SqlCommand("SPMEMBERSTATUS", con);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@ENTRYDATE", dtpToDate.SelectedDate);
-                    cmd.Parameters.AddWithValue("@MEMBERSTATUSCODE", 1);
+                    string str = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,ST.MEMBER_CODE,MM.MEMBER_ID,MM.MEMBER_NAME, \r" +
+                                               " CASE WHEN ST.MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
+                                               " CASE  WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END ICNO_NEW, \r" +
+                                               " MB.BANK_USERCODE BANK_USERCODE, ST.BANK_CODE, ST.BRANCH_CODE, BB.BANKBRANCH_USERCODE BANKBRANCH_USERCODE, \r" +
+                                               " BB.NUBE_BRANCH_CODE, MB.BANK_USERCODE BANK, MM.LEVY, MM.TDF, ST.LASTPAYMENTDATE LASTPAYMENT_DATE, \r" +
+                                               " MM.SEX, MM.DATEOFJOINING, MS.STATUS_NAME, ST.STATUS_CODE MEMBERSTATUSCODE, ST.TOTALMONTHSDUE TOTALMOTHSDUE \r" +
+                                               " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK) \r" +
+                                               " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
+                                               " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANK_CODE \r" +
+                                               " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCH_CODE \r" +
+                                               " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = ST.NUBE_BRANCH_CODE \r" +
+                                               " LEFT JOIN MASTERSTATUS MS(NOLOCK) ON MS.STATUS_CODE = ST.STATUS_CODE \r" +
+                                               " WHERE ST.STATUS_CODE = 1 AND ISCANCEL = 0 \r" +
+                                               " GROUP BY ST.MEMBER_CODE, MM.MEMBER_ID, MM.MEMBER_NAME, \r" +
+                                               " ST.MEMBERTYPE_CODE, MM.ICNO_NEW, MM.ICNO_OLD, MB.BANK_USERCODE, ST.BANK_CODE, ST.BRANCH_CODE, BB.BANKBRANCH_USERCODE, ST.STATUS_CODE, \r" +
+                                               " BB.NUBE_BRANCH_CODE, MB.BANK_USERCODE, MM.LEVY, MM.TDF, ST.LASTPAYMENTDATE, MM.SEX, MM.DATEOFJOINING, MS.STATUS_NAME, ST.TOTALMONTHSDUE", dtpToDate.SelectedDate);
+                    cmd = new SqlCommand(str, con);                    
                     SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                    adp.SelectCommand.CommandTimeout = 0;
                     adp.Fill(dt);
                 }
 
@@ -379,7 +396,7 @@ namespace Nube
                             i++;
                         }
                     }
-                }                
+                }
             }
             return dt;
         }

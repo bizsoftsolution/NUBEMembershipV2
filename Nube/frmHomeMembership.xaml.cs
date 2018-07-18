@@ -162,9 +162,32 @@ namespace Nube
 
         private void btnFeeEntry_Click(object sender, RoutedEventArgs e)
         {
-            frmMemberApprovalEntry frm = new frmMemberApprovalEntry();
-            this.Close();
-            frm.ShowDialog();
+            if (AppLib.iUsertypeId == 3)
+            {
+                frmMemberApprovalEntry frm = new frmMemberApprovalEntry();
+                this.Close();
+                frm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Member Approval Entry Under Process!", "Sorry");
+            }
+
+        }
+
+        private void btnArrearEntry_Click(object sender, RoutedEventArgs e)
+        {
+            if (AppLib.iUserCode == 1)
+            {
+                frmArrearEntry frm = new frmArrearEntry();
+                this.Close();
+                frm.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Arrear Entry Under Process!", "Sorry");
+            }
+
         }
 
         private void btnResingation_Click(object sender, RoutedEventArgs e)
@@ -183,7 +206,7 @@ namespace Nube
         {
             frmMemberQuery frm = new frmMemberQuery("HomeMember");
             this.Close();
-            frm.ShowDialog();            
+            frm.ShowDialog();
         }
 
         private void btnReport_Click(object sender, RoutedEventArgs e)
@@ -253,10 +276,6 @@ namespace Nube
                 this.Close();
                 frm.ShowDialog();
             }
-
-            //frmFeesEntryTest frm = new frmFeesEntryTest();
-            //this.Close();
-            //frm.ShowDialog();
         }
 
         private void btnTDF_Click(object sender, RoutedEventArgs e)
@@ -278,9 +297,7 @@ namespace Nube
             frm.ShowDialog();
         }
 
-
         #endregion
-
 
     }
 }

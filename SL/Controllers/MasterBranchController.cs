@@ -20,7 +20,7 @@ namespace SL.Controllers
         [NubeCrossSiteAttribute]
         public JsonResult ToList(string term, int? Bank_Code)
         {
-            var l1 = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).ToList();
+            var l1 = db.MASTERBANKBRANCHes.Where(x => x.DELETED == 0).OrderBy(x => x.BANKBRANCH_NAME).ToList();
             if (Bank_Code != null)
             {
                 l1 = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).Where(x => x.BANK_CODE == Bank_Code).ToList();

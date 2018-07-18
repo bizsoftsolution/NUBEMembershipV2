@@ -60,7 +60,7 @@
                 <StackPanel Margin="158,10,0,0" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                         <TextBlock x:Name="lblBankBranch1" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="100"/>
-                        <ComboBox Margin="10,0,0,0" x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28" />
+                        <ComboBox Margin="10,0,0,0" x:Name="cmbBranch"  FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28" />
                     </StackPanel>
                     <StackPanel Margin="100,0,0,0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <Button x:Name="btnSearch" Margin="10,0,0,0" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="80" Height="32" Click="btnSearch_Click"/>
@@ -70,36 +70,70 @@
                     </StackPanel>
                 </StackPanel>
                 <StackPanel Margin="0,20,0,0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <DataGrid x:Name="dgVariationReport" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" VerticalAlignment="Top" Height="492" Width="1131" SelectionChanged="dgVariationReport_SelectionChanged">
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="FontWeight" Value="Bold" />
-                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="512" VerticalAlignment="Top" Width="1180" FontSize="14" Background="Transparent" >
+                        <TabControl.Resources>
+                            <Style TargetType="TabItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="TabItem">
+                                            <Grid Name="Panel">
+                                                <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                            </Grid>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="False">
+                                                    <Setter TargetName="Panel" Property="Background" Value="White" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                        <DataGrid.Effect>
-                            <DropShadowEffect/>
-                        </DataGrid.Effect>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Bank" FontWeight="Bold" Width="150" Visibility="Visible" Binding="{Binding BANK_USERCODE}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FA_MEM}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FA_AMT}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FS_MEM}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FS_AMT}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FT_MEM}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FT_AMT}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SA_MEM}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SA_AMT}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SS_MEM}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SS_AMT}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding ST_MEM}" />
-                            <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding ST_AMT}" />
-                            <DataGridTextColumn Header="Total Member's" FontWeight="Bold" Width="120" Binding="{Binding TOTALMEMBERS}" />
-                            <DataGridTextColumn Header="Total Amount" FontWeight="Bold" Width="120" Binding="{Binding TOTALAMOUNT}" />
-                            <DataGridTextColumn Header="Variation Member" FontWeight="Bold" Width="140" Binding="{Binding VARIATIONMEMBER}" />
-                            <DataGridTextColumn Header="Variation Amount" FontWeight="Bold" Width="140" Binding="{Binding VARIATIONAMOUNT}" />                            
-                        </DataGrid.Columns>
-                    </DataGrid>
+                        </TabControl.Resources>
+                        <TabItem Header="Variation Report" FontWeight="Bold" FontSize="14">
+                            <WindowsFormsHost Height="465"  VerticalAlignment="Center" Width="1177" RenderTransformOrigin="0.5,0.5">
+                                <rv:ReportViewer x:Name="VariationReport" ></rv:ReportViewer>
+                            </WindowsFormsHost>
+                        </TabItem>
+                        <TabItem Header="Variation Grid" FontWeight="Bold" FontSize="14">
+                            <DataGrid x:Name="dgVariationReport" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="True" IsReadOnly="True" CanUserAddRows="False" VerticalAlignment="Top" Height="465" Width="1131" SelectionChanged="dgVariationReport_SelectionChanged">
+                                <DataGrid.ColumnHeaderStyle>
+                                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                                        <Setter Property="FontWeight" Value="Bold" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    </Style>
+                                </DataGrid.ColumnHeaderStyle>
+                                <DataGrid.Effect>
+                                    <DropShadowEffect/>
+                                </DataGrid.Effect>
+                                <!--<DataGrid.Columns>
+                                    <DataGridTextColumn Header="Bank" FontWeight="Bold" Width="150" Visibility="Visible" Binding="{Binding BANK_USERCODE}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FA_MEM}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FA_AMT}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FS_MEM}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FS_AMT}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FT_MEM}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding FT_AMT}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SA_MEM}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SA_AMT}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SS_MEM}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding SS_AMT}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding ST_MEM}" />
+                                    <DataGridTextColumn Header="" FontWeight="Bold" Width="110" Binding="{Binding ST_AMT}" />
+                                    <DataGridTextColumn Header="Total Member's" FontWeight="Bold" Width="120" Binding="{Binding TOTALMEMBERS}" />
+                                    <DataGridTextColumn Header="Total Amount" FontWeight="Bold" Width="120" Binding="{Binding TOTALAMOUNT}" />
+                                    <DataGridTextColumn Header="Variation Member" FontWeight="Bold" Width="140" Binding="{Binding VARIATIONMEMBER}" />
+                                    <DataGridTextColumn Header="Variation Amount" FontWeight="Bold" Width="140" Binding="{Binding VARIATIONAMOUNT}" />
+                                </DataGrid.Columns>-->
+                            </DataGrid>
+                        </TabItem>
+                    </TabControl>
                 </StackPanel>
             </StackPanel>                                                                                                            
         </Grid>

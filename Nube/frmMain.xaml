@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube"
         mc:Ignorable="d"
-        Title="NUBE HOME BAGE" Height="600" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen">
+        Title="NUBE HOME PAGE" Height="600" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">

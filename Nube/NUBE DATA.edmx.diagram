@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="39f3b2ad807745c89393d430b74a45a5" Name="Diagram1" ZoomLevel="77">
+      <Diagram DiagramId="39f3b2ad807745c89393d430b74a45a5" Name="Diagram1" ZoomLevel="33">
         <EntityTypeShape EntityType="nube18092017Model.ArrearPostDetail" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.ArrearPostMaster" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.ArrearPreDetail" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
@@ -12,10 +12,8 @@
         <EntityTypeShape EntityType="nube18092017Model.CountrySetup" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.dtproperty" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.EventHistory" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="nube18092017Model.FeesDetail" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.FeesMaster" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.LoginHistory" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="nube18092017Model.MASTERBANK" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERBANKBRANCH" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERCITY" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERGUARDIAN" Width="1.5" PointX="8.75" PointY="10.75" IsExpanded="true" />
@@ -32,7 +30,6 @@
         <EntityTypeShape EntityType="nube18092017Model.NameTitleSetup" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.SalutationSetup" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.StatusModify" Width="1.5" PointX="16.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="nube18092017Model.Tran_Start" Width="1.5" PointX="6.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.UserAccount" Width="1.5" PointX="12.75" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.UserPrevilage" Width="1.5" PointX="16.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.UserType" Width="1.5" PointX="14.75" PointY="17.75" IsExpanded="true" />
@@ -46,7 +43,6 @@
         <EntityTypeShape EntityType="nube18092017Model.VIEWRESIGNREPORT" Width="1.5" PointX="30.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.RESIGNATION" Width="1.5" PointX="31.375" PointY="32.75" />
         <EntityTypeShape EntityType="nube18092017Model.TEMPFEE_STATUS" Width="1.5" PointX="19.375" PointY="10.75" />
-        <EntityTypeShape EntityType="nube18092017Model.AI_Insurance" Width="1.5" PointX="13.375" PointY="20.75" />
         <EntityTypeShape EntityType="nube18092017Model.GE_Insurance" Width="1.5" PointX="21.375" PointY="0.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewMasterMember" Width="1.5" PointX="9.375" PointY="16.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewMemberLastPaidDate" Width="1.5" PointX="15.375" PointY="10.75" />
@@ -55,15 +51,20 @@
         <EntityTypeShape EntityType="nube18092017Model.FeesDetailsNotMatch" Width="1.5" PointX="15.375" PointY="21.75" />
         <EntityTypeShape EntityType="nube18092017Model.TEMPVIEWMASTERMEMBER" Width="1.5" PointX="0.75" PointY="19.75" />
         <EntityTypeShape EntityType="nube18092017Model.TVMASTERMEMBER" Width="1.5" PointX="5.75" PointY="19.75" />
-        <EntityTypeShape EntityType="nube18092017Model.MemberStatusLog" Width="1.5" PointX="21.375" PointY="25.75" />
         <EntityTypeShape EntityType="nube18092017Model.GuardianInsertBranch" Width="1.5" PointX="21.375" PointY="8.75" />
         <EntityTypeShape EntityType="nube18092017Model.MembershipAttachment" Width="1.5" PointX="21.375" PointY="14.75" />
-        <EntityTypeShape EntityType="nube18092017Model.MASTERMEMBER" Width="1.5" PointX="25.375" PointY="20.75" />
         <EntityTypeShape EntityType="nube18092017Model.NomineeInsertBranch" Width="1.5" PointX="19.375" PointY="18.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewNomineeInsertBranch" Width="1.5" PointX="27.375" PointY="9.75" />
+        <EntityTypeShape EntityType="nube18092017Model.FeesDetail" Width="1.5" PointX="21.375" PointY="18.75" />
+        <EntityTypeShape EntityType="nube18092017Model.MASTERMEMBER" Width="1.5" PointX="23.375" PointY="20.75" />
+        <EntityTypeShape EntityType="nube18092017Model.ViewBranch" Width="1.5" PointX="27.375" PointY="27.75" />
+        <EntityTypeShape EntityType="nube18092017Model.MASTERBANK" Width="1.5" PointX="17.375" PointY="3.75" />
         <EntityTypeShape EntityType="nube18092017Model.MemberInsertBranch" Width="1.5" PointX="27.375" PointY="15.75" />
-        <EntityTypeShape EntityType="nube18092017Model.MASTERMEMBERNEW" Width="1.5" PointX="27.375" PointY="27.75" />
-        <EntityTypeShape EntityType="nube18092017Model.MasterMemberStatu" Width="1.5" PointX="11.375" PointY="28.75" />
+        <EntityTypeShape EntityType="nube18092017Model.AI_Insurance" Width="1.5" PointX="11.375" PointY="19.75" />
+        <EntityTypeShape EntityType="nube18092017Model.MASTERMEMBERNEW" Width="1.5" PointX="11.375" PointY="27.75" />
+        <EntityTypeShape EntityType="nube18092017Model.MasterMemberStatu" Width="1.5" PointX="13.375" PointY="28.75" />
+        <EntityTypeShape EntityType="nube18092017Model.MemberStatusLog" Width="1.5" PointX="15.375" PointY="28.75" />
+        <EntityTypeShape EntityType="nube18092017Model.Tran_Start" Width="1.5" PointX="29.375" PointY="15.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

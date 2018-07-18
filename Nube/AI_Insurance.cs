@@ -15,6 +15,8 @@ namespace Nube
     public partial class AI_Insurance
     {
         public int Id { get; set; }
+        public Nullable<int> MemberCode { get; set; }
+        public Nullable<int> MemberId { get; set; }
         public Nullable<int> PolicyNo { get; set; }
         public Nullable<int> MbrNo { get; set; }
         public Nullable<int> DpntNo { get; set; }
@@ -40,7 +42,5 @@ namespace Nube
         public string SubStd { get; set; }
         public string Takeover { get; set; }
         public string Coverage { get; set; }
-        public Nullable<int> MemberCode { get; set; }
-        public Nullable<int> MemberId { get; set; }
     }
 }

@@ -80,7 +80,7 @@
                     </WindowsFormsHost>
                 </TabItem>
                 <TabItem Header="NUBE Branch Report" FontWeight="Bold" FontSize="14">
-                    <WindowsFormsHost HorizontalAlignment="Left" Height="479" Margin="0,9,-4,0" VerticalAlignment="Top" Width="1188">
+                    <WindowsFormsHost HorizontalAlignment="Left" Height="479" Margin="0,9,-4,0" VerticalAlignment="Top" Width="1198">
                         <rv:ReportViewer x:Name="NUBEMemberReport"></rv:ReportViewer>
                     </WindowsFormsHost>
                 </TabItem>

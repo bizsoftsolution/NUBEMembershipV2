@@ -94,10 +94,11 @@ namespace Nube.MasterSetup
                         //mb.NUBE_BRANCH = 2;
 
                         db.SaveChanges();
+                        AppLib.lstMASTERBANK = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
                         var NewData = new JSonHelper().ConvertObjectToJSon(mb);
 
                         AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERBANK");
-                        MessageBox.Show("Saved Successfully");
+                        MessageBox.Show("Saved Successfully");                        
                         ClearForm();
                     }
                     else
@@ -108,9 +109,11 @@ namespace Nube.MasterSetup
                         //mb.NUBE_BRANCH = 2;
                         db.MASTERBANKs.Add(mb);
                         db.SaveChanges();
+                        AppLib.lstMASTERBANK = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
+
                         var NewData = new JSonHelper().ConvertObjectToJSon(mb);
                         AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERBANK");
-                        MessageBox.Show("Saved Successfully");
+                        MessageBox.Show("Saved Successfully");                        
                         ClearForm();
                     }
                 }
@@ -282,7 +285,7 @@ namespace Nube.MasterSetup
                         SqlCommand cmd = new SqlCommand(st, con);
                         SqlDataAdapter adp = new SqlDataAdapter(cmd);
                         adp.Fill(dtBank);
-                        dgvBank.ItemsSource = dtBank.DefaultView;
+                        dgvBank.ItemsSource = dtBank.DefaultView;                        
                     }
                     else
                     {

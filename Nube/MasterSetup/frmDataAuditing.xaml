@@ -1,0 +1,95 @@
+﻿<metro:MetroWindow 
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+        x:Class="Nube.MasterSetup.frmDataAuditing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.MasterSetup"
+        mc:Ignorable="d"
+         Title="Data Auditing"  Height="800" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized">
+    <metro:MetroWindow.Background>
+        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+    </metro:MetroWindow.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="602"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.ColumnSpan="3">
+            <materialDesign:Card Height="50">
+                <TextBlock x:Name="lblHeading" FontWeight="Bold" Text="Data Auditing" TextAlignment="Center" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Margin="0,13" Width="790"></TextBlock>
+            </materialDesign:Card>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="lblMsg" FontWeight="Bold"/>
+                </StackPanel>                
+                <GroupBox HorizontalAlignment="Center" Margin="0,20,0,0" Height="600" Width="1100" VerticalAlignment="Center" FontWeight="Bold" Header="Month End Closing">
+                    <Grid>                        
+                        <StackPanel Orientation="Vertical" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center">                            
+                            <StackPanel Margin="0,10,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Label x:Name="label" Content="Closing Month" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Top" Width="101"/>
+                                <DatePicker x:Name="dtpDate" Margin="20,0,0,0" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date Of Month" FontWeight="Bold" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  FontSize="14" VerticalAlignment="Top" Width="134"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBox x:Name="txtPreviousMonthNewMember" FontWeight="Bold" Width="280" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Previous Month New Member"/>
+                                    <TextBox x:Name="txtCurrentMonthNewMember" Margin="20,0,0,0" Width="260" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Current Month New Member"  />
+                                    <TextBox x:Name="txtActualNewMember" Margin="20,0,0,0" Width="190" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Actual New Member"/>
+                                    <TextBox x:Name="txtDifferenceNewMember" Margin="20,0,0,0" Width="200" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Difference"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBox x:Name="txtPreviousMonthActiveMember" FontWeight="Bold" Width="280" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Previous Month Active Member"/>
+                                    <TextBox x:Name="txtCurrentMonthActiveMember" Margin="20,0,0,0" Width="260" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Current Month Active Member"/>
+                                    <TextBox x:Name="txtActualActiveMember" Margin="20,0,0,0" Width="190" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Actual Active Member"/>
+                                    <TextBox x:Name="txtDifferenceActiveMember" Margin="20,0,0,0" Width="200" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Difference"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBox x:Name="txtPreviousMonthDefaulterMember" Width="280" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Previous Month Defaulter Member"/>
+                                    <TextBox x:Name="txtCurrentMonthDefaulterMember" Width="260" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Current Month Defaulter Member"/>
+                                    <TextBox x:Name="txtActualDefaulterMember" Width="190" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Actual Defaulter Member"/>
+                                    <TextBox x:Name="txtDifferenceDefaulterMember" Width="200" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Difference"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBox x:Name="txtPreviousMonthStruckOffMember" Width="280" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Previous Month StruckOff Member"/>
+                                    <TextBox x:Name="txtCurrentMonthStruckOffMember" Width="260" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Current Month StruckOff Member"/>
+                                    <TextBox x:Name="txtActualStruckOffMember" Width="190" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Actual StruckOff Member"/>
+                                    <TextBox x:Name="txtDifferenceStruckOffMember" Width="200" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Difference"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                                    <TextBox x:Name="txtPreviousMonthResignedMember" Width="280" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Previous Month Resigned Member"/>
+                                    <TextBox x:Name="txtCurrentMonthResignedMember" Width="260" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Current Month Resigned Member"/>
+                                    <TextBox x:Name="txtActualResignedMember" Width="190" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Actual Resigned Member"/>
+                                    <TextBox x:Name="txtDifferenceResignedMember" Width="200" Margin="20,0,0,0" FontWeight="Bold" FontSize="16" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="50" TextWrapping="Wrap" Text="" VerticalAlignment="Center" materialDesign:HintAssist.Hint="Difference"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <ProgressBar x:Name="progressBar1" Margin="0,30,0,0" HorizontalAlignment="Left" Height="25"  VerticalAlignment="Top" Width="1000"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="20,20,0,0">
+                                <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="92" Click="btnHome_Click"/>
+                                <Button x:Name="btnLoad" Margin="20,0,0,0" Content="Load" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="92" Click="btnLoad_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                         <StackPanel Orientation="Vertical" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Top" >
+                            
+                            
+                        </StackPanel>
+
+                    </Grid>
+                </GroupBox>
+
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</metro:MetroWindow>

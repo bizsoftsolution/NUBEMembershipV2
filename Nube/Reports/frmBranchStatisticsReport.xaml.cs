@@ -465,309 +465,318 @@ namespace Nube.Reports
 
             DateTime dtfirstDayOfNextMonth = new DateTime(Convert.ToDateTime(dtpDOB.SelectedDate).Year, Convert.ToDateTime(dtpDOB.SelectedDate).Month, 1).AddMonths(1);
             string dateMonth = string.Format("{0:MMyyyy}", dtpDOB.SelectedDate.Value);
-            if (dtpDOB.SelectedDate > Convert.ToDateTime("28/FEB/2018").Date)
+            //if (dtpDOB.SelectedDate > Convert.ToDateTime("28/FEB/2018").Date)
+            //{
+            using (SqlConnection con = new SqlConnection(AppLib.connStr))
             {
-                using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                con.Open();
+                string sWhere = "";
+                if (!string.IsNullOrEmpty(cmbBankName.Text))
                 {
-                    con.Open();
-                    string sWhere = "";
-                    if (!string.IsNullOrEmpty(cmbBankName.Text))
-                    {
-                        sWhere = " AND BB.NUBE_BRANCH_CODE=" + cmbBankName.SelectedValue;
-                    }
-                    else
-                    {
-                        sWhere = "";
-                    }
-
-                    if (!string.IsNullOrEmpty(cmbBank.Text))
-                    {
-                        sWhere = sWhere + " AND MB.BANK_NAME='" + cmbBank.Text + "'";
-                    }
-
-
-                    if (!string.IsNullOrEmpty(cmbBranch.Text))
-                    {
-                        sWhere = sWhere + " AND BB.BANKBRANCH_NAME='" + cmbBranch.Text + "'";
-                    }
-
-
-                    if (Convert.ToInt32(cmbBankName.SelectedValue) == 11)
-                    {
-                        if (chkMelaka.IsChecked == true && chkNegeriSembilan.IsChecked == false)
-                        {
-                            sWhere = sWhere + " AND (MS.STATE_NAME LIKE '%MELAKA%') ";
-                        }
-                        else if (chkMelaka.IsChecked == false && chkNegeriSembilan.IsChecked == true)
-                        {
-                            sWhere = sWhere + " AND (MS.STATE_NAME NOT LIKE '%MELAKA%') ";
-                        }
-                    }
-
-                    //Qry = string.Format(" SELECT ISNULL(ST.NUBEBANCHNAME,'') AS NUBE_BRANCH_NAME,ISNULL(ST.BANK_NAME,'') AS BANK_NAME, \r" +
-                    //" ISNULL(ST.BANK_USERCODE, '') + '_' + ISNULL(ST.BRANCHUSERCODE, '') AS BANKBRANCH, \r" +
-                    //" ISNULL(ST.SEX, '') AS SEX, ISNULL(ST.RACE_CODE, 0) AS RACE_CODE, \r" +
-                    //" (CASE WHEN ST.MEMBERSTATUSCODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
-                    //" FROM TEMPVIEWMASTERMEMBER ST (NOLOCK) \r" +
-                    //" --FROM VIEWMASTERMEMBER ST (NOLOCK) \r" +
-                    //" WHERE ST.MEMBERSTATUSCODE IN(1,2) AND ST.DATEOFJOINING < '{0:dd/MMM/yyyy}'" + sWhere, Convert.ToDateTime(dtfirstDayOfNextMonth));
-
-
-                    Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
-                                        " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
-                                        " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
-                                        " (CASE WHEN ST.MEMBERSTATUSCODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
-                                        " FROM ACTIVEMEMBERHISTORY ST(NOLOCK) \r" +
-                                        " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE=ST.MEMBERCODE \r" +
-                                        " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE=ST.BANKCODE \r" +
-                                        " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE=ST.BRANCHCODE \r" +
-                                        " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE=BB.NUBE_BRANCH_CODE \r" +
-                                        " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE=BB.BANKBRANCH_STATE_CODE \r" +
-                                        " WHERE ST.MEMBERSTATUSCODE IN(1,2) AND MONTH(ST.ENTRYDATE)=MONTH('{0:dd/MMM/yyyy}') AND YEAR(ST.ENTRYDATE)=YEAR('{0:dd/MMM/yyyy}') " + sWhere, dtpDOB.SelectedDate);
-
-                    SqlCommand cmd = new SqlCommand(Qry, con);
-                    SqlDataAdapter sdp = new SqlDataAdapter(cmd);
-                    sdp.SelectCommand.CommandTimeout = 0;
-                    sdp.Fill(dt);
-                }
-                if (dt.Rows.Count > 0)
-                {
-                    var datas = (from DataRow row in dt.Rows
-                                 select new
-                                 {
-                                     Bank_Name = (string)(row["BANK_NAME"] ?? ""),
-                                     Nube_branch_code = (string)(row["NUBE_BRANCH_NAME"] ?? ""),
-                                     Branch_Code = (string)(row["BANKBRANCH"] ?? ""),
-                                     SEX = (string)(row["SEX"] ?? ""),
-                                     RACE_CODE = (decimal)(row["RACE_CODE"]),
-                                     MEMBERTYPE_CODE = (decimal)(row["STATUS"])
-                                 }).ToList();
-
-                    var BankBranchDatas1 = datas.GroupBy(x => x.Branch_Code).ToList();
-                    var BankBranchdatas2 = BankBranchDatas1.Select(x => new branchStatistics
-                    {
-
-                        BranchCode = x.Key.ToString(),
-
-                        CMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
-
-                        CFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
-
-                        NFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count(),
-
-                        NMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count()
-
-                    });
-                    var BankBranchDatas3 = BankBranchdatas2.Select(x => new branchStatistics
-                    {
-                        BranchCode = x.BranchCode,
-                        CMM = x.CMM,
-                        CMI = x.CMI,
-                        CMC = x.CMC,
-                        CMO = x.CMO,
-                        CMSTOT = x.CMM + x.CMI + x.CMC + x.CMO,
-                        CFC = x.CFC,
-                        CFI = x.CFI,
-                        CFM = x.CFM,
-                        CFO = x.CFO,
-                        CFSTOT = x.CFO + x.CFM + x.CFI + x.CFC,
-                        CTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC,
-
-                        NMM = x.NMM,
-                        NMI = x.NMI,
-                        NMO = x.NMO,
-                        NMC = x.NMC,
-                        NMSTOT = x.NMM + x.NMI + x.NMO + x.NMC,
-                        NFC = x.NFC,
-                        NFM = x.NFM,
-                        NFI = x.NFI,
-                        NFO = x.NFO,
-                        NFSTOT = x.NFC + x.NFM + x.NFI + x.NFO,
-
-                        NTOTAL = x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO,
-                        GTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC + x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO
-
-                    }).ToList();
-                    dgvBankStatistics.ItemsSource = BankBranchDatas3;
-                    dtEXBANK = AppLib.LINQResultToDataTable(BankBranchDatas3);
-
-                    MemberReport.Reset();
-                    if (dtEXBANK.Rows.Count > 0)
-                    {
-                        ReportDataSource masterData = new ReportDataSource("BANKBRANCHSTATISTICAL", dtEXBANK);
-
-                        MemberReport.LocalReport.DataSources.Add(masterData);
-                        MemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptBranchStaticsReport.rdlc";
-                        ReportParameter[] NB = new ReportParameter[2];
-
-                        NB[0] = new ReportParameter("Month", string.Format("{0:MMM - yyyy}", dtpDOB.SelectedDate));
-
-                        if (!string.IsNullOrEmpty(cmbBank.Text))
-                        {
-                            NB[1] = new ReportParameter("ReportName", "NUBE BRANCH - " + cmbBank.Text.ToString());
-                        }
-                        else
-                        {
-                            NB[1] = new ReportParameter("ReportName", "OVER ALL BANK BRANCH");
-                        }
-                        MemberReport.LocalReport.SetParameters(NB);
-                        MemberReport.RefreshReport();
-
-                        //using (SqlConnection con = new SqlConnection(AppLib.connStr))
-                        //{
-                        //    SqlCommand cmd;
-                        //    string str = "";
-                        //    if (!string.IsNullOrEmpty(cmbBank.Text))
-                        //    {
-                        //        str = "";
-                        //    }
-                        //    else
-                        //    {
-
-                        //    }
-                        //    cmd = new SqlCommand("SELECT ST.MEMBERTYPE_NAME,COUNT(*) TOTAL \r" +
-                        //        " FROM TEMPVIEWMASTERMEMBER ST(NOLOCK)\r" +
-                        //        " WHERE ST.MEMBERSTATUSCODE IN(1,2) AND ST.DATEOFJOINING < '2017-03-01' AND--ST.NUBEBANCHCODE = 11\r" +
-                        //        " GROUP BY ST.MEMBERTYPE_NAME\r" +
-                        //        " ORDER BY ST.MEMBERTYPE_NAME", con);
-                        //}
-                    }
-                    //dgvBranch
-                    var NubeBranchDatas1 = datas.GroupBy(x => x.Nube_branch_code).ToList();
-                    var NubeBranchdatas2 = NubeBranchDatas1.Select(x => new branchStatistics
-                    {
-                        BranchCode = x.Key.ToString(),
-
-                        CMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
-
-                        CFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
-                        CFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
-
-                        NFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count(),
-
-                        NMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
-                        NMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count()
-
-                    });
-                    var NubeBranchDatas3 = NubeBranchdatas2.Select(x => new branchStatistics
-                    {
-                        BranchCode = x.BranchCode,
-                        CMM = x.CMM,
-                        CMI = x.CMI,
-                        CMC = x.CMC,
-                        CMO = x.CMO,
-                        CMSTOT = x.CMM + x.CMI + x.CMC + x.CMO,
-                        CFC = x.CFC,
-                        CFI = x.CFI,
-                        CFM = x.CFM,
-                        CFO = x.CFO,
-                        CFSTOT = x.CFO + x.CFM + x.CFI + x.CFC,
-                        CTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC,
-
-                        NMM = x.NMM,
-                        NMI = x.NMI,
-                        NMO = x.NMO,
-                        NMC = x.NMC,
-                        NMSTOT = x.NMM + x.NMI + x.NMO + x.NMC,
-                        NFC = x.NFC,
-                        NFM = x.NFM,
-                        NFI = x.NFI,
-                        NFO = x.NFO,
-                        NFSTOT = x.NFC + x.NFM + x.NFI + x.NFO,
-
-                        NTOTAL = x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO,
-                        GTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC + x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO
-
-                    }).ToList();
-                    dgvNubeStatistics.ItemsSource = NubeBranchDatas3;
-                    dtEXNUBE = AppLib.LINQResultToDataTable(NubeBranchDatas3);
-
-                    MemberReport2.Reset();
-                    if (dtEXNUBE.Rows.Count > 0)
-                    {
-                        ReportDataSource masterData = new ReportDataSource("NUBEBRANCHSTATISTICAL", dtEXNUBE);
-
-                        MemberReport2.LocalReport.DataSources.Add(masterData);
-                        MemberReport2.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptBranchStaticsReportNubeBranch.rdlc";
-                        ReportParameter[] NB2 = new ReportParameter[2];
-
-                        NB2[0] = new ReportParameter("Month", string.Format("{0:MMM - yyyy}", dtpDOB.SelectedDate));
-
-                        if (!string.IsNullOrEmpty(cmbBank.Text))
-                        {
-                            NB2[1] = new ReportParameter("ReportName", "NUBE BRANCH - " + cmbBank.Text.ToString());
-                        }
-                        else
-                        {
-                            NB2[1] = new ReportParameter("ReportName", "OVER ALL - NUBE BRANCH");
-                        }
-                        MemberReport2.LocalReport.SetParameters(NB2);
-                        MemberReport2.RefreshReport();
-                    }
-
-                    //Bank
-
-                    var BankDatas1 = datas.GroupBy(x => x.Bank_Name).ToList();
-                    var BankDatas2 = BankDatas1.Select(x => new branchStatistics
-                    {
-
-                        Bank = x.Key.ToString(),
-
-                        CMM = x.Where(y => y.SEX == "Male" && y.MEMBERTYPE_CODE == 1).Count(),
-
-                        CFM = x.Where(y => y.SEX == "Female" && y.MEMBERTYPE_CODE == 1).Count(),
-
-                        NFM = x.Where(y => y.SEX == "Female" && y.MEMBERTYPE_CODE == 2).Count(),
-
-                        NMM = x.Where(y => y.SEX == "Male" && y.MEMBERTYPE_CODE == 2).Count(),
-
-                    });
-                    var BankDatas3 = BankDatas2.Select(x => new branchStatistics
-                    {
-                        Bank = x.Bank,
-                        CMM = x.CMM,
-
-                        CFM = x.CFM,
-
-                        NMM = x.NMM,
-                        NFM = x.NFM,
-
-                        GTOTAL = x.CMM + x.CFM + x.NMM + x.NFM
-
-                    }).ToList();
-                    dgvBankList.ItemsSource = BankDatas3;
+                    sWhere = " AND BB.NUBE_BRANCH_CODE=" + cmbBankName.SelectedValue;
                 }
                 else
                 {
-                    MessageBox.Show("No Records Found!");
+                    sWhere = "";
                 }
+
+                if (!string.IsNullOrEmpty(cmbBank.Text))
+                {
+                    sWhere = sWhere + " AND MB.BANK_NAME='" + cmbBank.Text + "'";
+                }
+
+
+                if (!string.IsNullOrEmpty(cmbBranch.Text))
+                {
+                    sWhere = sWhere + " AND BB.BANKBRANCH_NAME='" + cmbBranch.Text + "'";
+                }
+
+
+                if (Convert.ToInt32(cmbBankName.SelectedValue) == 11)
+                {
+                    if (chkMelaka.IsChecked == true && chkNegeriSembilan.IsChecked == false)
+                    {
+                        sWhere = sWhere + " AND (MS.STATE_NAME LIKE '%MELAKA%') ";
+                    }
+                    else if (chkMelaka.IsChecked == false && chkNegeriSembilan.IsChecked == true)
+                    {
+                        sWhere = sWhere + " AND (MS.STATE_NAME NOT LIKE '%MELAKA%') ";
+                    }
+                }
+
+                if ((Convert.ToDateTime(dtpDOB.SelectedDate).Year >= 2016 && Convert.ToDateTime(dtpDOB.SelectedDate).Month > 3) || Convert.ToDateTime(dtpDOB.SelectedDate).Year > 2016)
+                {
+                    Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
+                                    " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
+                                    " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
+                                    " (CASE WHEN ST.STATUS_CODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
+                                    " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
+                                    " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
+                                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = MM.BANK_CODE \r" +
+                                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
+                                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE \r" +
+                                    " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                                    " WHERE ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtpDOB.SelectedDate);
+                }
+                else
+                {
+                    Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
+                                    " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
+                                    " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
+                                    " (CASE WHEN ST.STATUS_CODE=1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
+                                    " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
+                                    " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE=ST.MEMBER_CODE \r" +
+                                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE=ST.BANK_CODE \r" +
+                                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE=ST.BRANCH_CODE \r" +
+                                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE=ST.NUBE_BRANCH_CODE \r" +
+                                    " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                                    " WHERE ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtpDOB.SelectedDate);
+                }
+
+
+                SqlCommand cmd = new SqlCommand(Qry, con);
+                SqlDataAdapter sdp = new SqlDataAdapter(cmd);
+                sdp.SelectCommand.CommandTimeout = 0;
+                sdp.Fill(dt);
+            }
+            if (dt.Rows.Count > 0)
+            {
+                var datas = (from DataRow row in dt.Rows
+                             select new
+                             {
+                                 Bank_Name = (string)(row["BANK_NAME"] ?? ""),
+                                 Nube_branch_code = (string)(row["NUBE_BRANCH_NAME"] ?? ""),
+                                 Branch_Code = (string)(row["BANKBRANCH"] ?? ""),
+                                 SEX = (string)(row["SEX"] ?? ""),
+                                 RACE_CODE = (decimal)(row["RACE_CODE"]),
+                                 MEMBERTYPE_CODE = (decimal)(row["STATUS"])
+                             }).ToList();
+
+                var BankBranchDatas1 = datas.GroupBy(x => x.Branch_Code).ToList();
+                var BankBranchdatas2 = BankBranchDatas1.Select(x => new branchStatistics
+                {
+
+                    BranchCode = x.Key.ToString(),
+
+                    CMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
+
+                    CFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
+
+                    NFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count(),
+
+                    NMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count()
+
+                });
+                var BankBranchDatas3 = BankBranchdatas2.Select(x => new branchStatistics
+                {
+                    BranchCode = x.BranchCode,
+                    CMM = x.CMM,
+                    CMI = x.CMI,
+                    CMC = x.CMC,
+                    CMO = x.CMO,
+                    CMSTOT = x.CMM + x.CMI + x.CMC + x.CMO,
+                    CFC = x.CFC,
+                    CFI = x.CFI,
+                    CFM = x.CFM,
+                    CFO = x.CFO,
+                    CFSTOT = x.CFO + x.CFM + x.CFI + x.CFC,
+                    CTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC,
+
+                    NMM = x.NMM,
+                    NMI = x.NMI,
+                    NMO = x.NMO,
+                    NMC = x.NMC,
+                    NMSTOT = x.NMM + x.NMI + x.NMO + x.NMC,
+                    NFC = x.NFC,
+                    NFM = x.NFM,
+                    NFI = x.NFI,
+                    NFO = x.NFO,
+                    NFSTOT = x.NFC + x.NFM + x.NFI + x.NFO,
+
+                    NTOTAL = x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO,
+                    GTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC + x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO
+
+                }).ToList();
+                dgvBankStatistics.ItemsSource = BankBranchDatas3;
+                dtEXBANK = AppLib.LINQResultToDataTable(BankBranchDatas3);
+
+                MemberReport.Reset();
+                if (dtEXBANK.Rows.Count > 0)
+                {
+                    ReportDataSource masterData = new ReportDataSource("BANKBRANCHSTATISTICAL", dtEXBANK);
+
+                    MemberReport.LocalReport.DataSources.Add(masterData);
+                    MemberReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptBranchStaticsReport.rdlc";
+                    ReportParameter[] NB = new ReportParameter[2];
+
+                    NB[0] = new ReportParameter("Month", string.Format("{0:MMM - yyyy}", dtpDOB.SelectedDate));
+
+                    if (!string.IsNullOrEmpty(cmbBank.Text))
+                    {
+                        NB[1] = new ReportParameter("ReportName", "NUBE BRANCH - " + cmbBank.Text.ToString());
+                    }
+                    else
+                    {
+                        NB[1] = new ReportParameter("ReportName", "OVER ALL BANK BRANCH");
+                    }
+                    MemberReport.LocalReport.SetParameters(NB);
+                    MemberReport.RefreshReport();
+
+                    //using (SqlConnection con = new SqlConnection(AppLib.connStr))
+                    //{
+                    //    SqlCommand cmd;
+                    //    string str = "";
+                    //    if (!string.IsNullOrEmpty(cmbBank.Text))
+                    //    {
+                    //        str = "";
+                    //    }
+                    //    else
+                    //    {
+
+                    //    }
+                    //    cmd = new SqlCommand("SELECT ST.MEMBERTYPE_NAME,COUNT(*) TOTAL \r" +
+                    //        " FROM TEMPVIEWMASTERMEMBER ST(NOLOCK)\r" +
+                    //        " WHERE ST.MEMBERSTATUSCODE IN(1,2) AND ST.DATEOFJOINING < '2017-03-01' AND--ST.NUBEBANCHCODE = 11\r" +
+                    //        " GROUP BY ST.MEMBERTYPE_NAME\r" +
+                    //        " ORDER BY ST.MEMBERTYPE_NAME", con);
+                    //}
+                }
+                //dgvBranch
+                var NubeBranchDatas1 = datas.GroupBy(x => x.Nube_branch_code).ToList();
+                var NubeBranchdatas2 = NubeBranchDatas1.Select(x => new branchStatistics
+                {
+                    BranchCode = x.Key.ToString(),
+
+                    CMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
+
+                    CFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 1).Count(),
+                    CFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 1).Count(),
+
+                    NFM = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NFI = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NFC = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NFO = x.Where(y => y.SEX == "Female" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count(),
+
+                    NMM = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 1 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NMI = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 2 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NMC = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 3 && y.MEMBERTYPE_CODE == 2).Count(),
+                    NMO = x.Where(y => y.SEX == "Male" && y.RACE_CODE == 4 && y.MEMBERTYPE_CODE == 2).Count()
+
+                });
+                var NubeBranchDatas3 = NubeBranchdatas2.Select(x => new branchStatistics
+                {
+                    BranchCode = x.BranchCode,
+                    CMM = x.CMM,
+                    CMI = x.CMI,
+                    CMC = x.CMC,
+                    CMO = x.CMO,
+                    CMSTOT = x.CMM + x.CMI + x.CMC + x.CMO,
+                    CFC = x.CFC,
+                    CFI = x.CFI,
+                    CFM = x.CFM,
+                    CFO = x.CFO,
+                    CFSTOT = x.CFO + x.CFM + x.CFI + x.CFC,
+                    CTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC,
+
+                    NMM = x.NMM,
+                    NMI = x.NMI,
+                    NMO = x.NMO,
+                    NMC = x.NMC,
+                    NMSTOT = x.NMM + x.NMI + x.NMO + x.NMC,
+                    NFC = x.NFC,
+                    NFM = x.NFM,
+                    NFI = x.NFI,
+                    NFO = x.NFO,
+                    NFSTOT = x.NFC + x.NFM + x.NFI + x.NFO,
+
+                    NTOTAL = x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO,
+                    GTOTAL = x.CMM + x.CMI + x.CMC + x.CMO + x.CFO + x.CFM + x.CFI + x.CFC + x.NMM + x.NMI + x.NMO + x.NMC + x.NFC + x.NFM + x.NFI + x.NFO
+
+                }).ToList();
+                dgvNubeStatistics.ItemsSource = NubeBranchDatas3;
+                dtEXNUBE = AppLib.LINQResultToDataTable(NubeBranchDatas3);
+
+                MemberReport2.Reset();
+                if (dtEXNUBE.Rows.Count > 0)
+                {
+                    ReportDataSource masterData = new ReportDataSource("NUBEBRANCHSTATISTICAL", dtEXNUBE);
+
+                    MemberReport2.LocalReport.DataSources.Add(masterData);
+                    MemberReport2.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptBranchStaticsReportNubeBranch.rdlc";
+                    ReportParameter[] NB2 = new ReportParameter[2];
+
+                    NB2[0] = new ReportParameter("Month", string.Format("{0:MMM - yyyy}", dtpDOB.SelectedDate));
+
+                    if (!string.IsNullOrEmpty(cmbBank.Text))
+                    {
+                        NB2[1] = new ReportParameter("ReportName", "NUBE BRANCH - " + cmbBank.Text.ToString());
+                    }
+                    else
+                    {
+                        NB2[1] = new ReportParameter("ReportName", "OVER ALL - NUBE BRANCH");
+                    }
+                    MemberReport2.LocalReport.SetParameters(NB2);
+                    MemberReport2.RefreshReport();
+                }
+
+                //Bank
+
+                var BankDatas1 = datas.GroupBy(x => x.Bank_Name).ToList();
+                var BankDatas2 = BankDatas1.Select(x => new branchStatistics
+                {
+
+                    Bank = x.Key.ToString(),
+
+                    CMM = x.Where(y => y.SEX == "Male" && y.MEMBERTYPE_CODE == 1).Count(),
+
+                    CFM = x.Where(y => y.SEX == "Female" && y.MEMBERTYPE_CODE == 1).Count(),
+
+                    NFM = x.Where(y => y.SEX == "Female" && y.MEMBERTYPE_CODE == 2).Count(),
+
+                    NMM = x.Where(y => y.SEX == "Male" && y.MEMBERTYPE_CODE == 2).Count(),
+
+                });
+                var BankDatas3 = BankDatas2.Select(x => new branchStatistics
+                {
+                    Bank = x.Bank,
+                    CMM = x.CMM,
+
+                    CFM = x.CFM,
+
+                    NMM = x.NMM,
+                    NFM = x.NFM,
+
+                    GTOTAL = x.CMM + x.CFM + x.NMM + x.NFM
+
+                }).ToList();
+                dgvBankList.ItemsSource = BankDatas3;
             }
             else
             {
                 MessageBox.Show("No Records Found!");
             }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("No Records Found!");
+            //}
         }
 
         private void LoadReport()

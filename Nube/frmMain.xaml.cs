@@ -116,8 +116,8 @@ namespace Nube
             userPrevilage = new UserPrevilage(this.btnMember.Tag.ToString());
             if (userPrevilage.Show == true)
             {
+                frm.Show();
                 this.Close();
-                frm.ShowDialog();
             }
         }
 
@@ -134,23 +134,23 @@ namespace Nube
             userPrevilage = new UserPrevilage(this.btnUser.Tag.ToString());
             if (userPrevilage.Show == true)
             {
+                frm.Show();
                 this.Close();
-                frm.ShowDialog();
             }
         }
 
         private void btnHome_Click_1(object sender, RoutedEventArgs e)
         {
             frmLogin frm = new frmLogin();
-            this.Close();
-            frm.ShowDialog();
+            frm.Show();
+            this.Close();           
         }
 
         private void btnDataBase_Click(object sender, RoutedEventArgs e)
         {
             frmBackUpDB frm = new frmBackUpDB();
+            frm.Show();
             this.Close();
-            frm.ShowDialog();
         }
 
         #endregion

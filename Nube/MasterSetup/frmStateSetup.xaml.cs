@@ -94,6 +94,7 @@ namespace Nube.MasterSetup
                             mb.STATE_NAME = txtStateName.Text;
 
                             db.SaveChanges();
+                            AppLib.lstMASTERSTATE = db.MASTERSTATEs.OrderBy(x => x.STATE_NAME).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(mb);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERSTATE");
@@ -108,6 +109,7 @@ namespace Nube.MasterSetup
 
                             db.MASTERSTATEs.Add(mb);
                             db.SaveChanges();
+                            AppLib.lstMASTERSTATE = db.MASTERSTATEs.OrderBy(x => x.STATE_NAME).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(mb);
                             AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERSTATE");

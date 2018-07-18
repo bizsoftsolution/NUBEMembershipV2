@@ -88,6 +88,7 @@ namespace Nube.MasterSetup
 
                             ms.RELATION_NAME = txtRelationName.Text;
                             db.SaveChanges();
+                            AppLib.lstMASTERRELATION = db.MASTERRELATIONs.OrderBy(x => x.RELATION_NAME).ToList();
 
                             var NewData = new JSonHelper().ConvertObjectToJSon(ms);
                             AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERRELATION");
@@ -107,6 +108,7 @@ namespace Nube.MasterSetup
 
                                 db.MASTERRELATIONs.Add(ms);
                                 db.SaveChanges();
+                                AppLib.lstMASTERRELATION = db.MASTERRELATIONs.OrderBy(x => x.RELATION_NAME).ToList();
 
                                 var NewData = new JSonHelper().ConvertObjectToJSon(ms);
                                 AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERRELATION");

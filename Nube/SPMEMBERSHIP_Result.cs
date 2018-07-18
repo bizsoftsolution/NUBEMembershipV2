@@ -10,11 +10,10 @@
 namespace Nube
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class MemberStatusLog
+    public partial class SPMEMBERSHIP_Result
     {
-        public int Id { get; set; }
+        public Nullable<long> RNO { get; set; }
         public int MEMBER_CODE { get; set; }
         public string MEMBER_NAME { get; set; }
         public Nullable<int> MEMBER_ID { get; set; }
@@ -28,13 +27,12 @@ namespace Nube
         public Nullable<int> BANK_CODE { get; set; }
         public string BANKUSER_CODE { get; set; }
         public Nullable<int> BRANCH_CODE { get; set; }
-        public string BRANCH_USER_CODE { get; set; }
         public string BRANCH_NAME { get; set; }
         public Nullable<int> NUBEBRANCH_CODE { get; set; }
         public string NUBEBRANCH_NAME { get; set; }
         public string RACE { get; set; }
         public Nullable<System.DateTime> DATEOFJOINING { get; set; }
-        public string Levy { get; set; }
+        public string LEVY { get; set; }
         public string TDF { get; set; }
         public Nullable<int> CITY_CODE { get; set; }
         public string CITY_NAME { get; set; }
@@ -43,8 +41,6 @@ namespace Nube
         public string MOBILE_NO { get; set; }
         public Nullable<bool> REJOINED { get; set; }
         public Nullable<bool> RESIGNED { get; set; }
-        public Nullable<decimal> AccSubs { get; set; }
-        public Nullable<decimal> AccBF { get; set; }
         public Nullable<int> TOTALMONTHSPAID { get; set; }
         public Nullable<int> TOTALMOTHSDUE { get; set; }
         public Nullable<System.DateTime> LASTPAYMENT_DATE { get; set; }
@@ -55,12 +51,5 @@ namespace Nube
         public string NRIC_BYBANK { get; set; }
         public string MEMBERNAME_BYBANK { get; set; }
         public Nullable<int> BANKCODE_BYBANK { get; set; }
-        public bool ISCANCEL { get; set; }
-        public bool AI_Insurance { get; set; }
-        public bool GE_Insurance { get; set; }
-        public decimal ENTRANCEFEE { get; set; }
-        public decimal MONTHLYSUBSCRIPTION { get; set; }
-        public decimal MONTHLYBF { get; set; }
-        public decimal HQFEE { get; set; }
     }
 }

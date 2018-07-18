@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -54,12 +55,7 @@ namespace Nube.Reports
                     dtpToDate.Focus();
                     return;
                 }
-                else if (Convert.ToDateTime(dtpFromDate.SelectedDate).Month > Convert.ToDateTime(dtpToDate.SelectedDate).Month)
-                {
-                    MessageBox.Show("To Date is Grater than From Date!");
-                    dtpToDate.Focus();
-                    return;
-                }
+
                 else
                 {
                     fGetData();
@@ -173,7 +169,7 @@ namespace Nube.Reports
                                 if (j != 0)
                                 {
                                     worksheet.Cells[i + 6, j + 3] = dt.Rows[i][j].ToString();
-                                }                                
+                                }
                             }
                         }
 
@@ -256,6 +252,51 @@ namespace Nube.Reports
             dt.Rows.Clear();
             using (SqlConnection conn = new SqlConnection(AppLib.connStr))
             {
+                //----------------------->> New Member & Resignation Vation Report <<-----------------------------
+
+                //DateTime dt2 = Convert.ToDateTime(dtpFromDate.SelectedDate);
+                //dt2 = new DateTime(dt2.Year, dt2.Month, 1);
+                //DateTime FfromDate = dt2.AddDays(-1);//daec31
+                //DateTime FToDate = dt2.AddMonths(1);//feb
+
+                //DateTime dtS = Convert.ToDateTime(dtpToDate.SelectedDate);
+                //dtS = new DateTime(dtS.Year, dtS.Month, 1);
+                //DateTime SfromDate = dtS.AddDays(-1);//daec31
+                //DateTime SToDate = dtS.AddMonths(1);//feb    
+
+                //string sQry = string.Format("SELECT ISNULL(MB.BANK_USERCODE,'')BANK,ISNULL(SUM(FNEW),0)F_NEW,ISNULL(SUM(FREG),0)F_REG,ISNULL(SUM(SNEW),0)S_NEW,\r" +
+                //    "ISNULL(SUM(SREG),0)S_REG,ISNULL(SUM(SNEW)-SUM(FNEW),0) VARIATION_NEW,ISNULL(SUM(SREG)-SUM(FREG),0) VARIATION_REG FROM \r" +
+                //    "(SELECT BANK_CODE, SUM(NEWMEMBER)FNEW, SUM(RESINGED)FREG, 0SNEW, 0SREG FROM\r" +
+                //    "(SELECT ST.BANK_CODE, COUNT(*) NEWMEMBER, 0 RESINGED FROM MASTERMEMBER MM\r" +
+                //    "LEFT JOIN MASTERMEMBER ST ON ST.MEMBER_CODE = MM.MEMBER_CODE\r" +
+                //    " WHERE MM.DATEOFJOINING > '" + string.Format("{0:dd/MMM/yyyy}", FfromDate) + "' AND MM.DATEOFJOINING < '" + string.Format("{0:dd/MMM/yyyy}", FToDate) + "'\r" +
+                //    "GROUP BY ST.BANK_CODE\r" +
+                //    "UNION ALL\r" +
+                //    "SELECT ST.BANK_CODE, 0 NEWMEMBER, COUNT(*)RESINGED FROM RESIGNATION MM\r" +
+                //    "LEFT JOIN MASTERMEMBER ST ON ST.MEMBER_CODE = MM.MEMBER_CODE\r" +
+                //    "WHERE VOUCHER_DATE > '" + string.Format("{0:dd/MMM/yyyy}", FfromDate) + "' AND VOUCHER_DATE < '" + string.Format("{0:dd/MMM/yyyy}", FToDate) + "'\r" +
+                //    "GROUP BY ST.BANK_CODE\r" +
+                //    ")TEMP\r" +
+                //    "GROUP BY BANK_CODE\r" +
+                //    "UNION ALL\r" +
+                //    "SELECT BANK_CODE, 0 FNEW, 0 FREG, SUM(NEWMEMBER)SNEW, SUM(RESINGED)SREG FROM\r" +
+                //    "(SELECT ST.BANK_CODE, COUNT(*) NEWMEMBER, 0 RESINGED FROM MASTERMEMBER MM\r" +
+                //    "LEFT JOIN MASTERMEMBER ST ON ST.MEMBER_CODE = MM.MEMBER_CODE\r" +
+                //    " WHERE MM.DATEOFJOINING > '" + string.Format("{0:dd/MMM/yyyy}", SfromDate) + "' AND MM.DATEOFJOINING < '" + string.Format("{0:dd/MMM/yyyy}", SToDate) + "'\r" +
+                //    "GROUP BY ST.BANK_CODE\r" +
+                //    "UNION ALL\r" +
+                //    "SELECT ST.BANK_CODE, 0 NEWMEMBER, COUNT(*)RESINGED FROM RESIGNATION MM\r" +
+                //    "LEFT JOIN MASTERMEMBER ST ON ST.MEMBER_CODE = MM.MEMBER_CODE\r" +
+                //    "WHERE VOUCHER_DATE > '" + string.Format("{0:dd/MMM/yyyy}", SfromDate) + "' AND VOUCHER_DATE < '" + string.Format("{0:dd/MMM/yyyy}", SToDate) + "'\r" +
+                //    "GROUP BY ST.BANK_CODE\r" +
+                //    ")TEMP\r" +
+                //    "GROUP BY BANK_CODE)TE\r" +
+                //    "LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = TE.BANK_CODE\r" +
+                //    "GROUP BY MB.BANK_USERCODE\r" +
+                //    "ORDER BY MB.BANK_USERCODE", FToDate, SToDate);
+
+                //----------------------->> New Member & Resignation Vation Report <<-----------------------------
+
                 string sJOIN = "";
                 string sSelectQry = "";
                 string sWhere = "";
@@ -340,19 +381,32 @@ namespace Nube.Reports
                 if (dt.Rows.Count > 0)
                 {
                     dgVariationReport.ItemsSource = dt.DefaultView;
-                    dgVariationReport.Columns[1].Header = string.Format("{0:MMM} A Member", dtpFromDate.SelectedDate);
-                    dgVariationReport.Columns[2].Header = string.Format("{0:MMM} A Amount", dtpFromDate.SelectedDate);
-                    dgVariationReport.Columns[3].Header = string.Format("{0:MMM} S Member", dtpFromDate.SelectedDate);
-                    dgVariationReport.Columns[4].Header = string.Format("{0:MMM} S Amount", dtpFromDate.SelectedDate);
-                    dgVariationReport.Columns[5].Header = string.Format("{0:MMM} Tot Member", dtpFromDate.SelectedDate);
-                    dgVariationReport.Columns[6].Header = string.Format("{0:MMM} Tot Amount", dtpFromDate.SelectedDate);
-                    dgVariationReport.Columns[7].Header = string.Format("{0:MMM} A Member", dtpToDate.SelectedDate);
-                    dgVariationReport.Columns[8].Header = string.Format("{0:MMM} A Amount", dtpToDate.SelectedDate);
-                    dgVariationReport.Columns[9].Header = string.Format("{0:MMM} S Member", dtpToDate.SelectedDate);
-                    dgVariationReport.Columns[10].Header = string.Format("{0:MMM} S Amount", dtpToDate.SelectedDate);
-                    dgVariationReport.Columns[11].Header = string.Format("{0:MMM} Tot Member", dtpToDate.SelectedDate);
-                    dgVariationReport.Columns[12].Header = string.Format("{0:MMM} Tot Amount", dtpToDate.SelectedDate);
+                    dgVariationReport.Columns[1].Header = string.Format("{0:MMM} A Amount", dtpFromDate.SelectedDate);
+                    dgVariationReport.Columns[2].Header = string.Format("{0:MMM} A Member", dtpFromDate.SelectedDate);
+                    dgVariationReport.Columns[3].Header = string.Format("{0:MMM} S Amount", dtpFromDate.SelectedDate);
+                    dgVariationReport.Columns[4].Header = string.Format("{0:MMM} S Member", dtpFromDate.SelectedDate);
+                    dgVariationReport.Columns[5].Header = string.Format("{0:MMM} Tot Amount", dtpFromDate.SelectedDate);
+                    dgVariationReport.Columns[6].Header = string.Format("{0:MMM} Tot Member", dtpFromDate.SelectedDate);
+                    dgVariationReport.Columns[7].Header = string.Format("{0:MMM} A Amount", dtpToDate.SelectedDate);
+                    dgVariationReport.Columns[8].Header = string.Format("{0:MMM} A Member", dtpToDate.SelectedDate);
+                    dgVariationReport.Columns[9].Header = string.Format("{0:MMM} S Amount", dtpToDate.SelectedDate);
+                    dgVariationReport.Columns[10].Header = string.Format("{0:MMM} S Member", dtpToDate.SelectedDate);
+                    dgVariationReport.Columns[11].Header = string.Format("{0:MMM} Tot Amount", dtpToDate.SelectedDate);
+                    dgVariationReport.Columns[12].Header = string.Format("{0:MMM} Tot Member", dtpToDate.SelectedDate);
+
+                    VariationReport.Reset();
+                    ReportDataSource masterdata = new ReportDataSource("DataSet1", dt);
+                    VariationReport.LocalReport.DataSources.Add(masterdata);
+                    VariationReport.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptVariationReport.rdlc";
+                    ReportParameter[] RP = new ReportParameter[2];
+                    string fm = string.Format("{0:MMM}", dtpFromDate.SelectedDate);
+                    string sm = string.Format("{0:MMM}", dtpToDate.SelectedDate);
+                    RP[0] = new ReportParameter("FirstMonth", fm);
+                    RP[1] = new ReportParameter("SecondMonth", sm);
+                    VariationReport.LocalReport.SetParameters(RP);
+                    VariationReport.RefreshReport();
                 }
+
                 else
                 {
                     dgVariationReport.ItemsSource = null;
@@ -361,9 +415,6 @@ namespace Nube.Reports
                 }
             }
         }
-
         #endregion
-
-
     }
 }

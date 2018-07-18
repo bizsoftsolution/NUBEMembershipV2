@@ -90,7 +90,7 @@
 
                 <TabItem Header="Report" FontSize="14">-->
 
-            <DataGrid x:Name="dgPaidUnPaidReport" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="21,116,0,0" VerticalAlignment="Top" Height="318" Width="1131" SelectionChanged="dgPaidUnPaidReport_SelectionChanged">
+            <DataGrid x:Name="dgPaidUnPaidReport" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="21,116,0,0" VerticalAlignment="Top" Height="318" Width="1131" MouseDoubleClick="dgPaidUnPaidReport_MouseDoubleClick"  SelectionChanged="dgPaidUnPaidReport_SelectionChanged">
                 <DataGrid.ColumnHeaderStyle>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="FontWeight" Value="Bold" />
