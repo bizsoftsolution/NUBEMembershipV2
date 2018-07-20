@@ -1824,7 +1824,7 @@
               <Source>Embedded</Source>
               <Value>Logo</Value>
               <Sizing>FitProportional</Sizing>
-              <Left>1.11478in</Left>
+              <Left>0.12172in</Left>
               <Height>0.5in</Height>
               <Width>0.5in</Width>
               <ZIndex>1</ZIndex>
@@ -1854,9 +1854,9 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Left>1.64256in</Left>
+              <Left>0.69117in</Left>
               <Height>0.25in</Height>
-              <Width>6.48319in</Width>
+              <Width>7.43458in</Width>
               <ZIndex>2</ZIndex>
               <Style>
                 <Border>
