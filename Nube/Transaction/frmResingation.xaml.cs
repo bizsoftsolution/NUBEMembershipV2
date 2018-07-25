@@ -235,7 +235,7 @@ namespace Nube.Transaction
                 TimeSpan ts = Convert.ToDateTime(dtpRegResignDate.SelectedDate) - Convert.ToDateTime(dtpDOJ.SelectedDate);
                 int iSerYear = Convert.ToInt32(ts.Days) / 365;
                 txtRegServiceYear.Text = iSerYear.ToString();
-                int totalMonths = AppLib.MonthDiff(dtpDOJ.SelectedDate.Value, dtpRegResignDate.SelectedDate.Value) + 1;
+                int totalMonths = AppLib.MonthDiff(dtpDOJ.SelectedDate.Value, dtpRegResignDate.SelectedDate.Value);
                 //txtRegContributedMonths.Text = totalMonths.ToString();
                 txtRegAmount.Text = (totalMonths * 3).ToString();
                 //txtRegBFContribution.Text = (totalMonths * 3).ToString();
