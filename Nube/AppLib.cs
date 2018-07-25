@@ -29,7 +29,7 @@ namespace Nube
         public static string SLURL = "http://membership.nube.org.my/";
         public static int iFundId = 0;
         //public static NubeAccountReport frmNubeAccountReport = new NubeAccountReport();
-        //test
+        //testfgh
         public static string connStr = System.Configuration.ConfigurationManager.ConnectionStrings["NUBEBFS"].ConnectionString;
         public static string connstatus = System.Configuration.ConfigurationManager.ConnectionStrings["NUBESTATUS"].ConnectionString;
         public static List<UserPrevilage> lstUsreRights = new List<UserPrevilage>();
