@@ -1649,7 +1649,7 @@ namespace Nube.Transaction
                     txtTotalMonthsDueIns.Text = "0";
 
                     txtTakaful.Text = dTotlMonthsPaidUC.ToString();
-                    if (qry.TDF != null && qry.TDF == "YES")
+                    if (qry.TDF != null && qry.TDF.ToUpper() == "YES")
                     {
                         if (qry.TDF_AMOUNT != null)
                         {
@@ -2689,7 +2689,8 @@ namespace Nube.Transaction
                             sBankName = PrintLine(mm.BANK_NAME, PrintTextAlignType.Left);
                             sBankAddress1 = PrintLine((mm.BRANCHADR1 == null ? "" : mm.BRANCHADR1), PrintTextAlignType.Left);
                             sBankAddress2 = PrintLine((mm.BRANCHADR2 == null ? "" : mm.BRANCHADR2), PrintTextAlignType.Left);
-                            sBankAddress3 = PrintLine((mm.BRANCHADR3 == null ? "" : mm.BRANCHADR3), PrintTextAlignType.Left);
+                            //sBankAddress3 = PrintLine((mm.BRANCHADR3 == null ? "" : mm.BRANCHADR3), PrintTextAlignType.Left);
+                            sBankAddress3 = PrintLine((string.Format("{0} {1}",mm.BRANCHCITY,mm.BRANCHZIPCODE)), PrintTextAlignType.Left);
                             sBankUserCode = PrintLine(mm.BANK_USERCODE.ToString() + "/" + mm.BRANCHUSERCODE.ToString(), PrintTextAlignType.Left);
                             sICNO = PrintLine((mm.ICNO_NEW == null ? mm.ICNO_OLD == null ? "" : mm.ICNO_OLD : mm.ICNO_NEW), PrintTextAlignType.Left);
                             sDOJ = PrintLine(string.Format("{0:dd/MMM/yyyy}", mm.DATEOFJOINING), PrintTextAlignType.Left);
