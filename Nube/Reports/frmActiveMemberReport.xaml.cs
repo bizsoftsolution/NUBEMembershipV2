@@ -148,6 +148,9 @@ namespace Nube
                 dtpFromDate.Visibility = Visibility.Visible;
                 lblFromDate.Visibility = Visibility.Visible;
                 chkRejoin.Visibility = Visibility.Visible;
+                chkNewjoin.Visibility = Visibility.Visible;
+                chkNewjoin.IsChecked = true;
+                chkRejoin.IsChecked = true;
             }
             else
             {
@@ -156,6 +159,7 @@ namespace Nube
                 dtpFromDate.Visibility = Visibility.Collapsed;
                 lblFromDate.Visibility = Visibility.Collapsed;
                 chkRejoin.Visibility = Visibility.Collapsed;
+                chkNewjoin.Visibility = Visibility.Collapsed;
             }
 
             var NUBE = db.MASTERNUBEBRANCHes.OrderBy(x => x.NUBE_BRANCH_NAME).ToList();
@@ -290,9 +294,18 @@ namespace Nube
                         sDate = string.Format(" MM.DATEOFJOINING='{0:dd/MMM/yyyy}' ", dtpToDate.SelectedDate);
                     }
 
-                    if (chkRejoin.IsChecked == true)
+                    if(chkNewjoin.IsChecked==false && chkRejoin.IsChecked == false)
+                    {
+                        chkNewjoin.IsChecked = true;
+                        chkRejoin.IsChecked = true;
+                    }
+                    else if (chkNewjoin.IsChecked==false && chkRejoin.IsChecked == true)
                     {
                         sDate = sDate + " AND MM.REJOINED=1 ";
+                    }
+                    else if (chkNewjoin.IsChecked == true && chkRejoin.IsChecked == false)
+                    {
+                        sDate = sDate + " AND MM.REJOINED=0 ";
                     }
 
                     cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME,  \r" +

@@ -437,7 +437,67 @@
 
                     </Grid>
                 </TabItem>
+                <TabItem Header="IRC Confirmation" FontSize="14">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="180"/>
+                            <RowDefinition Height="68*"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" FontWeight="Bold" FontSize="22">IRC CONFIRMATION OF BENEVOLENT FUND APPLICATION</Label>
+                        <Grid Grid.Row="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="30"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Label Grid.Row="0" VerticalAlignment="Bottom" Grid.Column="0">IRC Name in Full</Label>
+                            <Label Grid.Row="1" VerticalAlignment="Bottom" Grid.Column="0">IRC Position</Label>
+                            <Label Grid.Row="2" VerticalAlignment="Bottom" Grid.Column="0">Membership No</Label>
+                            <Label Grid.Row="3" VerticalAlignment="Bottom" Grid.Column="0">Bank</Label>
+                            <Label Grid.Row="4" VerticalAlignment="Bottom" Grid.Column="0">Bank Address</Label>
+                            <Label Grid.Row="5" VerticalAlignment="Bottom" Grid.Column="0">Telephone/Fax No</Label>
 
+                            <Label Grid.Row="0" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
+                            <Label Grid.Row="1" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
+                            <Label Grid.Row="2" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
+                            <Label Grid.Row="3" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
+                            <Label Grid.Row="4" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
+                            <Label Grid.Row="5" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
+
+                            <TextBox Grid.Row="0" Grid.Column="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" Orientation="Horizontal">
+                                <CheckBox Margin="0 0 0 0">Chariman</CheckBox>
+                                <CheckBox Margin="10 0 0 0">Secretary</CheckBox>
+                                <CheckBox Margin="10 0 0 0">Committee Member</CheckBox>
+                            </StackPanel>
+                            <TextBox Grid.Row="2" Grid.Column="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox Grid.Row="3" Grid.Column="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <TextBox Grid.Row="4" Grid.Column="2" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                            <StackPanel Grid.Row="5" Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                <Label Margin="0 0 0 0" VerticalAlignment="Bottom">Office : </Label>
+                                <TextBox Width="150" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                <Label Margin="10 0 0 0" VerticalAlignment="Bottom">Mobile :</Label>
+                                <TextBox Width="150" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                <Label Margin="10 0 0 0" VerticalAlignment="Bottom">Fax :</Label>
+                                <TextBox Width="150" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="2">
+
+                        </Grid>
+                    </Grid>
+                </TabItem>
             </TabControl>
             <Label x:Name="lblStatus" Foreground="#FFEC4227" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="0,590,-11,-23" VerticalAlignment="Top" Width="896" Height="63" FontSize="24" FontWeight="Bold"/>
         </Grid>
