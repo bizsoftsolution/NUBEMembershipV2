@@ -22,6 +22,41 @@
         <EntityTypeShape EntityType="nubev2Model.MASTERMEMBER" Width="1.5" PointX="11.375" PointY="6.75" />
         <EntityTypeShape EntityType="nubev2Model.MembershipAttachment" Width="1.5" PointX="13.375" PointY="6.75" />
         <EntityTypeShape EntityType="nubev2Model.MemberInsertBranch" Width="1.5" PointX="13.375" PointY="10.75" />
+        <EntityTypeShape EntityType="nubev2Model.ActiveMemberHistory" Width="1.5" PointX="0.75" PointY="14.75" />
+        <EntityTypeShape EntityType="nubev2Model.ArrearPostDetail" Width="1.5" PointX="15.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nubev2Model.ArrearPostMaster" Width="1.5" PointX="15.75" PointY="4.75" />
+        <EntityTypeShape EntityType="nubev2Model.ArrearPreDetail" Width="1.5" PointX="5.75" PointY="15.75" />
+        <EntityTypeShape EntityType="nubev2Model.ArrearPreMaster" Width="1.5" PointX="7.75" PointY="15.75" />
+        <EntityTypeShape EntityType="nubev2Model.DeaciveMemberHistory" Width="1.5" PointX="15.75" PointY="8.75" />
+        <EntityTypeShape EntityType="nubev2Model.dtproperty" Width="1.5" PointX="15.75" PointY="13.75" />
+        <EntityTypeShape EntityType="nubev2Model.EventHistory" Width="1.5" PointX="17.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nubev2Model.EVENTHSTRY" Width="1.5" PointX="17.75" PointY="4.75" />
+        <EntityTypeShape EntityType="nubev2Model.IRCConfirmation" Width="1.5" PointX="17.75" PointY="7.75" />
+        <EntityTypeShape EntityType="nubev2Model.LoginHistory" Width="1.5" PointX="17.75" PointY="13.75" />
+        <EntityTypeShape EntityType="nubev2Model.MASTERMEMBERNEW" Width="1.5" PointX="15.75" PointY="17.75" />
+        <EntityTypeShape EntityType="nubev2Model.MasterMemberStatu" Width="1.5" PointX="17.75" PointY="16.75" />
+        <EntityTypeShape EntityType="nubev2Model.MASTERMEMBERTYPE" Width="1.5" PointX="2.75" PointY="18.75" />
+        <EntityTypeShape EntityType="nubev2Model.MASTERRESIGNSTATU" Width="1.5" PointX="19.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nubev2Model.MASTERSTATU" Width="1.5" PointX="19.75" PointY="4.75" />
+        <EntityTypeShape EntityType="nubev2Model.MemberStatusLog" Width="1.5" PointX="4.75" PointY="19.75" />
+        <EntityTypeShape EntityType="nubev2Model.MemberTransfer" Width="1.5" PointX="6.75" PointY="19.75" />
+        <EntityTypeShape EntityType="nubev2Model.NameTitleSetup" Width="1.5" PointX="19.75" PointY="7.75" />
+        <EntityTypeShape EntityType="nubev2Model.RESIGNATION" Width="1.5" PointX="8.75" PointY="19.75" />
+        <EntityTypeShape EntityType="nubev2Model.SalutationSetup" Width="1.5" PointX="19.75" PointY="10.75" />
+        <EntityTypeShape EntityType="nubev2Model.StatusModify" Width="1.5" PointX="19.75" PointY="13.75" />
+        <EntityTypeShape EntityType="nubev2Model.TempActiveMemberHistory" Width="1.5" PointX="19.75" PointY="17.75" />
+        <EntityTypeShape EntityType="nubev2Model.TempGE" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nubev2Model.Tran_Start" Width="1.5" PointX="0.75" PointY="21.75" />
+        <EntityTypeShape EntityType="nubev2Model.UserPrevilage" Width="1.5" PointX="21.75" PointY="3.75" />
+        <EntityTypeShape EntityType="nubev2Model.UserType" Width="1.5" PointX="21.75" PointY="7.75" />
+        <EntityTypeShape EntityType="nubev2Model.AI_Insurance" Width="1.5" PointX="21.75" PointY="10.75" />
+        <EntityTypeShape EntityType="nubev2Model.FeesDetail" Width="1.5" PointX="21.75" PointY="18.75" />
+        <EntityTypeShape EntityType="nubev2Model.FeesDetailsNotMatch" Width="1.5" PointX="23.75" PointY="0.75" />
+        <EntityTypeShape EntityType="nubev2Model.FeesMaster" Width="1.5" PointX="23.75" PointY="7.75" />
+        <EntityTypeShape EntityType="nubev2Model.GE_Insurance" Width="1.5" PointX="23.75" PointY="10.75" />
+        <EntityTypeShape EntityType="nubev2Model.TEMPFEE_STATUS" Width="1.5" PointX="13.75" PointY="23.75" />
+        <EntityTypeShape EntityType="nubev2Model.TEMPVIEWMASTERMEMBER" Width="1.5" PointX="23.75" PointY="18.75" />
+        <EntityTypeShape EntityType="nubev2Model.TVMASTERMEMBER" Width="1.5" PointX="15.75" PointY="24.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

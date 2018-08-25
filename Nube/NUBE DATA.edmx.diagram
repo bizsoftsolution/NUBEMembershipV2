@@ -44,7 +44,6 @@
         <EntityTypeShape EntityType="nube18092017Model.RESIGNATION" Width="1.5" PointX="31.375" PointY="32.75" />
         <EntityTypeShape EntityType="nube18092017Model.TEMPFEE_STATUS" Width="1.5" PointX="19.375" PointY="10.75" />
         <EntityTypeShape EntityType="nube18092017Model.GE_Insurance" Width="1.5" PointX="21.375" PointY="0.75" />
-        <EntityTypeShape EntityType="nube18092017Model.ViewMasterMember" Width="1.5" PointX="9.375" PointY="16.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewMemberLastPaidDate" Width="1.5" PointX="15.375" PointY="10.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewMemberTotalMonthsDue" Width="1.5" PointX="17.375" PointY="18.75" />
         <EntityTypeShape EntityType="nube18092017Model.VIEWTOTALDUE" Width="1.5" PointX="3.375" PointY="19.75" />
@@ -65,6 +64,8 @@
         <EntityTypeShape EntityType="nube18092017Model.MasterMemberStatu" Width="1.5" PointX="13.375" PointY="28.75" />
         <EntityTypeShape EntityType="nube18092017Model.MemberStatusLog" Width="1.5" PointX="15.375" PointY="28.75" />
         <EntityTypeShape EntityType="nube18092017Model.Tran_Start" Width="1.5" PointX="29.375" PointY="15.75" />
+        <EntityTypeShape EntityType="nube18092017Model.IRCConfirmation" Width="1.5" PointX="29.375" PointY="19.75" />
+        <EntityTypeShape EntityType="nube18092017Model.ViewMasterMember" Width="1.5" PointX="8.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

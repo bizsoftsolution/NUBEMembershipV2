@@ -2671,7 +2671,8 @@ namespace Nube.Transaction
                     sPrinterName = ns.PrinterName.ToString();
                     if (!string.IsNullOrEmpty(sPrinterName))
                     {
-                        var mm = (from x in db.ViewMasterMembers where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                        //var mm = (from x in db.ViewMasterMembers where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                        var mm = db.ViewMasterMembers.FirstOrDefault(x => x.MEMBER_CODE == dMember_Code);
                         if (mm != null)
                         {
                             System.Drawing.Printing.PrintDocument prnMemberCard = new System.Drawing.Printing.PrintDocument();

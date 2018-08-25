@@ -66,7 +66,6 @@ namespace Nube
         public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
         public virtual DbSet<TEMPFEE_STATUS> TEMPFEE_STATUS { get; set; }
         public virtual DbSet<GE_Insurance> GE_Insurance { get; set; }
-        public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
         public virtual DbSet<ViewMemberLastPaidDate> ViewMemberLastPaidDates { get; set; }
         public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
         public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
@@ -87,6 +86,8 @@ namespace Nube
         public virtual DbSet<MasterMemberStatu> MasterMemberStatus { get; set; }
         public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
         public virtual DbSet<Tran_Start> Tran_Start { get; set; }
+        public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
+        public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

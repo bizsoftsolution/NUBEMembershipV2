@@ -44,6 +44,41 @@ namespace DAL
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<MembershipAttachment> MembershipAttachments { get; set; }
         public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
+        public virtual DbSet<ActiveMemberHistory> ActiveMemberHistories { get; set; }
+        public virtual DbSet<ArrearPostDetail> ArrearPostDetails { get; set; }
+        public virtual DbSet<ArrearPostMaster> ArrearPostMasters { get; set; }
+        public virtual DbSet<ArrearPreDetail> ArrearPreDetails { get; set; }
+        public virtual DbSet<ArrearPreMaster> ArrearPreMasters { get; set; }
+        public virtual DbSet<DeaciveMemberHistory> DeaciveMemberHistories { get; set; }
+        public virtual DbSet<dtproperty> dtproperties { get; set; }
+        public virtual DbSet<EventHistory> EventHistories { get; set; }
+        public virtual DbSet<EVENTHSTRY> EVENTHSTRies { get; set; }
+        public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
+        public virtual DbSet<LoginHistory> LoginHistories { get; set; }
+        public virtual DbSet<MASTERMEMBERNEW> MASTERMEMBERNEWs { get; set; }
+        public virtual DbSet<MasterMemberStatu> MasterMemberStatus { get; set; }
+        public virtual DbSet<MASTERMEMBERTYPE> MASTERMEMBERTYPEs { get; set; }
+        public virtual DbSet<MASTERRESIGNSTATU> MASTERRESIGNSTATUS { get; set; }
+        public virtual DbSet<MASTERSTATU> MASTERSTATUS { get; set; }
+        public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
+        public virtual DbSet<MemberTransfer> MemberTransfers { get; set; }
+        public virtual DbSet<NameTitleSetup> NameTitleSetups { get; set; }
+        public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
+        public virtual DbSet<SalutationSetup> SalutationSetups { get; set; }
+        public virtual DbSet<StatusModify> StatusModifies { get; set; }
+        public virtual DbSet<TempActiveMemberHistory> TempActiveMemberHistories { get; set; }
+        public virtual DbSet<TempGE> TempGEs { get; set; }
+        public virtual DbSet<Tran_Start> Tran_Start { get; set; }
+        public virtual DbSet<UserPrevilage> UserPrevilages { get; set; }
+        public virtual DbSet<UserType> UserTypes { get; set; }
+        public virtual DbSet<AI_Insurance> AI_Insurance { get; set; }
+        public virtual DbSet<FeesDetail> FeesDetails { get; set; }
+        public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
+        public virtual DbSet<FeesMaster> FeesMasters { get; set; }
+        public virtual DbSet<GE_Insurance> GE_Insurance { get; set; }
+        public virtual DbSet<TEMPFEE_STATUS> TEMPFEE_STATUS { get; set; }
+        public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
+        public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIPTOLIST_Result> SPMEMBERSHIPTOLIST(Nullable<int> aPPROVEDSTATE)
         {

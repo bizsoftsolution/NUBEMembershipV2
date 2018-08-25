@@ -141,8 +141,11 @@ namespace Nube
             {
                 progressBar1.Value = 5;
                 System.Windows.Forms.Application.DoEvents();
-                var User = (from x in db.UserAccounts where x.UserName == txtUserId.Text select x).SingleOrDefault();
+                //var User = (from x in db.UserAccounts where x.UserName == txtUserId.Text select x).SingleOrDefault();
+                var User = db.UserAccounts.FirstOrDefault(x => x.UserName == txtUserId.Text);
                 progressBar1.Value = 8;
+                
+
                 System.Windows.Forms.Application.DoEvents();
                 string sUserName = "";
                 string sPassword = "";
@@ -172,14 +175,12 @@ namespace Nube
                     {
                         AppLib.iUserCode = Convert.ToInt32(User.UserId);
                         AppLib.iUsertypeId = Convert.ToInt32(User.UserType);
-                        var ut = (from x in db.UserTypes where x.Id == AppLib.iUsertypeId && x.IsSuperAdmin == true select x).FirstOrDefault();
+                        //var ut = (from x in db.UserTypes where x.Id == AppLib.iUsertypeId && x.IsSuperAdmin == true select x).FirstOrDefault();
+                        var ut = db.UserTypes.FirstOrDefault(x => x.Id == AppLib.iUsertypeId);
                         if (ut != null)
                         {
-                            AppLib.bIsSuperAdmin = true;
-                        }
-                        else
-                        {
-                            AppLib.bIsSuperAdmin = false;
+                            
+                            AppLib.bIsSuperAdmin = ut.IsSuperAdmin;
                         }
 
                         var lstUserRgt = (from u in db.UserPrevilages where u.UsertypeId == AppLib.iUsertypeId select u).ToList();
@@ -199,9 +200,16 @@ namespace Nube
 
                         progressBar1.Value = 10;
                         System.Windows.Forms.Application.DoEvents();
-
-                        frmMain frm = new frmMain();
-                        frm.Show();
+                        if (ut.UserType1 == "IRC Confirmation")
+                        {
+                            Transaction.frmIRCConfirmation frm = new Transaction.frmIRCConfirmation();
+                            frm.Show();
+                        }
+                        else
+                        {
+                            frmMain frm = new frmMain();
+                            frm.Show();
+                        }
                         bIsClose = true;
                         this.Close();
                         BgWorker.RunWorkerAsync();

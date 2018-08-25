@@ -1,0 +1,64 @@
+﻿<metro:MetroWindow
+    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+    x:Class="Nube.Transaction.frmIRCConfirmationSearch"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.Transaction"
+        mc:Ignorable="d"
+        Title="IRC Confirmation Search" Height="450" Width="800" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="1">
+            <DataGrid x:Name="dgvDetails" AutoGenerateColumns="False" Margin="10,10,0,0" MouseDoubleClick="dgvDetails_MouseDoubleClick">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="FontWeight" Value="Bold" />
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="1">
+                                <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="2">
+                                <Setter Property="Foreground" Value="Brown"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="3">
+                                <Setter Property="Foreground" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="6">
+                                <Setter Property="Foreground" Value="Green"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="S.NO" FontWeight="Bold" Width="60" Binding="{Binding RNO}"/>
+                    <DataGridTextColumn Header="Membership No" FontWeight="Bold" Width="120" Binding="{Binding MEMBER_ID}"/>
+                    <DataGridTextColumn Header="Full Name" FontWeight="Bold" Width="250" Binding="{Binding MEMBER_NAME}"/>
+                    <DataGridTextColumn Header="ICNo" FontWeight="Bold" Width="50"  Binding="{Binding MEMBERTYPE_NAME}"/>
+                    <DataGridTextColumn Header="Bank Name" Width="40" FontWeight="Bold" Binding="{Binding SEX_MF}"/>
+                    <DataGridTextColumn Header="Branch" Width="60" FontWeight="Bold" Binding="{Binding BANKUSER_CODE}"/>
+                    <DataGridTextColumn Header="Date Received" FontWeight="Bold" Width="220" Binding="{Binding BRANCH_NAME}"/>
+                    <DataGridTextColumn Header="Date Submitted " FontWeight="Bold" Width="70" Binding="{Binding LEVY}"/>
+                    <DataGridTextColumn Header="Remarks" FontWeight="Bold" Width="70" Binding="{Binding TDF}"/>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <Button HorizontalAlignment="Right" Width="100" Margin="0 10 20 0">Export XL</Button>
+        </StackPanel>
+    </Grid>
+</metro:MetroWindow>

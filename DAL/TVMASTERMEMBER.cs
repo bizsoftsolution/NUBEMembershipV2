@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nube
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ViewMasterMember
+    public partial class TVMASTERMEMBER
     {
         public decimal MEMBER_CODE { get; set; }
         public string MEMBER_NAME { get; set; }
@@ -42,7 +42,7 @@ namespace Nube
         public string RACE_NAME { get; set; }
         public Nullable<decimal> REJOINED { get; set; }
         public string STATUS_NAME { get; set; }
-        public Nullable<int> TOTALMONTHSPAID { get; set; }
+        public Nullable<decimal> TOTALMONTHSPAID { get; set; }
         public Nullable<decimal> ENTRANCEFEE { get; set; }
         public Nullable<decimal> HQFEE { get; set; }
         public Nullable<decimal> MONTHLYBF { get; set; }
@@ -70,14 +70,14 @@ namespace Nube
         public string BRANCHSTATE { get; set; }
         public string BRANCHUSERCODE { get; set; }
         public string MEMBERSTATUS { get; set; }
-        public Nullable<int> MEMBERSTATUSCODE { get; set; }
-        public Nullable<int> MONDUE { get; set; }
+        public int MEMBERSTATUSCODE { get; set; }
+        public Nullable<decimal> MONDUE { get; set; }
         public string NUBEBRANCH { get; set; }
         public string BRANCHZIPCODE { get; set; }
         public string NUBEBANCHNAME { get; set; }
         public string NUBEBANCHCODE { get; set; }
         public Nullable<double> BATCHAMT { get; set; }
-        public Nullable<int> TOTALMOTHSDUE { get; set; }
+        public Nullable<decimal> TOTALMOTHSDUE { get; set; }
         public string LEVY { get; set; }
         public string MEMBERNAME_BYBANK { get; set; }
         public string NRIC_BYBANK { get; set; }
@@ -88,8 +88,5 @@ namespace Nube
         public System.DateTime RESIGNATION_DATE { get; set; }
         public System.DateTime ENTRY_DATE { get; set; }
         public Nullable<System.DateTime> VOUCHER_DATE { get; set; }
-        public bool ISCANCEL { get; set; }
-        public bool AI_INSURANCE { get; set; }
-        public bool GE_INSURANCE { get; set; }
     }
 }

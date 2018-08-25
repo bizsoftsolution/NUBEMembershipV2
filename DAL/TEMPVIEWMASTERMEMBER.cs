@@ -7,12 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nube
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class ViewMasterMember
+    public partial class TEMPVIEWMASTERMEMBER
     {
         public decimal MEMBER_CODE { get; set; }
         public string MEMBER_NAME { get; set; }
@@ -70,7 +70,7 @@ namespace Nube
         public string BRANCHSTATE { get; set; }
         public string BRANCHUSERCODE { get; set; }
         public string MEMBERSTATUS { get; set; }
-        public Nullable<int> MEMBERSTATUSCODE { get; set; }
+        public int MEMBERSTATUSCODE { get; set; }
         public Nullable<int> MONDUE { get; set; }
         public string NUBEBRANCH { get; set; }
         public string BRANCHZIPCODE { get; set; }

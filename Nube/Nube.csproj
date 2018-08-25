@@ -240,6 +240,9 @@
     <Compile Include="GuardianInsertBranch.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="IRCConfirmation.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="JSonHelper.cs" />
     <Compile Include="LoginHistory.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
@@ -615,6 +618,15 @@
     <Compile Include="Transaction\frmFeesEntry.xaml.cs">
       <DependentUpon>frmFeesEntry.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Transaction\frmIRCConfirmation.xaml.cs">
+      <DependentUpon>frmIRCConfirmation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmIRCConfirmationSearch.xaml.cs">
+      <DependentUpon>frmIRCConfirmationSearch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmIRCPrint.xaml.cs">
+      <DependentUpon>frmIRCPrint.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Transaction\frmLevy.xaml.cs">
       <DependentUpon>frmLevy.xaml</DependentUpon>
     </Compile>
@@ -933,6 +945,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Transaction\frmIRCConfirmation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transaction\frmIRCConfirmationSearch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transaction\frmIRCPrint.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Transaction\frmLevy.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1020,6 +1044,9 @@
     <EmbeddedResource Include="rptAccountsExpenceReport.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport2.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport3.rdlc" />
+    <EmbeddedResource Include="Transaction\rptIRCPrint.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EntityDeploy Include="NUBE DATA.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>NUBE DATA.Designer.cs</LastGenOutput>

@@ -39,7 +39,37 @@ namespace Nube.Transaction
             if (dMember_Code != 0)
             {
                 FormFill();
+                txtIRCResignMemberName.Text = txtMemberName.Text;
+                string SheOrHe;
+                if (cmbGender.Text.ToLower() == "male")
+                {
+                    SheOrHe = "He";
+                }else if (cmbGender.Text.ToLower() == "female")
+                {
+                    SheOrHe = "She";
+                }
+                else
+                {
+                    SheOrHe = "She/he";
+                }
+                string rMemberType;
+                if( string.IsNullOrWhiteSpace(cmbMemberType.Text))
+                {
+                    rMemberType = "Clerical/Non clerical";
+                }
+                else
+                {
+                    rMemberType = cmbMemberType.Text;
+                }
+
+                cbxPromotedTo.Content = string.Format("{0} was promoted to",SheOrHe);
+                cbxBeforePromotion.Content = string.Format("{0} was a {1} before promotion [Delete which is not applicable]",SheOrHe,rMemberType);
+                cbxHereByConfirm.Content = string.Format("I hereby confirm that {0} got promoted {0} is no longer doing any clerical job function.",SheOrHe);
+                cbxFilledBy.Content = string.Format("The {0} position has been filled by", rMemberType);
+                
             }
+            btnSave.Visibility =Visibility.Collapsed;
+            dtpBranchCommitteeDate.SelectedDate = DateTime.Now;
             //LoadTempViewMaster();
         }
 
@@ -1032,5 +1062,45 @@ namespace Nube.Transaction
         }
 
         #endregion
+
+        private void txtIRCMemberNo_KeyUp(object sender, KeyEventArgs e)
+        {
+         if(e.Key==Key.Enter)
+            {
+                LoadIRCMember();
+            }
+        }
+
+        void LoadIRCMember()
+        {
+            try {
+                var id = Convert.ToDecimal(txtIRCMemberNo.Text);
+                var mm = db.ViewMasterMembers.FirstOrDefault(x => x.MEMBER_ID == id);
+                if (mm != null)
+                {
+                    txtIRCName.Text = mm.MEMBER_NAME;
+                    txtIRCBankName.Text = mm.BANK_NAME;
+                    txtIRCBankAddress.Text = string.Format("{0}, {1}, {2} {3}", mm.BRANCHADR1, mm.BRANCHADR2, mm.BRANCHZIPCODE, mm.BRANCHCITY);                    
+                }
+            } catch (Exception ex) { }
+            
+        }
+
+        private void txtIRCMemberNo_LostFocus(object sender, RoutedEventArgs e)
+        {
+            LoadIRCMember();
+        }
+
+        private void txtMemberName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
+
+        private void btnIRCPrint_Click(object sender, RoutedEventArgs e)
+        {
+            frmIRCPrint frm = new frmIRCPrint();
+            frm.loadData(this);
+            frm.ShowDialog();
+        }
     }
 }

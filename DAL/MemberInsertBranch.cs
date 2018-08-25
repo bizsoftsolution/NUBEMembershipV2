@@ -65,5 +65,6 @@ namespace DAL
         public Nullable<int> UpdatedBy { get; set; }
         public int IsApproved { get; set; }
         public string Occupation { get; set; }
+        public string COUNTRY { get; set; }
     }
 }
