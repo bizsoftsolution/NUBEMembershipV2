@@ -227,5 +227,10 @@ namespace Nube.Transaction
         {
             IRCHeadingLoad();
         }
+
+        private void cmbBankBranchName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

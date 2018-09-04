@@ -512,9 +512,9 @@ namespace Nube.Reports
                                     " (CASE WHEN ST.STATUS_CODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
                                     " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
                                     " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
-                                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = MM.BANK_CODE \r" +
-                                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
-                                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE \r" +
+                                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANK_CODE \r" +
+                                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCH_CODE \r" +
+                                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = st.NUBE_BRANCH_CODE \r" +
                                     " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
                                     " WHERE ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtpDOB.SelectedDate);
                 }
