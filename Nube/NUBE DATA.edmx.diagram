@@ -64,8 +64,8 @@
         <EntityTypeShape EntityType="nube18092017Model.MasterMemberStatu" Width="1.5" PointX="13.375" PointY="28.75" />
         <EntityTypeShape EntityType="nube18092017Model.MemberStatusLog" Width="1.5" PointX="15.375" PointY="28.75" />
         <EntityTypeShape EntityType="nube18092017Model.Tran_Start" Width="1.5" PointX="29.375" PointY="15.75" />
-        <EntityTypeShape EntityType="nube18092017Model.IRCConfirmation" Width="1.5" PointX="29.375" PointY="19.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewMasterMember" Width="1.5" PointX="8.375" PointY="16.75" />
+        <EntityTypeShape EntityType="nube18092017Model.IRCConfirmation" Width="1.5" PointX="29.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

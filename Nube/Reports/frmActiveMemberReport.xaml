@@ -9,7 +9,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube"
-        mc:Ignorable="d" xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+        mc:Ignorable="d" 
+    xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
      
         Title="Active Member" Height="750" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized" Closing="MetroWindow_Closing" WindowStartupLocation="CenterScreen">
     <metro:MetroWindow.Background>

@@ -10,55 +10,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube.Transaction"
         mc:Ignorable="d"
+        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         Title="IRC Confirmation Search" Height="450" Width="800" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="1">
-            <DataGrid x:Name="dgvDetails" AutoGenerateColumns="False" Margin="10,10,0,0" MouseDoubleClick="dgvDetails_MouseDoubleClick">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="1">
-                                <Setter Property="Foreground" Value="DarkBlue"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="2">
-                                <Setter Property="Foreground" Value="Brown"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="3">
-                                <Setter Property="Foreground" Value="Red"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="6">
-                                <Setter Property="Foreground" Value="Green"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="S.NO" FontWeight="Bold" Width="60" Binding="{Binding RNO}"/>
-                    <DataGridTextColumn Header="Membership No" FontWeight="Bold" Width="120" Binding="{Binding MEMBER_ID}"/>
-                    <DataGridTextColumn Header="Full Name" FontWeight="Bold" Width="250" Binding="{Binding MEMBER_NAME}"/>
-                    <DataGridTextColumn Header="ICNo" FontWeight="Bold" Width="50"  Binding="{Binding MEMBERTYPE_NAME}"/>
-                    <DataGridTextColumn Header="Bank Name" Width="40" FontWeight="Bold" Binding="{Binding SEX_MF}"/>
-                    <DataGridTextColumn Header="Branch" Width="60" FontWeight="Bold" Binding="{Binding BANKUSER_CODE}"/>
-                    <DataGridTextColumn Header="Date Received" FontWeight="Bold" Width="220" Binding="{Binding BRANCH_NAME}"/>
-                    <DataGridTextColumn Header="Date Submitted " FontWeight="Bold" Width="70" Binding="{Binding LEVY}"/>
-                    <DataGridTextColumn Header="Remarks" FontWeight="Bold" Width="70" Binding="{Binding TDF}"/>
-                    
-                </DataGrid.Columns>
-            </DataGrid>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBox x:Name="txtSearchText"  FontWeight="Bold" HorizontalAlignment="Left" Height="40"  TextWrapping="Wrap" materialDesign:HintAssist.Hint="Search Text"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Bottom" Width="275" Margin="10 0 10 0" KeyUp="txtSearchText_KeyUp"  />
+            <GroupBox Header="Status" Width="200" Margin="20 30 0 0">
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Name="cbxConfirm" Margin="20 10 0 0" Checked="cbxConfirm_Checked" Unchecked="cbxConfirm_Unchecked" FontWeight="Bold" Foreground="DarkBlue" >Confirm
+                    </CheckBox>
+                    <CheckBox Name="cbxPending" Margin="20 10 0 0" Checked="cbxPending_Checked" Unchecked="cbxPending_Unchecked" FontWeight="Bold" Foreground="Brown" >Pending</CheckBox>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
+        <TabControl Grid.Row="1" Margin="0 0 10 0">
+            <TabItem Header="Grid">
+                <DataGrid x:Name="dgvDetails" IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,0,0" MouseDoubleClick="dgvDetails_MouseDoubleClick">
+                    <DataGrid.ColumnHeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="FontWeight" Value="Bold" />
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGrid.ColumnHeaderStyle>
+
+
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Status}" Value="Confirm">
+                                    <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Status}" Value="Pending">
+                                    <Setter Property="Foreground" Value="Brown"></Setter>
+                                </DataTrigger>
+
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Status" FontWeight="Bold" Width="80" Binding="{Binding Status}"/>
+                        <DataGridTextColumn Header="Member Id" FontWeight="Bold" Width="80" Binding="{Binding ResignMemberNo}"/>
+                        <DataGridTextColumn Header="Full Name" FontWeight="Bold" Width="250" Binding="{Binding ResignMemberName}"/>
+                        <DataGridTextColumn Header="ICNo" FontWeight="Bold" Width="120"  Binding="{Binding ResignMemberICNo}"/>
+                        <DataGridTextColumn Header="Bank Name" Width="150" FontWeight="Bold" Binding="{Binding ResignMemberBankName}"/>
+                        <DataGridTextColumn Header="Branch" Width="250" FontWeight="Bold" Binding="{Binding ResignMemberBranchName}"/>
+                        <DataGridTextColumn Header="Date Received" FontWeight="Bold" Width="120" Binding="{Binding BranchCommitteeDate, StringFormat=\{0:dd-MMM-yyyy\}}"/>
+                        <DataGridTextColumn Header="Date Submitted " FontWeight="Bold" Width="120" Binding="{Binding UpdatedAt, StringFormat=\{0:dd-MMM-yyyy\}}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Report">
+                <WindowsFormsHost Margin="10" >
+                    <rv:ReportViewer x:Name="rptViewer"></rv:ReportViewer>
+                </WindowsFormsHost>
+            </TabItem>
+        </TabControl>
         <StackPanel Grid.Row="2">
-            <Button HorizontalAlignment="Right" Width="100" Margin="0 10 20 0">Export XL</Button>
+            <Button HorizontalAlignment="Right" Width="100" Margin="0 10 20 0" Visibility="Collapsed">Export XL</Button>
         </StackPanel>
     </Grid>
 </metro:MetroWindow>

@@ -1044,6 +1044,7 @@
     <EmbeddedResource Include="rptAccountsExpenceReport.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport2.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport3.rdlc" />
+    <EmbeddedResource Include="Transaction\rptIRC.rdlc" />
     <EmbeddedResource Include="Transaction\rptIRCPrint.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -1066,6 +1067,7 @@
       <DependentUpon>nubebfsDataSet.xsd</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\IRCConfirmation.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

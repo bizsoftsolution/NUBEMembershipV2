@@ -14,14 +14,20 @@ namespace Nube
     
     public partial class IRCConfirmation
     {
-        public string MemberCode { get; set; }
+        public decimal MemberCode { get; set; }
         public string ResignMemberNo { get; set; }
         public string ResignMemberName { get; set; }
         public string ResignMemberICNo { get; set; }
         public string ResignMemberBankName { get; set; }
         public string ResignMemberBranchName { get; set; }
+        public string IRCMembershipNo { get; set; }
+        public string IRCName { get; set; }
         public string IRCPosition { get; set; }
-        public string MembershipNo { get; set; }
+        public string IRCBank { get; set; }
+        public string IRCBankAddress { get; set; }
+        public string IRCTelephoneNo { get; set; }
+        public string IRCMobileNo { get; set; }
+        public string IRCFaxNo { get; set; }
         public string PromotedTo { get; set; }
         public Nullable<System.DateTime> GradeWEF { get; set; }
         public Nullable<bool> NameOfPerson { get; set; }
@@ -36,5 +42,8 @@ namespace Nube
         public string BranchCommitteeZone { get; set; }
         public Nullable<System.DateTime> BranchCommitteeDate { get; set; }
         public string Remarks { get; set; }
+        public string Status { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> UpdatedAt { get; set; }
     }
 }

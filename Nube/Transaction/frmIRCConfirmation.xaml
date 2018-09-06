@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube.Transaction"
         mc:Ignorable="d"
-        Title="IRC Confirmation" Height="450" Width="800" WindowState="Maximized">
+        Title="IRC Confirmation" Height="800" Width="1200" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280"/>
@@ -44,7 +44,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label x:Name="label_Copy1" FontWeight="Bold" Content="SEX" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="55" Margin="5 0 0 0"/>
-                    <ComboBox x:Name="cmbGender" FontWeight="Bold" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" IsEditable="True" materialDesign:HintAssist.Hint="Gender"  materialDesign:HintAssist.HintOpacity=".26" RenderTransformOrigin="1.318,0" Margin="10 0 0 0 " Height="34" IsReadOnly="True" SelectionChanged="cmbGender_SelectionChanged" LostFocus="cmbGender_LostFocus">
+                    <ComboBox x:Name="cmbGender" FontWeight="Bold" IsEnabled="False" Background="{x:Null}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="106" IsEditable="True" materialDesign:HintAssist.Hint="Gender"  materialDesign:HintAssist.HintOpacity=".26" RenderTransformOrigin="1.318,0" Margin="10 0 0 0 " Height="34" IsReadOnly="True" SelectionChanged="cmbGender_SelectionChanged" LostFocus="cmbGender_LostFocus">
                         <ComboBoxItem>Male</ComboBoxItem>
                         <ComboBoxItem>Female</ComboBoxItem>
                     </ComboBox>
@@ -60,7 +60,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="txtNewIC" FontWeight="Bold" HorizontalAlignment="Left" Height="40"  TextWrapping="Wrap" materialDesign:HintAssist.Hint="NRIC-N" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="170" Margin="10 0 0 0" IsReadOnly="True" IsEnabled="False"/>
                 </StackPanel>
-                <TextBox x:Name="txtRemarks"  FontWeight="Bold" HorizontalAlignment="Left" Height="100"  TextWrapping="Wrap" AcceptsReturn="True" materialDesign:HintAssist.Hint="Remarks" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="250" Margin="10 30 0 0" IsReadOnly="True" IsEnabled="False" />
+                <TextBox x:Name="txtRemarks"  FontWeight="Bold" HorizontalAlignment="Left" Height="100"  TextWrapping="Wrap" AcceptsReturn="True" materialDesign:HintAssist.Hint="Remarks" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="250" Margin="10 30 0 0" />
             </StackPanel>
             
         </Grid>
@@ -138,7 +138,7 @@
                                 <CheckBox Name="cbxPromotedTo" VerticalAlignment="Bottom">She/he was promoted to</CheckBox>
                                 <TextBox Margin="10,0,0,0" Name="txtIRCPromotedTo" Width="300" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                 <Label VerticalAlignment="Bottom">grade w.e.f.</Label>
-                                <TextBox Margin="10,0,0,0" Name="txtIRCGrade" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                <DatePicker x:Name="dtpGrade" Background="{x:Null}" FontWeight="Bold" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  VerticalAlignment="Bottom" Width="106" FontSize="14" Margin="10,0,0,0" SelectedDateChanged="dtpGrade_SelectedDateChanged" />
                             </StackPanel>
                             <CheckBox Margin="0 20 0 0" Name="cbxBeforePromotion">She/he was a Messenger/Clerical before promotion [Delete which is not applicable]</CheckBox>
                             <CheckBox Margin="0 20 0 0" Name="cbxAttached">Attached Job function/Description (compulsory)</CheckBox>
