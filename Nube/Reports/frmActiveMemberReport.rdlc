@@ -644,34 +644,37 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.56981in</Width>
+                  <Width>0.33923in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.83826in</Width>
+                  <Width>0.73826in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.17631in</Width>
+                  <Width>1.97839in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>0.96291in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.67118in</Width>
+                  <Width>0.51219in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.75627in</Width>
+                  <Width>0.74585in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.0316in</Width>
+                  <Width>0.899in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.26041in</Width>
+                  <Width>0.87535in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.58333in</Width>
+                  <Width>1.04166in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.59375in</Width>
+                  <Width>0.42393in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.5344in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.20833in</Width>
@@ -692,6 +695,7 @@
                                 <TextRun>
                                   <Value>S.NO</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -726,6 +730,7 @@
                                 <TextRun>
                                   <Value>M/NO</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -760,6 +765,7 @@
                                 <TextRun>
                                   <Value>MEMBER NAME</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -794,6 +800,7 @@
                                 <TextRun>
                                   <Value>NRIC</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -828,6 +835,7 @@
                                 <TextRun>
                                   <Value>GENDER</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -862,6 +870,7 @@
                                 <TextRun>
                                   <Value>BANK</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -887,6 +896,41 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox10">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>BRANCH NAME</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox19">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -896,6 +940,7 @@
                                 <TextRun>
                                   <Value>MEMBER TYPE</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -930,6 +975,7 @@
                                 <TextRun>
                                   <Value>DATE OF JOINING</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -964,6 +1010,7 @@
                                 <TextRun>
                                   <Value>LEVY</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -998,6 +1045,7 @@
                                 <TextRun>
                                   <Value>TDF</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1032,6 +1080,7 @@
                                 <TextRun>
                                   <Value>LAST PAID DATE</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -1070,7 +1119,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!RNO.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1102,7 +1153,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!MEMBER_ID.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1134,7 +1187,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!MEMBER_NAME.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1164,7 +1219,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!ICNO_NEW.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1194,7 +1251,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SEX.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1224,13 +1283,47 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!BANK_USERCODE.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>BANK_USERCODE</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="BRANCHNAME">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!BRANCHNAME.Value</Value>
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>BRANCHNAME</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1254,7 +1347,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!MEMBERTYPE_NAME.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -1285,6 +1380,7 @@
                                 <TextRun>
                                   <Value>=Fields!DATEOFJOINING.Value</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <Format>dd/MM/yyyy</Format>
                                   </Style>
                                 </TextRun>
@@ -1318,7 +1414,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!LEVY.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1350,7 +1448,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TDF.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>8pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1383,6 +1483,7 @@
                                 <TextRun>
                                   <Value>=Fields!LASTPAYMENT_DATE.Value</Value>
                                   <Style>
+                                    <FontSize>8pt</FontSize>
                                     <Format>dd/MM/yyyy</Format>
                                   </Style>
                                 </TextRun>
@@ -1423,6 +1524,7 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1440,9 +1542,8 @@
             <FixedColumnHeaders>true</FixedColumnHeaders>
             <DataSetName>ActiveMember</DataSetName>
             <Top>0.06646in</Top>
-            <Left>0.23958in</Left>
             <Height>0.47917in</Height>
-            <Width>11.6522in</Width>
+            <Width>10.2595in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1488,13 +1589,13 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>0.92895in</Height>
+        <Height>2.35953cm</Height>
         <Style />
       </Body>
-      <Width>12.07928in</Width>
+      <Width>26.29623cm</Width>
       <Page>
         <PageHeader>
-          <Height>1.40313in</Height>
+          <Height>3.59165cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1606,10 +1707,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Top>2.96394cm</Top>
-              <Left>23.07899cm</Left>
+              <Top>2.99165cm</Top>
+              <Left>20.38024cm</Left>
               <Height>0.6cm</Height>
-              <Width>5.08619cm</Width>
+              <Width>5.6789cm</Width>
               <ZIndex>3</ZIndex>
               <Style>
                 <Border>
@@ -1643,7 +1744,7 @@
               <Top>0.62562in</Top>
               <Left>0.01638cm</Left>
               <Height>0.25in</Height>
-              <Width>11.11723in</Width>
+              <Width>10.25305in</Width>
               <ZIndex>4</ZIndex>
               <Visibility>
                 <Hidden>=IIF(First(Parameters!NubeBranchName.Value)&lt;&gt;"",True,False)</Hidden>
@@ -1680,7 +1781,7 @@
               <Top>0.86451in</Top>
               <Left>0.01638cm</Left>
               <Height>0.25in</Height>
-              <Width>11.11723in</Width>
+              <Width>10.25305in</Width>
               <ZIndex>5</ZIndex>
               <Visibility>
                 <Hidden>=IIF(First(Parameters!BankName.Value)&lt;&gt;"",True,False)</Hidden>
@@ -1717,7 +1818,7 @@
               <Top>1.12229in</Top>
               <Left>4.97416cm</Left>
               <Height>0.25in</Height>
-              <Width>7.05844in</Width>
+              <Width>5.95427in</Width>
               <ZIndex>6</ZIndex>
               <Visibility>
                 <Hidden>=IIF(First(Parameters!BranchName.Value)&lt;&gt;"",True,False)</Hidden>
@@ -1740,7 +1841,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>0.20833in</Height>
+          <Height>0.52916cm</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <Style>
@@ -1749,12 +1850,13 @@
             </Border>
           </Style>
         </PageFooter>
-        <PageHeight>8.5in</PageHeight>
-        <PageWidth>11in</PageWidth>
-        <LeftMargin>1in</LeftMargin>
-        <RightMargin>1in</RightMargin>
-        <TopMargin>1in</TopMargin>
-        <BottomMargin>1in</BottomMargin>
+        <PageHeight>21cm</PageHeight>
+        <PageWidth>29.7cm</PageWidth>
+        <LeftMargin>1cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>1cm</BottomMargin>
+        <ColumnSpacing>1.27cm</ColumnSpacing>
         <Style />
       </Page>
     </ReportSection>
@@ -1854,6 +1956,6 @@ mE7pg3PJyO9C0n+pQ4aysjKWL18+5ZVXXvnHpXJ6ySIAHDhw4IgQYqvD4ZjYo0ePcxdOJLiquD8PDypB
 wwXr0tGkaQQjYfI93ks+UtcwDKqrq6mtraWurq58/fr1c+fPn//OJd7mK+NbEeEsZD/33POT+/Tpc19WlrfY40nD5/MlzW+/CbS2tlJbW0tzczPhcPjQ4cOHl0ybNu0N4PhXvvmXxLctQhJ2u73wmWeeGdO9e88RmZkZIzweTy+Xy6U4XS5SXE5SU1OTBh4XA8MwCIVCtLW1EwyFiEQitLWFjjY3NW85fPhw+dy5c9f5/f7DF33DbxD/NSKc/1zFxQP63HXXHYNz83Kv9Kan5/p8vqGSRFdZThh5qIoFWZGR5cTUNx6Po+txYrEouq4jSbI/EGjc2djcXHXS7z+44YNNOz9Yt2ov52W//Tfg/wEFrYFW96DIfgAAAABJRU5ErkJggg==</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>25c2601f-d69d-46ba-b0f0-77fe4da8b029</rd:ReportID>
 </Report>
