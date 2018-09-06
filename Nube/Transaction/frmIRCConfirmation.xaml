@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube.Transaction"
         mc:Ignorable="d"
-        Title="IRC Confirmation" Height="800" Width="1200" WindowState="Maximized">
+        Title="IRC Confirmation" Height="1007" Width="1200" WindowState="Maximized">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280"/>
@@ -74,7 +74,7 @@
                     <RowDefinition Height="250"/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontWeight="Bold" FontSize="16">IRC CONFIRMATION OF BENEVOLENT FUND APPLICATION</Label>
+				<Label Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" FontSize="16">IRC CONFIRMATION OF BENEVOLENT FUND APPLICATION</Label>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -94,7 +94,7 @@
                     <Label Grid.Row="2" VerticalAlignment="Bottom" Grid.Column="0">IRC Position</Label>
                     <Label Grid.Row="3" VerticalAlignment="Bottom" Grid.Column="0">Bank</Label>
                     <Label Grid.Row="4" VerticalAlignment="Bottom" Grid.Column="0">Bank Address</Label>
-                    <Label Grid.Row="5" VerticalAlignment="Bottom" Grid.Column="0">Telephone/Fax No</Label>
+                    <Label Grid.Row="5" VerticalAlignment="Bottom" Grid.Column="0">Telephone</Label>
 
                     <Label Grid.Row="0" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
                     <Label Grid.Row="1" VerticalAlignment="Bottom" Grid.Column="1">:</Label>
@@ -128,7 +128,7 @@
                 <Grid Grid.Row="3" >
                     <StackPanel>
                         <Label>Dear Sir,</Label>
-                        <Label>I, the above named IRC hereby confirm that the following: [tick all the boxes as Confirmation]</Label>
+                        <Label>I, The above named IRC hereby confirm that the following: [Tick all the boxes as Confirmation]</Label>
                         <StackPanel Margin="50 0 0 0">
                             <StackPanel Margin="0,0,0,0"  Orientation="Horizontal">
                                 <CheckBox Name="cbxNameOfPerson" VerticalAlignment="Bottom">Name of Person applying for BF is</CheckBox>
@@ -138,7 +138,7 @@
                                 <CheckBox Name="cbxPromotedTo" VerticalAlignment="Bottom">She/he was promoted to</CheckBox>
                                 <TextBox Margin="10,0,0,0" Name="txtIRCPromotedTo" Width="300" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                 <Label VerticalAlignment="Bottom">grade w.e.f.</Label>
-                                <DatePicker x:Name="dtpGrade" Background="{x:Null}" FontWeight="Bold" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  VerticalAlignment="Bottom" Width="106" FontSize="14" Margin="10,0,0,0" SelectedDateChanged="dtpGrade_SelectedDateChanged" />
+								<DatePicker x:Name="dtpGrade" Background="{x:Null}" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  VerticalAlignment="Bottom" Width="106" FontSize="14" Margin="10,0,0,0" SelectedDateChanged="dtpGrade_SelectedDateChanged" />
                             </StackPanel>
                             <CheckBox Margin="0 20 0 0" Name="cbxBeforePromotion">She/he was a Messenger/Clerical before promotion [Delete which is not applicable]</CheckBox>
                             <CheckBox Margin="0 20 0 0" Name="cbxAttached">Attached Job function/Description (compulsory)</CheckBox>
@@ -171,9 +171,10 @@
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="5" >
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="201,0,331,0" Width="351">
                         <Button Name="btnIRCSubmit" Width="100" Margin="0,0,0,20" Click="btnIRCSubmit_Click">Submit</Button>
                         <Button Name="btnIRCSerch" Width="100" Margin="20,0,0,20" Click="btnIRCSerch_Click">Search</Button>
+						<Button Name="btnIRCClear" Width="100" Margin="20,0,0,20" Click="btnIRCClear_Click">Clear</Button>
                         <Button Name="btnIRCSignOut" Width="100" Margin="0,0,0,20" Visibility="Collapsed" Click="btnIRCSignOut_Click">Sign Out</Button>
                     </StackPanel>
                 </Grid>
