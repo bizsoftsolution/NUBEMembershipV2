@@ -868,6 +868,7 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="SERVICE_YEAR" Type="numeric" Precision="10" Scale="0" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PayMode" Type="varchar" MaxLength="50" />
+          <Property Name="InsuranceAmount" Type="money" />
         </EntityType>
         <EntityType Name="SalutationSetup">
           <Key>
@@ -1608,6 +1609,67 @@ warning 6002: The table/view 'nubev2.dbo.ViewNomineeInsertBranch' does not have 
           <Property Name="RELATION_CODE" Type="numeric" Precision="10" Scale="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'nubev2.dbo.ViewResign' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ViewResign">
+          <Key>
+            <PropertyRef Name="PAYMODE" />
+          </Key>
+          <Property Name="RESIGNATION_DATE" Type="datetime" />
+          <Property Name="RESIGNSTATUS_CODE" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="ICNO_OLD" Type="varchar" MaxLength="20" />
+          <Property Name="ICNO" Type="varchar" MaxLength="30" />
+          <Property Name="RELATION_CODE" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="RELATION_NAME" Type="varchar" MaxLength="25" />
+          <Property Name="REASON_CODE" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="RESIGNSTATUS_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="RESIGNSTATUS_SHORTCODE" Type="varchar" MaxLength="10" />
+          <Property Name="CLAIMER_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="MONTHS_CONTRIBUTED" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="ACCBF" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="ACCBENEFIT" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="CHEQUENO" Type="varchar" MaxLength="20" />
+          <Property Name="CHEQUEDATE" Type="datetime" />
+          <Property Name="AMOUNT" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="TOTALARREARS" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="USER_CODE" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="ENTRY_DATE" Type="datetime" />
+          <Property Name="ENTRY_TIME" Type="varchar" MaxLength="10" />
+          <Property Name="CURRENTDATE" Type="datetime" />
+          <Property Name="VOUCHER_DATE" Type="datetime" />
+          <Property Name="SERVICE_YEAR" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="MEMBER_CODE" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="MEMBER_NAME" Type="varchar" MaxLength="100" />
+          <Property Name="MEMBER_ID" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="MEMBER_TITLE" Type="varchar" MaxLength="10" />
+          <Property Name="MEMBER_INITIAL" Type="varchar" MaxLength="10" />
+          <Property Name="BANK_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="BANK_USERCODE" Type="varchar" MaxLength="4" />
+          <Property Name="ADDRESS1" Type="varchar" MaxLength="100" />
+          <Property Name="ADDRESS2" Type="varchar" MaxLength="100" />
+          <Property Name="ADDRESS3" Type="varchar" MaxLength="100" />
+          <Property Name="CITY_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="STATE_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="COUNTRY" Type="varchar" MaxLength="50" />
+          <Property Name="ZIPCODE" Type="varchar" MaxLength="50" />
+          <Property Name="PHONE" Type="varchar" MaxLength="50" />
+          <Property Name="MOBILE" Type="varchar" MaxLength="50" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="DATEOFJOINING" Type="datetime" />
+          <Property Name="DATEOFBIRTH" Type="datetime" />
+          <Property Name="AGE_IN_YEARS" Type="numeric" Precision="3" Scale="0" />
+          <Property Name="MEMBERTYPE_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="BRANCHNAME" Type="varchar" MaxLength="50" />
+          <Property Name="BRANCHUSERCODE" Type="varchar" MaxLength="4" />
+          <Property Name="MONDUE" Type="int" />
+          <Property Name="ContributedMonth" Type="int" />
+          <Property Name="NUBEBRANCH" Type="varchar" MaxLength="4" />
+          <Property Name="NUBEBANCHNAME" Type="varchar" MaxLength="50" />
+          <Property Name="MONTHLYBF" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="LASTPAYMENT_DATE" Type="datetime" />
+          <Property Name="PAYMODE" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="InsuranceAmount" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'nubev2.dbo.VIEWRESIGNREPORT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VIEWRESIGNREPORT">
           <Key>
@@ -2338,6 +2400,64 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
     [ViewNomineeInsertBranch].[RELATION_CODE] AS [RELATION_CODE]
     FROM [dbo].[ViewNomineeInsertBranch] AS [ViewNomineeInsertBranch]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="ViewResign" EntityType="Self.ViewResign" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ViewResign].[RESIGNATION_DATE] AS [RESIGNATION_DATE], 
+    [ViewResign].[RESIGNSTATUS_CODE] AS [RESIGNSTATUS_CODE], 
+    [ViewResign].[ICNO_OLD] AS [ICNO_OLD], 
+    [ViewResign].[ICNO] AS [ICNO], 
+    [ViewResign].[RELATION_CODE] AS [RELATION_CODE], 
+    [ViewResign].[RELATION_NAME] AS [RELATION_NAME], 
+    [ViewResign].[REASON_CODE] AS [REASON_CODE], 
+    [ViewResign].[RESIGNSTATUS_NAME] AS [RESIGNSTATUS_NAME], 
+    [ViewResign].[RESIGNSTATUS_SHORTCODE] AS [RESIGNSTATUS_SHORTCODE], 
+    [ViewResign].[CLAIMER_NAME] AS [CLAIMER_NAME], 
+    [ViewResign].[MONTHS_CONTRIBUTED] AS [MONTHS_CONTRIBUTED], 
+    [ViewResign].[ACCBF] AS [ACCBF], 
+    [ViewResign].[ACCBENEFIT] AS [ACCBENEFIT], 
+    [ViewResign].[CHEQUENO] AS [CHEQUENO], 
+    [ViewResign].[CHEQUEDATE] AS [CHEQUEDATE], 
+    [ViewResign].[AMOUNT] AS [AMOUNT], 
+    [ViewResign].[TOTALARREARS] AS [TOTALARREARS], 
+    [ViewResign].[USER_CODE] AS [USER_CODE], 
+    [ViewResign].[ENTRY_DATE] AS [ENTRY_DATE], 
+    [ViewResign].[ENTRY_TIME] AS [ENTRY_TIME], 
+    [ViewResign].[CURRENTDATE] AS [CURRENTDATE], 
+    [ViewResign].[VOUCHER_DATE] AS [VOUCHER_DATE], 
+    [ViewResign].[SERVICE_YEAR] AS [SERVICE_YEAR], 
+    [ViewResign].[MEMBER_CODE] AS [MEMBER_CODE], 
+    [ViewResign].[MEMBER_NAME] AS [MEMBER_NAME], 
+    [ViewResign].[MEMBER_ID] AS [MEMBER_ID], 
+    [ViewResign].[MEMBER_TITLE] AS [MEMBER_TITLE], 
+    [ViewResign].[MEMBER_INITIAL] AS [MEMBER_INITIAL], 
+    [ViewResign].[BANK_NAME] AS [BANK_NAME], 
+    [ViewResign].[BANK_USERCODE] AS [BANK_USERCODE], 
+    [ViewResign].[ADDRESS1] AS [ADDRESS1], 
+    [ViewResign].[ADDRESS2] AS [ADDRESS2], 
+    [ViewResign].[ADDRESS3] AS [ADDRESS3], 
+    [ViewResign].[CITY_NAME] AS [CITY_NAME], 
+    [ViewResign].[STATE_NAME] AS [STATE_NAME], 
+    [ViewResign].[COUNTRY] AS [COUNTRY], 
+    [ViewResign].[ZIPCODE] AS [ZIPCODE], 
+    [ViewResign].[PHONE] AS [PHONE], 
+    [ViewResign].[MOBILE] AS [MOBILE], 
+    [ViewResign].[EMAIL] AS [EMAIL], 
+    [ViewResign].[DATEOFJOINING] AS [DATEOFJOINING], 
+    [ViewResign].[DATEOFBIRTH] AS [DATEOFBIRTH], 
+    [ViewResign].[AGE_IN_YEARS] AS [AGE_IN_YEARS], 
+    [ViewResign].[MEMBERTYPE_NAME] AS [MEMBERTYPE_NAME], 
+    [ViewResign].[BRANCHNAME] AS [BRANCHNAME], 
+    [ViewResign].[BRANCHUSERCODE] AS [BRANCHUSERCODE], 
+    [ViewResign].[MONDUE] AS [MONDUE], 
+    [ViewResign].[ContributedMonth] AS [ContributedMonth], 
+    [ViewResign].[NUBEBRANCH] AS [NUBEBRANCH], 
+    [ViewResign].[NUBEBANCHNAME] AS [NUBEBANCHNAME], 
+    [ViewResign].[MONTHLYBF] AS [MONTHLYBF], 
+    [ViewResign].[LASTPAYMENT_DATE] AS [LASTPAYMENT_DATE], 
+    [ViewResign].[PAYMODE] AS [PAYMODE], 
+    [ViewResign].[InsuranceAmount] AS [InsuranceAmount]
+    FROM [dbo].[ViewResign] AS [ViewResign]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="VIEWRESIGNREPORT" EntityType="Self.VIEWRESIGNREPORT" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [VIEWRESIGNREPORT].[RNO] AS [RNO], 
@@ -3029,7 +3149,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="ViewMemberships" EntityType="Self.ViewMembership" />
           <EntitySet Name="VIEWNOMINEEs" EntityType="Self.VIEWNOMINEE" />
           <EntitySet Name="VIEWRESIGNREPORTs" EntityType="Self.VIEWRESIGNREPORT" />
-          <EntitySet Name="RESIGNATIONs" EntityType="nube18092017Model.RESIGNATION" />
           <EntitySet Name="TEMPFEE_STATUS" EntityType="nube18092017Model.TEMPFEE_STATUS" />
           <EntitySet Name="GE_Insurance" EntityType="nube18092017Model.GE_Insurance" />
           <EntitySet Name="ViewMemberLastPaidDates" EntityType="nube18092017Model.ViewMemberLastPaidDate" />
@@ -3055,35 +3174,9 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="Tran_Start" EntityType="nube18092017Model.Tran_Start" />
           <EntitySet Name="ViewMasterMembers" EntityType="nube18092017Model.ViewMasterMember" />
           <EntitySet Name="IRCConfirmations" EntityType="nube18092017Model.IRCConfirmation" />
+          <EntitySet Name="RESIGNATIONs" EntityType="nube18092017Model.RESIGNATION" />
+          <EntitySet Name="ViewResigns" EntityType="nube18092017Model.ViewResign" />
         </EntityContainer>
-        <EntityType Name="RESIGNATION">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="MEMBER_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
-          <Property Name="RESIGNATION_DATE" Type="DateTime" Precision="3" />
-          <Property Name="RESIGNSTATUS_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ICNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ICNO_OLD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="RELATION_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="REASON_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="CLAIMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MONTHS_CONTRIBUTED" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ACCBF" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ACCBENEFIT" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="CHEQUENO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CHEQUEDATE" Type="DateTime" Precision="3" />
-          <Property Name="AMOUNT" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="TOTALARREARS" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="USER_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ENTRY_DATE" Type="DateTime" Precision="3" />
-          <Property Name="ENTRY_TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="CURRENTDATE" Type="DateTime" Precision="3" />
-          <Property Name="VOUCHER_DATE" Type="DateTime" Precision="3" />
-          <Property Name="SERVICE_YEAR" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PayMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="TEMPFEE_STATUS">
           <Key>
             <PropertyRef Name="Id" />
@@ -4066,6 +4159,94 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="RESIGNATION">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="MEMBER_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+          <Property Name="RESIGNATION_DATE" Type="DateTime" Precision="3" />
+          <Property Name="RESIGNSTATUS_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ICNO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ICNO_OLD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="RELATION_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="REASON_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="CLAIMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MONTHS_CONTRIBUTED" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ACCBF" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ACCBENEFIT" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="CHEQUENO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CHEQUEDATE" Type="DateTime" Precision="3" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="TOTALARREARS" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="USER_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ENTRY_DATE" Type="DateTime" Precision="3" />
+          <Property Name="ENTRY_TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CURRENTDATE" Type="DateTime" Precision="3" />
+          <Property Name="VOUCHER_DATE" Type="DateTime" Precision="3" />
+          <Property Name="SERVICE_YEAR" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PayMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceAmount" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="ViewResign">
+          <Key>
+            <PropertyRef Name="PAYMODE" />
+          </Key>
+          <Property Name="RESIGNATION_DATE" Type="DateTime" Precision="3" />
+          <Property Name="RESIGNSTATUS_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ICNO_OLD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ICNO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="RELATION_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="RELATION_NAME" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="REASON_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="RESIGNSTATUS_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RESIGNSTATUS_SHORTCODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CLAIMER_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MONTHS_CONTRIBUTED" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ACCBF" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ACCBENEFIT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CHEQUENO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CHEQUEDATE" Type="DateTime" Precision="3" />
+          <Property Name="AMOUNT" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TOTALARREARS" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="USER_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ENTRY_DATE" Type="DateTime" Precision="3" />
+          <Property Name="ENTRY_TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="CURRENTDATE" Type="DateTime" Precision="3" />
+          <Property Name="VOUCHER_DATE" Type="DateTime" Precision="3" />
+          <Property Name="SERVICE_YEAR" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="MEMBER_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="MEMBER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MEMBER_ID" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="MEMBER_TITLE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MEMBER_INITIAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BANK_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANK_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CITY_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="STATE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DATEOFJOINING" Type="DateTime" Precision="3" />
+          <Property Name="DATEOFBIRTH" Type="DateTime" Precision="3" />
+          <Property Name="AGE_IN_YEARS" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="MEMBERTYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BRANCHNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BRANCHUSERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="MONDUE" Type="Int32" />
+          <Property Name="ContributedMonth" Type="Int32" />
+          <Property Name="NUBEBRANCH" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="NUBEBANCHNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MONTHLYBF" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="LASTPAYMENT_DATE" Type="DateTime" Precision="3" />
+          <Property Name="PAYMODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InsuranceAmount" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4696,35 +4877,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
                 <ScalarProperty Name="NUBEBANCHNAME" ColumnName="NUBEBANCHNAME" />
                 <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
                 <ScalarProperty Name="BRANCHNAME" ColumnName="BRANCHNAME" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RESIGNATIONs">
-            <EntityTypeMapping TypeName="nube18092017Model.RESIGNATION">
-              <MappingFragment StoreEntitySet="RESIGNATION">
-                <ScalarProperty Name="PayMode" ColumnName="PayMode" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="SERVICE_YEAR" ColumnName="SERVICE_YEAR" />
-                <ScalarProperty Name="VOUCHER_DATE" ColumnName="VOUCHER_DATE" />
-                <ScalarProperty Name="CURRENTDATE" ColumnName="CURRENTDATE" />
-                <ScalarProperty Name="ENTRY_TIME" ColumnName="ENTRY_TIME" />
-                <ScalarProperty Name="ENTRY_DATE" ColumnName="ENTRY_DATE" />
-                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
-                <ScalarProperty Name="TOTALARREARS" ColumnName="TOTALARREARS" />
-                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
-                <ScalarProperty Name="CHEQUEDATE" ColumnName="CHEQUEDATE" />
-                <ScalarProperty Name="CHEQUENO" ColumnName="CHEQUENO" />
-                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
-                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
-                <ScalarProperty Name="MONTHS_CONTRIBUTED" ColumnName="MONTHS_CONTRIBUTED" />
-                <ScalarProperty Name="CLAIMER_NAME" ColumnName="CLAIMER_NAME" />
-                <ScalarProperty Name="REASON_CODE" ColumnName="REASON_CODE" />
-                <ScalarProperty Name="RELATION_CODE" ColumnName="RELATION_CODE" />
-                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
-                <ScalarProperty Name="ICNO" ColumnName="ICNO" />
-                <ScalarProperty Name="RESIGNSTATUS_CODE" ColumnName="RESIGNSTATUS_CODE" />
-                <ScalarProperty Name="RESIGNATION_DATE" ColumnName="RESIGNATION_DATE" />
-                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5648,6 +5800,96 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
                 <ScalarProperty Name="ResignMemberName" ColumnName="ResignMemberName" />
                 <ScalarProperty Name="ResignMemberNo" ColumnName="ResignMemberNo" />
                 <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RESIGNATIONs">
+            <EntityTypeMapping TypeName="nube18092017Model.RESIGNATION">
+              <MappingFragment StoreEntitySet="RESIGNATION">
+                <ScalarProperty Name="InsuranceAmount" ColumnName="InsuranceAmount" />
+                <ScalarProperty Name="PayMode" ColumnName="PayMode" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SERVICE_YEAR" ColumnName="SERVICE_YEAR" />
+                <ScalarProperty Name="VOUCHER_DATE" ColumnName="VOUCHER_DATE" />
+                <ScalarProperty Name="CURRENTDATE" ColumnName="CURRENTDATE" />
+                <ScalarProperty Name="ENTRY_TIME" ColumnName="ENTRY_TIME" />
+                <ScalarProperty Name="ENTRY_DATE" ColumnName="ENTRY_DATE" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="TOTALARREARS" ColumnName="TOTALARREARS" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="CHEQUEDATE" ColumnName="CHEQUEDATE" />
+                <ScalarProperty Name="CHEQUENO" ColumnName="CHEQUENO" />
+                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
+                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
+                <ScalarProperty Name="MONTHS_CONTRIBUTED" ColumnName="MONTHS_CONTRIBUTED" />
+                <ScalarProperty Name="CLAIMER_NAME" ColumnName="CLAIMER_NAME" />
+                <ScalarProperty Name="REASON_CODE" ColumnName="REASON_CODE" />
+                <ScalarProperty Name="RELATION_CODE" ColumnName="RELATION_CODE" />
+                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
+                <ScalarProperty Name="ICNO" ColumnName="ICNO" />
+                <ScalarProperty Name="RESIGNSTATUS_CODE" ColumnName="RESIGNSTATUS_CODE" />
+                <ScalarProperty Name="RESIGNATION_DATE" ColumnName="RESIGNATION_DATE" />
+                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ViewResigns">
+            <EntityTypeMapping TypeName="nube18092017Model.ViewResign">
+              <MappingFragment StoreEntitySet="ViewResign">
+                <ScalarProperty Name="InsuranceAmount" ColumnName="InsuranceAmount" />
+                <ScalarProperty Name="PAYMODE" ColumnName="PAYMODE" />
+                <ScalarProperty Name="LASTPAYMENT_DATE" ColumnName="LASTPAYMENT_DATE" />
+                <ScalarProperty Name="MONTHLYBF" ColumnName="MONTHLYBF" />
+                <ScalarProperty Name="NUBEBANCHNAME" ColumnName="NUBEBANCHNAME" />
+                <ScalarProperty Name="NUBEBRANCH" ColumnName="NUBEBRANCH" />
+                <ScalarProperty Name="ContributedMonth" ColumnName="ContributedMonth" />
+                <ScalarProperty Name="MONDUE" ColumnName="MONDUE" />
+                <ScalarProperty Name="BRANCHUSERCODE" ColumnName="BRANCHUSERCODE" />
+                <ScalarProperty Name="BRANCHNAME" ColumnName="BRANCHNAME" />
+                <ScalarProperty Name="MEMBERTYPE_NAME" ColumnName="MEMBERTYPE_NAME" />
+                <ScalarProperty Name="AGE_IN_YEARS" ColumnName="AGE_IN_YEARS" />
+                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
+                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="STATE_NAME" ColumnName="STATE_NAME" />
+                <ScalarProperty Name="CITY_NAME" ColumnName="CITY_NAME" />
+                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="BANK_USERCODE" ColumnName="BANK_USERCODE" />
+                <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
+                <ScalarProperty Name="MEMBER_INITIAL" ColumnName="MEMBER_INITIAL" />
+                <ScalarProperty Name="MEMBER_TITLE" ColumnName="MEMBER_TITLE" />
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
+                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
+                <ScalarProperty Name="SERVICE_YEAR" ColumnName="SERVICE_YEAR" />
+                <ScalarProperty Name="VOUCHER_DATE" ColumnName="VOUCHER_DATE" />
+                <ScalarProperty Name="CURRENTDATE" ColumnName="CURRENTDATE" />
+                <ScalarProperty Name="ENTRY_TIME" ColumnName="ENTRY_TIME" />
+                <ScalarProperty Name="ENTRY_DATE" ColumnName="ENTRY_DATE" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="TOTALARREARS" ColumnName="TOTALARREARS" />
+                <ScalarProperty Name="AMOUNT" ColumnName="AMOUNT" />
+                <ScalarProperty Name="CHEQUEDATE" ColumnName="CHEQUEDATE" />
+                <ScalarProperty Name="CHEQUENO" ColumnName="CHEQUENO" />
+                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
+                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
+                <ScalarProperty Name="MONTHS_CONTRIBUTED" ColumnName="MONTHS_CONTRIBUTED" />
+                <ScalarProperty Name="CLAIMER_NAME" ColumnName="CLAIMER_NAME" />
+                <ScalarProperty Name="RESIGNSTATUS_SHORTCODE" ColumnName="RESIGNSTATUS_SHORTCODE" />
+                <ScalarProperty Name="RESIGNSTATUS_NAME" ColumnName="RESIGNSTATUS_NAME" />
+                <ScalarProperty Name="REASON_CODE" ColumnName="REASON_CODE" />
+                <ScalarProperty Name="RELATION_NAME" ColumnName="RELATION_NAME" />
+                <ScalarProperty Name="RELATION_CODE" ColumnName="RELATION_CODE" />
+                <ScalarProperty Name="ICNO" ColumnName="ICNO" />
+                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
+                <ScalarProperty Name="RESIGNSTATUS_CODE" ColumnName="RESIGNSTATUS_CODE" />
+                <ScalarProperty Name="RESIGNATION_DATE" ColumnName="RESIGNATION_DATE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -38,41 +38,43 @@ namespace Nube.Transaction
             FormLoad();
             if (dMember_Code != 0)
             {
-                FormFill();
-                txtIRCResignMemberName.Text = txtMemberName.Text;
-                string SheOrHe;
-                if (cmbGender.Text.ToLower() == "male")
-                {
-                    SheOrHe = "He";
-                }else if (cmbGender.Text.ToLower() == "female")
-                {
-                    SheOrHe = "She";
-                }
-                else
-                {
-                    SheOrHe = "She/he";
-                }
-                string rMemberType;
-                if( string.IsNullOrWhiteSpace(cmbMemberType.Text))
-                {
-                    rMemberType = "Clerical/Non clerical";
-                }
-                else
-                {
-                    rMemberType = cmbMemberType.Text;
-                }
-
-                cbxPromotedTo.Content = string.Format("{0} was promoted to",SheOrHe);
-                cbxBeforePromotion.Content = string.Format("{0} was a {1} before promotion [Delete which is not applicable]",SheOrHe,rMemberType);
-                cbxHereByConfirm.Content = string.Format("I hereby confirm that {0} got promoted {0} is no longer doing any clerical job function.",SheOrHe);
-                cbxFilledBy.Content = string.Format("The {0} position has been filled by", rMemberType);
-                
-            }
-            btnSave.Visibility =Visibility.Collapsed;
-            dtpBranchCommitteeDate.SelectedDate = DateTime.Now;
+                FormFill();                               
+            }                        
             //LoadTempViewMaster();
         }
+        void IRCHeadingLoad()
+        {
+            txtIRCResignMemberName.Text = txtMemberName.Text;
+            string SheOrHe;
+            if (cmbGender.Text.ToLower() == "male")
+            {
+                SheOrHe = "He";
+            }
+            else if (cmbGender.Text.ToLower() == "female")
+            {
+                SheOrHe = "She";
+            }
+            else
+            {
+                SheOrHe = "She/he";
+            }
+            string rMemberType;
+            if (string.IsNullOrWhiteSpace(cmbMemberType.Text))
+            {
+                rMemberType = "Clerical/Non clerical";
+            }
+            else
+            {
+                rMemberType = cmbMemberType.Text;
+            }
 
+            cbxPromotedTo.Content = string.Format("{0} was promoted to", SheOrHe);
+            cbxBeforePromotion.Content = string.Format("{0} was a {1} before promotion [Delete which is not applicable]", SheOrHe, rMemberType);
+            cbxHereByConfirm.Content = string.Format("I hereby confirm that {0} got promoted {0} is no longer doing any clerical job function.", SheOrHe);
+            cbxFilledBy.Content = string.Format("The {0} position has been filled by", rMemberType);
+            cbxBranchCommitteeVerification1.Content = String.Format("I have verified the above and confirm that the declaration by the IRC is correct. The {0} position has been filled by another {0} And;", rMemberType);
+            cbxBranchCommitteeVerification2.Content = String.Format("The promoted member is no longer doing {0} job functions", rMemberType);
+        }
         #region BUTTON EVENTS
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
@@ -84,9 +86,25 @@ namespace Nube.Transaction
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            frmMemberQuery frm = new frmMemberQuery("Resingation");
-            this.Close();
+            //frmMemberQuery frm = new frmMemberQuery("Resingation");
+            //this.Close();
+            //frm.ShowDialog();
+            frmIRCConfirmationSearch frm = new frmIRCConfirmationSearch();
+            frm.cbxPending.IsChecked = false;
             frm.ShowDialog();
+            dMember_Code = frm.selectedIRC.MemberCode;
+            ViewIRC(dMember_Code);
+            FormFill();
+            tbiIRC.IsEnabled = true;
+            tbiBank.IsEnabled = false;
+            tbiResidentialAddress.IsEnabled = false;
+            tbiFundDetail.IsEnabled = false;
+            tbiNomineeDetails.IsEnabled = false;
+            tbiGaurdian.IsEnabled = false;
+            tbiResignationDetail.IsEnabled = false;
+            tbiIRC.Focus();
+
+
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -129,6 +147,7 @@ namespace Nube.Transaction
                             rsg.MONTHS_CONTRIBUTED = Convert.ToDecimal(txtRegContributedMonths.Text);
                             rsg.ACCBF = Convert.ToDecimal(txtRegBFContribution.Text);
                             rsg.ACCBENEFIT = Convert.ToDecimal(txtRegSubTotal.Text);
+                            rsg.InsuranceAmount = Convert.ToDecimal(txtRegUnionContri.Text);
                             rsg.CHEQUENO = txtRegPaymode.Text.ToString();
                             rsg.PayMode = cmbPaymode.Text.ToString();
                             rsg.CHEQUEDATE = dtpRegChequeDate.SelectedDate;
@@ -271,8 +290,8 @@ namespace Nube.Transaction
                 //txtRegBFContribution.Text = (totalMonths * 3).ToString();
                 if (iSerYear > 0)
                 {
-                    txtTotalMonthsDueSubs.Text = (totalMonths - Convert.ToInt32(txtTotalMonthPaidSubs.Text)).ToString();
-                    txtTotalMonthsDueBF.Text = (totalMonths - Convert.ToInt32(txtTotalMonthPaidBF.Text)).ToString();
+                    txtTotalMonthsDueSubs.Text = (totalMonths - Convert.ToInt32("0"+ txtTotalMonthPaidSubs.Text)).ToString();
+                    txtTotalMonthsDueBF.Text = (totalMonths - Convert.ToInt32("0" + txtTotalMonthPaidBF.Text)).ToString();
                 }
                 BenefitCalculation();
             }
@@ -601,7 +620,50 @@ namespace Nube.Transaction
                 ExceptionLogging.SendErrorToText(ex);
             }
         }
+        void ViewIRC(decimal Member_Code)
+        {
+            var d = db.IRCConfirmations.FirstOrDefault(x => x.MemberCode == Member_Code);
+            if (d != null)
+            {
+                txtIRCMemberNo.Text = d.IRCMembershipNo;
+                txtIRCName.Text = d.IRCName;
+                txtIRCBankName.Text = d.IRCBank;
+                txtIRCBankAddress.Text = d.IRCBankAddress;
+                txtIRCTelephoneNo.Text = d.IRCTelephoneNo;
+                txtIRCMobileNo.Text = d.IRCMobileNo;
+                txtIRCFax.Text = d.IRCFaxNo;
+                txtMemberName.Text = d.ResignMemberName;
+                txtIRCPromotedTo.Text = d.PromotedTo;
+                txtBranchCommitteeName.Text = d.BranchCommitteeName;
+                txtBranchCommitteeZone.Text = d.BranchCommitteeZone;
+                txtRemarks.Text = d.Remarks;
+                dtpGrade.SelectedDate = d.GradeWEF;
+                dtpBranchCommitteeDate.SelectedDate = d.BranchCommitteeDate;
+                cbxNameOfPerson.IsChecked = d.NameOfPerson;
+                cbxPromotedTo.IsChecked = d.WasPromoted;
+                cbxBeforePromotion.IsChecked = d.BeforePromotion;
+                cbxAttached.IsChecked = d.Attached;
+                cbxHereByConfirm.IsChecked = d.HereByConfirm;
+                cbxFilledBy.IsChecked = d.FilledBy;
+                cbxBranchCommitteeVerification1.IsChecked = d.BranchCommitteeVerification1;
+                cbxBranchCommitteeVerification2.IsChecked = d.BranchCommitteeVerification2;
 
+
+                if (d.IRCPosition == "Chairman")
+                {
+                    rbtChariman.IsChecked = true;
+                }
+                else if (d.IRCPosition == "Secretary")
+                {
+                    rbtSecretary.IsChecked = true;
+                }
+                else
+                {
+                    rbtCommitteMember.IsChecked = true;
+                }
+
+            }
+        }
         private void FormFill()
         {
             try
@@ -777,7 +839,7 @@ namespace Nube.Transaction
                         cmbBranchCode.SelectedValue = qry.BRANCH_CODE;
                         cmbBranchName.SelectedValue = qry.BRANCH_CODE;
                         dtpDOEmp.SelectedDate = Convert.ToDateTime(qry.DATEOFEMPLOYMENT);
-                        txtSalary.Text = qry.Salary.ToString();
+                        txtSalary.Text = qry.Salary==null?"": qry.Salary.ToString();
                         if (status.TDF != null)
                         {
                             cmbTDF.Text = status.TDF.ToString();
@@ -1093,7 +1155,7 @@ namespace Nube.Transaction
 
         private void txtMemberName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+            IRCHeadingLoad();
         }
 
         private void btnIRCPrint_Click(object sender, RoutedEventArgs e)
@@ -1101,6 +1163,42 @@ namespace Nube.Transaction
             frmIRCPrint frm = new frmIRCPrint();
             frm.loadData(this);
             frm.ShowDialog();
+        }
+
+        private void btnNextIRC_Click(object sender, RoutedEventArgs e)
+        {
+            tbiBank.IsEnabled = true;
+            tbiBank.Focus();
+        }
+
+        private void btnNextBank_Click(object sender, RoutedEventArgs e)
+        {
+            tbiResidentialAddress.IsEnabled = true;
+            tbiResidentialAddress.Focus();
+        }
+
+        private void btnNextResidentialAddress_Click(object sender, RoutedEventArgs e)
+        {
+            tbiFundDetail.IsEnabled = true;
+            tbiFundDetail.Focus();
+        }
+
+        private void btnNextNomineeDetails_Click(object sender, RoutedEventArgs e)
+        {
+            tbiGaurdian.IsEnabled = true;
+            tbiGaurdian.Focus();
+        }
+
+        private void btnNextFund_Click(object sender, RoutedEventArgs e)
+        {
+            tbiNomineeDetails.IsEnabled = true;
+            tbiNomineeDetails.Focus();
+        }
+
+        private void btnNextGaurdian_Click(object sender, RoutedEventArgs e)
+        {
+            tbiResignationDetail.IsEnabled = true;
+            tbiResignationDetail.Focus();
         }
     }
 }

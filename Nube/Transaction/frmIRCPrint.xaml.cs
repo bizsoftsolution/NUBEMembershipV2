@@ -49,7 +49,7 @@ namespace Nube.Transaction
 
                 string IRCMsg1, IRCMsg2, IRCMsg3, IRCMsg4, IRCMsg5, IRCMsg6;
                 IRCMsg1 = frm.cbxNameOfPerson.Content as string;
-                IRCMsg2 = string.Format("{0} {1} grade w.e.f. {2}", frm.cbxPromotedTo.Content,frm.txtIRCPromotedTo.Text,frm.txtIRCGrade.Text);
+                IRCMsg2 = string.Format("{0} {1} grade w.e.f. {2}", frm.cbxPromotedTo.Content,frm.txtIRCPromotedTo.Text,frm.dtpGrade.Text);
                 IRCMsg3 = frm.cbxBeforePromotion.Content as string;
                 IRCMsg4 = frm.cbxAttached.Content as string;
                 IRCMsg5 = frm.cbxHereByConfirm.Content as string;

@@ -699,6 +699,9 @@
     <Compile Include="ViewNomineeInsertBranch.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewResign.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="VIEWRESIGNREPORT.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
@@ -1068,6 +1071,7 @@
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\IRCConfirmation.datasource" />
+    <None Include="Properties\DataSources\ViewResign.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
