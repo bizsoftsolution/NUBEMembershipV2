@@ -903,13 +903,7 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> TO </Value>
-                    <Style>
-                      <Format>dd-MMM-yyyy</Format>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value>=Fields!RESIGNATION_DATE.Value</Value>
+                    <Value> TO 31/05/2017</Value>
                     <Style>
                       <Format>dd-MMM-yyyy</Format>
                     </Style>
@@ -947,11 +941,13 @@
                     <Style />
                   </TextRun>
                   <TextRun>
-                    <Value>=Fields!ContributedMonth.Value</Value>
-                    <Style />
+                    <Value>=First(Fields!ACCBF.Value, "Resign")/3</Value>
+                    <Style>
+                      <Format>0;(0)</Format>
+                    </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>)</Value>
+                    <Value> )</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1648,7 +1644,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Union Contribution</Value>
+                    <Value>TAKAFUL</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>

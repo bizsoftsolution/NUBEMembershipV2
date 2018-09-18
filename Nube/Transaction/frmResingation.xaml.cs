@@ -301,7 +301,7 @@ namespace Nube.Transaction
         {
             if (string.IsNullOrEmpty(txtRegContributedMonths.Text))
             {
-                txtRegBenefitYear.Text = (Convert.ToDecimal(txtRegContributedMonths.Text) / 12).ToString();
+              //  txtRegBenefitYear.Text = (Convert.ToDecimal(txtRegContributedMonths.Text) / 12).ToString();
             }
         }
 
@@ -900,6 +900,23 @@ namespace Nube.Transaction
 
                         txtRegBFContribution.Text = Convert.ToInt32(qry.ACCBF).ToString();
                         txtRegBenefitYear.Text = Convert.ToInt32((qry.TotalPaid + dTotlMonthsPaid) / 12).ToString();
+
+                        try
+                        {
+                            using (SqlConnection cn = new SqlConnection(AppLib.connstatus))
+                            {
+                                cn.Open();
+                                var cmd = new SqlCommand(string.Format("select * from status052017 where member_code={0}", dMember_Code), cn);
+                                var dr = cmd.ExecuteReader();
+                                if (dr.Read())
+                                {
+                                    txtRegContributedMonths.Text = Convert.ToInt32(dr["TOTALMONTHSPAID"]).ToString();
+                                    txtRegBFContribution.Text = Convert.ToInt32(dr["ACCBF"]).ToString();
+                                }
+                                dr.Close();
+                                cn.Close();
+                            }
+                        }catch(Exception EX) { }
 
                         TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
 
