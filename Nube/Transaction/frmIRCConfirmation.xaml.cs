@@ -342,11 +342,13 @@ namespace Nube.Transaction
                               && cbxFilledBy.IsChecked == true
                               && cbxBranchCommitteeVerification1.IsChecked == true
                               && cbxBranchCommitteeVerification2.IsChecked == true
+							  && !string.IsNullOrWhiteSpace(txtIRCMemberNo.Text)==true
+							  && (rbtChariman.IsChecked==true || rbtSecretary.IsChecked==true || rbtCommitteMember.IsChecked==true )
                               ? "Confirm" : "Pending";
                     IRC.UpdatedAt = DateTime.Now;
 
                     db.SaveChanges();
-                    MessageBox.Show("Saved");
+                    MessageBox.Show(IRC.Status=="Confirm"? "Submitted Successfully" : "Stored to Draft");
                     ClearIRC();
                 }                
             }
