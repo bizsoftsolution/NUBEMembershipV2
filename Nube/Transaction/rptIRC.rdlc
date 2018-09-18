@@ -253,7 +253,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Submited</Value>
+                              <Value>Submitted</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -555,7 +555,7 @@
         <Top>0.3175cm</Top>
         <Left>0.26141cm</Left>
         <Height>1.2cm</Height>
-        <Width>26.77333cm</Width>
+        <Width>26.77334cm</Width>
         <Style>
           <Border>
             <Style>None</Style>

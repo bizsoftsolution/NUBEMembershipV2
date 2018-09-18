@@ -76,10 +76,11 @@ namespace Nube.Transaction
                 ClearIRC();
                 if (mm != null)                
                 {
-                    txtMemberNo.Text = mm.MEMBER_ID.ToString(); ;
+                    txtMemberNo.Text = mm.MEMBER_ID.ToString();
+					cmbMemberInit.Text = mm.MEMBER_TITLE ?? "";
                     txtMemberName.Text = mm.MEMBER_NAME ?? "";
                     cmbBankName.Text = mm.BANK_NAME ?? "";
-                    cmbMemberType.Text = mm.MEMBERTYPE_NAME ?? "";
+				    cmbMemberType.Text = mm.MEMBERTYPE_NAME ?? "";
                     cmbMemberInit.Text = mm.MEMBER_INITIAL ?? "";
                     cmbBankBranchName.Text = mm.BRANCHNAME ?? "";
                     cmbGender.Text = mm.SEX ?? "";
@@ -166,10 +167,13 @@ namespace Nube.Transaction
         {
             try
             {
-                DateTime now = DateTime.Today;
-                TimeSpan ts = DateTime.Now - Convert.ToDateTime(dtpDOB.SelectedDate);
-                int age = Convert.ToInt32(ts.Days) / 365;
-                txtAge.Text = age.ToString();
+				if (dtpDOB.SelectedDate != null)
+				{
+					DateTime now = DateTime.Today;
+					TimeSpan ts = DateTime.Now - Convert.ToDateTime(dtpDOB.SelectedDate);
+					int age = Convert.ToInt32(ts.Days) / 365;
+					txtAge.Text = age.ToString();
+				}
             }
             catch (Exception ex)
             {
@@ -249,6 +253,7 @@ namespace Nube.Transaction
             cmbBankBranchName.Text = "";
             cmbGender.Text = "";
             cmbRace.Text = "";
+			txtAge.Text = "";
             txtNewIC.Text = "";                      
 
             txtIRCMemberNo.Text = "";
@@ -407,5 +412,10 @@ namespace Nube.Transaction
         {
 
         }
-    }
+
+		private void btnIRCClear_Click(object sender, RoutedEventArgs e)
+		{
+			ClearIRC();
+		}
+	}
 }

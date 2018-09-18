@@ -59,8 +59,8 @@
                         <DataGridTextColumn Header="ICNo" FontWeight="Bold" Width="120"  Binding="{Binding ResignMemberICNo}"/>
                         <DataGridTextColumn Header="Bank Name" Width="150" FontWeight="Bold" Binding="{Binding ResignMemberBankName}"/>
                         <DataGridTextColumn Header="Branch" Width="250" FontWeight="Bold" Binding="{Binding ResignMemberBranchName}"/>
-                        <DataGridTextColumn Header="Date Received" FontWeight="Bold" Width="120" Binding="{Binding BranchCommitteeDate, StringFormat=\{0:dd-MMM-yyyy\}}"/>
-                        <DataGridTextColumn Header="Date Submitted " FontWeight="Bold" Width="120" Binding="{Binding UpdatedAt, StringFormat=\{0:dd-MMM-yyyy\}}"/>
+                        <DataGridTextColumn Header="Received" FontWeight="Bold" Width="120" Binding="{Binding BranchCommitteeDate, StringFormat=\{0:dd-MMM-yyyy\}}"/>
+                        <DataGridTextColumn Header="Submitted " FontWeight="Bold" Width="120" Binding="{Binding UpdatedAt, StringFormat=\{0:dd-MMM-yyyy\}}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
