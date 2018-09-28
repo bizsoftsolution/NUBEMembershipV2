@@ -1003,7 +1003,7 @@ namespace Nube.Transaction
                 progressBar1.Minimum = 5;
                 progressBar1.Maximum = dtFees.Rows.Count;
                 progressBar1.Visibility = Visibility.Visible;
-
+				
                 for (int i = 0; i < dtFees.Rows.Count; i++)
                 {
                     progressBar1.Value = i;
@@ -1014,17 +1014,21 @@ namespace Nube.Transaction
                     string sIcNo = dtFees.Rows[i]["NRIC"].ToString();
                     string sName = dtFees.Rows[i]["MEMBERNAME"].ToString();
 
-                    var MstMember = (from x in AppLib.lstMstMember where x.ICNO_NEW == sIcNo || x.ICNO_OLD == sIcNo || x.NRIC_BYBANK == sIcNo orderby x.DATEOFJOINING descending select x).FirstOrDefault();
+					var MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.ICNO_NEW == sIcNo || x.ICNO_OLD == sIcNo || x.NRIC_ByBank == sIcNo); 
+					//(from x in AppLib.lstMstMember where x.ICNO_NEW == sIcNo || x.ICNO_OLD == sIcNo || x.NRIC_BYBANK == sIcNo orderby x.DATEOFJOINING descending select x).FirstOrDefault();
 
                     if (MstMember == null || string.IsNullOrEmpty(sIcNo))
                     {
-                        MstMember = (from x in AppLib.lstMstMember where x.MEMBER_NAME.ToUpper().Contains(sName) || x.MEMBERNAME_BYBANK.ToUpper().Contains(sName) orderby x.DATEOFJOINING descending select x).FirstOrDefault();
+						MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.MEMBER_NAME.ToUpper().Contains(sName) || x.MemberName_ByBank.ToUpper().Contains(sName));
+						//(from x in AppLib.lstMstMember where x.MEMBER_NAME.ToUpper().Contains(sName) || x.MEMBERNAME_BYBANK.ToUpper().Contains(sName) orderby x.DATEOFJOINING descending select x).FirstOrDefault();
                         if (MstMember == null)
                         {
-                            MstMember = (from x in AppLib.lstMstMember where x.MEMBER_NAME.ToUpper().Contains(sName.ToUpper()) || x.MEMBERNAME_BYBANK.ToUpper().Contains(sName.ToUpper()) orderby x.DATEOFJOINING descending select x).FirstOrDefault();
+							MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.MEMBER_NAME.ToUpper().Contains(sName.ToUpper()) || x.MemberName_ByBank.ToUpper().Contains(sName.ToUpper()));
+							//(from x in AppLib.lstMstMember where x.MEMBER_NAME.ToUpper().Contains(sName.ToUpper()) || x.MEMBERNAME_BYBANK.ToUpper().Contains(sName.ToUpper()) orderby x.DATEOFJOINING descending select x).FirstOrDefault();
                             if (MstMember == null)
                             {
-                                MstMember = (from x in AppLib.lstMstMember where x.ICNO_NEW.ToUpper() == sIcNo.ToUpper() || x.ICNO_OLD.ToUpper() == sIcNo.ToUpper() || x.NRIC_BYBANK.ToUpper() == sIcNo.ToUpper() orderby x.DATEOFJOINING descending select x).FirstOrDefault();
+								MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.ICNO_NEW.ToUpper() == sIcNo.ToUpper() || x.ICNO_OLD.ToUpper() == sIcNo.ToUpper() || x.NRIC_ByBank.ToUpper() == sIcNo.ToUpper()); 
+							//(from x in AppLib.lstMstMember where x.ICNO_NEW.ToUpper() == sIcNo.ToUpper() || x.ICNO_OLD.ToUpper() == sIcNo.ToUpper() || x.NRIC_BYBANK.ToUpper() == sIcNo.ToUpper() orderby x.DATEOFJOINING descending select x).FirstOrDefault();
                             }
                         }
                     }
@@ -1032,7 +1036,7 @@ namespace Nube.Transaction
                     if (MstMember != null)
                     {
                         dtFees.Rows[i]["MEMBERID"] = MstMember.MEMBER_ID;
-                        dtFees.Rows[i]["STATUS_CODE"] = MstMember.MEMBERSTATUSCODE;
+                        dtFees.Rows[i]["STATUS_CODE"] = MstMember.STATUS_CODE;
                         dtFees.Rows[i]["MEMBERCODE"] = MstMember.MEMBER_CODE;
                         iAmnt = Convert.ToDecimal(dtFees.Rows[i]["Amount"]);
                         if (iAmnt == 0 || iAmnt < 0)
@@ -1044,18 +1048,18 @@ namespace Nube.Transaction
                         }
 
                         dtFees.Rows[i]["LAST_PAY_DATE"] = string.Format("{0:dd-MMM-yyyy}", MstMember.LASTPAYMENT_DATE);
-                        string sStatus = MstMember.MEMBERSTATUSCODE.ToString();
+                        string sStatus = MstMember.STATUS_CODE.ToString();
                         string sReason = "";
 
-                        if (MstMember.RESIGNED == true)
+                        if (MstMember.RESIGNED == 1)
                         {
                             sStatus = "3";
                             sReason = "RESIGNED - " + string.Format("{0:dd-MMM-yyyy}", MstMember.LASTPAYMENT_DATE);
                         }
 
-                        if (MstMember.MEMBERNAME_BYBANK != null)
+                        if (MstMember.MemberName_ByBank != null)
                         {
-                            if ((dtFees.Rows[i]["MEMBERNAME"].ToString().ToUpper().Replace(" ", "") != MstMember.MEMBER_NAME.ToUpper().Replace(" ", "")) && dtFees.Rows[i]["MEMBERNAME"].ToString().ToUpper().Replace(" ", "") != MstMember.MEMBERNAME_BYBANK.ToUpper().Replace(" ", ""))
+                            if ((dtFees.Rows[i]["MEMBERNAME"].ToString().ToUpper().Replace(" ", "") != MstMember.MEMBER_NAME.ToUpper().Replace(" ", "")) && dtFees.Rows[i]["MEMBERNAME"].ToString().ToUpper().Replace(" ", "") != MstMember.MemberName_ByBank.ToUpper().Replace(" ", ""))
                             {
                                 if (!string.IsNullOrEmpty(sStatus) && !string.IsNullOrEmpty(sReason))
                                 {
@@ -1101,20 +1105,20 @@ namespace Nube.Transaction
                             }
                         }
 
-                        if (Convert.ToInt32(MstMember.MEMBERSTATUSCODE) != 1 && Convert.ToInt32(MstMember.RESIGNED) != 1 && Convert.ToInt32(MstMember.MEMBERSTATUSCODE) != 2)
+                        if (Convert.ToInt32(MstMember.STATUS_CODE) != 1 && Convert.ToInt32(MstMember.RESIGNED) != 1 && Convert.ToInt32(MstMember.STATUS_CODE) != 2)
                         {
-                            MASTERSTATU st = (from s in DB.MASTERSTATUS where s.STATUS_CODE == MstMember.MEMBERSTATUSCODE select s).FirstOrDefault();
+                            MASTERSTATU st = (from s in DB.MASTERSTATUS where s.STATUS_CODE == MstMember.STATUS_CODE select s).FirstOrDefault();
                             if (st != null)
                             {
                                 if (!string.IsNullOrEmpty(sStatus) && !string.IsNullOrEmpty(sReason))
                                 {
                                     sStatus = "3";
-                                    sReason = sReason + "- (NOT ACTIVE -" + MstMember.MEMBERSTATUS.ToString() + ")";
+                                    sReason = sReason + "- (NOT ACTIVE -" + MstMember.STATUS_CODE.ToString() + ")";
                                 }
                                 else
                                 {
                                     sStatus = "3";
-                                    sReason = "(NOT ACTIVE -" + MstMember.MEMBERSTATUS.ToString() + ")";
+                                    sReason = "(NOT ACTIVE -" + MstMember.STATUS_CODE.ToString() + ")";
                                 }
                             }
                             else
