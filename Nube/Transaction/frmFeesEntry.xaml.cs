@@ -1013,21 +1013,22 @@ namespace Nube.Transaction
 
                     string sIcNo = dtFees.Rows[i]["NRIC"].ToString();
                     string sName = dtFees.Rows[i]["MEMBERNAME"].ToString();
+					string sReason = "";
 
-					var MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.ICNO_NEW == sIcNo || x.ICNO_OLD == sIcNo || x.NRIC_ByBank == sIcNo); 
+					var MstMember = DB.MASTERMEMBERs.Where(x => x.ICNO_NEW == sIcNo || x.ICNO_OLD == sIcNo || x.NRIC_ByBank.Contains(sIcNo)).OrderByDescending(x=> x.MEMBER_CODE).FirstOrDefault(); 
 					//(from x in AppLib.lstMstMember where x.ICNO_NEW == sIcNo || x.ICNO_OLD == sIcNo || x.NRIC_BYBANK == sIcNo orderby x.DATEOFJOINING descending select x).FirstOrDefault();
 
                     if (MstMember == null || string.IsNullOrEmpty(sIcNo))
                     {
-						MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.MEMBER_NAME.ToUpper().Contains(sName) || x.MemberName_ByBank.ToUpper().Contains(sName));
+						MstMember = DB.MASTERMEMBERs.Where(x => x.MEMBER_NAME.ToUpper().Contains(sName) || x.MemberName_ByBank.ToUpper().Contains(sName)).OrderByDescending(x => x.MEMBER_CODE).FirstOrDefault();
 						//(from x in AppLib.lstMstMember where x.MEMBER_NAME.ToUpper().Contains(sName) || x.MEMBERNAME_BYBANK.ToUpper().Contains(sName) orderby x.DATEOFJOINING descending select x).FirstOrDefault();
                         if (MstMember == null)
                         {
-							MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.MEMBER_NAME.ToUpper().Contains(sName.ToUpper()) || x.MemberName_ByBank.ToUpper().Contains(sName.ToUpper()));
+							MstMember = DB.MASTERMEMBERs.Where(x => x.MEMBER_NAME.ToUpper().Contains(sName.ToUpper()) || x.MemberName_ByBank.ToUpper().Contains(sName.ToUpper())).OrderByDescending(x => x.MEMBER_CODE).FirstOrDefault();
 							//(from x in AppLib.lstMstMember where x.MEMBER_NAME.ToUpper().Contains(sName.ToUpper()) || x.MEMBERNAME_BYBANK.ToUpper().Contains(sName.ToUpper()) orderby x.DATEOFJOINING descending select x).FirstOrDefault();
                             if (MstMember == null)
                             {
-								MstMember = DB.MASTERMEMBERs.FirstOrDefault(x => x.ICNO_NEW.ToUpper() == sIcNo.ToUpper() || x.ICNO_OLD.ToUpper() == sIcNo.ToUpper() || x.NRIC_ByBank.ToUpper() == sIcNo.ToUpper()); 
+								MstMember = DB.MASTERMEMBERs.Where(x => x.ICNO_NEW.ToUpper() == sIcNo.ToUpper() || x.ICNO_OLD.ToUpper() == sIcNo.ToUpper() || x.NRIC_ByBank.ToUpper() == sIcNo.ToUpper()).OrderByDescending(x => x.MEMBER_CODE).FirstOrDefault(); 
 							//(from x in AppLib.lstMstMember where x.ICNO_NEW.ToUpper() == sIcNo.ToUpper() || x.ICNO_OLD.ToUpper() == sIcNo.ToUpper() || x.NRIC_BYBANK.ToUpper() == sIcNo.ToUpper() orderby x.DATEOFJOINING descending select x).FirstOrDefault();
                             }
                         }
@@ -1049,8 +1050,7 @@ namespace Nube.Transaction
 
                         dtFees.Rows[i]["LAST_PAY_DATE"] = string.Format("{0:dd-MMM-yyyy}", MstMember.LASTPAYMENT_DATE);
                         string sStatus = MstMember.STATUS_CODE.ToString();
-                        string sReason = "";
-
+                    
                         if (MstMember.RESIGNED == 1)
                         {
                             sStatus = "3";

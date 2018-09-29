@@ -99,5 +99,8 @@ namespace Nube
         public bool GE_Insurance { get; set; }
         public string GE_ContractNo { get; set; }
         public Nullable<int> BranchMemberCode { get; set; }
+    
+        public virtual MASTERBANK MASTERBANK { get; set; }
+        public virtual MASTERBANKBRANCH MASTERBANKBRANCH { get; set; }
     }
 }

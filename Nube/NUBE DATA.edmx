@@ -135,19 +135,11 @@ warning 6002: The table/view 'nubev2.dbo.AI_Insurance' does not have a primary k
           <Property Name="TableName" Type="varchar" MaxLength="50" />
           <Property Name="Remarks" Type="varchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.FeesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesDetails">
           <Key>
             <PropertyRef Name="DetailId" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="DetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FeeId" Type="int" Nullable="false" />
           <Property Name="MemberCode" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
@@ -172,19 +164,11 @@ warning 6002: The table/view 'nubev2.dbo.FeesDetails' does not have a primary ke
           <Property Name="TotalMonthsPaidIns" Type="int" />
           <Property Name="TotalMonthsPaid" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.FeesDetailsNotMatch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesDetailsNotMatch">
           <Key>
             <PropertyRef Name="DetailId" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="DetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FeeId" Type="int" Nullable="false" />
           <Property Name="MemberCode" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
@@ -209,14 +193,11 @@ warning 6002: The table/view 'nubev2.dbo.FeesDetailsNotMatch' does not have a pr
           <Property Name="TotalMonthsPaidIns" Type="int" />
           <Property Name="TotalMonthsPaid" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.FeesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesMaster">
           <Key>
             <PropertyRef Name="FeeId" />
-            
           </Key>
-          <Property Name="FeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BankId" Type="int" />
           <Property Name="FeeDate" Type="smalldatetime" Nullable="false" />
           <Property Name="XLFileName" Type="varchar" MaxLength="150" />
@@ -1709,6 +1690,30 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="TOTALDUE" Type="int" />
           <Property Name="TOTALDUEPAY" Type="int" />
         </EntityType>
+        <Association Name="FK_MASTERMEMBER_MASTERBANK">
+          <End Role="MASTERBANK" Type="Self.MASTERBANK" Multiplicity="0..1" />
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="BANK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERBANKBRANCH">
+          <End Role="MASTERBANKBRANCH" Type="Self.MASTERBANKBRANCH" Multiplicity="0..1" />
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANKBRANCH">
+              <PropertyRef Name="BANKBRANCH_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="BRANCH_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SPMEMBERSHIP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="nube18092017ModelStoreContainer">
           <EntitySet Name="ArrearPostDetails" EntityType="Self.ArrearPostDetails" Schema="dbo" store:Type="Tables" />
@@ -1718,6 +1723,9 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="CountrySetup" EntityType="Self.CountrySetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventHistory" EntityType="Self.EventHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesDetailsNotMatch" EntityType="Self.FeesDetailsNotMatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuardianInsertBranch" EntityType="Self.GuardianInsertBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRCConfirmation" EntityType="Self.IRCConfirmation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
@@ -1781,72 +1789,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
     [AI_Insurance].[Takeover] AS [Takeover], 
     [AI_Insurance].[Coverage] AS [Coverage]
     FROM [dbo].[AI_Insurance] AS [AI_Insurance]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesDetails].[DetailId] AS [DetailId], 
-    [FeesDetails].[FeeId] AS [FeeId], 
-    [FeesDetails].[MemberCode] AS [MemberCode], 
-    [FeesDetails].[TotalAmount] AS [TotalAmount], 
-    [FeesDetails].[AmountBF] AS [AmountBF], 
-    [FeesDetails].[UnionContribution] AS [UnionContribution], 
-    [FeesDetails].[AmountIns] AS [AmountIns], 
-    [FeesDetails].[AmtSubs] AS [AmtSubs], 
-    [FeesDetails].[Dept] AS [Dept], 
-    [FeesDetails].[UpdatedStatus] AS [UpdatedStatus], 
-    [FeesDetails].[FeeYear] AS [FeeYear], 
-    [FeesDetails].[FeeMonth] AS [FeeMonth], 
-    [FeesDetails].[Reason] AS [Reason], 
-    [FeesDetails].[IsUnPaid] AS [IsUnPaid], 
-    [FeesDetails].[IsNotMatch] AS [IsNotMatch], 
-    [FeesDetails].[MemberId] AS [MemberId], 
-    [FeesDetails].[MemberName_Bank] AS [MemberName_Bank], 
-    [FeesDetails].[NRIC_Bank] AS [NRIC_Bank], 
-    [FeesDetails].[IsAccept_ByNube] AS [IsAccept_ByNube], 
-    [FeesDetails].[IsStruckOff] AS [IsStruckOff], 
-    [FeesDetails].[Status] AS [Status], 
-    [FeesDetails].[TotalMonthsPaidBF] AS [TotalMonthsPaidBF], 
-    [FeesDetails].[TotalMonthsPaidIns] AS [TotalMonthsPaidIns], 
-    [FeesDetails].[TotalMonthsPaid] AS [TotalMonthsPaid]
-    FROM [dbo].[FeesDetails] AS [FeesDetails]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FeesDetailsNotMatch" EntityType="Self.FeesDetailsNotMatch" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesDetailsNotMatch].[DetailId] AS [DetailId], 
-    [FeesDetailsNotMatch].[FeeId] AS [FeeId], 
-    [FeesDetailsNotMatch].[MemberCode] AS [MemberCode], 
-    [FeesDetailsNotMatch].[TotalAmount] AS [TotalAmount], 
-    [FeesDetailsNotMatch].[AmountBF] AS [AmountBF], 
-    [FeesDetailsNotMatch].[UnionContribution] AS [UnionContribution], 
-    [FeesDetailsNotMatch].[AmountIns] AS [AmountIns], 
-    [FeesDetailsNotMatch].[AmtSubs] AS [AmtSubs], 
-    [FeesDetailsNotMatch].[Dept] AS [Dept], 
-    [FeesDetailsNotMatch].[UpdatedStatus] AS [UpdatedStatus], 
-    [FeesDetailsNotMatch].[FeeYear] AS [FeeYear], 
-    [FeesDetailsNotMatch].[FeeMonth] AS [FeeMonth], 
-    [FeesDetailsNotMatch].[Reason] AS [Reason], 
-    [FeesDetailsNotMatch].[IsUnPaid] AS [IsUnPaid], 
-    [FeesDetailsNotMatch].[IsNotMatch] AS [IsNotMatch], 
-    [FeesDetailsNotMatch].[MemberId] AS [MemberId], 
-    [FeesDetailsNotMatch].[MemberName_Bank] AS [MemberName_Bank], 
-    [FeesDetailsNotMatch].[NRIC_Bank] AS [NRIC_Bank], 
-    [FeesDetailsNotMatch].[IsAccept_ByNube] AS [IsAccept_ByNube], 
-    [FeesDetailsNotMatch].[IsStruckOff] AS [IsStruckOff], 
-    [FeesDetailsNotMatch].[Status] AS [Status], 
-    [FeesDetailsNotMatch].[TotalMonthsPaidBF] AS [TotalMonthsPaidBF], 
-    [FeesDetailsNotMatch].[TotalMonthsPaidIns] AS [TotalMonthsPaidIns], 
-    [FeesDetailsNotMatch].[TotalMonthsPaid] AS [TotalMonthsPaid]
-    FROM [dbo].[FeesDetailsNotMatch] AS [FeesDetailsNotMatch]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesMaster].[FeeId] AS [FeeId], 
-    [FeesMaster].[BankId] AS [BankId], 
-    [FeesMaster].[FeeDate] AS [FeeDate], 
-    [FeesMaster].[XLFileName] AS [XLFileName], 
-    [FeesMaster].[XLPassword] AS [XLPassword], 
-    [FeesMaster].[UpdatedStatus] AS [UpdatedStatus]
-    FROM [dbo].[FeesMaster] AS [FeesMaster]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="GE_Insurance" EntityType="Self.GE_Insurance" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2492,6 +2434,14 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
     [VIEWTOTALDUE].[TOTALDUEPAY] AS [TOTALDUEPAY]
     FROM [dbo].[VIEWTOTALDUE] AS [VIEWTOTALDUE]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERBANK" Association="Self.FK_MASTERMEMBER_MASTERBANK">
+            <End Role="MASTERBANK" EntitySet="MASTERBANK" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERBANKBRANCH" Association="Self.FK_MASTERMEMBER_MASTERBANKBRANCH">
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCH" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -2633,6 +2583,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="HEAD_QUARTERS" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
+          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERBANKBRANCH" ToRole="MASTERMEMBER" />
         </EntityType>
         <EntityType Name="MASTERCITY">
           <Key>
@@ -3176,6 +3127,14 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="IRCConfirmations" EntityType="nube18092017Model.IRCConfirmation" />
           <EntitySet Name="RESIGNATIONs" EntityType="nube18092017Model.RESIGNATION" />
           <EntitySet Name="ViewResigns" EntityType="nube18092017Model.ViewResign" />
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERBANK" Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANK">
+            <End Role="MASTERBANK" EntitySet="MASTERBANKs" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERBANKBRANCH" Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH">
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TEMPFEE_STATUS">
           <Key>
@@ -3731,6 +3690,8 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="GE_Insurance" Type="Boolean" Nullable="false" />
           <Property Name="GE_ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BranchMemberCode" Type="Int32" />
+          <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERMEMBER" ToRole="MASTERBANK" />
+          <NavigationProperty Name="MASTERBANKBRANCH" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERMEMBER" ToRole="MASTERBANKBRANCH" />
         </EntityType>
         <EntityType Name="ViewBranch">
           <Key>
@@ -3759,6 +3720,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="HEADER_BANK_CODE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERMEMBER" />
         </EntityType>
         <EntityType Name="MemberInsertBranch">
           <Key>
@@ -4247,6 +4209,30 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="PAYMODE" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="InsuranceAmount" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
+        <Association Name="FK_MASTERMEMBER_MASTERBANK">
+          <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="BANK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERBANKBRANCH">
+          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANKBRANCH">
+              <PropertyRef Name="BANKBRANCH_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="BRANCH_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->

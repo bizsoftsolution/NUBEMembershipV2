@@ -67,6 +67,8 @@
         <EntityTypeShape EntityType="nube18092017Model.IRCConfirmation" Width="1.5" PointX="29.375" PointY="19.75" />
         <EntityTypeShape EntityType="nube18092017Model.RESIGNATION" Width="1.5" PointX="29.375" PointY="27.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewResign" Width="1.5" PointX="31.375" PointY="15.75" />
+        <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" />
+        <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
