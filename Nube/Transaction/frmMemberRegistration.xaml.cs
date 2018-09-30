@@ -1630,9 +1630,9 @@ namespace Nube.Transaction
                             cmbGE_Insurance.Text = "N/A";
                         }
 
-                        dtpLastPay.SelectedDate = Convert.ToDateTime(status.LASTPAYMENT_DATE);
+                        dtpLastPay.SelectedDate = Convert.ToDateTime(qry.LASTPAYMENT_DATE);
 
-                        TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
+                        TimeSpan ts = Convert.ToDateTime(qry.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
 
                         int iSerYear = Convert.ToInt32(ts.Days) / 365;
                         txtServicePeriod.Text = iSerYear.ToString();
