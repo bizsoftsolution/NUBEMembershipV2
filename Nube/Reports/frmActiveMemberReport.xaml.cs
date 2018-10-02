@@ -310,11 +310,12 @@ namespace Nube
 
                     cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,MM.MEMBER_NAME,  \r" +
                                          " ISNULL(MM.MEMBERTYPE_NAME, '')MEMBERTYPE_NAME, ISNULL(MM.LEVY, '')LEVY, ISNULL(MM.TDF, '')TDF, ISNULL(MM.SEX, '')SEX, \r" +
-										 " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(MM.ICNO_OLD, '') END ICNO_NEW, Branch_Name  As BRANCHNAME, \r" +
+										 " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(MM.ICNO_OLD, '') END ICNO_NEW,BB.BANKBRANCH_NAME AS BRANCHNAME, \r" +
                                          " MM.BANKUSER_CODE + '/' + MM.BRANCH_USER_CODE BANK_USERCODE, MM.DATEOFJOINING, MM.BANKUSER_CODE BANK, MM.BRANCH_USER_CODE BANKBRANCH_USERCODE, \r" +
                                          " MM.LASTPAYMENT_DATE LASTPAYMENT_DATE,MM.BANK_CODE,MM.BRANCH_CODE,MM.NUBEBRANCH_CODE NUBE_BRANCH_CODE \r" +
                                          " FROM MEMBERSTATUSLOG MM(NOLOCK) \r" +
-                                         " WHERE MM.ISCANCEL=0 AND " + sDate +
+										 " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE=MM.BRANCH_CODE \r" +
+										 " WHERE MM.ISCANCEL=0 AND " + sDate +
                                          " ORDER BY MEMBER_NAME", con);
 
                     SqlDataAdapter adp = new SqlDataAdapter(cmd);
@@ -325,7 +326,7 @@ namespace Nube
                 {
                     string str = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,ST.MEMBER_CODE,MM.MEMBER_ID,MM.MEMBER_NAME, \r" +
                                                " CASE WHEN ST.MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME, \r" +
-											   " CASE  WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END ICNO_NEW, Branch_Name  As BRANCHNAME, \r" +
+											   " CASE  WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END ICNO_NEW,BB.BANKBRANCH_NAME As BRANCHNAME, \r" +
                                                " MB.BANK_USERCODE BANK_USERCODE, ST.BANK_CODE, ST.BRANCH_CODE, BB.BANKBRANCH_USERCODE BANKBRANCH_USERCODE, \r" +
                                                " BB.NUBE_BRANCH_CODE, MB.BANK_USERCODE BANK, MM.LEVY, MM.TDF, ST.LASTPAYMENTDATE LASTPAYMENT_DATE, \r" +
                                                " MM.SEX, MM.DATEOFJOINING, MS.STATUS_NAME, ST.STATUS_CODE MEMBERSTATUSCODE, ST.TOTALMONTHSDUE TOTALMOTHSDUE \r" +
@@ -338,7 +339,7 @@ namespace Nube
                                                " WHERE ST.STATUS_CODE = 1 AND ISCANCEL = 0 \r" +
                                                " GROUP BY ST.MEMBER_CODE, MM.MEMBER_ID, MM.MEMBER_NAME, \r" +
                                                " ST.MEMBERTYPE_CODE, MM.ICNO_NEW, MM.ICNO_OLD, MB.BANK_USERCODE, ST.BANK_CODE, ST.BRANCH_CODE, BB.BANKBRANCH_USERCODE, ST.STATUS_CODE, \r" +
-                                               " BB.NUBE_BRANCH_CODE, MB.BANK_USERCODE, MM.LEVY, MM.TDF, ST.LASTPAYMENTDATE, MM.SEX, MM.DATEOFJOINING, MS.STATUS_NAME, ST.TOTALMONTHSDUE", dtpToDate.SelectedDate);
+											   " BB.NUBE_BRANCH_CODE, MB.BANK_USERCODE,BB.BANKBRANCH_NAME,MM.LEVY, MM.TDF, ST.LASTPAYMENTDATE, MM.SEX, MM.DATEOFJOINING, MS.STATUS_NAME, ST.TOTALMONTHSDUE", dtpToDate.SelectedDate);
                     cmd = new SqlCommand(str, con);                    
                     SqlDataAdapter adp = new SqlDataAdapter(cmd);
                     adp.SelectCommand.CommandTimeout = 0;

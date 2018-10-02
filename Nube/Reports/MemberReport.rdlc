@@ -339,13 +339,13 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.33583cm</Width>
+                  <Width>1.32037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.83854cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.79184cm</Width>
+                  <Width>6.05101cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.38306cm</Width>
@@ -355,6 +355,9 @@
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.80954cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.93816cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.76458cm</Width>
@@ -570,6 +573,40 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox8</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>BRANCH NAME</Value>
+                                  <Style>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -978,6 +1015,36 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="BRANCHNAME">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!BRANCHNAME.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>BRANCHNAME</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="MEMBERTYPE_NAME">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1182,6 +1249,7 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
+                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1198,7 +1266,7 @@
             <Top>0.95278cm</Top>
             <Left>0.1397cm</Left>
             <Height>1.2cm</Height>
-            <Width>31.64781cm</Width>
+            <Width>33.82968cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1277,7 +1345,7 @@
         <Height>0.97916in</Height>
         <Style />
       </Body>
-      <Width>13.19185in</Width>
+      <Width>13.5051in</Width>
       <Page>
         <PageHeader>
           <Height>2.02557cm</Height>

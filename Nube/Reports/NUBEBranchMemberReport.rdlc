@@ -968,14 +968,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="NUBEBRANCH">
+                        <Textbox Name="BRANCHNAME">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!NUBEBRANCH.Value</Value>
+                                  <Value>=Fields!BRANCHNAME.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -984,7 +984,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>NUBEBRANCH</rd:DefaultName>
+                          <rd:DefaultName>BRANCHNAME</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -996,7 +996,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
