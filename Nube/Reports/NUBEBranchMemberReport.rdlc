@@ -650,7 +650,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>BRANCH NAME</Value>
+                                  <Value>BANK BRANCH</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>

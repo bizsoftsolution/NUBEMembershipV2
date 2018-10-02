@@ -416,13 +416,14 @@ private DataTable GetData1()
             }
             sQry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MM.MEMBER_NAME ASC) AS RNO,FD.MEMBERCODE,MM.MEMBER_ID, \r" +
                                  " MM.MEMBER_NAME,BK.BANK_USERCODE BANK_NAME,BR.BANKBRANCH_NAME, \r" +
-                                 " FD.AMOUNTBF BF,FD.UNIONCONTRIBUTION INS,AMTSUBS SUBS  \r" +
+								 " FD.AMOUNTBF BF,FD.UNIONCONTRIBUTION INS,AMTSUBS SUBS,ST.LASTPAYMENT_DATE LASTPAYMENT_DATE,ST.MEMBERSTATUS STATUS  \r" +
                                  " FROM FEESDETAILS FD(NOLOCK) \r" +
                                  " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID=FD.FEEID \r" +
                                  " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE\r " +
                                  " LEFT JOIN MASTERBANK BK(NOLOCK) ON BK.BANK_CODE = MM.BANK_CODE \r" +
                                  " LEFT JOIN MASTERBANKBRANCH BR(NOLOCK) ON BR.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
-                                 " WHERE FD.FEEYEAR={0:yyyy} AND FD.FEEMONTH={0:MM} AND FD.ISUNPAID=0 \r" + sWhere, dtpFromDate.SelectedDate);
+								 " LEFT JOIN MEMBERSTATUSLOG ST(NOLOCK) ON ST.MEMBER_CODE=FD.MEMBERCODE \r" +
+								 " WHERE FD.FEEYEAR={0:yyyy} AND FD.FEEMONTH={0:MM} AND FD.ISUNPAID=0 \r" + sWhere, dtpFromDate.SelectedDate);
         }
 
         SqlCommand cmd = new SqlCommand(sQry, conn);

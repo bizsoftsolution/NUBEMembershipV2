@@ -49,14 +49,15 @@
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
                         <ComboBox x:Name="cmbBank" Margin="10,0,0,0" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
+						<CheckBox x:Name="chkNotPaid" Margin="50,20,0,0" Content="Not Paid Member's" HorizontalAlignment="Left" VerticalAlignment="Top" Click="chkNotPaid_Click"/>
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="150"/>
                         <ComboBox x:Name="cmbBranch" Margin="10,0,0,0" FontWeight="Bold" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" Width="350" Height="28"/>
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" >
                             <TextBox x:Name="txtMemberNoTo" Margin="50,0,0,0"  HorizontalAlignment="Center" Height="40" TextWrapping="Wrap" materialDesign:HintAssist.Hint="MembershipNo To" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="115" FontWeight="Bold" />
-                            <CheckBox x:Name="chkNewjoin" Margin="20,20,0,0" Content="New Joined" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <CheckBox x:Name="chkRejoin" Margin="20,20,0,0" Content="Rejoined" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="chkNewjoin" Margin="20,20,0,0" Content="New Joined" HorizontalAlignment="Left" VerticalAlignment="Top" Click="chkNewjoin_Click"/>
+                            <CheckBox x:Name="chkRejoin" Margin="20,20,0,0" Content="Rejoined" HorizontalAlignment="Left" VerticalAlignment="Top" Click="chkRejoin_Click"/>
                             <Button x:Name="btnSearch" Margin="10,0,0,0" Content="Search" HorizontalAlignment="Center" VerticalAlignment="Center" Width="89" Height="32" Click="btnSearch_Click"/>
                             <Button x:Name="btnClear" Margin="10,0,0,0" Content="Clear" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnClear_Click"/>
                             <Button x:Name="btnExit" Margin="10,0,0,0" Content="Back" HorizontalAlignment="Center" VerticalAlignment="Center" Width="82" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnExit_Click"/>

@@ -68,7 +68,7 @@
                     <DataGridTextColumn Header="Membership" FontWeight="Bold" Width="100" Binding="{Binding MEMBERID}" />
                     <DataGridTextColumn Header="NRIC" FontWeight="Bold" Width="100" Binding="{Binding NRIC}" />
                     <DataGridTextColumn Header="Member Name" FontWeight="Bold" Width="300" Binding="{Binding MEMBER_NAME}" />
-                    <DataGridTextColumn Header="Department" FontWeight="Bold" Width="150" Binding="{Binding DEPT}" />
+                    <DataGridTextColumn Header="Department" FontWeight="Bold" Width="150" Binding="{Binding DEPT}" />					
                     <DataGridTextColumn Header="Amount" FontWeight="Bold" Width="100" Binding="{Binding TOTALAMOUNT}" />
                     <DataGridTextColumn Header="BF" FontWeight="Bold" Width="80" Binding="{Binding AMOUNTBF}" />
                     <DataGridTextColumn Header="INS" FontWeight="Bold" Width="80" Binding="{Binding AMOUNTINS}" />

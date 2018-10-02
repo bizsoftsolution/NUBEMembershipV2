@@ -107,6 +107,8 @@
                     <DataGridTextColumn Header="Name" FontWeight="Bold" Width="250" Binding="{Binding MEMBER_NAME}" />
                     <DataGridTextColumn Header="Bank" FontWeight="Bold" Width="150" Binding="{Binding BANK_NAME}" />
                     <DataGridTextColumn Header="Bank Branch" FontWeight="Bold" Width="300" Binding="{Binding BANKBRANCH_NAME}" />
+					<DataGridTextColumn Header="Last Paid Date" FontWeight="Bold" Width="120" Binding="{Binding LASTPAYMENT_DATE , StringFormat=\{0:dd-MMM-yyyy\}}" />
+					<DataGridTextColumn Header="Status" FontWeight="Bold" Width="100" Binding="{Binding STATUS}" />
                     <DataGridTextColumn Header="BF" FontWeight="Bold" Width="100" Binding="{Binding BF}" />
                     <DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="100" Binding="{Binding INS}" />
                     <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="100" Binding="{Binding SUBS}" />

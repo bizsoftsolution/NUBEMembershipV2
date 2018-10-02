@@ -469,7 +469,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>BRANCHNAME</Value>
+                                  <Value>BANK BRANCH</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
