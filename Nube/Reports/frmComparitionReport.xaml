@@ -12,50 +12,51 @@
         mc:Ignorable="d"
        xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
         Title="PAID AND UNPAID REPORT" Height="750" Width="1200" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized">
-    <metro:MetroWindow.Background>
-        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
-    </metro:MetroWindow.Background>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="1180"/>
-            <ColumnDefinition Width="10*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="650"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.ColumnSpan="3">
-            <materialDesign:Card Height="50">
-                <TextBlock x:Name="lblHeading" FontWeight="Bold" Text="PAID AND UNPAID REPORT" TextAlignment="Center" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Margin="0,13" Width="790"></TextBlock>
-            </materialDesign:Card>
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="1">
-            <DatePicker x:Name="dtpFromDate" HorizontalAlignment="Center" Margin="340,30,707,596" VerticalAlignment="Center" Width="133" Height="24"/>
-            <DatePicker x:Name="dtpToDate" HorizontalAlignment="Center" Margin="579,28,468,598" VerticalAlignment="Center" Width="133" Height="24"/>
-            <ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="781,24,88,598" VerticalAlignment="Center" Width="311" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
-            <ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="230,72,590,550" VerticalAlignment="Center" Width="360" Height="28" />
+	<metro:MetroWindow.Background>
+		<ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+	</metro:MetroWindow.Background>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="10*"/>
+			<ColumnDefinition Width="1180"/>
+			<ColumnDefinition Width="10*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="650"/>
+			<RowDefinition Height="10*"/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Grid.ColumnSpan="3">
+			<materialDesign:Card Height="50">
+				<TextBlock x:Name="lblHeading" FontWeight="Bold" Text="PAID AND UNPAID REPORT" TextAlignment="Center" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Center" Margin="0,13" Width="790"></TextBlock>
+			</materialDesign:Card>
+		</Grid>
+		<Grid Grid.Column="1" Grid.Row="1">
+			<DatePicker x:Name="dtpFromDate" HorizontalAlignment="Center" Margin="340,30,707,596" VerticalAlignment="Center" Width="133" Height="24"/>
+			<DatePicker x:Name="dtpToDate" HorizontalAlignment="Center" Margin="579,28,468,598" VerticalAlignment="Center" Width="133" Height="24"/>
+			<ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="781,24,88,598" VerticalAlignment="Center" Width="311" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
+			<ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="230,72,590,550" VerticalAlignment="Center" Width="360" Height="28" />
 
-            <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="781,70,319,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnSearch_Click"/>
-            <Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="881,70,219,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnClear_Click"/>
-            <Button x:Name="btnBack" Content="Back" HorizontalAlignment="Center" Margin="991,70,109,548" VerticalAlignment="Center" Width="80" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnBack_Click"/>
-            <TextBlock x:Name="lblDate2" TextAlignment="Right" HorizontalAlignment="Center" Margin="243,32,849,596" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="88"/>
-            <TextBlock x:Name="lblToDate" TextAlignment="Right" HorizontalAlignment="Center" Margin="488,30,623,598" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="69"/>
+			<Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Center" Margin="781,70,319,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnSearch_Click"/>
+			<Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Center" Margin="881,70,219,548" VerticalAlignment="Center" Width="80" Height="32" Click="btnClear_Click"/>
+			<Button x:Name="btnBack" Content="Back" HorizontalAlignment="Center" Margin="991,70,109,548" VerticalAlignment="Center" Width="80" Height="32" RenderTransformOrigin="0.42,1.356" Click="btnBack_Click"/>
+			<Button x:Name="btnExport" Content="Export" HorizontalAlignment="Left" Margin="1095,70,0,0" VerticalAlignment="Top" Width="75" Click="btnExport_Click" Height="32"/>
+			<TextBlock x:Name="lblDate2" TextAlignment="Right" HorizontalAlignment="Center" Margin="243,32,849,596" TextWrapping="Wrap" Text="From Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="88"/>
+			<TextBlock x:Name="lblToDate" TextAlignment="Right" HorizontalAlignment="Center" Margin="488,30,623,598" TextWrapping="Wrap" Text="To Month" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="69"/>
 
-            <TextBlock x:Name="lblBank" TextAlignment="Right" HorizontalAlignment="Center" Margin="741,30,404,598" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="35"/>
-            <StackPanel Orientation="Horizontal" >
-                <Label x:Name="lblFilterOption" Content="Filter Option" FontWeight="Bold" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="90" Height="24" Margin="20,27,0,0"/>
-                <RadioButton x:Name="rbtUnion" FontWeight="Bold" Content="Union"  IsChecked="True" Margin="0,35,0,0" />
-                <RadioButton x:Name="rbtSeparate" FontWeight="Bold" Content="Separate" Margin="0,35,0,0"   />
-            </StackPanel>
-            <TextBlock x:Name="lblBankBranch1" TextAlignment="Right" HorizontalAlignment="Center" Margin="129,76,965,552" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="86"/>
-            <TextBlock x:Name="lblType" TextAlignment="Right" HorizontalAlignment="Center" Margin="606,73,538,555" TextWrapping="Wrap" Text="Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="36"/>
-            <RadioButton x:Name="rbtnPaid" Content="PAID" HorizontalAlignment="Left" Margin="647,76,0,0" IsChecked="True" VerticalAlignment="Top"/>
-            <RadioButton x:Name="rbtnUnPaid" Content="UNPAID" HorizontalAlignment="Left" Margin="700,76,0,0" VerticalAlignment="Top"/>
+			<TextBlock x:Name="lblBank" TextAlignment="Right" HorizontalAlignment="Center" Margin="741,30,404,598" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="35"/>
+			<StackPanel Orientation="Horizontal" >
+				<Label x:Name="lblFilterOption" Content="Filter Option" FontWeight="Bold" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="90" Height="24" Margin="20,27,0,0"/>
+				<RadioButton x:Name="rbtUnion" FontWeight="Bold" Content="Union"  IsChecked="True" Margin="0,35,0,0" />
+				<RadioButton x:Name="rbtSeparate" FontWeight="Bold" Content="Separate" Margin="0,35,0,0"   />
+			</StackPanel>
+			<TextBlock x:Name="lblBankBranch1" TextAlignment="Right" HorizontalAlignment="Center" Margin="129,76,965,552" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="86"/>
+			<TextBlock x:Name="lblType" TextAlignment="Right" HorizontalAlignment="Center" Margin="606,73,538,555" TextWrapping="Wrap" Text="Type" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="36"/>
+			<RadioButton x:Name="rbtnPaid" Content="PAID" HorizontalAlignment="Left" Margin="647,76,0,0" IsChecked="True" VerticalAlignment="Top"/>
+			<RadioButton x:Name="rbtnUnPaid" Content="UNPAID" HorizontalAlignment="Left" Margin="700,76,0,0" VerticalAlignment="Top"/>
 
-            <!--<TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="537" VerticalAlignment="Top" Width="1160" FontSize="14" Background="Transparent" Margin="10,93,0,0" >
+			<!--<TabControl x:Name="tabControl" HorizontalAlignment="Left" Height="537" VerticalAlignment="Top" Width="1160" FontSize="14" Background="Transparent" Margin="10,93,0,0" >
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -90,63 +91,64 @@
 
                 <TabItem Header="Report" FontSize="14">-->
 
-            <DataGrid x:Name="dgPaidUnPaidReport" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="21,116,0,0" VerticalAlignment="Top" Height="318" Width="1131" MouseDoubleClick="dgPaidUnPaidReport_MouseDoubleClick"  SelectionChanged="dgPaidUnPaidReport_SelectionChanged">
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Effect>
-                    <DropShadowEffect/>
-                </DataGrid.Effect>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="S.NO" FontWeight="Bold" Width="50" Binding="{Binding RNO}" />
-                    <DataGridTextColumn Header="MEMBERCODE" FontWeight="Bold" Width="150" Visibility="Hidden" Binding="{Binding MEMBERCODE}" />
-                    <DataGridTextColumn Header="Membership" FontWeight="Bold" Width="120" Binding="{Binding MEMBER_ID }" />
-                    <DataGridTextColumn Header="Name" FontWeight="Bold" Width="250" Binding="{Binding MEMBER_NAME}" />
-                    <DataGridTextColumn Header="Bank" FontWeight="Bold" Width="150" Binding="{Binding BANK_NAME}" />
-                    <DataGridTextColumn Header="Bank Branch" FontWeight="Bold" Width="300" Binding="{Binding BANKBRANCH_NAME}" />
+			<DataGrid x:Name="dgPaidUnPaidReport" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="21,116,0,0" VerticalAlignment="Top" Height="318" Width="1131" MouseDoubleClick="dgPaidUnPaidReport_MouseDoubleClick"  SelectionChanged="dgPaidUnPaidReport_SelectionChanged">
+				<DataGrid.ColumnHeaderStyle>
+					<Style TargetType="{x:Type DataGridColumnHeader}">
+						<Setter Property="FontWeight" Value="Bold" />
+						<Setter Property="HorizontalContentAlignment" Value="Center"/>
+					</Style>
+				</DataGrid.ColumnHeaderStyle>
+				<DataGrid.Effect>
+					<DropShadowEffect/>
+				</DataGrid.Effect>
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="S.NO" FontWeight="Bold" Width="50" Binding="{Binding RNO}" />
+					<DataGridTextColumn Header="MEMBERCODE" FontWeight="Bold" Width="150" Visibility="Hidden" Binding="{Binding MEMBERCODE}" />
+					<DataGridTextColumn Header="Membership" FontWeight="Bold" Width="120" Binding="{Binding MEMBER_ID }" />
+					<DataGridTextColumn Header="ICNO" FontWeight="Bold" Width="120" Binding="{Binding ICNO }" />
+					<DataGridTextColumn Header="Name" FontWeight="Bold" Width="250" Binding="{Binding MEMBER_NAME}" />
+					<DataGridTextColumn Header="Bank" FontWeight="Bold" Width="150" Binding="{Binding BANK_NAME}" />
+					<DataGridTextColumn Header="Bank Branch" FontWeight="Bold" Width="300" Binding="{Binding BANKBRANCH_NAME}" />
 					<DataGridTextColumn Header="Last Paid Date" FontWeight="Bold" Width="120" Binding="{Binding LASTPAYMENT_DATE , StringFormat=\{0:dd-MMM-yyyy\}}" />
 					<DataGridTextColumn Header="Status" FontWeight="Bold" Width="100" Binding="{Binding STATUS}" />
-                    <DataGridTextColumn Header="BF" FontWeight="Bold" Width="100" Binding="{Binding BF}" />
-                    <DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="100" Binding="{Binding INS}" />
-                    <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="100" Binding="{Binding SUBS}" />
-                </DataGrid.Columns>
-            </DataGrid>
+					<DataGridTextColumn Header="BF" FontWeight="Bold" Width="100" Binding="{Binding BF}" />
+					<DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="100" Binding="{Binding INS}" />
+					<DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="100" Binding="{Binding SUBS}" />
+				</DataGrid.Columns>
+			</DataGrid>
 
-            <DataGrid x:Name="dgHistory" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="21,455,0,0" VerticalAlignment="Top" Height="185" Width="753" >
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="FontWeight" Value="Bold" />
-                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Effect>
-                    <DropShadowEffect/>
-                </DataGrid.Effect>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Year" FontWeight="Bold" Width="60" Binding="{Binding FEEYEAR}" />
-                    <DataGridTextColumn Header="Month" FontWeight="Bold" Width="80" Binding="{Binding FEEMONTH}" />
-                    <DataGridTextColumn Header="Status" FontWeight="Bold" Width="100" Binding="{Binding STATUS_NAME}" />
-                    <DataGridTextColumn Header="B F" FontWeight="Bold" Width="100" Binding="{Binding AMOUNTBF}" />
-                    <DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="100" Binding="{Binding AMOUNTINS }" />
-                    <DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="120" Binding="{Binding AMTSUBS}" />
-                    <DataGridTextColumn Header="Reason" FontWeight="Bold" Width="180" Binding="{Binding REASON}" />
-                </DataGrid.Columns>
-            </DataGrid>
+			<DataGrid x:Name="dgHistory" HorizontalAlignment="Left" Background="White" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="21,455,0,0" VerticalAlignment="Top" Height="185" Width="753" >
+				<DataGrid.ColumnHeaderStyle>
+					<Style TargetType="{x:Type DataGridColumnHeader}">
+						<Setter Property="FontWeight" Value="Bold" />
+						<Setter Property="HorizontalContentAlignment" Value="Center"/>
+					</Style>
+				</DataGrid.ColumnHeaderStyle>
+				<DataGrid.Effect>
+					<DropShadowEffect/>
+				</DataGrid.Effect>
+				<DataGrid.Columns>
+					<DataGridTextColumn Header="Year" FontWeight="Bold" Width="60" Binding="{Binding FEEYEAR}" />
+					<DataGridTextColumn Header="Month" FontWeight="Bold" Width="80" Binding="{Binding FEEMONTH}" />
+					<DataGridTextColumn Header="Status" FontWeight="Bold" Width="100" Binding="{Binding STATUS_NAME}" />
+					<DataGridTextColumn Header="B F" FontWeight="Bold" Width="100" Binding="{Binding AMOUNTBF}" />
+					<DataGridTextColumn Header="Insurance" FontWeight="Bold" Width="100" Binding="{Binding AMOUNTINS }" />
+					<DataGridTextColumn Header="Subscription" FontWeight="Bold" Width="120" Binding="{Binding AMTSUBS}" />
+					<DataGridTextColumn Header="Reason" FontWeight="Bold" Width="180" Binding="{Binding REASON}" />
+				</DataGrid.Columns>
+			</DataGrid>
 
-            <ComboBox x:Name="cmbStatus" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="915,480,28,135" VerticalAlignment="Center" Width="237" Height="35" SelectionChanged="cmbStatus_SelectionChanged"/>
-            <TextBlock x:Name="lblStatus" TextAlignment="Right" HorizontalAlignment="Center" Margin="785,489,270,139" TextWrapping="Wrap" Text="Status Change To " FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="125"/>
-            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Margin="995,538,105,80" VerticalAlignment="Center" Width="80" Height="32" Click="btnSave_Click"/>
+			<ComboBox x:Name="cmbStatus" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="915,480,28,135" VerticalAlignment="Center" Width="237" Height="35" SelectionChanged="cmbStatus_SelectionChanged"/>
+			<TextBlock x:Name="lblStatus" TextAlignment="Right" HorizontalAlignment="Center" Margin="785,489,270,139" TextWrapping="Wrap" Text="Status Change To " FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="125"/>
+			<Button x:Name="btnSave" Content="Save" HorizontalAlignment="Center" Margin="995,538,105,80" VerticalAlignment="Center" Width="80" Height="32" Click="btnSave_Click"/>
 
 
 
-            <!--</TabItem>
+			<!--</TabItem>
             </TabControl>-->
-        </Grid>
+		</Grid>
 
-    </Grid>
+	</Grid>
 </metro:MetroWindow>
 
     

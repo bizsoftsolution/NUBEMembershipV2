@@ -170,7 +170,7 @@ namespace Nube.Reports
                         if ((Convert.ToDateTime(dtpDOB.SelectedDate).Year >= 2016 && Convert.ToDateTime(dtpDOB.SelectedDate).Month > 3) || Convert.ToDateTime(dtpDOB.SelectedDate).Year > 2016)
                         {
                             Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MB.BANK_NAME,MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,  \r" +
-                                                " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANKBRANCH_NAME,MB.BANK_NAME,CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
+												" MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANK_NAME, BB.BANKBRANCH_NAME, CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
                                                 " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(ICNO_OLD, '') END ICNO_NEW,\r" +
                                                 " CASE WHEN MM.MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME,\r" +
                                                 " MM.DATEOFJOINING, CASE WHEN ST.STATUS_CODE = 1 THEN 'A' ELSE 'D' END STATUS_NAME\r" +
@@ -185,7 +185,7 @@ namespace Nube.Reports
                         else
                         {
                             Qry = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MB.BANK_NAME,MM.MEMBER_NAME ASC) AS RNO,MM.MEMBER_ID,ISNULL(MM.MEMBER_NAME,'')MEMBER_NAME,  \r" +
-                                                " MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANKBRANCH_NAME,MB.BANK_NAME,CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
+												" MB.BANK_USERCODE+'/'+BB.BANKBRANCH_USERCODE BANK_NAME, BB.BANKBRANCH_NAME, CASE WHEN MM.SEX = 'MALE' THEN 'M' ELSE 'F' END SEX, \r" +
                                                 " CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN ISNULL(MM.ICNO_NEW, '') ELSE ISNULL(ICNO_OLD, '') END ICNO_NEW,\r" +
                                                 " CASE WHEN MM.MEMBERTYPE_CODE = 1 THEN 'C' ELSE 'N' END MEMBERTYPE_NAME,\r" +
                                                 " MM.DATEOFJOINING, CASE WHEN ST.STATUS_CODE = 1 THEN 'A' ELSE 'D' END STATUS_NAME\r" +

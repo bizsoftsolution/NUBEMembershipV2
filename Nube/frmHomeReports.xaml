@@ -10,35 +10,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube"
         mc:Ignorable="d"
-        Title="NUBE REPORTS" Height="650" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
-    <metro:MetroWindow.Background>
-        <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
-    </metro:MetroWindow.Background>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="157*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="185*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Column="0" Grid.Row="0" Margin="10,10,0,10" >
-            <Image x:Name="image" HorizontalAlignment="Center" Height="122"  VerticalAlignment="Center" Width="120" Source="/Nube;component/Image/Logo.png" Margin="332,-7,323,486"/>
-            <Label x:Name="lblFoot" Content="REPORTS" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="230" Background="{DynamicResource PrimaryHueLightBrush}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18.667" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}" Margin="270,114,275,447"/>
-            <Button x:Name="btnNewMemberReport" Content="New Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,172,405,385" Click="btnNewMemberReport_Click" Tag="Active Members" />
-            <Button x:Name="btnActiveMember" Content="Active Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,172,145,385" Click="btnActiveMember_Click" Tag="Active Members" />
-            <Button x:Name="btnDefaultMember" Content="Default Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,228,405,329" Click="btnDefaultMember_Click" Tag="Default Members" />
-            <Button x:Name="btnStruckOff" Content="StruckOff Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,228,145,329" Click="btnStruckOff_Click" Tag="StruckOff Members" />
-            <Button x:Name="btnBranchAdvice" Content="Branch Advice List" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,283,145,274" Click="btnBranchAdvice_Click" Tag="Branch Advice List" />
-            <Button x:Name="btnResign" Content="Resigned Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,283,405,274" Click="btnResign_Click" Tag="Resigned Members" />
-            <Button x:Name="btnHalfShareReport" Content="Financial Half Share Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,343,145,214" Click="btnHalfShareReport_Click" Tag="Financial Half Share Report"/>
-            <Button x:Name="btnComparitionReport" Content="Paid and UnPaid Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,405,405,152" Click="btnComparitionReport_Click" Tag="Paid and Unpaid Report" />
-            <Button x:Name="btnBankStaticsToBranch" Content="Bank Statistics To Branch" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,464,405,93" Click="btnBankStaticsToBranch_Click" Tag="Bank Statistics To Branch"  />
-            <Button x:Name="btnAnnualStatement" Content="Annual Statement" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,343,405,214" Click="btnAnnualStatement_Click" />
-            <Button x:Name="btnFeeReport" Content="Fee Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,405,145,152" Click="btnFeeReport_Click" Tag="FEE REPORT" />
-            <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,520,145,37" Click="btnHome_Click" />
-            <Button x:Name="btnBranchStatusReport" Content="Branch Status Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,464,145,93" Click="btnBranchStatusReport_Click" />
-            <Button x:Name="btnVariationReport" Content="Variation Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,520,405,37" Click="btnVariationReport_Click" Tag="Variation Report"/>
-        </Grid>
-    </Grid>
+        Title="NUBE REPORTS" Height="678" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+	<metro:MetroWindow.Background>
+		<ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
+	</metro:MetroWindow.Background>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="157*"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="185*"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Column="0" Grid.Row="0" Margin="10,10,0,10" >
+			<Image x:Name="image" HorizontalAlignment="Center" Height="122"  VerticalAlignment="Center" Width="120" Source="/Nube;component/Image/Logo.png" Margin="332,-7,323,486"/>
+			<Label x:Name="lblFoot" Content="REPORTS" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="230" Background="{DynamicResource PrimaryHueLightBrush}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18.667" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}" Margin="270,114,275,447"/>
+			<Button x:Name="btnNewMemberReport" Content="New Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,172,405,385" Click="btnNewMemberReport_Click" Tag="Active Members" />
+			<Button x:Name="btnActiveMember" Content="Active Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,172,145,385" Click="btnActiveMember_Click" Tag="Active Members" />
+			<Button x:Name="btnDefaultMember" Content="Default Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,228,405,329" Click="btnDefaultMember_Click" Tag="Default Members" />
+			<Button x:Name="btnStruckOff" Content="StruckOff Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,228,145,329" Click="btnStruckOff_Click" Tag="StruckOff Members" />
+			<Button x:Name="btnBranchAdvice" Content="Branch Advice List" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,283,145,274" Click="btnBranchAdvice_Click" Tag="Branch Advice List" />
+			<Button x:Name="btnResign" Content="Resigned Members" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,283,405,274" Click="btnResign_Click" Tag="Resigned Members" />
+			<Button x:Name="btnHalfShareReport" Content="Financial Half Share Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,343,145,214" Click="btnHalfShareReport_Click" Tag="Financial Half Share Report"/>
+			<Button x:Name="btnComparitionReport" Content="Paid and UnPaid Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,405,405,152" Click="btnComparitionReport_Click" Tag="Paid and Unpaid Report" />
+			<Button x:Name="btnBankStaticsToBranch" Content="Bank Statistics To Branch" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,464,405,93" Click="btnBankStaticsToBranch_Click" Tag="Bank Statistics To Branch"  />
+			<Button x:Name="btnAnnualStatement" Content="Annual Statement" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,343,405,214" Click="btnAnnualStatement_Click" />
+			<Button x:Name="btnFeeReport" Content="Fee Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,405,145,152" Click="btnFeeReport_Click" Tag="FEE REPORT" />
+			<Button x:Name="btnHome" Content="Home" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,534,145,51" Click="btnHome_Click" />
+			<Button x:Name="btnBranchStatusReport" Content="Branch Status Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="400,464,145,93" Click="btnBranchStatusReport_Click" />
+			<Button x:Name="btnVariationReport" Content="Variation Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,520,405,37" Click="btnVariationReport_Click" Tag="Variation Report" Visibility="Hidden"/>
+			<Button x:Name="btTakafulReport" Content="Takaful Report" HorizontalAlignment="Center" VerticalAlignment="Center" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="140,534,405,51" Click="btTakafulReport_Click" />
+		</Grid>
+	</Grid>
 </metro:MetroWindow>

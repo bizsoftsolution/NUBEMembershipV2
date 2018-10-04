@@ -1,0 +1,96 @@
+﻿<metro:MetroWindow 
+     xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+	    x:Class="Nube.Reports.TakafulReport"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+        xmlns:local="clr-namespace:Nube.Reports"
+        mc:Ignorable="d"
+        Title="Takaful Report" Height="700" Width="1250" Icon="/Nube;component/Image/Logo.png" WindowState="Maximized" >
+	<metro:MetroWindow.Background>
+		<ImageBrush ImageSource="/Nube;component/Image/Background.jpg"/>
+	</metro:MetroWindow.Background>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="10*"/>
+			<ColumnDefinition Width="1180"/>
+			<ColumnDefinition Width="10*"/>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"/>
+			<RowDefinition Height="630"/>
+			<RowDefinition Height="20*"/>
+		</Grid.RowDefinitions>
+		<Grid Grid.Row="0" Grid.ColumnSpan="3">
+			<materialDesign:Card Height="51" >
+				<TextBox x:Name="txtHeading" FontWeight="Bold" TextAlignment="Center" BorderThickness="0" HorizontalAlignment="Left" Height="41" TextWrapping="Wrap" Text="TAKAFUL INSURANCE REPORT" VerticalAlignment="Top" FontSize="18" Margin="520,0,0,0" />
+			</materialDesign:Card>
+		</Grid>
+		<Grid Grid.Column="1" Grid.Row="1">
+			<ComboBox x:Name="cmbNubeBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="214,7,640,595" VerticalAlignment="Center" Width="326" Height="28"/>
+			<ComboBox x:Name="cmbBank" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="214,43,640,559" VerticalAlignment="Center" Width="326" Height="28" SelectionChanged="cmbBank_SelectionChanged"/>
+			<ComboBox x:Name="cmbBranch" FontWeight="Bold" Background="White" HorizontalAlignment="Center" Margin="214,83,640,519" VerticalAlignment="Center" Width="326" Height="28"/>
+			<TextBlock x:Name="lblNubeBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="65,12,982,596" TextWrapping="Wrap" Text="NUBE Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
+			<TextBlock x:Name="lblBank" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="65,48,982,560" TextWrapping="Wrap" Text="Bank" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="133"/>
+			<TextBlock x:Name="lblBankBranch" FontWeight="Bold" TextAlignment="Right" HorizontalAlignment="Center" Margin="55,89,982,519" TextWrapping="Wrap" Text="Bank Branch" FontSize="14" VerticalAlignment="Center" RenderTransformOrigin="-3.163,-3.875" Height="22" Width="143"/>
+			<StackPanel Orientation="Horizontal" />
+
+			<DatePicker x:Name="dtpDate" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  VerticalAlignment="Top" Width="106" FontSize="14" Margin="630,7,0,0" Height="31" />
+			<Label x:Name="label_Copy" Content="Month" FontWeight="Bold" HorizontalAlignment="Left" Margin="570,9,0,0" VerticalAlignment="Top" Width="50"/>
+			<Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Left" Margin="652,87,0,0" VerticalAlignment="Top" Width="75" Click="btnSearch_Click"/>
+			<Button x:Name="btnClear" Content="Clear" HorizontalAlignment="Left" Margin="773,87,0,0" VerticalAlignment="Top" Width="75" Click="btnClear_Click" />
+			<Button x:Name="btnBack" Content="Back" HorizontalAlignment="Left" Margin="890,87,0,0" VerticalAlignment="Top" Width="75" Click="btnBack_Click" />
+
+			<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Height="404" Margin="0,133,0,0">
+				<TabControl x:Name="tabControl" HorizontalAlignment="Center" Height="543" Margin="10" VerticalAlignment="Center" Width="1180" FontSize="14" Background="Transparent" >
+					<TabControl.Resources>
+						<Style TargetType="TabItem">
+							<Setter Property="Template">
+								<Setter.Value>
+									<ControlTemplate TargetType="TabItem">
+										<Grid Name="Panel">
+											<ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+										</Grid>
+										<ControlTemplate.Triggers>
+											<Trigger Property="IsSelected" Value="True">
+												<Setter TargetName="Panel" Property="Background" Value="LightSkyBlue" />
+											</Trigger>
+											<Trigger Property="IsSelected" Value="False">
+												<Setter TargetName="Panel" Property="Background" Value="White" />
+											</Trigger>
+										</ControlTemplate.Triggers>
+									</ControlTemplate>
+								</Setter.Value>
+							</Setter>
+						</Style>
+					</TabControl.Resources>
+					<TabItem Header="Member Report" FontWeight="Bold" FontSize="14">
+						<WindowsFormsHost HorizontalAlignment="Left" Height="426" Margin="10,10,-9,10" VerticalAlignment="Top" Width="1173">
+							<rv:ReportViewer x:Name="MemberReport"></rv:ReportViewer>
+						</WindowsFormsHost>
+					</TabItem>
+					<TabItem Header="New Membership Premium" FontWeight="Bold" FontSize="14">
+						<WindowsFormsHost HorizontalAlignment="Left" Height="416" Margin="10,10,-9,10" VerticalAlignment="Top" Width="1173">
+							<rv:ReportViewer x:Name="NewMemberReport"></rv:ReportViewer>
+						</WindowsFormsHost>
+					</TabItem>
+					<TabItem Header="Summary" FontWeight="Bold" FontSize="14">
+						<WindowsFormsHost HorizontalAlignment="Left" Height="426" Margin="10,10,-9,10" VerticalAlignment="Top" Width="1173">
+							<rv:ReportViewer x:Name="SummaryReport"></rv:ReportViewer>
+						</WindowsFormsHost>
+					</TabItem>
+				</TabControl>
+			</StackPanel>
+		</Grid>
+
+	</Grid>
+</metro:MetroWindow>

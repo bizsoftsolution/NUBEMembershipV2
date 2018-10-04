@@ -27,7 +27,7 @@ namespace DAL
         public string ADDRESS3 { get; set; }
         public Nullable<decimal> CITY_CODE { get; set; }
         public Nullable<decimal> STATE_CODE { get; set; }
-        public string CountryName { get; set; }
+        public string COUNTRY { get; set; }
         public string ZIPCODE { get; set; }
         public string PHONE { get; set; }
         public string MOBILE { get; set; }
@@ -65,6 +65,5 @@ namespace DAL
         public Nullable<int> UpdatedBy { get; set; }
         public int IsApproved { get; set; }
         public string Occupation { get; set; }
-        public string COUNTRY { get; set; }
     }
 }

@@ -27,7 +27,6 @@ namespace DAL
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
         public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         public virtual DbSet<MASTERCITY> MASTERCITies { get; set; }
         public virtual DbSet<MASTERGUARDIAN> MASTERGUARDIANs { get; set; }
@@ -43,7 +42,6 @@ namespace DAL
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<MembershipAttachment> MembershipAttachments { get; set; }
-        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
         public virtual DbSet<ActiveMemberHistory> ActiveMemberHistories { get; set; }
         public virtual DbSet<ArrearPostDetail> ArrearPostDetails { get; set; }
         public virtual DbSet<ArrearPostMaster> ArrearPostMasters { get; set; }
@@ -79,6 +77,8 @@ namespace DAL
         public virtual DbSet<TEMPFEE_STATUS> TEMPFEE_STATUS { get; set; }
         public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
         public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
+        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
+        public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIPTOLIST_Result> SPMEMBERSHIPTOLIST(Nullable<int> aPPROVEDSTATE)
         {

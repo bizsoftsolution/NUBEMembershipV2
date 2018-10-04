@@ -14,6 +14,12 @@ namespace DAL
     
     public partial class MASTERBANKBRANCH
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MASTERBANKBRANCH()
+        {
+            this.MASTERMEMBERs = new HashSet<MASTERMEMBER>();
+        }
+    
         public decimal BANKBRANCH_CODE { get; set; }
         public Nullable<decimal> BANK_CODE { get; set; }
         public string BANKBRANCH_NAME { get; set; }
@@ -32,5 +38,8 @@ namespace DAL
         public Nullable<decimal> DELETED { get; set; }
         public Nullable<decimal> HEAD_QUARTERS { get; set; }
         public Nullable<decimal> MERGED { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MASTERMEMBER> MASTERMEMBERs { get; set; }
     }
 }

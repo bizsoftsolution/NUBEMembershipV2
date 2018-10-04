@@ -6,9 +6,9 @@ namespace Nube
 {
 
 
-    public partial class nubebfsDataSet
-    {
-    }
+	public partial class nubebfsDataSet
+	{
+	}
 }
 namespace Nube {
     

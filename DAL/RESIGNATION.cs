@@ -37,5 +37,6 @@ namespace DAL
         public Nullable<decimal> SERVICE_YEAR { get; set; }
         public int Id { get; set; }
         public string PayMode { get; set; }
+        public Nullable<decimal> InsuranceAmount { get; set; }
     }
 }

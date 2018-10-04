@@ -991,6 +991,38 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="MEMBERREPORT" msprop:Generator_TableClassName="MEMBERREPORTDataTable" msprop:Generator_TableVarName="tableMEMBERREPORT" msprop:Generator_RowChangedName="MEMBERREPORTRowChanged" msprop:Generator_TablePropName="MEMBERREPORT" msprop:Generator_RowDeletingName="MEMBERREPORTRowDeleting" msprop:Generator_RowChangingName="MEMBERREPORTRowChanging" msprop:Generator_RowEvHandlerName="MEMBERREPORTRowChangeEventHandler" msprop:Generator_RowDeletedName="MEMBERREPORTRowDeleted" msprop:Generator_RowClassName="MEMBERREPORTRow" msprop:Generator_UserTableName="MEMBERREPORT" msprop:Generator_RowEvArgName="MEMBERREPORTRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RNO" msprop:Generator_ColumnVarNameInTable="columnRNO" msprop:Generator_ColumnPropNameInRow="RNO" msprop:Generator_ColumnPropNameInTable="RNOColumn" msprop:Generator_UserColumnName="RNO" type="xs:string" minOccurs="0" />
+              <xs:element name="MEMBERID" msprop:Generator_ColumnVarNameInTable="columnMEMBERID" msprop:Generator_ColumnPropNameInRow="MEMBERID" msprop:Generator_ColumnPropNameInTable="MEMBERIDColumn" msprop:Generator_UserColumnName="MEMBERID" type="xs:string" minOccurs="0" />
+              <xs:element name="MEMBER_NAME" msprop:Generator_ColumnVarNameInTable="columnMEMBER_NAME" msprop:Generator_ColumnPropNameInRow="MEMBER_NAME" msprop:Generator_ColumnPropNameInTable="MEMBER_NAMEColumn" msprop:Generator_UserColumnName="MEMBER_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="NRIC" msprop:Generator_ColumnVarNameInTable="columnNRIC" msprop:Generator_ColumnPropNameInRow="NRIC" msprop:Generator_ColumnPropNameInTable="NRICColumn" msprop:Generator_UserColumnName="NRIC" type="xs:string" minOccurs="0" />
+              <xs:element name="AMOUNTINS" msprop:Generator_ColumnVarNameInTable="columnAMOUNTINS" msprop:Generator_ColumnPropNameInRow="AMOUNTINS" msprop:Generator_ColumnPropNameInTable="AMOUNTINSColumn" msprop:Generator_UserColumnName="AMOUNTINS" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TAKAFULSUMMARY" msprop:Generator_TableClassName="TAKAFULSUMMARYDataTable" msprop:Generator_TableVarName="tableTAKAFULSUMMARY" msprop:Generator_TablePropName="TAKAFULSUMMARY" msprop:Generator_RowDeletingName="TAKAFULSUMMARYRowDeleting" msprop:Generator_RowChangingName="TAKAFULSUMMARYRowChanging" msprop:Generator_RowEvHandlerName="TAKAFULSUMMARYRowChangeEventHandler" msprop:Generator_RowDeletedName="TAKAFULSUMMARYRowDeleted" msprop:Generator_UserTableName="TAKAFULSUMMARY" msprop:Generator_RowChangedName="TAKAFULSUMMARYRowChanged" msprop:Generator_RowEvArgName="TAKAFULSUMMARYRowChangeEvent" msprop:Generator_RowClassName="TAKAFULSUMMARYRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BANK" msprop:Generator_ColumnVarNameInTable="columnBANK" msprop:Generator_ColumnPropNameInRow="BANK" msprop:Generator_ColumnPropNameInTable="BANKColumn" msprop:Generator_UserColumnName="BANK" type="xs:string" minOccurs="0" />
+              <xs:element name="TOTALMEMBERS" msprop:Generator_ColumnVarNameInTable="columnTOTALMEMBERS" msprop:Generator_ColumnPropNameInRow="TOTALMEMBERS" msprop:Generator_ColumnPropNameInTable="TOTALMEMBERSColumn" msprop:Generator_UserColumnName="TOTALMEMBERS" type="xs:int" minOccurs="0" />
+              <xs:element name="AMOUNT" msprop:Generator_ColumnVarNameInTable="columnAMOUNT" msprop:Generator_ColumnPropNameInRow="AMOUNT" msprop:Generator_ColumnPropNameInTable="AMOUNTColumn" msprop:Generator_UserColumnName="AMOUNT" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TakafulNewMember" msprop:Generator_TableClassName="TakafulNewMemberDataTable" msprop:Generator_TableVarName="tableTakafulNewMember" msprop:Generator_TablePropName="TakafulNewMember" msprop:Generator_RowDeletingName="TakafulNewMemberRowDeleting" msprop:Generator_RowChangingName="TakafulNewMemberRowChanging" msprop:Generator_RowEvHandlerName="TakafulNewMemberRowChangeEventHandler" msprop:Generator_RowDeletedName="TakafulNewMemberRowDeleted" msprop:Generator_UserTableName="TakafulNewMember" msprop:Generator_RowChangedName="TakafulNewMemberRowChanged" msprop:Generator_RowEvArgName="TakafulNewMemberRowChangeEvent" msprop:Generator_RowClassName="TakafulNewMemberRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RNO" msprop:Generator_ColumnVarNameInTable="columnRNO" msprop:Generator_ColumnPropNameInRow="RNO" msprop:Generator_ColumnPropNameInTable="RNOColumn" msprop:Generator_UserColumnName="RNO" type="xs:string" minOccurs="0" />
+              <xs:element name="BANK" msprop:Generator_ColumnVarNameInTable="columnBANK" msprop:Generator_ColumnPropNameInRow="BANK" msprop:Generator_ColumnPropNameInTable="BANKColumn" msprop:Generator_UserColumnName="BANK" type="xs:string" minOccurs="0" />
+              <xs:element name="MSHIP" msprop:Generator_ColumnVarNameInTable="columnMSHIP" msprop:Generator_ColumnPropNameInRow="MSHIP" msprop:Generator_ColumnPropNameInTable="MSHIPColumn" msprop:Generator_UserColumnName="MSHIP" type="xs:string" minOccurs="0" />
+              <xs:element name="NRIC" msprop:Generator_ColumnVarNameInTable="columnNRIC" msprop:Generator_ColumnPropNameInRow="NRIC" msprop:Generator_ColumnPropNameInTable="NRICColumn" msprop:Generator_UserColumnName="NRIC" type="xs:string" minOccurs="0" />
+              <xs:element name="NAME" msprop:Generator_ColumnVarNameInTable="columnNAME" msprop:Generator_ColumnPropNameInRow="NAME" msprop:Generator_ColumnPropNameInTable="NAMEColumn" msprop:Generator_UserColumnName="NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="AMOUNT" msprop:Generator_ColumnVarNameInTable="columnAMOUNT" msprop:Generator_ColumnPropNameInRow="AMOUNT" msprop:Generator_ColumnPropNameInTable="AMOUNTColumn" msprop:Generator_UserColumnName="AMOUNT" type="xs:decimal" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="3787d3e0eb9a427bb5eb7d44e0d9d4f7" Name="Diagram1" ZoomLevel="86">
+      <Diagram DiagramId="3787d3e0eb9a427bb5eb7d44e0d9d4f7" Name="Diagram1" ZoomLevel="82">
         <EntityTypeShape EntityType="nubebfsstatusModel.STATUS012017" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsstatusModel.STATUS012018" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubebfsstatusModel.STATUS022017" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />

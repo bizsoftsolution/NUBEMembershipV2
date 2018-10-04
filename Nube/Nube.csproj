@@ -485,6 +485,9 @@
     <Compile Include="Reports\NubeBankStatisticstoBranch.xaml.cs">
       <DependentUpon>NubeBankStatisticstoBranch.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reports\TakafulReport.xaml.cs">
+      <DependentUpon>TakafulReport.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RESIGNATION.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
@@ -943,6 +946,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Reports\TakafulReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Transaction\frmArrearDueList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1059,6 +1066,9 @@
     <EmbeddedResource Include="Reports\rptTitleReport.rdlc" />
     <EmbeddedResource Include="Reports\rptVariationReport.rdlc" />
     <EmbeddedResource Include="Reports\StateReport.rdlc" />
+    <EmbeddedResource Include="Reports\TakafulMemberReport.rdlc" />
+    <EmbeddedResource Include="Reports\TakafulNewMember.rdlc" />
+    <EmbeddedResource Include="Reports\TakafulSummary.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport2.rdlc" />
     <EmbeddedResource Include="rptAccountsExpenceReport3.rdlc" />

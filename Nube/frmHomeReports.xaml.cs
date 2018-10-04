@@ -236,5 +236,12 @@ namespace Nube
             this.Close();
             frm.ShowDialog();
         }
-    }
+
+		private void btTakafulReport_Click(object sender, RoutedEventArgs e)
+		{
+			TakafulReport frm = new TakafulReport();
+			this.Close();
+			frm.ShowDialog();
+		}
+	}
 }

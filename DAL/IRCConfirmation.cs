@@ -36,5 +36,15 @@ namespace DAL
         public string BranchCommitteeZone { get; set; }
         public Nullable<System.DateTime> BranchCommitteeDate { get; set; }
         public string Remarks { get; set; }
+        public string IRCMembershipNo { get; set; }
+        public string IRCName { get; set; }
+        public string IRCBank { get; set; }
+        public string IRCBankAddress { get; set; }
+        public string IRCTelephoneNo { get; set; }
+        public string IRCMobileNo { get; set; }
+        public string IRCFaxNo { get; set; }
+        public string Status { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> UpdatedAt { get; set; }
     }
 }
