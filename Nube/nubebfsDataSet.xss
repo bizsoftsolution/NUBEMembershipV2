@@ -13,9 +13,9 @@
     <Shape ID="DesignTable:SPSTATISTICALREPORT" ZOrder="9" X="804" Y="29" Height="305" Width="281" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:sptemp" ZOrder="8" X="19" Y="70" Height="90" Width="170" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
     <Shape ID="DesignTable:AccountsExpenceReport" ZOrder="7" X="328" Y="349" Height="86" Width="206" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
-    <Shape ID="DesignTable:MEMBERREPORT" ZOrder="3" X="237" Y="268" Height="124" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="120" />
+    <Shape ID="DesignTable:MEMBERREPORT" ZOrder="3" X="237" Y="268" Height="143" Width="165" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
     <Shape ID="DesignTable:TAKAFULSUMMARY" ZOrder="2" X="8" Y="275" Height="86" Width="184" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
-    <Shape ID="DesignTable:TakafulNewMember" ZOrder="1" X="181" Y="71" Height="143" Width="184" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
+    <Shape ID="DesignTable:TakafulNewMember" ZOrder="1" X="201" Y="73" Height="143" Width="184" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

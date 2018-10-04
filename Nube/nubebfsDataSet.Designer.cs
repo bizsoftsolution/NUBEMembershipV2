@@ -5081,6 +5081,8 @@ namespace Nube {
             
             private global::System.Data.DataColumn columnAMOUNTINS;
             
+            private global::System.Data.DataColumn columnBANK;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public MEMBERREPORTDataTable() {
@@ -5156,6 +5158,14 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public global::System.Data.DataColumn BANKColumn {
+                get {
+                    return this.columnBANK;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -5191,14 +5201,15 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public MEMBERREPORTRow AddMEMBERREPORTRow(string RNO, string MEMBERID, string MEMBER_NAME, string NRIC, decimal AMOUNTINS) {
+            public MEMBERREPORTRow AddMEMBERREPORTRow(string RNO, string MEMBERID, string MEMBER_NAME, string NRIC, decimal AMOUNTINS, string BANK) {
                 MEMBERREPORTRow rowMEMBERREPORTRow = ((MEMBERREPORTRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RNO,
                         MEMBERID,
                         MEMBER_NAME,
                         NRIC,
-                        AMOUNTINS};
+                        AMOUNTINS,
+                        BANK};
                 rowMEMBERREPORTRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowMEMBERREPORTRow);
                 return rowMEMBERREPORTRow;
@@ -5226,6 +5237,7 @@ namespace Nube {
                 this.columnMEMBER_NAME = base.Columns["MEMBER_NAME"];
                 this.columnNRIC = base.Columns["NRIC"];
                 this.columnAMOUNTINS = base.Columns["AMOUNTINS"];
+                this.columnBANK = base.Columns["BANK"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5241,6 +5253,8 @@ namespace Nube {
                 base.Columns.Add(this.columnNRIC);
                 this.columnAMOUNTINS = new global::System.Data.DataColumn("AMOUNTINS", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAMOUNTINS);
+                this.columnBANK = new global::System.Data.DataColumn("BANK", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBANK);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5653,13 +5667,13 @@ namespace Nube {
             
             private global::System.Data.DataColumn columnBANK;
             
-            private global::System.Data.DataColumn columnMSHIP;
+            private global::System.Data.DataColumn columnMEMBERID;
             
             private global::System.Data.DataColumn columnNRIC;
             
-            private global::System.Data.DataColumn columnNAME;
+            private global::System.Data.DataColumn columnMEMBER_NAME;
             
-            private global::System.Data.DataColumn columnAMOUNT;
+            private global::System.Data.DataColumn columnAMOUNTINS;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
@@ -5712,9 +5726,9 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn MSHIPColumn {
+            public global::System.Data.DataColumn MEMBERIDColumn {
                 get {
-                    return this.columnMSHIP;
+                    return this.columnMEMBERID;
                 }
             }
             
@@ -5728,17 +5742,17 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn NAMEColumn {
+            public global::System.Data.DataColumn MEMBER_NAMEColumn {
                 get {
-                    return this.columnNAME;
+                    return this.columnMEMBER_NAME;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn AMOUNTColumn {
+            public global::System.Data.DataColumn AMOUNTINSColumn {
                 get {
-                    return this.columnAMOUNT;
+                    return this.columnAMOUNTINS;
                 }
             }
             
@@ -5779,15 +5793,15 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public TakafulNewMemberRow AddTakafulNewMemberRow(string RNO, string BANK, string MSHIP, string NRIC, string NAME, decimal AMOUNT) {
+            public TakafulNewMemberRow AddTakafulNewMemberRow(string RNO, string BANK, string MEMBERID, string NRIC, string MEMBER_NAME, decimal AMOUNTINS) {
                 TakafulNewMemberRow rowTakafulNewMemberRow = ((TakafulNewMemberRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RNO,
                         BANK,
-                        MSHIP,
+                        MEMBERID,
                         NRIC,
-                        NAME,
-                        AMOUNT};
+                        MEMBER_NAME,
+                        AMOUNTINS};
                 rowTakafulNewMemberRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTakafulNewMemberRow);
                 return rowTakafulNewMemberRow;
@@ -5812,10 +5826,10 @@ namespace Nube {
             internal void InitVars() {
                 this.columnRNO = base.Columns["RNO"];
                 this.columnBANK = base.Columns["BANK"];
-                this.columnMSHIP = base.Columns["MSHIP"];
+                this.columnMEMBERID = base.Columns["MEMBERID"];
                 this.columnNRIC = base.Columns["NRIC"];
-                this.columnNAME = base.Columns["NAME"];
-                this.columnAMOUNT = base.Columns["AMOUNT"];
+                this.columnMEMBER_NAME = base.Columns["MEMBER_NAME"];
+                this.columnAMOUNTINS = base.Columns["AMOUNTINS"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5825,14 +5839,14 @@ namespace Nube {
                 base.Columns.Add(this.columnRNO);
                 this.columnBANK = new global::System.Data.DataColumn("BANK", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBANK);
-                this.columnMSHIP = new global::System.Data.DataColumn("MSHIP", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMSHIP);
+                this.columnMEMBERID = new global::System.Data.DataColumn("MEMBERID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMEMBERID);
                 this.columnNRIC = new global::System.Data.DataColumn("NRIC", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNRIC);
-                this.columnNAME = new global::System.Data.DataColumn("NAME", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnNAME);
-                this.columnAMOUNT = new global::System.Data.DataColumn("AMOUNT", typeof(decimal), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAMOUNT);
+                this.columnMEMBER_NAME = new global::System.Data.DataColumn("MEMBER_NAME", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMEMBER_NAME);
+                this.columnAMOUNTINS = new global::System.Data.DataColumn("AMOUNTINS", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAMOUNTINS);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11067,6 +11081,22 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public string BANK {
+                get {
+                    try {
+                        return ((string)(this[this.tableMEMBERREPORT.BANKColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'BANK\' in table \'MEMBERREPORT\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableMEMBERREPORT.BANKColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public bool IsRNONull() {
                 return this.IsNull(this.tableMEMBERREPORT.RNOColumn);
             }
@@ -11123,6 +11153,18 @@ namespace Nube {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
             public void SetAMOUNTINSNull() {
                 this[this.tableMEMBERREPORT.AMOUNTINSColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public bool IsBANKNull() {
+                return this.IsNull(this.tableMEMBERREPORT.BANKColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
+            public void SetBANKNull() {
+                this[this.tableMEMBERREPORT.BANKColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -11273,17 +11315,17 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string MSHIP {
+            public string MEMBERID {
                 get {
                     try {
-                        return ((string)(this[this.tableTakafulNewMember.MSHIPColumn]));
+                        return ((string)(this[this.tableTakafulNewMember.MEMBERIDColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'MSHIP\' in table \'TakafulNewMember\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'MEMBERID\' in table \'TakafulNewMember\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableTakafulNewMember.MSHIPColumn] = value;
+                    this[this.tableTakafulNewMember.MEMBERIDColumn] = value;
                 }
             }
             
@@ -11305,33 +11347,33 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string NAME {
+            public string MEMBER_NAME {
                 get {
                     try {
-                        return ((string)(this[this.tableTakafulNewMember.NAMEColumn]));
+                        return ((string)(this[this.tableTakafulNewMember.MEMBER_NAMEColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'NAME\' in table \'TakafulNewMember\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'MEMBER_NAME\' in table \'TakafulNewMember\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableTakafulNewMember.NAMEColumn] = value;
+                    this[this.tableTakafulNewMember.MEMBER_NAMEColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public decimal AMOUNT {
+            public decimal AMOUNTINS {
                 get {
                     try {
-                        return ((decimal)(this[this.tableTakafulNewMember.AMOUNTColumn]));
+                        return ((decimal)(this[this.tableTakafulNewMember.AMOUNTINSColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AMOUNT\' in table \'TakafulNewMember\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'AMOUNTINS\' in table \'TakafulNewMember\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableTakafulNewMember.AMOUNTColumn] = value;
+                    this[this.tableTakafulNewMember.AMOUNTINSColumn] = value;
                 }
             }
             
@@ -11361,14 +11403,14 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsMSHIPNull() {
-                return this.IsNull(this.tableTakafulNewMember.MSHIPColumn);
+            public bool IsMEMBERIDNull() {
+                return this.IsNull(this.tableTakafulNewMember.MEMBERIDColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetMSHIPNull() {
-                this[this.tableTakafulNewMember.MSHIPColumn] = global::System.Convert.DBNull;
+            public void SetMEMBERIDNull() {
+                this[this.tableTakafulNewMember.MEMBERIDColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -11385,26 +11427,26 @@ namespace Nube {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsNAMENull() {
-                return this.IsNull(this.tableTakafulNewMember.NAMEColumn);
+            public bool IsMEMBER_NAMENull() {
+                return this.IsNull(this.tableTakafulNewMember.MEMBER_NAMEColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetNAMENull() {
-                this[this.tableTakafulNewMember.NAMEColumn] = global::System.Convert.DBNull;
+            public void SetMEMBER_NAMENull() {
+                this[this.tableTakafulNewMember.MEMBER_NAMEColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsAMOUNTNull() {
-                return this.IsNull(this.tableTakafulNewMember.AMOUNTColumn);
+            public bool IsAMOUNTINSNull() {
+                return this.IsNull(this.tableTakafulNewMember.AMOUNTINSColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetAMOUNTNull() {
-                this[this.tableTakafulNewMember.AMOUNTColumn] = global::System.Convert.DBNull;
+            public void SetAMOUNTINSNull() {
+                this[this.tableTakafulNewMember.AMOUNTINSColumn] = global::System.Convert.DBNull;
             }
         }
         

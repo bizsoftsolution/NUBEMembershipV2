@@ -25,20 +25,20 @@
           <DataField>BANK</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="MSHIP">
-          <DataField>MSHIP</DataField>
+        <Field Name="MEMBERID">
+          <DataField>MEMBERID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="NRIC">
           <DataField>NRIC</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NAME">
-          <DataField>NAME</DataField>
+        <Field Name="MEMBER_NAME">
+          <DataField>MEMBER_NAME</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="AMOUNT">
-          <DataField>AMOUNT</DataField>
+        <Field Name="AMOUNTINS">
+          <DataField>AMOUNTINS</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
       </Fields>
@@ -78,7 +78,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.00625in</Top>
-            <Left>0in</Left>
             <Height>0.27083in</Height>
             <Width>10.45834in</Width>
             <Style>
@@ -226,7 +225,6 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.86458in</Top>
-            <Left>0in</Left>
             <Height>0.27083in</Height>
             <Width>10.45834in</Width>
             <ZIndex>4</ZIndex>
@@ -543,21 +541,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="MSHIP">
+                        <Textbox Name="MEMBERID">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!MSHIP.Value</Value>
+                                  <Value>=Fields!MEMBERID.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>MSHIP</rd:DefaultName>
+                          <rd:DefaultName>MEMBERID</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -603,21 +601,21 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="NAME">
+                        <Textbox Name="MEMBER_NAME">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!NAME.Value</Value>
+                                  <Value>=Fields!MEMBER_NAME.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>NAME</rd:DefaultName>
+                          <rd:DefaultName>MEMBER_NAME</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -633,14 +631,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="AMOUNT">
+                        <Textbox Name="AMOUNTINS">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!AMOUNT.Value</Value>
+                                  <Value>=Fields!AMOUNTINS.Value</Value>
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -649,7 +647,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>AMOUNT</rd:DefaultName>
+                          <rd:DefaultName>AMOUNTINS</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -716,7 +714,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!AMOUNT.Value, "TakafulNewMember")</Value>
+                                  <Value>=Sum(Fields!AMOUNTINS.Value, "TakafulNewMember")</Value>
                                   <Style>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>

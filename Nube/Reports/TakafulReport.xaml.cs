@@ -157,7 +157,7 @@ namespace Nube.Reports
 
 			if (!string.IsNullOrEmpty(cmbBank.Text))
 			{
-				sWhere = sWhere + " AND FD.BANK_CODE=" + dBankCode;
+				sWhere = sWhere + " AND MM.BANK_CODE=" + dBankCode;
 			}
 
 			if (!string.IsNullOrEmpty(cmbBranch.Text))
@@ -172,28 +172,32 @@ namespace Nube.Reports
 
 
 
-				str = " SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,ISNULL(MM.MEMBER_ID, 0)MEMBERID, \r" +
+				str = " SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,ISNULL(MM.MEMBER_ID, 0)MEMBERID,BK.BANK_USERCODE BANK, \r" +
 				 " ISNULL(MM.MEMBER_NAME, '')MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC, \r" +
 				 " FD.AMOUNTINS \r" +
 				 " FROM FEESDETAILS FD(NOLOCK) \r" +
 				 " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID \r" +
+				 " LEFT JOIN MASTERBANK BK(NOLOCK) ON BK.BANK_CODE=FM.BANKID     \r" +
 				 " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = FD.MEMBERCODE \r" +
 				 " LEFT JOIN MASTERBANKBRANCH MB(NOLOCK) ON MB.BANKBRANCH_CODE = MM.BRANCH_CODE \r" +
 				 sWhere + sWhere2 + "\r";
 
-				string sSummary = string.Format(" SELECT FM.FEEID,MB.BANK_USERCODE BANK,COUNT(*) TOTALMEMBERS,SUM(FD.AMOUNTINS)AMOUNT \r" +								
-				 " FROM FEESDETAILS FD(NOLOCK) \r" +
-				 " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID \r" +
-				 " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE=FM.BANKID     \r" +
-				 " WHERE FD.FEEYEAR={0} AND FD.FEEMONTH={1} AND ISNOTMATCH=0 AND ISUNPAID=0 AND FD.STATUS='FEES ENTRY'  \r  GROUP BY FM.FEEID,MB.BANK_USERCODE", Convert.ToDateTime(dtpDate.SelectedDate).Year, Convert.ToDateTime(dtpDate.SelectedDate).Month);
-
-
-				string sNewMEmber = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MB.BANK_USERCODE BANK,ISNULL(MM.MEMBER_ID, 0)MSHIP,  \r" +
-				 " ISNULL(MM.MEMBER_NAME, '')NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,10 AMOUNT \r" +
+				string sNewMEmber = string.Format(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,ISNULL(MM.MEMBER_ID, 0)MEMBERID,MB.BANK_USERCODE BANK, \r" +
+				 " ISNULL(MM.MEMBER_NAME, '')MEMBER_NAME, CASE WHEN ISNULL(MM.ICNO_NEW, '') <> '' THEN MM.ICNO_NEW ELSE MM.ICNO_OLD END NRIC,10 AMOUNTINS \r" +
 				 " FROM MASTERMEMBER MM (NOLOCK) \r" +
 				 " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE=MM.BANK_CODE \r" +
 				 " WHERE YEAR(MM.DATEOFJOINING)={0} AND MONTH(MM.DATEOFJOINING)={1} ", Convert.ToDateTime(dtpDate.SelectedDate).Year, Convert.ToDateTime(dtpDate.SelectedDate).Month);
 
+
+				//string sSummary = string.Format(" SELECT FM.FEEID,MB.BANK_USERCODE BANK,COUNT(*) TOTALMEMBERS,SUM(FD.AMOUNTINS)AMOUNT \r" +								
+				// " FROM FEESDETAILS FD(NOLOCK) \r" +
+				// " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID \r" +
+				// " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE=FM.BANKID     \r" +
+				// " WHERE FD.FEEYEAR={0} AND FD.FEEMONTH={1} AND ISNOTMATCH=0 AND ISUNPAID=0 AND FD.STATUS='FEES ENTRY'  \r  GROUP BY FM.FEEID,MB.BANK_USERCODE", Convert.ToDateTime(dtpDate.SelectedDate).Year, Convert.ToDateTime(dtpDate.SelectedDate).Month);
+
+				string sSummary = string.Format("select BANK,COUNT(*)TOTALMEMBERS,sum(amountins) AMOUNT from ({0} union {1}) t1  group by BANK", str,sNewMEmber);
+
+				
 
 				SqlCommand cmd = new SqlCommand(str, conn);
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
