@@ -58,7 +58,11 @@ namespace Nube.Transaction
                 cmbRace.ItemsSource = db.MASTERRACEs.ToList();
                 cmbRace.SelectedValuePath = "RACE_CODE";
                 cmbRace.DisplayMemberPath = "RACE_NAME";
-              
+
+                cmbRegReason.ItemsSource = db.MASTERRESIGNSTATUS.ToList();
+                cmbRegReason.SelectedValuePath = "RESIGNSTATUS_CODE";
+                cmbRegReason.DisplayMemberPath = "RESIGNSTATUS_NAME";
+
             }
             catch (Exception ex)
             {
@@ -137,9 +141,9 @@ namespace Nube.Transaction
                 rMemberType = cmbMemberType.Text;
             }
 
-            cbxPromotedTo.Content = string.Format("{0} was promoted to", SheOrHe);
+            cbxPromotedTo.Content = string.Format("{0} was ", SheOrHe);
             cbxBeforePromotion.Content = string.Format("{0} was a {1} before promotion [Delete which is not applicable]", SheOrHe, rMemberType);
-            cbxHereByConfirm.Content = string.Format("I hereby confirm that {0} got promoted {0} is no longer doing any clerical job function.", SheOrHe);
+            cbxHereByConfirm.Content = string.Format("I hereby confirm that {0} got {1} {0} is no longer doing any clerical job function.", SheOrHe,cmbRegReason.Text.ToLower());
             cbxFilledBy.Content = string.Format("The {0} position has been filled by", rMemberType);
             cbxBranchCommitteeVerification1.Content = String.Format("I have verified the above and confirm that the declaration by the IRC is correct. The {0} position has been filled by another {0} And;",rMemberType);
             cbxBranchCommitteeVerification2.Content = String.Format("The promoted member is no longer doing {0} job functions", rMemberType);
@@ -225,7 +229,7 @@ namespace Nube.Transaction
                 cbxFilledBy.IsChecked = d.FilledBy;
                 cbxBranchCommitteeVerification1.IsChecked = d.BranchCommitteeVerification1;
                 cbxBranchCommitteeVerification2.IsChecked = d.BranchCommitteeVerification2;
-
+                cmbRegReason.Text = d.ResignReason;
 
                 if (d.IRCPosition == "Chairman")
                 {
@@ -268,6 +272,8 @@ namespace Nube.Transaction
             txtBranchCommitteeName.Text = "";
             txtBranchCommitteeZone.Text = "";
             txtRemarks.Text = "";
+
+            cmbRegReason.Text = "PROMOTED";
 
             dtpDOB.Text = "";
             dtpDOJ.Text = "";
@@ -312,6 +318,7 @@ namespace Nube.Transaction
                     IRC.ResignMemberName = txtMemberName.Text;
                     IRC.ResignMemberBankName = cmbBankName.Text;
                     IRC.ResignMemberBranchName = cmbBankBranchName.Text;
+                    IRC.ResignReason = cmbRegReason.Text;
                     IRC.IRCPosition = rbtChariman.IsChecked == true ? "Chairman" : rbtSecretary.IsChecked == true ? "Secretary" : "Commitee Member";
                     IRC.IRCMembershipNo = txtIRCMemberNo.Text;
                     IRC.IRCName = txtIRCName.Text;
@@ -336,14 +343,21 @@ namespace Nube.Transaction
                     IRC.Remarks = txtRemarks.Text;
                     IRC.Status = cbxNameOfPerson.IsChecked == true
                               && cbxPromotedTo.IsChecked == true
-                              && cbxBeforePromotion.IsChecked == true
-                              && cbxAttached.IsChecked == true
                               && cbxHereByConfirm.IsChecked == true
-                              && cbxFilledBy.IsChecked == true
-                              && cbxBranchCommitteeVerification1.IsChecked == true
-                              && cbxBranchCommitteeVerification2.IsChecked == true
-							  && !string.IsNullOrWhiteSpace(txtIRCMemberNo.Text)==true
-							  && (rbtChariman.IsChecked==true || rbtSecretary.IsChecked==true || rbtCommitteMember.IsChecked==true )
+                              && !string.IsNullOrWhiteSpace(txtIRCMemberNo.Text) == true
+                              && (rbtChariman.IsChecked == true || rbtSecretary.IsChecked == true || rbtCommitteMember.IsChecked == true)
+                              && (  
+                                    cmbRegReason.Text != "PROMOTED"  
+                                    ||   (      cmbRegReason.Text == "PROMOTED" 
+                                                && cbxBeforePromotion.IsChecked == true
+                                                && cbxAttached.IsChecked == true
+                                                && cbxFilledBy.IsChecked == true
+                                                && cbxBranchCommitteeVerification1.IsChecked == true
+                                                && cbxBranchCommitteeVerification2.IsChecked == true
+                                          )
+                                  )
+                              
+							  
                               ? "Confirm" : "Pending";
                     IRC.UpdatedAt = DateTime.Now;
 
@@ -419,5 +433,46 @@ namespace Nube.Transaction
 		{
 			ClearIRC();
 		}
-	}
+
+        private void cmbRegReason_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ResignReasonChanged();
+
+        }
+
+        private void cmbRegReason_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            
+        }
+
+        private void cmbRegReason_KeyUp(object sender, KeyEventArgs e)
+        {
+            ResignReasonChanged();
+        }
+
+        private void cmbRegReason_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+
+        }
+
+        void ResignReasonChanged()
+        {
+            if (cmbRegReason.Text == "PROMOTED")
+            {
+                cbxBeforePromotion.Visibility = Visibility.Visible;
+                cbxAttached.Visibility = Visibility.Visible;
+                cbxFilledBy.Visibility = Visibility.Visible;
+                splBRANCHCOMMITTEEVERIFICATION.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                cbxBeforePromotion.Visibility = Visibility.Collapsed;
+                cbxAttached.Visibility = Visibility.Collapsed;
+                cbxFilledBy.Visibility = Visibility.Collapsed;
+                splBRANCHCOMMITTEEVERIFICATION.Visibility = Visibility.Collapsed;
+            }
+
+            IRCHeadingLoad();
+        }
+    }
 }

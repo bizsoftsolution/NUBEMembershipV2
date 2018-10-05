@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Naveen\Projects\N.U.B.E\NUBE TOOLS\NUBE 04 09 2018\Nube\NUBE DATA.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\Projects\NUBE\Nube\NUBE DATA.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -20,6 +20,7 @@ namespace Nube
         public string ResignMemberICNo { get; set; }
         public string ResignMemberBankName { get; set; }
         public string ResignMemberBranchName { get; set; }
+        public string ResignReason { get; set; }
         public string IRCMembershipNo { get; set; }
         public string IRCName { get; set; }
         public string IRCPosition { get; set; }
