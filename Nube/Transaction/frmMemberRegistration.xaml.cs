@@ -198,7 +198,7 @@ namespace Nube.Transaction
                     if (bIsUpdate == true)
                     {
                         MASTERMEMBER mm = (from mas in db.MASTERMEMBERs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
-                        var OldData = new JSonHelper().ConvertObjectToJSon(mm);
+                        //var OldData = new JSonHelper().ConvertObjectToJSon(mm);
                         if (mm != null)
                         {
                             mm.MEMBERTYPE_CODE = Convert.ToDecimal(cmbMemberType.SelectedValue);
@@ -249,8 +249,8 @@ namespace Nube.Transaction
 
                             db.SaveChanges();
 
-                            var NewData = new JSonHelper().ConvertObjectToJSon(mm);
-                            AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
+                           // var NewData = new JSonHelper().ConvertObjectToJSon(mm);
+                            //AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
 
                             var ms = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
                             if (ms != null)
