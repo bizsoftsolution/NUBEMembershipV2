@@ -118,7 +118,7 @@ namespace Nube.Transaction
                     if (MessageBox.Show("Total Amount is " + txtRegTotalAmount.Text + ". \r Sure to Resign ?", "Resign Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         var mm = (from mas in db.MASTERMEMBERs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
-                        var OldData = new JSonHelper().ConvertObjectToJSon(mm);
+                        //var OldData = new JSonHelper().ConvertObjectToJSon(mm);
                         if (mm != null)
                         {
                             mm.RESIGNED = 1;
@@ -163,8 +163,8 @@ namespace Nube.Transaction
 
                             db.SaveChanges();
 
-                            var NewData = new JSonHelper().ConvertObjectToJSon(mm);
-                            AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
+                            //var NewData = new JSonHelper().ConvertObjectToJSon(mm);
+                            //AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
 
                             int iMonth = Convert.ToInt32(((Convert.ToDateTime(dtpRegResignDate.SelectedDate).Year - Convert.ToDateTime(dtpDOJ.SelectedDate).Year) * 12) + Convert.ToDateTime(dtpRegResignDate.SelectedDate).Month - Convert.ToDateTime(dtpDOJ.SelectedDate).Month);
 
@@ -723,33 +723,33 @@ namespace Nube.Transaction
                                  }
                                   ).FirstOrDefault();
 
-                    var nominee = (from nm in db.MASTERNOMINEEs
-                                   join ct in db.MASTERCITies on nm.CITY_CODE equals ct.CITY_CODE
-                                   join st in db.MASTERSTATEs on nm.STATE_CODE equals st.STATE_CODE
-                                   join rl in db.MASTERRELATIONs on nm.RELATION_CODE equals rl.RELATION_CODE
-                                   where nm.MEMBER_CODE == dMember_Code
-                                   orderby nm.Id descending
-                                   select new
-                                   {
-                                       nm.NAME,
-                                       nm.AGE,
-                                       nm.SEX,
-                                       rl.RELATION_NAME,
-                                       nm.ICNO_NEW,
-                                       nm.ICNO_OLD,
-                                       nm.ADDRESS1,
-                                       nm.ADDRESS2,
-                                       nm.ADDRESS3,
-                                       ct.CITY_NAME,
-                                       st.STATE_NAME,
-                                       nm.MOBILE,
-                                       nm.PHONE,
-                                       nm.MEMBER_CODE,
-                                       nm.CITY_CODE,
-                                       nm.STATE_CODE,
-                                       nm.RELATION_CODE
-                                   }).ToList();
-
+                    //var nominee = (from nm in db.MASTERNOMINEEs
+                    //               join ct in db.MASTERCITies on nm.CITY_CODE equals ct.CITY_CODE
+                    //               join st in db.MASTERSTATEs on nm.STATE_CODE equals st.STATE_CODE
+                    //               join rl in db.MASTERRELATIONs on nm.RELATION_CODE equals rl.RELATION_CODE
+                    //               where nm.MEMBER_CODE == dMember_Code
+                    //               orderby nm.Id descending
+                    //               select new
+                    //               {
+                    //                   nm.NAME,
+                    //                   nm.AGE,
+                    //                   nm.SEX,
+                    //                   rl.RELATION_NAME,
+                    //                   nm.ICNO_NEW,
+                    //                   nm.ICNO_OLD,
+                    //                   nm.ADDRESS1,
+                    //                   nm.ADDRESS2,
+                    //                   nm.ADDRESS3,
+                    //                   ct.CITY_NAME,
+                    //                   st.STATE_NAME,
+                    //                   nm.MOBILE,
+                    //                   nm.PHONE,
+                    //                   nm.MEMBER_CODE,
+                    //                   nm.CITY_CODE,
+                    //                   nm.STATE_CODE,
+                    //                   nm.RELATION_CODE
+                    //               }).ToList();
+                    var nominee = db.MASTERNOMINEEs.Where(x=> x.MEMBER_CODE==dMember_Code).ToList();
                     if (nominee != null)
                     {
                         DataTable dt = new DataTable();
@@ -760,27 +760,29 @@ namespace Nube.Transaction
                         }
                     }
 
-                    var gurdian = (from gr in db.MASTERGUARDIANs
-                                   where gr.MEMBER_CODE == dMember_Code
-                                   select new
-                                   {
-                                       Name = gr.NAME,
-                                       gr.RELATION_CODE,
-                                       gr.ADDRESS1,
-                                       gr.ADDRESS2,
-                                       gr.ADDRESS3,
-                                       gr.AGE,
-                                       gr.ICNO_NEW,
-                                       gr.ICNO_OLD,
-                                       gr.CITY_CODE,
-                                       gr.STATE_CODE,
-                                       gr.COUNTRY,
-                                       gr.ZIPCODE,
-                                       gr.PHONE,
-                                       gr.MOBILE,
-                                       gr.SEX
-                                   }
-                                   ).FirstOrDefault();
+                    //var gurdian = (from gr in db.MASTERGUARDIANs
+                    //               where gr.MEMBER_CODE == dMember_Code
+                    //               select new
+                    //               {
+                    //                   Name = gr.NAME,
+                    //                   gr.RELATION_CODE,
+                    //                   gr.ADDRESS1,
+                    //                   gr.ADDRESS2,
+                    //                   gr.ADDRESS3,
+                    //                   gr.AGE,
+                    //                   gr.ICNO_NEW,
+                    //                   gr.ICNO_OLD,
+                    //                   gr.CITY_CODE,
+                    //                   gr.STATE_CODE,
+                    //                   gr.COUNTRY,
+                    //                   gr.ZIPCODE,
+                    //                   gr.PHONE,
+                    //                   gr.MOBILE,
+                    //                   gr.SEX
+                    //               }
+                    //               ).FirstOrDefault();
+
+                    var gurdian = db.MASTERGUARDIANs.FirstOrDefault(x => x.MEMBER_CODE == dMember_Code);
 
                     //var fees = (from fs in db.FeesDetails where fs.MemberCode == dMember_Code && fs.UpdatedStatus == "Not Updated" select fs).ToList();
 
@@ -878,7 +880,7 @@ namespace Nube.Transaction
                             cmbAI_Insurance.Text = "N/A";
                         }
                         txtTakaful.Text = dTotlMonthsPaidUC.ToString();
-                        if (qry.TDF != null && qry.TDF == "YES")
+                        if (qry.TDF != null && qry.TDF.ToUpper() == "YES")
                         {
                             if (qry.TDF_AMOUNT != null)
                             {
@@ -1027,7 +1029,7 @@ namespace Nube.Transaction
 
                     if (gurdian != null)
                     {
-                        txGurName.Text = gurdian.Name;
+                        txGurName.Text = gurdian.NAME;
                         cmbGurRelation.SelectedValue = gurdian.RELATION_CODE;
                         txtGurAddress.Text = gurdian.ADDRESS1;
                         txtGurAddress2.Text = gurdian.ADDRESS2;
@@ -1049,7 +1051,7 @@ namespace Nube.Transaction
                     {
                         for (int i = 0; i < dtResign.Rows.Count; i++)
                         {
-                            cmbRegClaimer.SelectedValue = Convert.ToInt32(dtResign.Rows[i]["RELATION_CODE"]);
+                            cmbRegClaimer.SelectedValue = Convert.ToInt32("0"+ dtResign.Rows[i]["RELATION_CODE"]);
                             txtRegClaimerName.Text = dtResign.Rows[i]["CLAIMER_NAME"].ToString();
                             txtRegContributedMonths.Text = dtResign.Rows[i]["MONTHS_CONTRIBUTED"].ToString();
                             txtRegBFContribution.Text = dtResign.Rows[i]["ACCBF"].ToString();
