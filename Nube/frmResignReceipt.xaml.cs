@@ -43,6 +43,9 @@ namespace Nube
 
                 ReportViewer.LocalReport.DataSources.Add(masterData);
                 ReportViewer.LocalReport.ReportEmbeddedResource = "Nube.Reports.ResignReport.rdlc";
+                ReportParameter insAmt = new ReportParameter("InsAmt", (dt.Rows[0]["InsuranceAmount"]).ToString());
+                ReportViewer.LocalReport.SetParameters(insAmt);
+
                 if (Convert.ToInt32(dt.Rows[0]["ACCBENEFIT"]) != 0)
                 {
                     ReportParameter RSN = new ReportParameter("Benifit", (dt.Rows[0]["ACCBENEFIT"]).ToString());
