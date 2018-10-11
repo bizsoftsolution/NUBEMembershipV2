@@ -434,26 +434,12 @@ namespace Nube.Transaction
 			ClearIRC();
 		}
 
-        private void cmbRegReason_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ResignReasonChanged();
-
-        }
-
-        private void cmbRegReason_TextInput(object sender, TextCompositionEventArgs e)
-        {
-            
-        }
-
         private void cmbRegReason_KeyUp(object sender, KeyEventArgs e)
         {
             ResignReasonChanged();
         }
 
-        private void cmbRegReason_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
-        {
-
-        }
+      
 
         void ResignReasonChanged()
         {
@@ -473,6 +459,11 @@ namespace Nube.Transaction
             }
 
             IRCHeadingLoad();
+        }
+
+        private void cmbRegReason_LostFocus(object sender, RoutedEventArgs e)
+        {
+            ResignReasonChanged();
         }
     }
 }

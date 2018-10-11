@@ -249,7 +249,7 @@ namespace Nube.Transaction
 
                             db.SaveChanges();
 
-                           // var NewData = new JSonHelper().ConvertObjectToJSon(mm);
+                            var NewData = new JSonHelper().ConvertObjectToJSon(mm);
                             //AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
 
                             var ms = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();

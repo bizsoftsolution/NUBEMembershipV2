@@ -137,7 +137,7 @@
                                 </StackPanel>
                                 <StackPanel Margin="0,0,0,0"  Orientation="Horizontal">
                                     <CheckBox Name="cbxPromotedTo" VerticalAlignment="Bottom">She/he was</CheckBox>
-                                    <ComboBox x:Name="cmbRegReason" FontWeight="Bold" Margin="10 0 0 0" Background="White"  IsEditable="True" materialDesign:HintAssist.Hint="Reason"  materialDesign:HintAssist.HintOpacity=".26" SelectionChanged="cmbRegReason_SelectionChanged" TextInput="cmbRegReason_TextInput" Width="200" KeyUp="cmbRegReason_KeyUp" ManipulationCompleted="cmbRegReason_ManipulationCompleted" />
+                                    <ComboBox x:Name="cmbRegReason" FontWeight="Bold" Margin="10 0 0 0" Background="White"  IsEditable="True" materialDesign:HintAssist.Hint="Reason"  materialDesign:HintAssist.HintOpacity=".26"  Width="200" KeyUp="cmbRegReason_KeyUp" LostFocus="cmbRegReason_LostFocus" />
                                     <TextBox Margin="10,0,0,0" Name="txtIRCPromotedTo" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                     <Label VerticalAlignment="Bottom">grade w.e.f.</Label>
                                     <DatePicker x:Name="dtpGrade" Background="{x:Null}" FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  VerticalAlignment="Bottom" Width="106" FontSize="14" Margin="10,0,0,0" SelectedDateChanged="dtpGrade_SelectedDateChanged" />
