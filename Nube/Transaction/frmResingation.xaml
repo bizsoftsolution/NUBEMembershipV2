@@ -232,7 +232,7 @@
 							<ComboBoxItem>No</ComboBoxItem>
 						</ComboBox>
 						<ComboBox x:Name="cmbTDF" FontWeight="Bold" Background="White" HorizontalAlignment="Left" Margin="348,315,0,0" VerticalAlignment="Top" Width="108" materialDesign:HintAssist.Hint="TDF"  materialDesign:HintAssist.HintOpacity=".26" IsReadOnly="True">
-							<ComboBoxItem Content="N/"/> a
+							<ComboBoxItem Content="N/A"/>
 							<ComboBoxItem Content="Yes"/>
 							<ComboBoxItem Content="No"/>
 						</ComboBox>

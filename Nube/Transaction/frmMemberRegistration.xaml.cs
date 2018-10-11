@@ -229,9 +229,9 @@ namespace Nube.Transaction
                             mm.ACCBENEFIT = Convert.ToDecimal(txtAccBenefit.Text);
                             mm.MONTHLYSUBSCRIPTION = Convert.ToDecimal(txtMonthlySub.Text);
                             mm.TOTALMONTHSPAID = Convert.ToDecimal(txtTotalMonthPaidSubs.Text);
-                            mm.ACCSUBSCRIPTION = Convert.ToDecimal(txtAccSub.Text);
+                            mm.ACCSUBSCRIPTION = Convert.ToDecimal("0"+txtAccSub.Text);
                             mm.MONTHLYBF = Convert.ToDecimal(txtMonthlyBF.Text);
-                            mm.ACCBF = Convert.ToDecimal(txtAccBF.Text);
+                            mm.ACCBF = Convert.ToDecimal("0" + txtAccBF.Text);
                             mm.CURRENT_YTDBF = Convert.ToDecimal(txtCurrentYTDBF.Text);
                             mm.CURRENT_YTDSUBSCRIPTION = Convert.ToDecimal(txtCurrentYTDSub.Text);
                             mm.ADDRESS1 = txtResAddress1.Text;
