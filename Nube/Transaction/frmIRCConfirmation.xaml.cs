@@ -188,18 +188,24 @@ namespace Nube.Transaction
         bool IsValid()
         {
             bool rv = true;
-            if(cbxPromotedTo.IsChecked==true && string.IsNullOrWhiteSpace(txtIRCPromotedTo.Text))
-            {
-                rv = false;
-                MessageBox.Show("Please enter the Promoted to");
-                txtIRCPromotedTo.Focus();
-            }
-            else if(cbxPromotedTo.IsChecked==true && dtpGrade.SelectedDate == null)
-            {
-                rv = false;
-                MessageBox.Show("Please selected Grade w.e.f");
-                dtpGrade.Focus();
-            }
+			if (cbxPromotedTo.IsChecked == true && string.IsNullOrWhiteSpace(txtIRCPromotedTo.Text))
+			{
+				rv = false;
+				MessageBox.Show("Please enter the Promoted to");
+				txtIRCPromotedTo.Focus();
+			}
+			else if (cbxPromotedTo.IsChecked == true && dtpGrade.SelectedDate == null)
+			{
+				rv = false;
+				MessageBox.Show("Please selected Grade w.e.f");
+				dtpGrade.Focus();
+			}
+			else if (cbxFilledBy.IsChecked == true && string.IsNullOrWhiteSpace(txtIRCFilledBy.Text))
+			{
+				rv = false;
+				MessageBox.Show("Please enter Filled by");
+				txtIRCFilledBy.Focus();
+			}
             return rv;
         }
         void ViewIRC(decimal Member_Code)
@@ -219,8 +225,10 @@ namespace Nube.Transaction
                 txtBranchCommitteeName.Text = d.BranchCommitteeName;
                 txtBranchCommitteeZone.Text = d.BranchCommitteeZone;
                 txtRemarks.Text = d.Remarks;
+				txtIRCFilledBy.Text = d.NameforFilledBy;
                 dtpGrade.SelectedDate = d.GradeWEF;
                 dtpBranchCommitteeDate.SelectedDate = d.BranchCommitteeDate;
+				dtpFileSubmit.SelectedDate = d.SubmittedAt;
                 cbxNameOfPerson.IsChecked = d.NameOfPerson;
                 cbxPromotedTo.IsChecked = d.WasPromoted;
                 cbxBeforePromotion.IsChecked = d.BeforePromotion;
@@ -272,6 +280,7 @@ namespace Nube.Transaction
             txtBranchCommitteeName.Text = "";
             txtBranchCommitteeZone.Text = "";
             txtRemarks.Text = "";
+			txtIRCFilledBy.Text = "";
 
             cmbRegReason.Text = "PROMOTED";
 
@@ -279,12 +288,13 @@ namespace Nube.Transaction
             dtpDOJ.Text = "";
             dtpGrade.Text = "";
             dtpBranchCommitteeDate.Text = "";
+			dtpFileSubmit.Text = "";
 
             dtpDOB.SelectedDate = null;
             dtpDOJ.SelectedDate = null;
             dtpGrade.SelectedDate = null;
             dtpBranchCommitteeDate.SelectedDate = null;
-            
+			dtpFileSubmit.SelectedDate = null;
             cbxNameOfPerson.IsChecked = false;
             cbxPromotedTo.IsChecked = false;
             cbxBeforePromotion.IsChecked = false;
@@ -335,11 +345,13 @@ namespace Nube.Transaction
                     IRC.Attached = cbxAttached.IsChecked;
                     IRC.HereByConfirm = cbxHereByConfirm.IsChecked;
                     IRC.FilledBy = cbxFilledBy.IsChecked;
+					IRC.NameforFilledBy = txtIRCFilledBy.Text;
                     IRC.BranchCommitteeVerification1 = cbxBranchCommitteeVerification1.IsChecked;
                     IRC.BranchCommitteeVerification2 = cbxBranchCommitteeVerification2.IsChecked;
                     IRC.BranchCommitteeName = txtBranchCommitteeName.Text;
                     IRC.BranchCommitteeZone = txtBranchCommitteeZone.Text;
                     IRC.BranchCommitteeDate = dtpBranchCommitteeDate.SelectedDate;
+					IRC.SubmittedAt = dtpFileSubmit.SelectedDate;
                     IRC.Remarks = txtRemarks.Text;
                     IRC.Status = cbxNameOfPerson.IsChecked == true
                               && cbxPromotedTo.IsChecked == true
@@ -362,7 +374,7 @@ namespace Nube.Transaction
                     IRC.UpdatedAt = DateTime.Now;
 
                     db.SaveChanges();
-                    MessageBox.Show(IRC.Status=="Confirm"? "Submitted Successfully" : "Stored to Draft");
+                    MessageBox.Show(IRC.Status=="Confirm"? "Submitted Successfully" : "Saved to Draft");
                     ClearIRC();
                 }                
             }
@@ -448,6 +460,7 @@ namespace Nube.Transaction
                 cbxBeforePromotion.Visibility = Visibility.Visible;
                 cbxAttached.Visibility = Visibility.Visible;
                 cbxFilledBy.Visibility = Visibility.Visible;
+				txtIRCFilledBy.Visibility = Visibility.Visible;
                 splBRANCHCOMMITTEEVERIFICATION.Visibility = Visibility.Visible;
             }
             else
@@ -455,6 +468,7 @@ namespace Nube.Transaction
                 cbxBeforePromotion.Visibility = Visibility.Collapsed;
                 cbxAttached.Visibility = Visibility.Collapsed;
                 cbxFilledBy.Visibility = Visibility.Collapsed;
+				txtIRCFilledBy.Visibility = Visibility.Collapsed;
                 splBRANCHCOMMITTEEVERIFICATION.Visibility = Visibility.Collapsed;
             }
 

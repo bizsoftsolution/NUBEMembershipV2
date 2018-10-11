@@ -310,6 +310,7 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="Attached" Type="bit" />
           <Property Name="HereByConfirm" Type="bit" />
           <Property Name="FilledBy" Type="bit" />
+          <Property Name="NameforFilledBy" Type="nvarchar" MaxLength="50" />
           <Property Name="BranchCommitteeVerification1" Type="bit" />
           <Property Name="BranchCommitteeVerification2" Type="bit" />
           <Property Name="BranchCommitteeName" Type="nvarchar" MaxLength="250" />
@@ -319,6 +320,7 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="UpdatedAt" Type="datetime" />
+          <Property Name="SubmittedAt" Type="date" />
         </EntityType>
         <EntityType Name="LoginHistory">
           <Key>
@@ -4316,6 +4318,8 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="NameforFilledBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubmittedAt" Type="DateTime" Precision="0" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -5929,6 +5933,8 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySetMapping Name="IRCConfirmations">
             <EntityTypeMapping TypeName="nube18092017Model.IRCConfirmation">
               <MappingFragment StoreEntitySet="IRCConfirmation">
+                <ScalarProperty Name="SubmittedAt" ColumnName="SubmittedAt" />
+                <ScalarProperty Name="NameforFilledBy" ColumnName="NameforFilledBy" />
                 <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="Status" ColumnName="Status" />

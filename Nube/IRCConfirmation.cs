@@ -46,5 +46,7 @@ namespace Nube
         public string Status { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<System.DateTime> UpdatedAt { get; set; }
+        public string NameforFilledBy { get; set; }
+        public Nullable<System.DateTime> SubmittedAt { get; set; }
     }
 }

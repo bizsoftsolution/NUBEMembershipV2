@@ -145,8 +145,11 @@
                                 <CheckBox Margin="0 20 0 0" Name="cbxBeforePromotion">She/he was a Messenger/Clerical before promotion [Delete which is not applicable]</CheckBox>
                                 <CheckBox Margin="0 20 0 0" Name="cbxAttached">Attached Job function/Description (compulsory)</CheckBox>
                                 <CheckBox Margin="0 20 0 0" Name="cbxHereByConfirm">I hereby confirm that he/she got promoted he/she is no longer doing any clerical job function.</CheckBox>
-                                <CheckBox Margin="0 20 0 0" Name="cbxFilledBy">The Messeger/clerical position has been filled by</CheckBox>
-                            </StackPanel>
+								<StackPanel Margin="0,0,0,0"  Orientation="Horizontal">
+									<CheckBox Margin="0 20 0 0" x:Name="cbxFilledBy" Height="33" Content="The Messeger/clerical position has been filled by"/>
+									<TextBox Margin="10,0,0,0" Name="txtIRCFilledBy" Width="300" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+								</StackPanel>								
+							</StackPanel>
                         </StackPanel>
                         <StackPanel  Name="splBRANCHCOMMITTEEVERIFICATION" Margin="0 10 0 0">
                             <Label FontWeight="Bold" FontSize="16">BRANCH COMMITTEE VERIFICATION</Label>
@@ -169,8 +172,9 @@
                             </StackPanel>
 
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="201,20,331,0" Width="351">
-                            <Button Name="btnIRCSubmit" Width="100" Margin="0,0,0,20" Click="btnIRCSubmit_Click">Submit</Button>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0" >
+							<DatePicker x:Name="dtpFileSubmit" Visibility="Visible"  FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="File Submitted" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Width="150" FontSize="14" Margin="10 0 0 0 "  />
+                            <Button Name="btnIRCSubmit" Width="100" Margin="20,0,0,20" Click="btnIRCSubmit_Click">Submit</Button>
                             <Button Name="btnIRCSerch" Width="100" Margin="20,0,0,20" Click="btnIRCSerch_Click">Search</Button>
                             <Button Name="btnIRCClear" Width="100" Margin="20,0,0,20" Click="btnIRCClear_Click">Clear</Button>
                             <Button Name="btnIRCSignOut" Width="100" Margin="0,0,0,20" Visibility="Collapsed" Click="btnIRCSignOut_Click">Sign Out</Button>
