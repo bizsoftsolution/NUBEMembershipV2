@@ -34,7 +34,6 @@ namespace Nube
         public virtual DbSet<CountrySetup> CountrySetups { get; set; }
         public virtual DbSet<dtproperty> dtproperties { get; set; }
         public virtual DbSet<EventHistory> EventHistories { get; set; }
-        public virtual DbSet<FeesMaster> FeesMasters { get; set; }
         public virtual DbSet<LoginHistory> LoginHistories { get; set; }
         public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         public virtual DbSet<MASTERCITY> MASTERCITies { get; set; }
@@ -68,14 +67,12 @@ namespace Nube
         public virtual DbSet<ViewMemberLastPaidDate> ViewMemberLastPaidDates { get; set; }
         public virtual DbSet<ViewMemberTotalMonthsDue> ViewMemberTotalMonthsDues { get; set; }
         public virtual DbSet<VIEWTOTALDUE> VIEWTOTALDUEs { get; set; }
-        public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
         public virtual DbSet<TEMPVIEWMASTERMEMBER> TEMPVIEWMASTERMEMBERs { get; set; }
         public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
         public virtual DbSet<GuardianInsertBranch> GuardianInsertBranches { get; set; }
         public virtual DbSet<MembershipAttachment> MembershipAttachments { get; set; }
         public virtual DbSet<NomineeInsertBranch> NomineeInsertBranches { get; set; }
         public virtual DbSet<ViewNomineeInsertBranch> ViewNomineeInsertBranches { get; set; }
-        public virtual DbSet<FeesDetail> FeesDetails { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<ViewBranch> ViewBranches { get; set; }
         public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
@@ -89,6 +86,9 @@ namespace Nube
         public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
         public virtual DbSet<ViewResign> ViewResigns { get; set; }
         public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
+        public virtual DbSet<FeesMaster> FeesMasters { get; set; }
+        public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
+        public virtual DbSet<FeesDetail> FeesDetails { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

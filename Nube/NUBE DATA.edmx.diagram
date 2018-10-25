@@ -12,7 +12,6 @@
         <EntityTypeShape EntityType="nube18092017Model.CountrySetup" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.dtproperty" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.EventHistory" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="nube18092017Model.FeesMaster" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.LoginHistory" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERBANKBRANCH" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERCITY" Width="1.5" PointX="10.75" PointY="6.75" IsExpanded="true" />
@@ -46,14 +45,12 @@
         <EntityTypeShape EntityType="nube18092017Model.ViewMemberLastPaidDate" Width="1.5" PointX="15.375" PointY="10.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewMemberTotalMonthsDue" Width="1.5" PointX="17.375" PointY="18.75" />
         <EntityTypeShape EntityType="nube18092017Model.VIEWTOTALDUE" Width="1.5" PointX="3.375" PointY="19.75" />
-        <EntityTypeShape EntityType="nube18092017Model.FeesDetailsNotMatch" Width="1.5" PointX="15.375" PointY="21.75" />
         <EntityTypeShape EntityType="nube18092017Model.TEMPVIEWMASTERMEMBER" Width="1.5" PointX="0.75" PointY="19.75" />
         <EntityTypeShape EntityType="nube18092017Model.TVMASTERMEMBER" Width="1.5" PointX="5.75" PointY="19.75" />
         <EntityTypeShape EntityType="nube18092017Model.GuardianInsertBranch" Width="1.5" PointX="21.375" PointY="8.75" />
         <EntityTypeShape EntityType="nube18092017Model.MembershipAttachment" Width="1.5" PointX="21.375" PointY="14.75" />
         <EntityTypeShape EntityType="nube18092017Model.NomineeInsertBranch" Width="1.5" PointX="19.375" PointY="18.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewNomineeInsertBranch" Width="1.5" PointX="27.375" PointY="9.75" />
-        <EntityTypeShape EntityType="nube18092017Model.FeesDetail" Width="1.5" PointX="21.375" PointY="18.75" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERMEMBER" Width="1.5" PointX="23.375" PointY="20.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewBranch" Width="1.5" PointX="27.375" PointY="27.75" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERBANK" Width="1.5" PointX="17.375" PointY="3.75" />
@@ -69,6 +66,9 @@
         <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" />
         <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" />
         <EntityTypeShape EntityType="nube18092017Model.IRCConfirmation" Width="1.5" PointX="31.375" PointY="0.75" />
+        <EntityTypeShape EntityType="nube18092017Model.FeesMaster" Width="1.5" PointX="27.375" PointY="0.75" />
+        <EntityTypeShape EntityType="nube18092017Model.FeesDetailsNotMatch" Width="1.5" PointX="13.375" PointY="20.75" />
+        <EntityTypeShape EntityType="nube18092017Model.FeesDetail" Width="1.5" PointX="15.375" PointY="21.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

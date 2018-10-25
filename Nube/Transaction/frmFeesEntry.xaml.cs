@@ -591,7 +591,8 @@ namespace Nube.Transaction
                 progressBar1.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
-            {
+
+			{
                 MessageBox.Show(ex.Message);
             }
         }
@@ -943,7 +944,7 @@ namespace Nube.Transaction
                         SqlCommand cmd;
                         string qry = " DECLARE @BANK_CODE INT \r " +
                                      " DECLARE @BANK_NAME VARCHAR(50) \r " +
-                                     " SELECT @BANK_CODE=BANK_CODE,@BANK_NAME=BANK_USERCODE FROM MASTERBANK(NOLOCK) WHERE BANK_NAME='" + BankName + "' AND DELETED=0 \r \r " +
+                                     " SELECT @BANK_CODE=BANK_CODE,@BANK_NAME=BANK_USERCODE FROM MASTERBANK(NOLOCK) WHERE BANK_NAME='" + BankName + "' AND (DELETED=0 OR DELETED IS NULL) \r \r " +
                                      " SELECT " + dtFeedate.Year + " FEEYEAR," + dtFeedate.Month + " FEEMONTH,@BANK_NAME BANK_NAME,@BANK_CODE BANK_CODE,* FROM OPENROWSET('MICROSOFT.ACE.OLEDB.12.0','EXCEL 12.0; \r " +
                                      " DATABASE=" + filename + "; \r " +
                                      " HDR = NO; IMEX = 1', \r " +
