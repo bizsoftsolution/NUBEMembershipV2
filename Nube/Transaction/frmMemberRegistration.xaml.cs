@@ -225,15 +225,15 @@ namespace Nube.Transaction
                             mm.LevyPaymentDate = DateTime.Now;
                             mm.Tdf_PaymentDate = DateTime.Now;
 
-                            mm.ENTRANCEFEE = Convert.ToDecimal(txtEntranceFee.Text);
-                            mm.ACCBENEFIT = Convert.ToDecimal(txtAccBenefit.Text);
-                            mm.MONTHLYSUBSCRIPTION = Convert.ToDecimal(txtMonthlySub.Text);
-                            mm.TOTALMONTHSPAID = Convert.ToDecimal(txtTotalMonthPaidSubs.Text);
+                            mm.ENTRANCEFEE = Convert.ToDecimal("0" + txtEntranceFee.Text);
+                            mm.ACCBENEFIT = Convert.ToDecimal("0" + txtAccBenefit.Text);
+                            mm.MONTHLYSUBSCRIPTION = Convert.ToDecimal("0" + txtMonthlySub.Text);
+                            mm.TOTALMONTHSPAID = Convert.ToDecimal("0" + txtTotalMonthPaidSubs.Text);
                             mm.ACCSUBSCRIPTION = Convert.ToDecimal("0"+txtAccSub.Text);
-                            mm.MONTHLYBF = Convert.ToDecimal(txtMonthlyBF.Text);
+                            mm.MONTHLYBF = Convert.ToDecimal("0" + txtMonthlyBF.Text);
                             mm.ACCBF = Convert.ToDecimal("0" + txtAccBF.Text);
-                            mm.CURRENT_YTDBF = Convert.ToDecimal(txtCurrentYTDBF.Text);
-                            mm.CURRENT_YTDSUBSCRIPTION = Convert.ToDecimal(txtCurrentYTDSub.Text);
+                            mm.CURRENT_YTDBF = Convert.ToDecimal("0" + txtCurrentYTDBF.Text);
+                            mm.CURRENT_YTDSUBSCRIPTION = Convert.ToDecimal("0" + txtCurrentYTDSub.Text);
                             mm.ADDRESS1 = txtResAddress1.Text;
                             mm.ADDRESS2 = txtResAddress2.Text;
                             mm.ADDRESS3 = txtResAddress3.Text;
