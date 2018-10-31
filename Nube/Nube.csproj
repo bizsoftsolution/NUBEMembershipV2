@@ -358,6 +358,9 @@
     <Compile Include="MemberInsertBranch.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="MemberMonthEndStatu.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="MembershipAttachment.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>

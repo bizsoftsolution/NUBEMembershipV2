@@ -44,14 +44,26 @@ namespace Nube
                 txtMonthlySub.Text = monSub.ToString();
                 txtType.Text = Type.ToString();
 
-                var vm = (from x in dbBFS.MemberStatusLogs where x.MEMBER_ID == id select x).FirstOrDefault();
-                if (vm != null)
+                var mm = dbBFS.MASTERMEMBERs.FirstOrDefault(x => x.MEMBER_ID == id);
+
+                if (mm != null)
                 {
-                    txtBankName.Text = vm.BANKUSER_CODE.ToString();
-                    txtMemberName.Text = vm.MEMBER_NAME.ToString();
-                    txtStatus.Text = vm.MEMBERSTATUS.ToString();
-                    txtLastPaymentDate.Text = string.Format("{0:MMM-yyyy}", vm.LASTPAYMENT_DATE);
+                    txtBankName.Text = mm.MASTERBANK.BANK_USERCODE.ToString();
+                    txtMemberName.Text = mm.MEMBER_NAME;
+
+                    var mmStatusLast = dbBFS.MemberMonthEndStatus.OrderByDescending(x=> x.StatusMonth).FirstOrDefault(x => x.MEMBER_CODE == mm.MEMBER_CODE);
+                    if (mmStatusLast != null)
+                    {
+                        txtLastPaymentDate.Text = string.Format("{0:MMM-yyyy}", mmStatusLast.LASTPAYMENTDATE);
+                        var st = dbBFS.MASTERSTATUS.FirstOrDefault(x => x.STATUS_CODE == mmStatusLast.STATUS_CODE);
+                        if (st != null)
+                        {
+                            txtStatus.Text = st.STATUS_NAME;                        
+                        }
+                    }                                       
                 }
+
+
             }
             catch (Exception ex)
             {

@@ -89,6 +89,7 @@ namespace Nube
         public virtual DbSet<FeesMaster> FeesMasters { get; set; }
         public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
         public virtual DbSet<FeesDetail> FeesDetails { get; set; }
+        public virtual DbSet<MemberMonthEndStatu> MemberMonthEndStatus { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

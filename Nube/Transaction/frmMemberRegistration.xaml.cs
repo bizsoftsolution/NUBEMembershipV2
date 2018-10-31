@@ -1429,7 +1429,7 @@ namespace Nube.Transaction
             {
                 var qry = (from x in db.MASTERMEMBERs where x.MEMBER_CODE == dMember_Code orderby x.DATEOFJOINING descending select x).FirstOrDefault();
 
-                var status = (from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
+                var status = db.MemberMonthEndStatus.OrderByDescending(x => x.StatusMonth).FirstOrDefault(x=> x.MEMBER_CODE==qry.MEMBER_CODE); //(from x in db.MemberStatusLogs where x.MEMBER_CODE == dMember_Code select x).FirstOrDefault();
 
                 var mbr = AppLib.lstMASTERBANKBRANCH.Where(x => x.BANK_CODE == qry.BANK_CODE).ToList();
                 cmbBranchCode.IsEnabled = true;
@@ -1592,8 +1592,7 @@ namespace Nube.Transaction
                     txtMonthlyUC.Text = "7";
                     txtMonthlyIns.Text = "10";
 
-                    txtAccSub.Text = (status.AccSubs).ToString();
-                    txtAccBF.Text = (status.AccBF).ToString();
+
                     txtAccUC.Text = (dTotlMonthsPaidUC * 7).ToString();
                     txtAccIns.Text = Ins.ToString();
 
@@ -1602,17 +1601,20 @@ namespace Nube.Transaction
                     txtCurrentYTDUC.Text = (dTotlMonthsPaidUC * 7).ToString();
                     txtCurrentYTDIns.Text = Ins.ToString();
 
-                    txtTotalMonthPaidSubs.Text = (status.TOTALMONTHSPAID).ToString();
-                    txtTotalMonthPaidBF.Text = (status.TOTALMONTHSPAID).ToString();
+                    
                     txtTotalMonthPaidUC.Text = (dTotlMonthsPaidUC).ToString();
                     txtTotalMonthPaidIns.Text = dTotlMonthsPaidUC.ToString();
 
                     if (status != null)
                     {
-                        txtTotalMonthsDueSubs.Text = (status.TOTALMOTHSDUE != null ? status.TOTALMOTHSDUE.ToString() : "");
-                        txtTotalMonthsDueBF.Text = (status.TOTALMOTHSDUE != null ? status.TOTALMOTHSDUE.ToString() : "");
+                        txtAccSub.Text = (status.ACCSUBSCRIPTION).ToString();
+                        txtAccBF.Text = (status.ACCBF).ToString();
+                        txtTotalMonthPaidSubs.Text = (status.TOTALMONTHSPAID).ToString();
+                        txtTotalMonthPaidBF.Text = (status.TOTALMONTHSPAID).ToString();
+                        txtTotalMonthsDueSubs.Text = (status.TOTALMONTHSDUE != null ? status.TOTALMONTHSDUE.ToString() : "");
+                        txtTotalMonthsDueBF.Text = (status.TOTALMONTHSDUE != null ? status.TOTALMONTHSDUE.ToString() : "");
 
-                        if (status.AI_Insurance == true)
+                        if (qry.AI_Insurance == true)
                         {
                             cmbAI_Insurance.Text = "Available";
                         }
@@ -1621,7 +1623,7 @@ namespace Nube.Transaction
                             cmbAI_Insurance.Text = "N/A";
                         }
 
-                        if (status.GE_Insurance == true)
+                        if (qry.GE_Insurance == true)
                         {
                             cmbGE_Insurance.Text = "Available";
                         }
@@ -1632,7 +1634,7 @@ namespace Nube.Transaction
 
                         dtpLastPay.SelectedDate = Convert.ToDateTime(qry.LASTPAYMENT_DATE);
 
-                        TimeSpan ts = Convert.ToDateTime(qry.LASTPAYMENT_DATE) - Convert.ToDateTime(status.DATEOFJOINING);
+                        TimeSpan ts = Convert.ToDateTime(status.LASTPAYMENTDATE) - Convert.ToDateTime(qry.DATEOFJOINING);
 
                         int iSerYear = Convert.ToInt32(ts.Days) / 365;
                         txtServicePeriod.Text = iSerYear.ToString();
@@ -1701,28 +1703,24 @@ namespace Nube.Transaction
                     }
                     if (status != null)
                     {
-                        if (status != null && (status.RESIGNED == true || status.MEMBERSTATUSCODE == 6))
+                        if (qry.RESIGNED == 1 )
                         {
-                            lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
+                            lblStatus.Content = string.Format("Member Resigned");
                         }
                         else
                         {
-                            if (status.MEMBERSTATUSCODE == 1)
+                            if (status.STATUS_CODE == 1)
                             {
-                                lblStatus.Content = "Active Member; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                                lblStatus.Content = "Active Member; " + status.TOTALMONTHSDUE + " Arrears Pending";
                             }
-                            else if (status.MEMBERSTATUSCODE == 2)
+                            else if (status.STATUS_CODE == 2)
                             {
-                                lblStatus.Content = "Defaulter; " + status.TOTALMOTHSDUE + " Arrears Pending";
+                                lblStatus.Content = "Defaulter; " + status.TOTALMONTHSDUE + " Arrears Pending";
                             }
-                            else if (status.MEMBERSTATUSCODE == 3)
+                            else if (status.STATUS_CODE == 3)
                             {
-                                lblStatus.Content = "Struck Off; " + status.TOTALMOTHSDUE + " Arrears Pending";
-                            }
-                            else if (status.MEMBERSTATUSCODE == 6)
-                            {
-                                lblStatus.Content = string.Format("Member Resigned, {0:dd/MMM/yyyy}", status.VOUCHER_DATE);
-                            }
+                                lblStatus.Content = "Struck Off; " + status.TOTALMONTHSDUE + " Arrears Pending";
+                            }                            
                         }
                     }
                     else

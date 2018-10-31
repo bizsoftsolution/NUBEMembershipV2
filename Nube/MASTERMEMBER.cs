@@ -14,6 +14,12 @@ namespace Nube
     
     public partial class MASTERMEMBER
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MASTERMEMBER()
+        {
+            this.MemberMonthEndStatus = new HashSet<MemberMonthEndStatu>();
+        }
+    
         public decimal MEMBER_CODE { get; set; }
         public string MEMBER_NAME { get; set; }
         public Nullable<decimal> MEMBER_ID { get; set; }
@@ -102,5 +108,7 @@ namespace Nube
     
         public virtual MASTERBANK MASTERBANK { get; set; }
         public virtual MASTERBANKBRANCH MASTERBANKBRANCH { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MemberMonthEndStatu> MemberMonthEndStatus { get; set; }
     }
 }

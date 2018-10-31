@@ -69,6 +69,8 @@
         <EntityTypeShape EntityType="nube18092017Model.FeesMaster" Width="1.5" PointX="27.375" PointY="0.75" />
         <EntityTypeShape EntityType="nube18092017Model.FeesDetailsNotMatch" Width="1.5" PointX="13.375" PointY="20.75" />
         <EntityTypeShape EntityType="nube18092017Model.FeesDetail" Width="1.5" PointX="15.375" PointY="21.75" />
+        <EntityTypeShape EntityType="nube18092017Model.MemberMonthEndStatu" Width="1.5" PointX="25.625" PointY="32.125" />
+        <AssociationConnector Association="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
