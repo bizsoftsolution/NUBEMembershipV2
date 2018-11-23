@@ -904,9 +904,9 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=iif(=First(Fields!RESIGNATION_DATE.Value, "Resign")&lt;CDate("2017/06/01"),First(Fields!RESIGNATION_DATE.Value, "Resign"),CDate("2017/05/31"))</Value>
+                    <Value>=iif(DateDiff("m",First(Fields!LASTPAYMENT_DATE.Value, "Resign"),"1/5/2017")&lt;0,"31/05/2017",First(Fields!LASTPAYMENT_DATE.Value, "Resign"))</Value>
                     <Style>
-                      <Format>dd-MMM-yyyy</Format>
+                      <Format>dd/MM/yyyy</Format>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -1704,7 +1704,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>7.25184in</Height>
+        <Height>7.34955in</Height>
         <Style />
       </Body>
       <Width>6.80059in</Width>
