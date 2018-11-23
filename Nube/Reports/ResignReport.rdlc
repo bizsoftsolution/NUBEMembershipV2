@@ -898,7 +898,13 @@
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value> TO 31/05/2017</Value>
+                    <Value> TO </Value>
+                    <Style>
+                      <Format>dd-MMM-yyyy</Format>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=iif(=First(Fields!RESIGNATION_DATE.Value, "Resign")&lt;CDate("2017/06/01"),First(Fields!RESIGNATION_DATE.Value, "Resign"),CDate("2017/05/31"))</Value>
                     <Style>
                       <Format>dd-MMM-yyyy</Format>
                     </Style>
