@@ -121,8 +121,7 @@ namespace Nube.Transaction
                             {
                                 if (MessageBox.Show("This Bank Details are already in DB, Do You want to Save Once Again ?", "Save Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                                 {
-                                    DB.FeesMasters.Remove(FeeMst);
-                                    DB.SaveChanges();
+
 
                                     var fdtl = (from x in DB.FeesDetails where x.FeeId == FeeMst.FeeId select x).ToList();
                                     if (fdtl != null)
@@ -137,8 +136,9 @@ namespace Nube.Transaction
                                         DB.FeesDetailsNotMatches.RemoveRange(DB.FeesDetailsNotMatches.Where(x => x.FeeId == FeeMst.FeeId));
                                         DB.SaveChanges();
                                     }
-
-                                    FeesMaster FeesMst = new FeesMaster
+									DB.FeesMasters.Remove(FeeMst);
+									DB.SaveChanges();
+									FeesMaster FeesMst = new FeesMaster
                                     {
                                         BankId = iBnkCode,
                                         FeeDate = YearName,
@@ -296,23 +296,33 @@ namespace Nube.Transaction
                             }
                             else
                             {
-                                FeesMaster FeesMst = new FeesMaster
-                                {
-                                    BankId = iBnkCode,
-                                    FeeDate = YearName,
-                                    XLFileName = drFees["BANK_NAME"].ToString(),
-                                    XLPassword = txtXLPassword.Password.ToString(),
-                                    UpdatedStatus = "Not Updated",
-                                };
-                                DB.FeesMasters.Add(FeesMst);
-                                DB.SaveChanges();
+								try
+								{
+									FeesMaster FeesMst = new FeesMaster
+									{
+										BankId = iBnkCode,
+										FeeDate = YearName,
+										XLFileName = drFees["BANK_NAME"].ToString(),
+										XLPassword = txtXLPassword.Password.ToString(),
+										UpdatedStatus = "Not Updated",
+									};
+									DB.FeesMasters.Add(FeesMst);
+									DB.SaveChanges();
+								}
+								catch (Exception ex)
+								{
 
-                                var sFid = DB.FeesMasters.Max(x => x.FeeId).ToString();
+								}
+								List<FeesDetail> lstFeesDetls = new List<FeesDetail>();
+								var sFid = DB.FeesMasters.Max(x => x.FeeId).ToString();
+								try
+								{
+									
 
                                 //DataTable dt = new DataTable();
                                 //dt = ((DataView)dgFeeDetails.ItemsSource).ToTable();
 
-                                List<FeesDetail> lstFeesDetls = new List<FeesDetail>();
+                                
                                 //progressBar1.Minimum = 0;
                                 //progressBar1.Maximum = dt.Rows.Count;
                                 progressBar1.Visibility = Visibility.Visible;
@@ -348,8 +358,15 @@ namespace Nube.Transaction
                                     DB.FeesDetails.AddRange(lstFeesDetls);
                                     DB.SaveChanges();
                                 }
+								}
+								catch (Exception ex)
+								{
 
-                                dt.Rows.Clear();
+								}
+
+								try
+								{
+dt.Rows.Clear();
                                 dt = ((DataView)dgNotMatch.ItemsSource).ToTable();
                                 dv = new DataView(dt);
                                 dv.RowFilter = "BANK_CODE=" + Convert.ToInt32(drFees["BANK_CODE"]);
@@ -484,6 +501,12 @@ namespace Nube.Transaction
                                     DB.FeesDetails.AddRange(lstFeesDetls);
                                     DB.SaveChanges();
                                 }
+								}
+								catch (Exception ex)
+								{
+								}
+
+                                
 
                                 dt.Rows.Clear();
                             }
