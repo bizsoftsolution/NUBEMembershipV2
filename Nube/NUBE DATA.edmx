@@ -889,6 +889,7 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PayMode" Type="varchar" MaxLength="50" />
           <Property Name="InsuranceAmount" Type="money" />
+          <Property Name="UnionContribution" Type="money" />
         </EntityType>
         <EntityType Name="SalutationSetup">
           <Key>
@@ -4106,6 +4107,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="PayMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="InsuranceAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="UnionContribution" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="ViewResign">
           <Key>
@@ -5797,6 +5799,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySetMapping Name="RESIGNATIONs">
             <EntityTypeMapping TypeName="nube18092017Model.RESIGNATION">
               <MappingFragment StoreEntitySet="RESIGNATION">
+                <ScalarProperty Name="UnionContribution" ColumnName="UnionContribution" />
                 <ScalarProperty Name="InsuranceAmount" ColumnName="InsuranceAmount" />
                 <ScalarProperty Name="PayMode" ColumnName="PayMode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

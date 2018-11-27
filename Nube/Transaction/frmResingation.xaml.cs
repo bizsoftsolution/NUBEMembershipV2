@@ -115,7 +115,7 @@ namespace Nube.Transaction
                 BeforeUpdate();
                 if (bValidation == false)
                 {
-                    if (MessageBox.Show("Total Amount is " + txtRegTotalAmount.Text + ". \r Sure to Resign ?", "Resign Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    if (MessageBox.Show("Total Amount is " + txtRegGrandTotal.Text + ". \r Sure to Resign ?", "Resign Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         var mm = (from mas in db.MASTERMEMBERs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
                         //var OldData = new JSonHelper().ConvertObjectToJSon(mm);
@@ -147,11 +147,12 @@ namespace Nube.Transaction
                             rsg.MONTHS_CONTRIBUTED = Convert.ToDecimal(txtRegContributedMonths.Text);
                             rsg.ACCBF = Convert.ToDecimal(txtRegBFContribution.Text);
                             rsg.ACCBENEFIT = Convert.ToDecimal(txtRegSubTotal.Text);
-                            rsg.InsuranceAmount = Convert.ToDecimal(txtRegUnionContri.Text);
-                            rsg.CHEQUENO = txtRegPaymode.Text.ToString();
+                            rsg.InsuranceAmount = Convert.ToDecimal(txtInsuranceAmount.Text);
+							rsg.UnionContribution = Convert.ToDecimal(txtRegUnionContri.Text);
+							rsg.CHEQUENO = txtRegPaymode.Text.ToString();
                             rsg.PayMode = cmbPaymode.Text.ToString();
                             rsg.CHEQUEDATE = dtpRegChequeDate.SelectedDate;
-                            rsg.AMOUNT = Convert.ToDecimal(txtRegTotalAmount.Text);
+                            rsg.AMOUNT = Convert.ToDecimal(txtRegGrandTotal.Text);
                             rsg.TOTALARREARS = Convert.ToDecimal(txtTotalMonthsDueSubs.Text);
                             rsg.USER_CODE = Convert.ToDecimal(AppLib.iUserCode);
                             rsg.ENTRY_DATE = DateTime.Now.Date;
@@ -526,8 +527,7 @@ namespace Nube.Transaction
 
             txtRegContributedMonths.Text = "";
             cmbRegClaimer.Text = "";
-            txtRegBenefitYear.Text = "";
-            txtRegBenefits.Text = "";
+            txtRegBenefitYear.Text = "";            
             dtpRegChequeDate.Text = "";
             dtpRegVData.Text = "";
             cmbPaymode.Text = "";
@@ -536,7 +536,13 @@ namespace Nube.Transaction
             txtRegServiceYear.Text = "";
             txtRegBenefits.Text = "";
             txtRegSubTotal.Text = "";
-            FormLoad();
+			txtInsuranceAmount.Text = "";
+			txtRegUnionContri.Text = "";
+			txtRegGrandTotal.Text = "";
+			tbiIRC.Focus();
+
+
+			FormLoad();
         }
 
         void LoadTempViewMaster()
@@ -1065,8 +1071,12 @@ namespace Nube.Transaction
                             dtpRegVData.Text = dtResign.Rows[i]["VOUCHER_DATE"].ToString();
                             txtRegServiceYear.Text = dtResign.Rows[i]["SERVICE_YEAR"].ToString();
                             cmbRegReason.SelectedValue = Convert.ToInt32(dtResign.Rows[i]["REASON_CODE"]);
-                            dtpRegResignDate.Text = string.Format("{0:dd/MMM/yyyy}", dtResign.Rows[i]["RESIGNATION_DATE"]);
-                        }
+							txtInsuranceAmount.Text = dtResign.Rows[i]["InsuranceAmount"].ToString();
+							txtRegUnionContri.Text = dtResign.Rows[i]["unioncontribution"].ToString();
+							fTotal();
+							dtpRegResignDate.Text = string.Format("{0:dd/MMM/yyyy}", dtResign.Rows[i]["RESIGNATION_DATE"]);
+							
+						}
                     }
                     else
                     {
@@ -1090,9 +1100,9 @@ namespace Nube.Transaction
         {
             decimal iBFContri = Convert.ToDecimal(txtRegBFContribution.Text);
             decimal iBenefits = Convert.ToDecimal(txtRegSubTotal.Text);
-            decimal iUnionContri = Convert.ToDecimal(txtRegUnionContri.Text);
+            decimal insuranseAmount = Convert.ToDecimal(txtInsuranceAmount.Text);
             txtRegTotalAmount.Text = (iBFContri + iBenefits).ToString();
-            txtRegGrandTotal.Text = (iBFContri + iBenefits + iUnionContri).ToString();
+            txtRegGrandTotal.Text = (iBFContri + iBenefits + insuranseAmount).ToString();
             //txtRegSubTotal.Text = (iBFContri + iBenefits).ToString();
         }
 
@@ -1219,5 +1229,10 @@ namespace Nube.Transaction
             tbiResignationDetail.IsEnabled = true;
             tbiResignationDetail.Focus();
         }
-    }
+
+		private void txtRegGrandTotal_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			fTotal();
+		}
+	}
 }

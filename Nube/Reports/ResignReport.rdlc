@@ -1421,7 +1421,7 @@
           </Textbox>
           <Line Name="Line4">
             <Top>12.99986cm</Top>
-            <Left>0.52599cm</Left>
+            <Left>0.21202cm</Left>
             <Height>0cm</Height>
             <Width>16.2054cm</Width>
             <ZIndex>37</ZIndex>
@@ -1643,7 +1643,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Union Contribution</Value>
+                    <Value>Insurance Amount</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1658,9 +1658,6 @@
             <Height>0.6cm</Height>
             <Width>10.14504cm</Width>
             <ZIndex>44</ZIndex>
-            <Visibility>
-              <Hidden>=IIF(First(Parameters!Benifit.Value) &lt;&gt; "", False, True)</Hidden>
-            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>

@@ -38,5 +38,6 @@ namespace Nube
         public int Id { get; set; }
         public string PayMode { get; set; }
         public Nullable<decimal> InsuranceAmount { get; set; }
+        public Nullable<decimal> UnionContribution { get; set; }
     }
 }
