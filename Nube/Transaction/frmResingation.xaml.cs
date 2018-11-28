@@ -1072,7 +1072,7 @@ namespace Nube.Transaction
                             txtRegServiceYear.Text = dtResign.Rows[i]["SERVICE_YEAR"].ToString();
                             cmbRegReason.SelectedValue = Convert.ToInt32(dtResign.Rows[i]["REASON_CODE"]);
 							txtInsuranceAmount.Text = dtResign.Rows[i]["InsuranceAmount"].ToString();
-							txtRegUnionContri.Text = dtResign.Rows[i]["unioncontribution"].ToString();
+							txtRegUnionContri.Text = dtResign.Rows[i]["UnionContribution"].ToString();
 							fTotal();
 							dtpRegResignDate.Text = string.Format("{0:dd/MMM/yyyy}", dtResign.Rows[i]["RESIGNATION_DATE"]);
 							
@@ -1094,13 +1094,14 @@ namespace Nube.Transaction
             {
                 ExceptionLogging.SendErrorToText(ex);
             }
+			if (string.IsNullOrWhiteSpace(txtInsuranceAmount.Text)) txtInsuranceAmount.Text = "0";
         }
 
         void fTotal()
         {
-            decimal iBFContri = Convert.ToDecimal(txtRegBFContribution.Text);
-            decimal iBenefits = Convert.ToDecimal(txtRegSubTotal.Text);
-            decimal insuranseAmount = Convert.ToDecimal(txtInsuranceAmount.Text);
+            decimal iBFContri = Convert.ToDecimal("0"+txtRegBFContribution.Text);
+            decimal iBenefits = Convert.ToDecimal("0" + txtRegSubTotal.Text);
+            decimal insuranseAmount = Convert.ToDecimal("0" + txtInsuranceAmount.Text);
             txtRegTotalAmount.Text = (iBFContri + iBenefits).ToString();
             txtRegGrandTotal.Text = (iBFContri + iBenefits + insuranseAmount).ToString();
             //txtRegSubTotal.Text = (iBFContri + iBenefits).ToString();

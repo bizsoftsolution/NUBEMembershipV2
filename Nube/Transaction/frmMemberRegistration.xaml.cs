@@ -1705,7 +1705,8 @@ namespace Nube.Transaction
                     {
                         if (qry.RESIGNED == 1 )
                         {
-                            lblStatus.Content = string.Format("Member Resigned");
+							var r = db.RESIGNATIONs.FirstOrDefault(x => x.MEMBER_CODE == qry.MEMBER_CODE);
+                            lblStatus.Content =r==null? "Member Resigned" : string.Format("Member Resigned at {0:dd/MM/yyyy}",r.VOUCHER_DATE);
                         }
                         else
                         {
