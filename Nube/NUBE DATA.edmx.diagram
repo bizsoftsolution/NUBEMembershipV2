@@ -61,7 +61,6 @@
         <EntityTypeShape EntityType="nube18092017Model.MemberStatusLog" Width="1.5" PointX="15.375" PointY="28.75" />
         <EntityTypeShape EntityType="nube18092017Model.Tran_Start" Width="1.5" PointX="29.375" PointY="15.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewMasterMember" Width="1.5" PointX="8.375" PointY="16.75" />
-        <EntityTypeShape EntityType="nube18092017Model.RESIGNATION" Width="1.5" PointX="29.375" PointY="27.75" />
         <EntityTypeShape EntityType="nube18092017Model.ViewResign" Width="1.5" PointX="31.375" PointY="15.75" />
         <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" />
         <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" />
@@ -71,6 +70,7 @@
         <EntityTypeShape EntityType="nube18092017Model.FeesDetail" Width="1.5" PointX="13.375" PointY="20.75" />
         <EntityTypeShape EntityType="nube18092017Model.FeesDetailsNotMatch" Width="1.5" PointX="15.375" PointY="21.75" />
         <EntityTypeShape EntityType="nube18092017Model.FeesMaster" Width="1.5" PointX="27.375" PointY="0.75" />
+        <EntityTypeShape EntityType="nube18092017Model.RESIGNATION" Width="1.5" PointX="29.375" PointY="28.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

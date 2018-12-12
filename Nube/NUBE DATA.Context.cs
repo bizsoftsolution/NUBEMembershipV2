@@ -83,13 +83,13 @@ namespace Nube
         public virtual DbSet<MemberStatusLog> MemberStatusLogs { get; set; }
         public virtual DbSet<Tran_Start> Tran_Start { get; set; }
         public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
-        public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
         public virtual DbSet<ViewResign> ViewResigns { get; set; }
         public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
         public virtual DbSet<MemberMonthEndStatu> MemberMonthEndStatus { get; set; }
         public virtual DbSet<FeesDetail> FeesDetails { get; set; }
         public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
         public virtual DbSet<FeesMaster> FeesMasters { get; set; }
+        public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

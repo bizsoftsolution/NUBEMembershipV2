@@ -68,5 +68,6 @@ namespace Nube
         public Nullable<System.DateTime> LASTPAYMENT_DATE { get; set; }
         public string PAYMODE { get; set; }
         public Nullable<decimal> InsuranceAmount { get; set; }
+        public Nullable<decimal> UnionContribution { get; set; }
     }
 }
