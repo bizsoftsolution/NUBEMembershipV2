@@ -15,6 +15,12 @@
     <metro:MetroWindow.Background>
         <ImageBrush ImageSource="/Nube;component/Image/Background.jpg"/>
     </metro:MetroWindow.Background>
+    <metro:MetroWindow.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="RightCell">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </metro:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10*"/>
@@ -82,13 +88,13 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="NUBE BRANCH NAME" FontWeight="Bold" Width="250" Binding="{Binding NUBEBANCHNAME}"/>
-                            <DataGridTextColumn Header="TOTAL" FontWeight="Bold" Width="150" Binding="{Binding TOTAL}" />
-                            <DataGridTextColumn Header="BF" FontWeight="Bold" Width="150" Binding="{Binding BF}"/>
-                            <DataGridTextColumn Header="SUBS" FontWeight="Bold" Width="150" Binding="{Binding SUBS}"/>
-                            <DataGridTextColumn Header="HALFSHARE" FontWeight="Bold" Width="150"  Binding="{Binding HALFSHARE}"/>
-                            <DataGridTextColumn Header="EDU 10% Fund" Width="150" FontWeight="Bold" Binding="{Binding FUND}"/>
-                            <DataGridTextColumn Header="TOTALAMOUNT" Width="150" FontWeight="Bold" Binding="{Binding TOTALAMOUNT}"/>
+                            <DataGridTextColumn Header="NUBE BRANCH NAME" FontWeight="Bold" Width="220" Binding="{Binding NUBEBANCHNAME}"/>
+                            <DataGridTextColumn Header="TOTAL" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding TOTAL,StringFormat={}{0:N2}}" />
+                            <DataGridTextColumn Header="BF" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding BF,StringFormat={}{0:N2}}"/>
+                            <DataGridTextColumn Header="SUBS" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding SUBS,StringFormat={}{0:N2}}"/>
+                            <DataGridTextColumn Header="HALFSHARE" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150"  Binding="{Binding HALFSHARE,StringFormat={}{0:N2}}"/>
+                            <DataGridTextColumn Header="EDU 10% Fund" ElementStyle="{StaticResource RightCell}" Width="150" FontWeight="Bold" Binding="{Binding FUND,StringFormat={}{0:N2}}"/>
+                            <DataGridTextColumn Header="TOTALAMOUNT" ElementStyle="{StaticResource RightCell}" Width="150" FontWeight="Bold" Binding="{Binding TOTALAMOUNT,StringFormat={}{0:N2}}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

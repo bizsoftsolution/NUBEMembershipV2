@@ -56,9 +56,9 @@ namespace Nube.Reports
                         progressBar1.Value = 5;
                         System.Windows.Forms.Application.DoEvents();
                         string str=string.Format("DECLARE @FEEDATE DATETIME='{0:dd/MMM/yyyy}' \r" +
-                                " SELECT NUBEBANCHNAME [NUBEBANCHNAME],CONVERT(NUMERIC(18,2),SUM(TOTALAMOUNT))TOTAL,CONVERT(NUMERIC(18,2),SUM(AMOUNTBF))BF, \r" +
-                                " CONVERT(NUMERIC(18, 2), SUM(AMTSUBS))SUBS, CONVERT(NUMERIC(18, 2), (SUM(AMTSUBS) / 2))[HALFSHARE], \r" +
-                                " CONVERT(NUMERIC(18, 2), ((SUM(AMTSUBS) / 2) * 0.1))[FUND], CONVERT(NUMERIC(18, 2), (SUM(AMTSUBS) / 2) - ((SUM(AMTSUBS) / 2) * 0.1))[TOTALAMOUNT] \r" +
+                                " SELECT NUBEBANCHNAME [NUBEBANCHNAME],ROUND(SUM(TOTALAMOUNT),2)TOTAL,ROUND(SUM(AMOUNTBF),2)BF, \r" +
+                                " ROUND(SUM(AMTSUBS),2)SUBS, ROUND((ROUND(SUM(AMTSUBS),2) / 2),2)[HALFSHARE], \r" +
+                                " ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2)[FUND], ROUND(ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) - ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2),2)[TOTALAMOUNT] \r" +
                                 " FROM( \r" +
                                 " SELECT DISTINCT T.FEEID, T.DETAILID, T.MEMBERCODE, \r" +
                                 " CASE WHEN ISNULL(NB.NUBE_BRANCH_NAME, '') <> '' THEN ISNULL(NB.NUBE_BRANCH_NAME, '') ELSE ISNULL(ST.NUBEBRANCH_NAME, '') END \r" +
