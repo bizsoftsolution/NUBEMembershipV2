@@ -920,7 +920,8 @@ namespace Nube.Transaction
                                 {
                                     txtRegContributedMonths.Text = Convert.ToInt32(dr["TOTALMONTHSPAID"]).ToString();
                                     txtRegBFContribution.Text = Convert.ToInt32(dr["ACCBF"]).ToString();
-                                }
+									txtRegBenefitYear.Text = Convert.ToInt32(Convert.ToInt32(dr["TOTALMONTHSPAID"]) / 12).ToString();
+								}
                                 dr.Close();
                                 cn.Close();
                             }
@@ -1121,7 +1122,7 @@ namespace Nube.Transaction
                     var rr = (from d in db.MASTERRESIGNSTATUS where d.RESIGNSTATUS_CODE == dReason && d.IsBenefitValid == true select d).FirstOrDefault();
                     if (rr != null)
                     {
-                        int iBenefitYrs = Convert.ToInt32(txtRegServiceYear.Text);
+                        int iBenefitYrs = Convert.ToInt32(txtRegBenefitYear.Text);
                         iUnionContribbution = Convert.ToInt32(txtAccUC.Text);
                         if ((Convert.ToInt32(txtTotalMonthPaidSubs.Text) + 3) >= iTotalmonth && iBenefitYrs >= rr.MinimumYear)
                         {
