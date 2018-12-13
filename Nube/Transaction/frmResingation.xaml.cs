@@ -1149,17 +1149,21 @@ namespace Nube.Transaction
                 txtRegBenefits.Text = iBenefitAmt.ToString();
                 txtRegUnionContri.Text = iUnionContribbution.ToString();
 				//txtRegContributedMonths.Text = iTotalmonth.ToString();
-				var dt = dtpRegVData.SelectedDate.Value;
-				dt = new DateTime(dt.Year, dt.Month, 1);
-				var dStatus = db.MemberMonthEndStatus.FirstOrDefault(x => x.StatusMonth == dt && x.MEMBER_CODE == dMember_Code);
-				if (dStatus == null)
+				if (dtpRegVData.SelectedDate != null)
 				{
-					txtRegSubTotal.Text = iBenefitAmt.ToString();
+					var dt = dtpRegVData.SelectedDate.Value;
+					dt = new DateTime(dt.Year, dt.Month, 1);
+					var dStatus = db.MemberMonthEndStatus.FirstOrDefault(x => x.StatusMonth == dt && x.MEMBER_CODE == dMember_Code);
+					if (dStatus == null)
+					{
+						txtRegSubTotal.Text = iBenefitAmt.ToString();
+					}
+					else
+					{
+						txtRegSubTotal.Text = (dStatus.STATUS_CODE != 1) ? "0" : iBenefitAmt.ToString();
+					}
 				}
-				else
-				{
-					txtRegSubTotal.Text = (dStatus.STATUS_CODE != 1) ? "0" : iBenefitAmt.ToString();
-				}
+				
               
                 fTotal();
             }
