@@ -1150,9 +1150,9 @@ namespace Nube.Transaction
                 txtRegBenefits.Text = iBenefitAmt.ToString();
                 txtRegUnionContri.Text = iUnionContribbution.ToString();
 				//txtRegContributedMonths.Text = iTotalmonth.ToString();
-				if (dtpRegVData.SelectedDate != null)
+				if (dtpRegResignDate.SelectedDate != null)
 				{
-					var dt = dtpRegVData.SelectedDate.Value;
+					var dt = dtpRegResignDate.SelectedDate.Value;
 					dt = new DateTime(dt.Year, dt.Month, 1);
 					var dStatus = db.MemberMonthEndStatus.FirstOrDefault(x => x.StatusMonth == dt && x.MEMBER_CODE == dMember_Code);
 					if (dStatus == null)
@@ -1249,6 +1249,11 @@ namespace Nube.Transaction
         }
 
 		private void txtRegGrandTotal_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			fTotal();
+		}
+
+		private void txtInsuranceAmount_TextChanged(object sender, TextChangedEventArgs e)
 		{
 			fTotal();
 		}

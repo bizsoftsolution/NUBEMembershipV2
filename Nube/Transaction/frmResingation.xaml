@@ -522,7 +522,7 @@
 						<TextBlock x:Name="lblRegCity_Copy" FontWeight="Bold" HorizontalAlignment="Left" Margin="25,258,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="69" RenderTransformOrigin="1.854,0.368" Height="25" Text="Paymode"/>
 						<TextBox x:Name="txtRegSubTotal" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Margin="481,179,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Benifit Amount" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="147" RenderTransformOrigin="-0.205,0.625" PreviewTextInput="txtRegSubTotal_PreviewTextInput"/>
 						<Button x:Name="btnSave" Content="Resign" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="87" Margin="0 0 80 135" Height="28" Click="btnSave_Click" />
-						<TextBox x:Name="txtInsuranceAmount" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Margin="653,235,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Insurance Amount" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="147" RenderTransformOrigin="-0.205,0.625" PreviewTextInput="txtRegTotalAmount_PreviewTextInput"/>
+						<TextBox x:Name="txtInsuranceAmount" FontWeight="Bold" HorizontalAlignment="Left" Height="50" Margin="653,235,0,0" TextWrapping="Wrap" materialDesign:HintAssist.Hint="Insurance Amount" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="147" RenderTransformOrigin="-0.205,0.625" TextChanged="txtInsuranceAmount_TextChanged" PreviewTextInput="txtRegTotalAmount_PreviewTextInput"/>
 					</Grid>
 				</TabItem>
 				<!--<TabItem Header="Insurance Details" FontSize="14">
