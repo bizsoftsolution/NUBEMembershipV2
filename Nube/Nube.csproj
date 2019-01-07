@@ -1041,6 +1041,7 @@
     <EmbeddedResource Include="Reports\CityReport.rdlc" />
     <EmbeddedResource Include="Reports\ComparitionReport.rdlc" />
     <EmbeddedResource Include="Reports\frmActiveMemberReport.rdlc" />
+    <EmbeddedResource Include="Reports\HalfShare - Copy.rdlc" />
     <EmbeddedResource Include="Reports\HalfShare.rdlc" />
     <EmbeddedResource Include="Reports\MemberReport.rdlc" />
     <EmbeddedResource Include="Reports\MonthlyStatement.rdlc" />

@@ -56,15 +56,15 @@ namespace Nube.Reports
                         progressBar1.Value = 5;
                         System.Windows.Forms.Application.DoEvents();
                         string str=string.Format("DECLARE @FEEDATE DATETIME='{0:dd/MMM/yyyy}' \r" +
-                                " SELECT NUBEBANCHNAME [NUBEBANCHNAME],ROUND(SUM(TOTALAMOUNT),2)TOTAL,ROUND(SUM(AMOUNTBF),2)BF, \r" +
+								" SELECT NUBEBANCHNAME [NUBEBANCHNAME],ROUND(SUM(TOTALAMOUNT),2)TOTAL,ROUND(SUM(AMOUNTBF),2)BF,ROUND(SUM(AmtIns),2)AmtIns, \r" +
                                 " ROUND(SUM(AMTSUBS),2)SUBS, ROUND((ROUND(SUM(AMTSUBS),2) / 2),2)[HALFSHARE], \r" +
                                 " ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2)[FUND], ROUND(ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) - ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2),2)[TOTALAMOUNT] \r" +
                                 " FROM( \r" +
                                 " SELECT DISTINCT T.FEEID, T.DETAILID, T.MEMBERCODE, \r" +
                                 " CASE WHEN ISNULL(NB.NUBE_BRANCH_NAME, '') <> '' THEN ISNULL(NB.NUBE_BRANCH_NAME, '') ELSE ISNULL(ST.NUBEBRANCH_NAME, '') END \r" +
-                                " NUBEBANCHNAME,T.FEEDATE, ISNULL(T.STATUS, '')STATUS, TOTALAMOUNT, AMTSUBS, AMOUNTBF \r" +
+								" NUBEBANCHNAME,T.FEEDATE, ISNULL(T.STATUS, '')STATUS, TOTALAMOUNT, AMTSUBS, AMOUNTBF,AmtIns \r" +
                                 " FROM(SELECT FM.FEEID, FD.DETAILID, FD.MEMBERCODE, FM.FEEDATE, FD.STATUS, \r" +
-                                " SUM(FD.TOTALAMOUNT)TOTALAMOUNT, SUM(FD.AMOUNTBF)AMOUNTBF, (SUM(FD.AMTSUBS) + SUM(ISNULL(FD.UNIONCONTRIBUTION, 0)))AMTSUBS \r" +
+								" SUM(FD.TOTALAMOUNT)TOTALAMOUNT, SUM(FD.AMOUNTBF)AMOUNTBF,SUM(ISNULL(FD.UNIONCONTRIBUTION, 0)) AmtIns, (SUM(FD.AMTSUBS))AMTSUBS \r" +
                                 " FROM FEESDETAILS FD(NOLOCK) \r" +
                                 " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID \r" +
                                 " WHERE FM.FEEDATE=@FEEDATE AND FD.ISNOTMATCH = 0 \r" +

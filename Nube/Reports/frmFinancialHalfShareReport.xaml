@@ -88,9 +88,10 @@
                             </Style>
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="NUBE BRANCH NAME" FontWeight="Bold" Width="220" Binding="{Binding NUBEBANCHNAME}"/>
+                            <DataGridTextColumn Header="NUBE BRANCH" FontWeight="Bold" Width="120" Binding="{Binding NUBEBANCHNAME}"/>
                             <DataGridTextColumn Header="TOTAL" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding TOTAL,StringFormat={}{0:N2}}" />
-                            <DataGridTextColumn Header="BF" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding BF,StringFormat={}{0:N2}}"/>
+                            <DataGridTextColumn Header="BF" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding BF,StringFormat={}{0:N2}}"/>
+							<DataGridTextColumn Header="INS" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="120" Binding="{Binding AmtIns,StringFormat={}{0:N2}}"/>
                             <DataGridTextColumn Header="SUBS" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150" Binding="{Binding SUBS,StringFormat={}{0:N2}}"/>
                             <DataGridTextColumn Header="HALFSHARE" ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="150"  Binding="{Binding HALFSHARE,StringFormat={}{0:N2}}"/>
                             <DataGridTextColumn Header="EDU 10% Fund" ElementStyle="{StaticResource RightCell}" Width="150" FontWeight="Bold" Binding="{Binding FUND,StringFormat={}{0:N2}}"/>
