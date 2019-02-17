@@ -63,6 +63,7 @@
                     <DataGridTextColumn Header="History Date" FontWeight="Bold" Width="120" Binding="{Binding HDATE,StringFormat=\{0:MMM-yyyy\}}"/>
                     <DataGridTextColumn Header="Subs.Paid" FontWeight="Bold" Width="100" Binding="{Binding SUBPAID}"/>
                     <DataGridTextColumn Header="BF Paid" FontWeight="Bold" Width="100" Binding="{Binding BFPAID}"/>
+                    <DataGridTextColumn Header="Ins. Paid" FontWeight="Bold" Width="100" Binding="{Binding INSPAID}"/>
                     <DataGridTextColumn Header="Mon.Paid" FontWeight="Bold" Width="100"  Binding="{Binding MONTHPAID}"/>
                     <DataGridTextColumn Header="Last Payment Date" FontWeight="Bold" Width="120" Binding="{Binding LDATE,StringFormat=\{0:MMM-yyyy\}}"/>
                     <DataGridTextColumn Header="Tot.Mon.Paid" Width="120" FontWeight="Bold" Binding="{Binding TOTALMONTHPAID}"/>
