@@ -503,35 +503,48 @@ namespace Nube.Reports
                         sWhere = sWhere + " AND (MS.STATE_NAME NOT LIKE '%MELAKA%') ";
                     }
                 }
+                DateTime dtSelect = dtpDOB.SelectedDate.Value;
+                dtSelect = new DateTime(dtSelect.Year, dtSelect.Month, 1);
+                Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
+                                 " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
+                                 " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
+                                 " (CASE WHEN ST.STATUS_CODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
+                                 " FROM MemberMonthEndStatus ST(NOLOCK)\r" +
+                                 " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
+                                 " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANK_CODE \r" +
+                                 " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCH_CODE \r" +
+                                 " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE \r" +
+                                 " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                                 " WHERE ST.StatusMonth = '{0:yyyy/MM/dd}' and ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtSelect);
 
-                if ((Convert.ToDateTime(dtpDOB.SelectedDate).Year >= 2016 && Convert.ToDateTime(dtpDOB.SelectedDate).Month > 3) || Convert.ToDateTime(dtpDOB.SelectedDate).Year > 2016)
-                {
-                    Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
-                                    " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
-                                    " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
-                                    " (CASE WHEN ST.STATUS_CODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
-                                    " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
-                                    " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
-                                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANK_CODE \r" +
-                                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCH_CODE \r" +
-                                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = st.NUBE_BRANCH_CODE \r" +
-                                    " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
-                                    " WHERE ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtpDOB.SelectedDate);
-                }
-                else
-                {
-                    Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
-                                    " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
-                                    " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
-                                    " (CASE WHEN ST.STATUS_CODE=1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
-                                    " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
-                                    " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE=ST.MEMBER_CODE \r" +
-                                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE=ST.BANK_CODE \r" +
-                                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE=ST.BRANCH_CODE \r" +
-                                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE=ST.NUBE_BRANCH_CODE \r" +
-                                    " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
-                                    " WHERE ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtpDOB.SelectedDate);
-                }
+                //if ((Convert.ToDateTime(dtpDOB.SelectedDate).Year >= 2016 && Convert.ToDateTime(dtpDOB.SelectedDate).Month > 3) || Convert.ToDateTime(dtpDOB.SelectedDate).Year > 2016)
+                //{
+                //    Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
+                //                    " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
+                //                    " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
+                //                    " (CASE WHEN ST.STATUS_CODE = 1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
+                //                    " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
+                //                    " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE = ST.MEMBER_CODE \r" +
+                //                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE = ST.BANK_CODE \r" +
+                //                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = ST.BRANCH_CODE \r" +
+                //                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = st.NUBE_BRANCH_CODE \r" +
+                //                    " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                //                    " WHERE ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtpDOB.SelectedDate);
+                //}
+                //else
+                //{
+                //    Qry = string.Format(" SELECT ISNULL(NB.NUBE_BRANCH_NAME,'') AS NUBE_BRANCH_NAME,ISNULL(MB.BANK_NAME,'') AS BANK_NAME, \r" +
+                //                    " ISNULL(MB.BANK_USERCODE, '') + '_' + ISNULL(BB.BANKBRANCH_USERCODE, '') AS BANKBRANCH, \r" +
+                //                    " ISNULL(MM.SEX, '') AS SEX, ISNULL(MM.RACE_CODE, 0) AS RACE_CODE, \r" +
+                //                    " (CASE WHEN ST.STATUS_CODE=1 THEN 1.0 ELSE 2.0  END) STATUS \r" +
+                //                    " FROM NUBESTATUS..STATUS{0:MMyyyy} ST(NOLOCK)\r" +
+                //                    " LEFT JOIN MASTERMEMBER MM(NOLOCK) ON MM.MEMBER_CODE=ST.MEMBER_CODE \r" +
+                //                    " LEFT JOIN MASTERBANK MB(NOLOCK) ON MB.BANK_CODE=ST.BANK_CODE \r" +
+                //                    " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE=ST.BRANCH_CODE \r" +
+                //                    " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE=ST.NUBE_BRANCH_CODE \r" +
+                //                    " LEFT JOIN MASTERSTATE MS(NOLOCK) ON MS.STATE_CODE = BB.BANKBRANCH_STATE_CODE   \r" +
+                //                    " WHERE ST.STATUS_CODE IN(1,2) " + sWhere + " \r ORDER BY NB.NUBE_BRANCH_NAME ", dtpDOB.SelectedDate);
+                //}
 
 
                 SqlCommand cmd = new SqlCommand(Qry, con);

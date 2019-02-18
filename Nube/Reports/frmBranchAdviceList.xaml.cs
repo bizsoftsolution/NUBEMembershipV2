@@ -228,12 +228,16 @@ namespace Nube
             DataTable dt = new DataTable();
             using (SqlConnection con = new SqlConnection(connStr))
             {
-                SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANKUSER_CODE BANK_USERCODE,MEMBER_ID, \r" +
-                                                " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, Branch_Name  As BRANCHNAME, \r" +
-                                                " DATEOFJOINING,CASE WHEN ISNULL(MEMBERTYPE_NAME,'')='CLERICAL' THEN 'Y' ELSE 'N' END MEMBERTYPE_NAME,\r" +
+                SqlCommand cmd = new SqlCommand(" SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NAME ASC) AS RNO,MEMBER_NAME,BANK_USERCODE,MEMBER_ID, \r" +
+                                                " CASE WHEN ISNULL(ICNO_NEW, '')<>'' THEN ISNULL(ICNO_NEW,'') ELSE ISNULL(ICNO_OLD,'') END ICNO_NEW, BANKBRANCH_NAME  As BRANCHNAME, \r" +
+                                                " DATEOFJOINING,CASE WHEN MEMBERTYPE_CODE=1 THEN 'Y' ELSE 'N' END MEMBERTYPE_NAME,\r" +
                                                 " ENTRANCEFEE,MONTHLYSUBSCRIPTION,MONTHLYBF,HQFEE,CASE WHEN ISNULL(REJOINED,0)=0 THEN 'N' ELSE 'R' END REJOINED\r" +
-                                                " FROM MEMBERSTATUSLOG(NOLOCK) WHERE " + qry +
-                                                " ORDER BY Branch_Name,MEMBER_NAME", con);
+                                                " FROM MASTERMEMBER mm " +
+                                                " left join MASTERBANKBRANCH bb on mm.BRANCH_CODE = bb.bankbranch_code " +
+                                                " left join MASTERBANK mb  on mb.bank_code = bb.bank_code " +
+                                                " left join MASTERNUBEBRANCH nb on nb.NUBE_BRANCH_CODE = bb.NUBE_BRANCH_CODE" +
+                                                " WHERE " + qry +
+                                                " ORDER BY BANKBRANCH_NAME,MEMBER_NAME", con);
                 SqlDataAdapter adp = new SqlDataAdapter(cmd);
 
                 adp.Fill(dt);
@@ -249,11 +253,11 @@ namespace Nube
             {
                 if (!string.IsNullOrEmpty(qry))
                 {
-                    qry = qry + " AND NUBEBRANCH_NAME='" + cmbBranch.Text + "' ";
+                    qry = qry + " AND NUBE_BRANCH_NAME='" + cmbBranch.Text + "' ";
                 }
                 else
                 {
-                    qry = qry + " NUBEBRANCH_NAME='" + cmbBranch.Text + "' ";
+                    qry = qry + " NUBE_BRANCH_NAME='" + cmbBranch.Text + "' ";
                 }
             }
 
