@@ -25,10 +25,12 @@ namespace Nube
         string connStr = AppLib.connstatus;
         nubebfsEntity dbBFS = new nubebfsEntity();
         string sFormName = "";
+        int NoOfKey = 0;
         public frmMemberHistory(string FormN = "")
         {
             InitializeComponent();
             sFormName = FormN;
+            NoOfKey = 0;
         }
 
         public void FormLoad(decimal id, DateTime doj, string bank, string branch, string monBF, string monSub, string Type)
@@ -36,6 +38,8 @@ namespace Nube
             try
             {
                 InitializeComponent();
+
+                NoOfKey = 0;
                 txtMemberID.Text = id.ToString();
                 dtpDOJ.SelectedDate = doj.Date;
                 txtBankName.Text = bank;
@@ -226,8 +230,30 @@ namespace Nube
                 progressBar1.Visibility = Visibility.Hidden;
             }
         }
-    }
 
+        private void MetroWindow_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftAlt) && Keyboard.IsKeyDown(Key.LeftShift))
+            {
+                if (e.Key == Key.N && NoOfKey == 0) NoOfKey++;
+                else if (e.Key == Key.U && NoOfKey == 1) NoOfKey++;
+                else if (e.Key == Key.B && NoOfKey == 2) NoOfKey++;
+                else if (e.Key == Key.E && NoOfKey == 3) ShowHistoryUpdateForm();
+                else NoOfKey = 0;
+            }
+        }
+        void ShowHistoryUpdateForm()
+        {
+            try
+            {
+                frmHistoryAlter frm = new frmHistoryAlter();
+                frm.Search(Convert.ToDecimal(txtMemberID.Text));
+                frm.ShowDialog();
+            }
+            catch(Exception ex) { }
+        }
+    }
+    
     public class MemberStatus
     {
         public int RNO { get; set; }

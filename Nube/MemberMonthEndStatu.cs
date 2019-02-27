@@ -45,6 +45,12 @@ namespace Nube
         public Nullable<System.DateTime> ENTRY_DATE { get; set; }
         public string ENTRY_TIME { get; set; }
         public Nullable<decimal> STRUCKOFF { get; set; }
+        public Nullable<decimal> INSURANCE_AMOUNT { get; set; }
+        public Nullable<decimal> TOTALINSURANCE_AMOUNT { get; set; }
+        public Nullable<decimal> TOTALMONTHSCONTRIBUTION { get; set; }
+        public Nullable<decimal> INSURANCEDUE { get; set; }
+        public Nullable<decimal> ACCINSURANCE { get; set; }
+        public Nullable<decimal> CURRENT_YDTINSURANCE { get; set; }
     
         public virtual MASTERMEMBER MASTERMEMBER { get; set; }
     }

@@ -14,9 +14,18 @@ namespace Nube
     
     public partial class MASTERSTATU
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MASTERSTATU()
+        {
+            this.MASTERMEMBERs = new HashSet<MASTERMEMBER>();
+        }
+    
         public decimal STATUS_CODE { get; set; }
         public string STATUS_NAME { get; set; }
         public string STATUS_SHORTCODE { get; set; }
         public Nullable<decimal> DELETED { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MASTERMEMBER> MASTERMEMBERs { get; set; }
     }
 }

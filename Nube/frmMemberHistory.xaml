@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube"
         mc:Ignorable="d"
-        Title="Member History" Height="700" Width="1100" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen">
+        Title="Member History" Height="700" Width="1100" Icon="/Nube;component/Image/Logo.png" KeyUp="MetroWindow_KeyUp" WindowStartupLocation="CenterScreen">
     <metro:MetroWindow.Background>
         <ImageBrush ImageSource="/Nube;component/Image/Background.jpg" />
     </metro:MetroWindow.Background>

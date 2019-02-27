@@ -14,7 +14,16 @@ namespace Nube
     
     public partial class MASTERMEMBERTYPE
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MASTERMEMBERTYPE()
+        {
+            this.MASTERMEMBERs = new HashSet<MASTERMEMBER>();
+        }
+    
         public decimal MEMBERTYPE_CODE { get; set; }
         public string MEMBERTYPE_NAME { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MASTERMEMBER> MASTERMEMBERs { get; set; }
     }
 }

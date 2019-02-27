@@ -1,0 +1,96 @@
+﻿<metro:MetroWindow x:Class="Nube.frmHistoryAlter"
+                   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube"
+        mc:Ignorable="d"
+        Title="History Alter" Height="700" Width="1100"  WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type TextBlock}" x:Key="RightCell">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="TextAlignment" Value="Right"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" >
+            <Border BorderThickness="1" BorderBrush="Black" />
+            <StackPanel Orientation="Vertical" Margin="10">
+                <TextBox IsReadOnly="True" Margin="0 0 0 10" Text="{Binding MEMBER_NAME}" materialDesign:HintAssist.Hint="Member Name"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <TextBox IsReadOnly="True" Margin="0 0 10 0" Width="135"  Text="{Binding ICNO_OLD}" materialDesign:HintAssist.Hint="NRIC-OLD"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                    <TextBox IsReadOnly="True" Margin="0 0 10 0" Width="135" Text="{Binding ICNO_NEW}" materialDesign:HintAssist.Hint="NRIC-NEW"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                </StackPanel>
+                <TextBox IsReadOnly="True" Margin="0 0 0 10" Text="{Binding MASTERBANKBRANCH.MASTERBANK.BANK_NAME}" materialDesign:HintAssist.Hint="Bank"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                <TextBox IsReadOnly="True" Margin="0 0 0 10" Text="{Binding MASTERMEMBERTYPE.MEMBERTYPE_NAME}" materialDesign:HintAssist.Hint="Type"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                <TextBox IsReadOnly="True" Margin="0 0 0 10" Text="{Binding MASTERSTATU.STATUS_NAME}" materialDesign:HintAssist.Hint="Status"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 10" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <TextBox IsReadOnly="True" Margin="0 0 10 0" Width="135"  Text="{Binding DATEOFJOINING,StringFormat={}{0:dd/MM/yyyy}}" materialDesign:HintAssist.Hint="Date of Joing"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                    <TextBox IsReadOnly="True" Margin="0 0 10 0" Width="135" Text="{Binding LASTPAYMENT_DATE,StringFormat={}{0:MMMM yyyy}}" materialDesign:HintAssist.Hint="Last Paid Date"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                </StackPanel>
+                <GroupBox Header="Member Month Status Manipulation" Name="gbxStatus" Margin="0 25 0 0">
+                    <StackPanel Orientation="Vertical" Margin="0 10 0 0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="0 0 0 10">
+                            <DatePicker SelectedDate="{Binding StatusMonth,StringFormat={}{0:MMMM yyyy}}" FontWeight="Bold" FontSize="14" Width="135" Margin="0 0 10 0"></DatePicker>
+                            <TextBox Margin="0 0 10 0" Width="135" Text="{Binding TOTAL_MONTHS}" materialDesign:HintAssist.Hint="Total Months"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                            <TextBox Margin="0 0 10 0" Width="85"  Text="{Binding TOTALSUBCRP_AMOUNT}" materialDesign:HintAssist.Hint="Subs"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                            <TextBox Margin="0 0 10 0" Width="80" Text="{Binding TOTALBF_AMOUNT}" materialDesign:HintAssist.Hint="BF"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                            <TextBox Margin="0 0 10 0" Width="80" Text="{Binding TOTALINSURANCE_AMOUNT}" materialDesign:HintAssist.Hint="INS"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14"   TextAlignment="Left"  />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 10" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Button Content="Save" Name="btnSave" Click="BtnSave_Click" Width="80" Margin="0 0 10 0" />
+                            <Button Content="Delete" Name="btnDelete" Click="btnDelete_Click" Width="85"  Margin="0 0 10 0" />
+                            <Button Content="Clear" Name="btnClear" Click="btnClear_Click" Width="80" />
+                        </StackPanel>
+                        <Button Content="History Re-Create" Name="btnHistoryReCreate" Click="BtnHistoryReCreate_Click"  />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Border BorderThickness="1" BorderBrush="Black" />
+                <DataGrid ItemsSource="{Binding MemberMonthEndStatus}" Name="dgrStatus" AutoGenerateColumns="False"  MouseDoubleClick="DgrStatus_MouseDoubleClick">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="History"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="90" Binding="{Binding StatusMonth,StringFormat={}{0:MMM yyyy}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                        <DataGridTextColumn Header="Subs"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="60" Binding="{Binding TOTALSUBCRP_AMOUNT, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="BF"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="60" Binding="{Binding TOTALBF_AMOUNT, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="Ins"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="60" Binding="{Binding TOTALINSURANCE_AMOUNT, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="Month"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="60" Binding="{Binding TOTAL_MONTHS, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="LastPaid"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="90" Binding="{Binding LASTPAYMENTDATE,StringFormat={}{0:MMM yyyy}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                        <DataGridTextColumn Header="PAID"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="50" Binding="{Binding TOTALMONTHSPAID, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="DUE"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="50" Binding="{Binding TOTALMONTHSDUE, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="Total"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="50" Binding="{Binding TOTALMONTHSCONTRIBUTION, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="AccSubs"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="70" Binding="{Binding ACCSUBSCRIPTION, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="AccBF"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="70" Binding="{Binding ACCBF, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                        <DataGridTextColumn Header="AccIns"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="70" Binding="{Binding ACCINSURANCE, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Border BorderThickness="1" BorderBrush="Black" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBox Name="txtMemberId" Width="100" materialDesign:HintAssist.Hint="Member Id" Style="{StaticResource MaterialDesignFloatingHintTextBox}"  FontWeight="Bold" FontSize="14" />
+                    <Button Name="btnSearch" Content="Search" Click="BtnSearch_Click" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

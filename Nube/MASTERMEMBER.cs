@@ -17,7 +17,9 @@ namespace Nube
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MASTERMEMBER()
         {
+            this.FeesDetails = new HashSet<FeesDetail>();
             this.MemberMonthEndStatus = new HashSet<MemberMonthEndStatu>();
+            this.RESIGNATIONs = new HashSet<RESIGNATION>();
         }
     
         public decimal MEMBER_CODE { get; set; }
@@ -57,16 +59,24 @@ namespace Nube
         public Nullable<decimal> STATUS_CODE { get; set; }
         public Nullable<decimal> PREVIOUS_STATUSCODE { get; set; }
         public string LEVY { get; set; }
+        public Nullable<decimal> TOTALMONTHCONTRIBUTE { get; set; }
         public Nullable<decimal> TOTALMONTHSPAID { get; set; }
+        public Nullable<decimal> TOTALMONTHSDUE { get; set; }
         public Nullable<decimal> ENTRANCEFEE { get; set; }
         public Nullable<decimal> HQFEE { get; set; }
         public Nullable<decimal> MONTHLYBF { get; set; }
         public Nullable<decimal> MONTHLYSUBSCRIPTION { get; set; }
+        public Nullable<decimal> MONTHLYINSURANCE { get; set; }
         public Nullable<decimal> ACCBF { get; set; }
         public Nullable<decimal> ACCSUBSCRIPTION { get; set; }
+        public Nullable<decimal> ACCINSURANCE { get; set; }
         public Nullable<decimal> ACCBENEFIT { get; set; }
         public Nullable<decimal> CURRENT_YTDBF { get; set; }
         public Nullable<decimal> CURRENT_YTDSUBSCRIPTION { get; set; }
+        public Nullable<decimal> CURRENT_YTDINSURANCE { get; set; }
+        public Nullable<decimal> DUEBF { get; set; }
+        public Nullable<decimal> DUESUBSCRIPTION { get; set; }
+        public Nullable<decimal> DUEINSURANCE { get; set; }
         public Nullable<decimal> RESIGNED { get; set; }
         public string PAYMENT_MODE { get; set; }
         public Nullable<decimal> USER_CODE { get; set; }
@@ -105,10 +115,17 @@ namespace Nube
         public bool GE_Insurance { get; set; }
         public string GE_ContractNo { get; set; }
         public Nullable<int> BranchMemberCode { get; set; }
+        public Nullable<bool> IsHistoryClean { get; set; }
     
         public virtual MASTERBANK MASTERBANK { get; set; }
         public virtual MASTERBANKBRANCH MASTERBANKBRANCH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeesDetail> FeesDetails { get; set; }
+        public virtual MASTERSTATU MASTERSTATU { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MemberMonthEndStatu> MemberMonthEndStatus { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RESIGNATION> RESIGNATIONs { get; set; }
+        public virtual MASTERMEMBERTYPE MASTERMEMBERTYPE { get; set; }
     }
 }

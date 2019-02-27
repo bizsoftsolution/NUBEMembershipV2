@@ -35,7 +35,6 @@ namespace Nube
         public virtual DbSet<dtproperty> dtproperties { get; set; }
         public virtual DbSet<EventHistory> EventHistories { get; set; }
         public virtual DbSet<LoginHistory> LoginHistories { get; set; }
-        public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         public virtual DbSet<MASTERCITY> MASTERCITies { get; set; }
         public virtual DbSet<MASTERGUARDIAN> MASTERGUARDIANs { get; set; }
         public virtual DbSet<MASTERMEMBERTYPE> MASTERMEMBERTYPEs { get; set; }
@@ -73,9 +72,7 @@ namespace Nube
         public virtual DbSet<MembershipAttachment> MembershipAttachments { get; set; }
         public virtual DbSet<NomineeInsertBranch> NomineeInsertBranches { get; set; }
         public virtual DbSet<ViewNomineeInsertBranch> ViewNomineeInsertBranches { get; set; }
-        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<ViewBranch> ViewBranches { get; set; }
-        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
         public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
         public virtual DbSet<AI_Insurance> AI_Insurance { get; set; }
         public virtual DbSet<MASTERMEMBERNEW> MASTERMEMBERNEWs { get; set; }
@@ -90,6 +87,9 @@ namespace Nube
         public virtual DbSet<FeesDetail> FeesDetails { get; set; }
         public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
         public virtual DbSet<FeesMaster> FeesMasters { get; set; }
+        public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
+        public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
+        public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

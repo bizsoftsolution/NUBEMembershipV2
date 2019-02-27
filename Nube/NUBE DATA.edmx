@@ -6,7 +6,7 @@
     <edmx:StorageModels>
     <Schema Namespace="nube18092017Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.AI_Insurance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.AI_Insurance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="AI_Insurance">
           <Key>
             <PropertyRef Name="Id" />
@@ -135,13 +135,21 @@ warning 6002: The table/view 'nubev2.dbo.AI_Insurance' does not have a primary k
           <Property Name="TableName" Type="varchar" MaxLength="50" />
           <Property Name="Remarks" Type="varchar" MaxLength="100" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'nubev2_1.dbo.FeesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesDetails">
           <Key>
             <PropertyRef Name="DetailId" />
+            
+            
+            
+            
+            
+            
           </Key>
-          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FeeId" Type="int" Nullable="false" />
-          <Property Name="MemberCode" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="MemberCode" Type="numeric" Precision="10" Scale="0" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="AmountBF" Type="decimal" Precision="18" Scale="2" />
           <Property Name="UnionContribution" Type="decimal" Precision="18" Scale="2" />
@@ -164,11 +172,19 @@ warning 6002: The table/view 'nubev2.dbo.AI_Insurance' does not have a primary k
           <Property Name="TotalMonthsPaidIns" Type="int" />
           <Property Name="TotalMonthsPaid" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'nubev2_1.dbo.FeesDetailsNotMatch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesDetailsNotMatch">
           <Key>
             <PropertyRef Name="DetailId" />
+            
+            
+            
+            
+            
+            
           </Key>
-          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FeeId" Type="int" Nullable="false" />
           <Property Name="MemberCode" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
@@ -193,11 +209,14 @@ warning 6002: The table/view 'nubev2.dbo.AI_Insurance' does not have a primary k
           <Property Name="TotalMonthsPaidIns" Type="int" />
           <Property Name="TotalMonthsPaid" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'nubev2_1.dbo.FeesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesMaster">
           <Key>
             <PropertyRef Name="FeeId" />
+            
           </Key>
-          <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="BankId" Type="int" />
           <Property Name="FeeDate" Type="smalldatetime" Nullable="false" />
           <Property Name="XLFileName" Type="varchar" MaxLength="150" />
@@ -205,7 +224,7 @@ warning 6002: The table/view 'nubev2.dbo.AI_Insurance' does not have a primary k
           <Property Name="UpdatedStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.GE_Insurance' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="GE_Insurance">
           <Key>
             <PropertyRef Name="Id" />
@@ -420,16 +439,24 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="STATUS_CODE" Type="numeric" Precision="10" Scale="0" />
           <Property Name="PREVIOUS_STATUSCODE" Type="numeric" Precision="10" Scale="0" />
           <Property Name="LEVY" Type="varchar" MaxLength="10" />
+          <Property Name="TOTALMONTHCONTRIBUTE" Type="numeric" Precision="10" Scale="0" />
           <Property Name="TOTALMONTHSPAID" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="TOTALMONTHSDUE" Type="numeric" Precision="10" Scale="0" />
           <Property Name="ENTRANCEFEE" Type="numeric" Precision="10" Scale="2" />
           <Property Name="HQFEE" Type="numeric" Precision="10" Scale="2" />
           <Property Name="MONTHLYBF" Type="numeric" Precision="10" Scale="2" />
           <Property Name="MONTHLYSUBSCRIPTION" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="MONTHLYINSURANCE" Type="numeric" Precision="18" Scale="2" />
           <Property Name="ACCBF" Type="numeric" Precision="10" Scale="2" />
           <Property Name="ACCSUBSCRIPTION" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="ACCINSURANCE" Type="numeric" Precision="18" Scale="2" />
           <Property Name="ACCBENEFIT" Type="numeric" Precision="10" Scale="2" />
           <Property Name="CURRENT_YTDBF" Type="numeric" Precision="10" Scale="2" />
           <Property Name="CURRENT_YTDSUBSCRIPTION" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="CURRENT_YTDINSURANCE" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="DUEBF" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="DUESUBSCRIPTION" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="DUEINSURANCE" Type="numeric" Precision="18" Scale="2" />
           <Property Name="RESIGNED" Type="numeric" Precision="5" Scale="0" />
           <Property Name="PAYMENT_MODE" Type="varchar" MaxLength="10" />
           <Property Name="USER_CODE" Type="numeric" Precision="10" Scale="0" />
@@ -468,6 +495,7 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="GE_Insurance" Type="bit" Nullable="false" />
           <Property Name="GE_ContractNo" Type="varchar" MaxLength="50" />
           <Property Name="BranchMemberCode" Type="int" />
+          <Property Name="IsHistoryClean" Type="bit" />
         </EntityType>
         <EntityType Name="MASTERMEMBERNEW">
           <Key>
@@ -749,6 +777,12 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="ENTRY_DATE" Type="datetime" />
           <Property Name="ENTRY_TIME" Type="varchar" MaxLength="5" />
           <Property Name="STRUCKOFF" Type="numeric" Precision="1" Scale="0" />
+          <Property Name="INSURANCE_AMOUNT" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="TOTALINSURANCE_AMOUNT" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="TOTALMONTHSCONTRIBUTION" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="INSURANCEDUE" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="ACCINSURANCE" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="CURRENT_YDTINSURANCE" Type="numeric" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="MembershipAttachment">
           <Key>
@@ -911,7 +945,7 @@ warning 6002: The table/view 'nubev2.dbo.GE_Insurance' does not have a primary k
           <Property Name="UpdatedStatus" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.TEMPFEE_STATUS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.TEMPFEE_STATUS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TEMPFEE_STATUS">
           <Key>
             <PropertyRef Name="Id" />
@@ -950,7 +984,7 @@ warning 6002: The table/view 'nubev2.dbo.TEMPFEE_STATUS' does not have a primary
           <Property Name="STRUCKOFF" Type="numeric" Precision="1" Scale="0" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.TEMPVIEWMASTERMEMBER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.TEMPVIEWMASTERMEMBER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TEMPVIEWMASTERMEMBER">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1072,7 +1106,7 @@ warning 6002: The table/view 'nubev2.dbo.TEMPVIEWMASTERMEMBER' does not have a p
           <Property Name="YearEndUpdatedOn" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.TVMASTERMEMBER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.TVMASTERMEMBER' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TVMASTERMEMBER">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1207,7 +1241,7 @@ warning 6002: The table/view 'nubev2.dbo.TVMASTERMEMBER' does not have a primary
           <Property Name="IsSuperAdmin" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewBankBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewBankBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewBankBranch">
           <Key>
             <PropertyRef Name="BranchCode" />
@@ -1238,7 +1272,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewBankBranch' does not have a primary
           <Property Name="StateName" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewBankBranchAdvice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewBankBranchAdvice' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewBankBranchAdvice">
           <Key>
             <PropertyRef Name="ICNO" />
@@ -1258,7 +1292,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewBankBranchAdvice' does not have a p
           <Property Name="ACCSUBSCRIPTION" Type="numeric" Precision="10" Scale="2" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewBranch">
           <Key>
             <PropertyRef Name="BANKBRANCH_CODE" />
@@ -1277,7 +1311,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewBranch' does not have a primary key
           <Property Name="BANKBRANCH_EMAIL" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewBranchMonthlyStatement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewBranchMonthlyStatement' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewBranchMonthlyStatement">
           <Key>
             <PropertyRef Name="ICNO" />
@@ -1300,7 +1334,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewBranchMonthlyStatement' does not ha
           <Property Name="DATEOFJOINING" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.VIEWDUE042016TO032017' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.VIEWDUE042016TO032017' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VIEWDUE042016TO032017">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1309,7 +1343,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWDUE042016TO032017' does not have a 
           <Property Name="DUE" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.VIEWDUEUPTO032016' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.VIEWDUEUPTO032016' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VIEWDUEUPTO032016">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1318,7 +1352,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWDUEUPTO032016' does not have a prim
           <Property Name="DUE" Type="numeric" Precision="10" Scale="0" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewMasterMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewMasterMember' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewMasterMember">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1425,7 +1459,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewMasterMember' does not have a prima
           <Property Name="GE_INSURANCE" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewMemberLastPaidDate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewMemberLastPaidDate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewMemberLastPaidDate">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1435,7 +1469,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewMemberLastPaidDate' does not have a
           <Property Name="TOTALDUEPAY" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewMembership' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewMembership' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewMembership">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1536,7 +1570,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewMembership' does not have a primary
           <Property Name="BANKCODE_BYBANK" Type="numeric" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewMemberTotalMonthsDue' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewMemberTotalMonthsDue' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewMemberTotalMonthsDue">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1548,7 +1582,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewMemberTotalMonthsDue' does not have
           <Property Name="TOTALDUEPAY" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.VIEWNOMINEE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.VIEWNOMINEE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VIEWNOMINEE">
           <Key>
             <PropertyRef Name="ID" />
@@ -1589,7 +1623,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWNOMINEE' does not have a primary ke
           <Property Name="RELATION_CODE" Type="numeric" Precision="10" Scale="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewNomineeInsertBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewNomineeInsertBranch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewNomineeInsertBranch">
           <Key>
             <PropertyRef Name="ID" />
@@ -1630,7 +1664,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewNomineeInsertBranch' does not have 
           <Property Name="RELATION_CODE" Type="numeric" Precision="10" Scale="0" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.ViewResign' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.ViewResign' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ViewResign">
           <Key>
             <PropertyRef Name="PAYMODE" />
@@ -1692,7 +1726,7 @@ warning 6002: The table/view 'nubev2.dbo.ViewResign' does not have a primary key
           <Property Name="UnionContribution" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.VIEWRESIGNREPORT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.VIEWRESIGNREPORT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VIEWRESIGNREPORT">
           <Key>
             <PropertyRef Name="ICNO" />
@@ -1720,7 +1754,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWRESIGNREPORT' does not have a prima
           <Property Name="BRANCHNAME" Type="varchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="VIEWTOTALDUE">
           <Key>
             <PropertyRef Name="MEMBER_CODE" />
@@ -1731,6 +1765,30 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="TOTALDUE" Type="int" />
           <Property Name="TOTALDUEPAY" Type="int" />
         </EntityType>
+        <Association Name="FK_FeesDetails_MASTERMEMBER">
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="1" />
+          <End Role="FeesDetails" Type="Self.FeesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="FeesDetails">
+              <PropertyRef Name="MemberCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERBANKBRANCH_MASTERBANK">
+          <End Role="MASTERBANK" Type="Self.MASTERBANK" Multiplicity="0..1" />
+          <End Role="MASTERBANKBRANCH" Type="Self.MASTERBANKBRANCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MASTERBANKBRANCH">
+              <PropertyRef Name="BANK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MASTERMEMBER_MASTERBANK">
           <End Role="MASTERBANK" Type="Self.MASTERBANK" Multiplicity="0..1" />
           <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="*" />
@@ -1755,6 +1813,30 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERMEMBERTYPE">
+          <End Role="MASTERMEMBERTYPE" Type="Self.MASTERMEMBERTYPE" Multiplicity="0..1" />
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBERTYPE">
+              <PropertyRef Name="MEMBERTYPE_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBERTYPE_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERSTATUS">
+          <End Role="MASTERSTATUS" Type="Self.MASTERSTATUS" Multiplicity="0..1" />
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERSTATUS">
+              <PropertyRef Name="STATUS_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="STATUS_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MemberMonthEndStatus_MASTERMEMBER">
           <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="0..1" />
           <End Role="MemberMonthEndStatus" Type="Self.MemberMonthEndStatus" Multiplicity="*" />
@@ -1763,6 +1845,18 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
               <PropertyRef Name="MEMBER_CODE" />
             </Principal>
             <Dependent Role="MemberMonthEndStatus">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESIGNATION_MASTERMEMBER">
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="1" />
+          <End Role="RESIGNATION" Type="Self.RESIGNATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="RESIGNATION">
               <PropertyRef Name="MEMBER_CODE" />
             </Dependent>
           </ReferentialConstraint>
@@ -1776,9 +1870,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="CountrySetup" EntityType="Self.CountrySetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventHistory" EntityType="Self.EventHistory" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FeesDetailsNotMatch" EntityType="Self.FeesDetailsNotMatch" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuardianInsertBranch" EntityType="Self.GuardianInsertBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRCConfirmation" EntityType="Self.IRCConfirmation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
@@ -1843,6 +1934,72 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
     [AI_Insurance].[Takeover] AS [Takeover], 
     [AI_Insurance].[Coverage] AS [Coverage]
     FROM [dbo].[AI_Insurance] AS [AI_Insurance]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FeesDetails].[DetailId] AS [DetailId], 
+    [FeesDetails].[FeeId] AS [FeeId], 
+    [FeesDetails].[MemberCode] AS [MemberCode], 
+    [FeesDetails].[TotalAmount] AS [TotalAmount], 
+    [FeesDetails].[AmountBF] AS [AmountBF], 
+    [FeesDetails].[UnionContribution] AS [UnionContribution], 
+    [FeesDetails].[AmountIns] AS [AmountIns], 
+    [FeesDetails].[AmtSubs] AS [AmtSubs], 
+    [FeesDetails].[Dept] AS [Dept], 
+    [FeesDetails].[UpdatedStatus] AS [UpdatedStatus], 
+    [FeesDetails].[FeeYear] AS [FeeYear], 
+    [FeesDetails].[FeeMonth] AS [FeeMonth], 
+    [FeesDetails].[Reason] AS [Reason], 
+    [FeesDetails].[IsUnPaid] AS [IsUnPaid], 
+    [FeesDetails].[IsNotMatch] AS [IsNotMatch], 
+    [FeesDetails].[MemberId] AS [MemberId], 
+    [FeesDetails].[MemberName_Bank] AS [MemberName_Bank], 
+    [FeesDetails].[NRIC_Bank] AS [NRIC_Bank], 
+    [FeesDetails].[IsAccept_ByNube] AS [IsAccept_ByNube], 
+    [FeesDetails].[IsStruckOff] AS [IsStruckOff], 
+    [FeesDetails].[Status] AS [Status], 
+    [FeesDetails].[TotalMonthsPaidBF] AS [TotalMonthsPaidBF], 
+    [FeesDetails].[TotalMonthsPaidIns] AS [TotalMonthsPaidIns], 
+    [FeesDetails].[TotalMonthsPaid] AS [TotalMonthsPaid]
+    FROM [dbo].[FeesDetails] AS [FeesDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FeesDetailsNotMatch" EntityType="Self.FeesDetailsNotMatch" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FeesDetailsNotMatch].[DetailId] AS [DetailId], 
+    [FeesDetailsNotMatch].[FeeId] AS [FeeId], 
+    [FeesDetailsNotMatch].[MemberCode] AS [MemberCode], 
+    [FeesDetailsNotMatch].[TotalAmount] AS [TotalAmount], 
+    [FeesDetailsNotMatch].[AmountBF] AS [AmountBF], 
+    [FeesDetailsNotMatch].[UnionContribution] AS [UnionContribution], 
+    [FeesDetailsNotMatch].[AmountIns] AS [AmountIns], 
+    [FeesDetailsNotMatch].[AmtSubs] AS [AmtSubs], 
+    [FeesDetailsNotMatch].[Dept] AS [Dept], 
+    [FeesDetailsNotMatch].[UpdatedStatus] AS [UpdatedStatus], 
+    [FeesDetailsNotMatch].[FeeYear] AS [FeeYear], 
+    [FeesDetailsNotMatch].[FeeMonth] AS [FeeMonth], 
+    [FeesDetailsNotMatch].[Reason] AS [Reason], 
+    [FeesDetailsNotMatch].[IsUnPaid] AS [IsUnPaid], 
+    [FeesDetailsNotMatch].[IsNotMatch] AS [IsNotMatch], 
+    [FeesDetailsNotMatch].[MemberId] AS [MemberId], 
+    [FeesDetailsNotMatch].[MemberName_Bank] AS [MemberName_Bank], 
+    [FeesDetailsNotMatch].[NRIC_Bank] AS [NRIC_Bank], 
+    [FeesDetailsNotMatch].[IsAccept_ByNube] AS [IsAccept_ByNube], 
+    [FeesDetailsNotMatch].[IsStruckOff] AS [IsStruckOff], 
+    [FeesDetailsNotMatch].[Status] AS [Status], 
+    [FeesDetailsNotMatch].[TotalMonthsPaidBF] AS [TotalMonthsPaidBF], 
+    [FeesDetailsNotMatch].[TotalMonthsPaidIns] AS [TotalMonthsPaidIns], 
+    [FeesDetailsNotMatch].[TotalMonthsPaid] AS [TotalMonthsPaid]
+    FROM [dbo].[FeesDetailsNotMatch] AS [FeesDetailsNotMatch]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [FeesMaster].[FeeId] AS [FeeId], 
+    [FeesMaster].[BankId] AS [BankId], 
+    [FeesMaster].[FeeDate] AS [FeeDate], 
+    [FeesMaster].[XLFileName] AS [XLFileName], 
+    [FeesMaster].[XLPassword] AS [XLPassword], 
+    [FeesMaster].[UpdatedStatus] AS [UpdatedStatus]
+    FROM [dbo].[FeesMaster] AS [FeesMaster]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="GE_Insurance" EntityType="Self.GE_Insurance" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2489,6 +2646,14 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
     [VIEWTOTALDUE].[TOTALDUEPAY] AS [TOTALDUEPAY]
     FROM [dbo].[VIEWTOTALDUE] AS [VIEWTOTALDUE]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_FeesDetails_MASTERMEMBER" Association="Self.FK_FeesDetails_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+            <End Role="FeesDetails" EntitySet="FeesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERBANKBRANCH_MASTERBANK" Association="Self.FK_MASTERBANKBRANCH_MASTERBANK">
+            <End Role="MASTERBANK" EntitySet="MASTERBANK" />
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCH" />
+          </AssociationSet>
           <AssociationSet Name="FK_MASTERMEMBER_MASTERBANK" Association="Self.FK_MASTERMEMBER_MASTERBANK">
             <End Role="MASTERBANK" EntitySet="MASTERBANK" />
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
@@ -2497,9 +2662,21 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
             <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCH" />
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
           </AssociationSet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERMEMBERTYPE" Association="Self.FK_MASTERMEMBER_MASTERMEMBERTYPE">
+            <End Role="MASTERMEMBERTYPE" EntitySet="MASTERMEMBERTYPE" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERSTATUS" Association="Self.FK_MASTERMEMBER_MASTERSTATUS">
+            <End Role="MASTERSTATUS" EntitySet="MASTERSTATUS" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+          </AssociationSet>
           <AssociationSet Name="FK_MemberMonthEndStatus_MASTERMEMBER" Association="Self.FK_MemberMonthEndStatus_MASTERMEMBER">
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
             <End Role="MemberMonthEndStatus" EntitySet="MemberMonthEndStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RESIGNATION_MASTERMEMBER" Association="Self.FK_RESIGNATION_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+            <End Role="RESIGNATION" EntitySet="RESIGNATION" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -2609,30 +2786,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="UserId" Type="Int32" />
           <Property Name="LoginOn" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="MASTERBANKBRANCH">
-          <Key>
-            <PropertyRef Name="BANKBRANCH_CODE" />
-          </Key>
-          <Property Name="BANKBRANCH_CODE" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BANK_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="BANKBRANCH_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ADDRESS3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_CITY_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="BANKBRANCH_STATE_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="BANKBRANCH_COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_PHONE1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_PHONE2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NUBE_BRANCH_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="HEAD_QUARTERS" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
-          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERBANKBRANCH" ToRole="MASTERMEMBER" />
-        </EntityType>
         <EntityType Name="MASTERCITY">
           <Key>
             <PropertyRef Name="CITY_CODE" />
@@ -2673,6 +2826,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           </Key>
           <Property Name="MEMBERTYPE_CODE" Type="Decimal" Precision="10" Scale="0" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MEMBERTYPE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERMEMBERTYPE" FromRole="MASTERMEMBERTYPE" ToRole="MASTERMEMBER" />
         </EntityType>
         <EntityType Name="MASTERNAMESETUP">
           <Key>
@@ -2793,6 +2947,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="STATUS_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="STATUS_SHORTCODE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
+          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERSTATUS" FromRole="MASTERSTATU" ToRole="MASTERMEMBER" />
         </EntityType>
         <EntityType Name="MemberTransfer">
           <Key>
@@ -3120,7 +3275,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="dtproperties" EntityType="Self.dtproperty" />
           <EntitySet Name="EventHistories" EntityType="Self.EventHistory" />
           <EntitySet Name="LoginHistories" EntityType="Self.LoginHistory" />
-          <EntitySet Name="MASTERBANKBRANCHes" EntityType="Self.MASTERBANKBRANCH" />
           <EntitySet Name="MASTERCITies" EntityType="Self.MASTERCITY" />
           <EntitySet Name="MASTERGUARDIANs" EntityType="Self.MASTERGUARDIAN" />
           <EntitySet Name="MASTERMEMBERTYPEs" EntityType="Self.MASTERMEMBERTYPE" />
@@ -3158,9 +3312,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="MembershipAttachments" EntityType="nube18092017Model.MembershipAttachment" />
           <EntitySet Name="NomineeInsertBranches" EntityType="nube18092017Model.NomineeInsertBranch" />
           <EntitySet Name="ViewNomineeInsertBranches" EntityType="nube18092017Model.ViewNomineeInsertBranch" />
-          <EntitySet Name="MASTERMEMBERs" EntityType="nube18092017Model.MASTERMEMBER" />
           <EntitySet Name="ViewBranches" EntityType="nube18092017Model.ViewBranch" />
-          <EntitySet Name="MASTERBANKs" EntityType="nube18092017Model.MASTERBANK" />
           <EntitySet Name="MemberInsertBranches" EntityType="nube18092017Model.MemberInsertBranch" />
           <FunctionImport Name="SPMEMBERSHIP" ReturnType="Collection(nube18092017Model.SPMEMBERSHIP_Result)" />
           <EntitySet Name="AI_Insurance" EntityType="nube18092017Model.AI_Insurance" />
@@ -3170,6 +3322,19 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySet Name="Tran_Start" EntityType="nube18092017Model.Tran_Start" />
           <EntitySet Name="ViewMasterMembers" EntityType="nube18092017Model.ViewMasterMember" />
           <EntitySet Name="ViewResigns" EntityType="nube18092017Model.ViewResign" />
+          <EntitySet Name="IRCConfirmations" EntityType="nube18092017Model.IRCConfirmation" />
+          <EntitySet Name="MemberMonthEndStatus" EntityType="nube18092017Model.MemberMonthEndStatu" />
+          <EntitySet Name="RESIGNATIONs" EntityType="nube18092017Model.RESIGNATION" />
+          <EntitySet Name="FeesDetails" EntityType="nube18092017Model.FeesDetail" />
+          <EntitySet Name="FeesDetailsNotMatches" EntityType="nube18092017Model.FeesDetailsNotMatch" />
+          <EntitySet Name="FeesMasters" EntityType="nube18092017Model.FeesMaster" />
+          <EntitySet Name="MASTERBANKs" EntityType="nube18092017Model.MASTERBANK" />
+          <EntitySet Name="MASTERBANKBRANCHes" EntityType="nube18092017Model.MASTERBANKBRANCH" />
+          <EntitySet Name="MASTERMEMBERs" EntityType="nube18092017Model.MASTERMEMBER" />
+          <AssociationSet Name="FK_MASTERBANKBRANCH_MASTERBANK" Association="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK">
+            <End Role="MASTERBANK" EntitySet="MASTERBANKs" />
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
+          </AssociationSet>
           <AssociationSet Name="FK_MASTERMEMBER_MASTERBANK" Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANK">
             <End Role="MASTERBANK" EntitySet="MASTERBANKs" />
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
@@ -3178,16 +3343,26 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
             <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
           </AssociationSet>
-          <EntitySet Name="IRCConfirmations" EntityType="nube18092017Model.IRCConfirmation" />
-          <EntitySet Name="MemberMonthEndStatus" EntityType="nube18092017Model.MemberMonthEndStatu" />
+          <AssociationSet Name="FK_FeesDetails_MASTERMEMBER" Association="nube18092017Model.FK_FeesDetails_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+            <End Role="FeesDetail" EntitySet="FeesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERSTATUS" Association="nube18092017Model.FK_MASTERMEMBER_MASTERSTATUS">
+            <End Role="MASTERSTATU" EntitySet="MASTERSTATUS" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+          </AssociationSet>
           <AssociationSet Name="FK_MemberMonthEndStatus_MASTERMEMBER" Association="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER">
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
             <End Role="MemberMonthEndStatu" EntitySet="MemberMonthEndStatus" />
           </AssociationSet>
-          <EntitySet Name="RESIGNATIONs" EntityType="nube18092017Model.RESIGNATION" />
-          <EntitySet Name="FeesDetails" EntityType="nube18092017Model.FeesDetail" />
-          <EntitySet Name="FeesDetailsNotMatches" EntityType="nube18092017Model.FeesDetailsNotMatch" />
-          <EntitySet Name="FeesMasters" EntityType="nube18092017Model.FeesMaster" />
+          <AssociationSet Name="FK_RESIGNATION_MASTERMEMBER" Association="nube18092017Model.FK_RESIGNATION_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+            <End Role="RESIGNATION" EntitySet="RESIGNATIONs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERMEMBERTYPE" Association="nube18092017Model.FK_MASTERMEMBER_MASTERMEMBERTYPE">
+            <End Role="MASTERMEMBERTYPE" EntitySet="MASTERMEMBERTYPEs" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="TEMPFEE_STATUS">
           <Key>
@@ -3596,99 +3771,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="STATE_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
           <Property Name="RELATION_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
         </EntityType>
-        <EntityType Name="MASTERMEMBER">
-          <Key>
-            <PropertyRef Name="MEMBER_CODE" />
-          </Key>
-          <Property Name="MEMBER_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MEMBER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="MEMBER_ID" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="MEMBER_TITLE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="MEMBER_INITIAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="BF_NO" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ICNO_OLD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ICNO_NEW" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="BANK_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="BRANCH_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ADDRESS1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ADDRESS2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ADDRESS3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CITY_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="STATE_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DATEOFJOINING" Type="DateTime" Precision="3" />
-          <Property Name="DATEOFBIRTH" Type="DateTime" Precision="3" />
-          <Property Name="AGE_IN_YEARS" Type="Decimal" Precision="3" Scale="0" />
-          <Property Name="DATEOFEMPLOYMENT" Type="DateTime" Precision="3" />
-          <Property Name="MEMBERTYPE_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="SEX" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="RACE_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="REJOINED" Type="Decimal" Precision="5" Scale="0" />
-          <Property Name="PROPOSEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PROPOSED_MEMBERID" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="SECONDEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SECONDED_MEMBERID" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="CONFIRMEDAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="HELDON" Type="DateTime" Precision="3" />
-          <Property Name="STATUS_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="PREVIOUS_STATUSCODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="LEVY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="TOTALMONTHSPAID" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ENTRANCEFEE" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="HQFEE" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="MONTHLYBF" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="MONTHLYSUBSCRIPTION" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="ACCBF" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="ACCSUBSCRIPTION" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="ACCBENEFIT" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="CURRENT_YTDBF" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="CURRENT_YTDSUBSCRIPTION" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="RESIGNED" Type="Decimal" Precision="5" Scale="0" />
-          <Property Name="PAYMENT_MODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="USER_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="ENTRY_DATE" Type="DateTime" Precision="3" />
-          <Property Name="ENTRY_TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="REGISTRATION_FEE" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="LASTPAYMENT_DATE" Type="DateTime" Precision="3" />
-          <Property Name="BLACKLISTED" Type="Decimal" Precision="5" Scale="0" />
-          <Property Name="BLACKLISTREASON" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DATEOFBIRTH_S" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="DATEOFEMPLOYMENT_S" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="STRUCKOFF" Type="Decimal" Precision="5" Scale="0" />
-          <Property Name="STRUCKOFF_REMARKS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="STRUCKOFF_DATE" Type="DateTime" Precision="3" />
-          <Property Name="WAIVERDATE" Type="DateTime" Precision="3" />
-          <Property Name="WAIVERREASON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Salary" Type="Double" />
-          <Property Name="BatchAmt" Type="Double" />
-          <Property Name="LEVY_AMOUNT" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="TDF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TDF_AMOUNT" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="LevyPaymentDate" Type="DateTime" Precision="3" />
-          <Property Name="Tdf_PaymentDate" Type="DateTime" Precision="3" />
-          <Property Name="MemberName_ByBank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NRIC_ByBank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BankCode_ByBank" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="IsCancel" Type="Boolean" Nullable="false" />
-          <Property Name="IsBranchRegister" Type="Boolean" Nullable="false" />
-          <Property Name="TotalPaid" Type="Int32" Nullable="false" />
-          <Property Name="AI_Insurance" Type="Boolean" Nullable="false" />
-          <Property Name="AI_MemberNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="GE_Insurance" Type="Boolean" Nullable="false" />
-          <Property Name="GE_ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BranchMemberCode" Type="Int32" />
-          <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERMEMBER" ToRole="MASTERBANK" />
-          <NavigationProperty Name="MASTERBANKBRANCH" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERMEMBER" ToRole="MASTERBANKBRANCH" />
-          <NavigationProperty Name="MemberMonthEndStatus" Relationship="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MemberMonthEndStatu" />
-        </EntityType>
         <EntityType Name="ViewBranch">
           <Key>
             <PropertyRef Name="BANKBRANCH_CODE" />
@@ -3705,18 +3787,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="BANKBRANCH_PHONE1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BANKBRANCH_PHONE2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BANKBRANCH_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="MASTERBANK">
-          <Key>
-            <PropertyRef Name="BANK_CODE" />
-          </Key>
-          <Property Name="BANK_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BANK_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANK_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="HEADER_BANK_CODE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERMEMBER" />
         </EntityType>
         <EntityType Name="MemberInsertBranch">
           <Key>
@@ -4141,30 +4211,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="InsuranceAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="UnionContribution" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
-        <Association Name="FK_MASTERMEMBER_MASTERBANK">
-          <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
-          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MASTERBANK">
-              <PropertyRef Name="BANK_CODE" />
-            </Principal>
-            <Dependent Role="MASTERMEMBER">
-              <PropertyRef Name="BANK_CODE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MASTERMEMBER_MASTERBANKBRANCH">
-          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="0..1" />
-          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MASTERBANKBRANCH">
-              <PropertyRef Name="BANKBRANCH_CODE" />
-            </Principal>
-            <Dependent Role="MASTERMEMBER">
-              <PropertyRef Name="BRANCH_CODE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="IRCConfirmation">
           <Key>
             <PropertyRef Name="MemberCode" />
@@ -4239,20 +4285,14 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="ENTRY_DATE" Type="DateTime" Precision="3" />
           <Property Name="ENTRY_TIME" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="STRUCKOFF" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="INSURANCE_AMOUNT" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TOTALINSURANCE_AMOUNT" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TOTALMONTHSCONTRIBUTION" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="INSURANCEDUE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ACCINSURANCE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CURRENT_YDTINSURANCE" Type="Decimal" Precision="10" Scale="2" />
           <NavigationProperty Name="MASTERMEMBER" Relationship="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER" FromRole="MemberMonthEndStatu" ToRole="MASTERMEMBER" />
         </EntityType>
-        <Association Name="FK_MemberMonthEndStatus_MASTERMEMBER">
-          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="0..1" />
-          <End Type="nube18092017Model.MemberMonthEndStatu" Role="MemberMonthEndStatu" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MASTERMEMBER">
-              <PropertyRef Name="MEMBER_CODE" />
-            </Principal>
-            <Dependent Role="MemberMonthEndStatu">
-              <PropertyRef Name="MEMBER_CODE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="RESIGNATION">
           <Key>
             <PropertyRef Name="Id" />
@@ -4282,6 +4322,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="PayMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="InsuranceAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="UnionContribution" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="MASTERMEMBER" Relationship="nube18092017Model.FK_RESIGNATION_MASTERMEMBER" FromRole="RESIGNATION" ToRole="MASTERMEMBER" />
         </EntityType>
         <EntityType Name="FeesDetail">
           <Key>
@@ -4289,7 +4330,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           </Key>
           <Property Name="DetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FeeId" Type="Int32" Nullable="false" />
-          <Property Name="MemberCode" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="MemberCode" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
           <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="AmountBF" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="UnionContribution" Type="Decimal" Precision="18" Scale="2" />
@@ -4311,6 +4352,7 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="TotalMonthsPaidBF" Type="Int32" />
           <Property Name="TotalMonthsPaidIns" Type="Int32" />
           <Property Name="TotalMonthsPaid" Type="Int32" />
+          <NavigationProperty Name="MASTERMEMBER" Relationship="nube18092017Model.FK_FeesDetails_MASTERMEMBER" FromRole="FeesDetail" ToRole="MASTERMEMBER" />
         </EntityType>
         <EntityType Name="FeesDetailsNotMatch">
           <Key>
@@ -4352,6 +4394,246 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <Property Name="XLPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="MASTERBANK">
+          <Key>
+            <PropertyRef Name="BANK_CODE" />
+          </Key>
+          <Property Name="BANK_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BANK_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANK_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="HEADER_BANK_CODE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <NavigationProperty Name="MASTERBANKBRANCHes" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERBANKBRANCH" />
+          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERMEMBER" />
+        </EntityType>
+        <EntityType Name="MASTERBANKBRANCH">
+          <Key>
+            <PropertyRef Name="BANKBRANCH_CODE" />
+          </Key>
+          <Property Name="BANKBRANCH_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BANK_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="BANKBRANCH_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ADDRESS3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_CITY_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="BANKBRANCH_STATE_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="BANKBRANCH_COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_PHONE1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_PHONE2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NUBE_BRANCH_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="HEAD_QUARTERS" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
+          <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" FromRole="MASTERBANKBRANCH" ToRole="MASTERBANK" />
+          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERBANKBRANCH" ToRole="MASTERMEMBER" />
+        </EntityType>
+        <EntityType Name="MASTERMEMBER">
+          <Key>
+            <PropertyRef Name="MEMBER_CODE" />
+          </Key>
+          <Property Name="MEMBER_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MEMBER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MEMBER_ID" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="MEMBER_TITLE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="MEMBER_INITIAL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="BF_NO" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ICNO_OLD" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ICNO_NEW" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="BANK_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="BRANCH_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CITY_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="STATE_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MOBILE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DATEOFJOINING" Type="DateTime" Precision="3" />
+          <Property Name="DATEOFBIRTH" Type="DateTime" Precision="3" />
+          <Property Name="AGE_IN_YEARS" Type="Decimal" Precision="3" Scale="0" />
+          <Property Name="DATEOFEMPLOYMENT" Type="DateTime" Precision="3" />
+          <Property Name="MEMBERTYPE_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="SEX" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="RACE_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="REJOINED" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="PROPOSEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PROPOSED_MEMBERID" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="SECONDEDBY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SECONDED_MEMBERID" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="CONFIRMEDAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HELDON" Type="DateTime" Precision="3" />
+          <Property Name="STATUS_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="PREVIOUS_STATUSCODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="LEVY" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TOTALMONTHCONTRIBUTE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="TOTALMONTHSPAID" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="TOTALMONTHSDUE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ENTRANCEFEE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="HQFEE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MONTHLYBF" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MONTHLYSUBSCRIPTION" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="MONTHLYINSURANCE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ACCBF" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ACCSUBSCRIPTION" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ACCINSURANCE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ACCBENEFIT" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CURRENT_YTDBF" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CURRENT_YTDSUBSCRIPTION" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CURRENT_YTDINSURANCE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DUEBF" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DUESUBSCRIPTION" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DUEINSURANCE" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="RESIGNED" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="PAYMENT_MODE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="USER_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="ENTRY_DATE" Type="DateTime" Precision="3" />
+          <Property Name="ENTRY_TIME" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="REGISTRATION_FEE" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="LASTPAYMENT_DATE" Type="DateTime" Precision="3" />
+          <Property Name="BLACKLISTED" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="BLACKLISTREASON" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DATEOFBIRTH_S" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DATEOFEMPLOYMENT_S" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="STRUCKOFF" Type="Decimal" Precision="5" Scale="0" />
+          <Property Name="STRUCKOFF_REMARKS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="STRUCKOFF_DATE" Type="DateTime" Precision="3" />
+          <Property Name="WAIVERDATE" Type="DateTime" Precision="3" />
+          <Property Name="WAIVERREASON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Salary" Type="Double" />
+          <Property Name="BatchAmt" Type="Double" />
+          <Property Name="LEVY_AMOUNT" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="TDF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TDF_AMOUNT" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="LevyPaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="Tdf_PaymentDate" Type="DateTime" Precision="3" />
+          <Property Name="MemberName_ByBank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NRIC_ByBank" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BankCode_ByBank" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="IsCancel" Type="Boolean" Nullable="false" />
+          <Property Name="IsBranchRegister" Type="Boolean" Nullable="false" />
+          <Property Name="TotalPaid" Type="Int32" Nullable="false" />
+          <Property Name="AI_Insurance" Type="Boolean" Nullable="false" />
+          <Property Name="AI_MemberNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="GE_Insurance" Type="Boolean" Nullable="false" />
+          <Property Name="GE_ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BranchMemberCode" Type="Int32" />
+          <Property Name="IsHistoryClean" Type="Boolean" />
+          <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERMEMBER" ToRole="MASTERBANK" />
+          <NavigationProperty Name="MASTERBANKBRANCH" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERMEMBER" ToRole="MASTERBANKBRANCH" />
+          <NavigationProperty Name="FeesDetails" Relationship="nube18092017Model.FK_FeesDetails_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="FeesDetail" />
+          <NavigationProperty Name="MASTERSTATU" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERSTATUS" FromRole="MASTERMEMBER" ToRole="MASTERSTATU" />
+          <NavigationProperty Name="MemberMonthEndStatus" Relationship="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MemberMonthEndStatu" />
+          <NavigationProperty Name="RESIGNATIONs" Relationship="nube18092017Model.FK_RESIGNATION_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="RESIGNATION" />
+          <NavigationProperty Name="MASTERMEMBERTYPE" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERMEMBERTYPE" FromRole="MASTERMEMBER" ToRole="MASTERMEMBERTYPE" />
+        </EntityType>
+        <Association Name="FK_MASTERBANKBRANCH_MASTERBANK">
+          <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MASTERBANKBRANCH">
+              <PropertyRef Name="BANK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERBANK">
+          <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="BANK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERBANKBRANCH">
+          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANKBRANCH">
+              <PropertyRef Name="BANKBRANCH_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="BRANCH_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeesDetails_MASTERMEMBER">
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="1" />
+          <End Type="nube18092017Model.FeesDetail" Role="FeesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="FeesDetail">
+              <PropertyRef Name="MemberCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERSTATUS">
+          <End Type="nube18092017Model.MASTERSTATU" Role="MASTERSTATU" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERSTATU">
+              <PropertyRef Name="STATUS_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="STATUS_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemberMonthEndStatus_MASTERMEMBER">
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MemberMonthEndStatu" Role="MemberMonthEndStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="MemberMonthEndStatu">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RESIGNATION_MASTERMEMBER">
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="1" />
+          <End Type="nube18092017Model.RESIGNATION" Role="RESIGNATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="RESIGNATION">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERMEMBERTYPE">
+          <End Type="nube18092017Model.MASTERMEMBERTYPE" Role="MASTERMEMBERTYPE" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBERTYPE">
+              <PropertyRef Name="MEMBERTYPE_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBERTYPE_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4465,30 +4747,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="LoginOn" ColumnName="LoginOn" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MASTERBANKBRANCHes">
-            <EntityTypeMapping TypeName="nube18092017Model.MASTERBANKBRANCH">
-              <MappingFragment StoreEntitySet="MASTERBANKBRANCH">
-                <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
-                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
-                <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
-                <ScalarProperty Name="BANKBRANCH_USERCODE" ColumnName="BANKBRANCH_USERCODE" />
-                <ScalarProperty Name="BANKBRANCH_ADDRESS1" ColumnName="BANKBRANCH_ADDRESS1" />
-                <ScalarProperty Name="BANKBRANCH_ADDRESS2" ColumnName="BANKBRANCH_ADDRESS2" />
-                <ScalarProperty Name="BANKBRANCH_ADDRESS3" ColumnName="BANKBRANCH_ADDRESS3" />
-                <ScalarProperty Name="BANKBRANCH_CITY_CODE" ColumnName="BANKBRANCH_CITY_CODE" />
-                <ScalarProperty Name="BANKBRANCH_STATE_CODE" ColumnName="BANKBRANCH_STATE_CODE" />
-                <ScalarProperty Name="BANKBRANCH_COUNTRY" ColumnName="BANKBRANCH_COUNTRY" />
-                <ScalarProperty Name="BANKBRANCH_ZIPCODE" ColumnName="BANKBRANCH_ZIPCODE" />
-                <ScalarProperty Name="BANKBRANCH_PHONE1" ColumnName="BANKBRANCH_PHONE1" />
-                <ScalarProperty Name="BANKBRANCH_PHONE2" ColumnName="BANKBRANCH_PHONE2" />
-                <ScalarProperty Name="BANKBRANCH_EMAIL" ColumnName="BANKBRANCH_EMAIL" />
-                <ScalarProperty Name="NUBE_BRANCH_CODE" ColumnName="NUBE_BRANCH_CODE" />
-                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
-                <ScalarProperty Name="HEAD_QUARTERS" ColumnName="HEAD_QUARTERS" />
-                <ScalarProperty Name="MERGED" ColumnName="MERGED" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5328,97 +5586,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MASTERMEMBERs">
-            <EntityTypeMapping TypeName="nube18092017Model.MASTERMEMBER">
-              <MappingFragment StoreEntitySet="MASTERMEMBER">
-                <ScalarProperty Name="BranchMemberCode" ColumnName="BranchMemberCode" />
-                <ScalarProperty Name="GE_ContractNo" ColumnName="GE_ContractNo" />
-                <ScalarProperty Name="GE_Insurance" ColumnName="GE_Insurance" />
-                <ScalarProperty Name="AI_MemberNo" ColumnName="AI_MemberNo" />
-                <ScalarProperty Name="AI_Insurance" ColumnName="AI_Insurance" />
-                <ScalarProperty Name="TotalPaid" ColumnName="TotalPaid" />
-                <ScalarProperty Name="IsBranchRegister" ColumnName="IsBranchRegister" />
-                <ScalarProperty Name="IsCancel" ColumnName="IsCancel" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="BankCode_ByBank" ColumnName="BankCode_ByBank" />
-                <ScalarProperty Name="NRIC_ByBank" ColumnName="NRIC_ByBank" />
-                <ScalarProperty Name="MemberName_ByBank" ColumnName="MemberName_ByBank" />
-                <ScalarProperty Name="Tdf_PaymentDate" ColumnName="Tdf_PaymentDate" />
-                <ScalarProperty Name="LevyPaymentDate" ColumnName="LevyPaymentDate" />
-                <ScalarProperty Name="TDF_AMOUNT" ColumnName="TDF_AMOUNT" />
-                <ScalarProperty Name="TDF" ColumnName="TDF" />
-                <ScalarProperty Name="LEVY_AMOUNT" ColumnName="LEVY_AMOUNT" />
-                <ScalarProperty Name="BatchAmt" ColumnName="BatchAmt" />
-                <ScalarProperty Name="Salary" ColumnName="Salary" />
-                <ScalarProperty Name="WAIVERREASON" ColumnName="WAIVERREASON" />
-                <ScalarProperty Name="WAIVERDATE" ColumnName="WAIVERDATE" />
-                <ScalarProperty Name="STRUCKOFF_DATE" ColumnName="STRUCKOFF_DATE" />
-                <ScalarProperty Name="STRUCKOFF_REMARKS" ColumnName="STRUCKOFF_REMARKS" />
-                <ScalarProperty Name="STRUCKOFF" ColumnName="STRUCKOFF" />
-                <ScalarProperty Name="DATEOFEMPLOYMENT_S" ColumnName="DATEOFEMPLOYMENT_S" />
-                <ScalarProperty Name="DATEOFBIRTH_S" ColumnName="DATEOFBIRTH_S" />
-                <ScalarProperty Name="BLACKLISTREASON" ColumnName="BLACKLISTREASON" />
-                <ScalarProperty Name="BLACKLISTED" ColumnName="BLACKLISTED" />
-                <ScalarProperty Name="LASTPAYMENT_DATE" ColumnName="LASTPAYMENT_DATE" />
-                <ScalarProperty Name="REGISTRATION_FEE" ColumnName="REGISTRATION_FEE" />
-                <ScalarProperty Name="ENTRY_TIME" ColumnName="ENTRY_TIME" />
-                <ScalarProperty Name="ENTRY_DATE" ColumnName="ENTRY_DATE" />
-                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
-                <ScalarProperty Name="PAYMENT_MODE" ColumnName="PAYMENT_MODE" />
-                <ScalarProperty Name="RESIGNED" ColumnName="RESIGNED" />
-                <ScalarProperty Name="CURRENT_YTDSUBSCRIPTION" ColumnName="CURRENT_YTDSUBSCRIPTION" />
-                <ScalarProperty Name="CURRENT_YTDBF" ColumnName="CURRENT_YTDBF" />
-                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
-                <ScalarProperty Name="ACCSUBSCRIPTION" ColumnName="ACCSUBSCRIPTION" />
-                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
-                <ScalarProperty Name="MONTHLYSUBSCRIPTION" ColumnName="MONTHLYSUBSCRIPTION" />
-                <ScalarProperty Name="MONTHLYBF" ColumnName="MONTHLYBF" />
-                <ScalarProperty Name="HQFEE" ColumnName="HQFEE" />
-                <ScalarProperty Name="ENTRANCEFEE" ColumnName="ENTRANCEFEE" />
-                <ScalarProperty Name="TOTALMONTHSPAID" ColumnName="TOTALMONTHSPAID" />
-                <ScalarProperty Name="LEVY" ColumnName="LEVY" />
-                <ScalarProperty Name="PREVIOUS_STATUSCODE" ColumnName="PREVIOUS_STATUSCODE" />
-                <ScalarProperty Name="STATUS_CODE" ColumnName="STATUS_CODE" />
-                <ScalarProperty Name="HELDON" ColumnName="HELDON" />
-                <ScalarProperty Name="CONFIRMEDAT" ColumnName="CONFIRMEDAT" />
-                <ScalarProperty Name="SECONDED_MEMBERID" ColumnName="SECONDED_MEMBERID" />
-                <ScalarProperty Name="SECONDEDBY" ColumnName="SECONDEDBY" />
-                <ScalarProperty Name="PROPOSED_MEMBERID" ColumnName="PROPOSED_MEMBERID" />
-                <ScalarProperty Name="PROPOSEDBY" ColumnName="PROPOSEDBY" />
-                <ScalarProperty Name="REJOINED" ColumnName="REJOINED" />
-                <ScalarProperty Name="RACE_CODE" ColumnName="RACE_CODE" />
-                <ScalarProperty Name="SEX" ColumnName="SEX" />
-                <ScalarProperty Name="MEMBERTYPE_CODE" ColumnName="MEMBERTYPE_CODE" />
-                <ScalarProperty Name="DATEOFEMPLOYMENT" ColumnName="DATEOFEMPLOYMENT" />
-                <ScalarProperty Name="AGE_IN_YEARS" ColumnName="AGE_IN_YEARS" />
-                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
-                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
-                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
-                <ScalarProperty Name="STATE_CODE" ColumnName="STATE_CODE" />
-                <ScalarProperty Name="CITY_CODE" ColumnName="CITY_CODE" />
-                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
-                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
-                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
-                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
-                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
-                <ScalarProperty Name="ICNO_NEW" ColumnName="ICNO_NEW" />
-                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
-                <ScalarProperty Name="BF_NO" ColumnName="BF_NO" />
-                <ScalarProperty Name="MEMBER_INITIAL" ColumnName="MEMBER_INITIAL" />
-                <ScalarProperty Name="MEMBER_TITLE" ColumnName="MEMBER_TITLE" />
-                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
-                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
-                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ViewBranches">
             <EntityTypeMapping TypeName="nube18092017Model.ViewBranch">
               <MappingFragment StoreEntitySet="ViewBranch">
@@ -5434,18 +5601,6 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
                 <ScalarProperty Name="BANKBRANCH_ADDRESS1" ColumnName="BANKBRANCH_ADDRESS1" />
                 <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
                 <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="MASTERBANKs">
-            <EntityTypeMapping TypeName="nube18092017Model.MASTERBANK">
-              <MappingFragment StoreEntitySet="MASTERBANK">
-                <ScalarProperty Name="HEADER_BANK_CODE" ColumnName="HEADER_BANK_CODE" />
-                <ScalarProperty Name="MERGED" ColumnName="MERGED" />
-                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
-                <ScalarProperty Name="BANK_USERCODE" ColumnName="BANK_USERCODE" />
-                <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
-                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -5903,6 +6058,12 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
           <EntitySetMapping Name="MemberMonthEndStatus">
             <EntityTypeMapping TypeName="nube18092017Model.MemberMonthEndStatu">
               <MappingFragment StoreEntitySet="MemberMonthEndStatus">
+                <ScalarProperty Name="CURRENT_YDTINSURANCE" ColumnName="CURRENT_YDTINSURANCE" />
+                <ScalarProperty Name="ACCINSURANCE" ColumnName="ACCINSURANCE" />
+                <ScalarProperty Name="INSURANCEDUE" ColumnName="INSURANCEDUE" />
+                <ScalarProperty Name="TOTALMONTHSCONTRIBUTION" ColumnName="TOTALMONTHSCONTRIBUTION" />
+                <ScalarProperty Name="TOTALINSURANCE_AMOUNT" ColumnName="TOTALINSURANCE_AMOUNT" />
+                <ScalarProperty Name="INSURANCE_AMOUNT" ColumnName="INSURANCE_AMOUNT" />
                 <ScalarProperty Name="STRUCKOFF" ColumnName="STRUCKOFF" />
                 <ScalarProperty Name="ENTRY_TIME" ColumnName="ENTRY_TIME" />
                 <ScalarProperty Name="ENTRY_DATE" ColumnName="ENTRY_DATE" />
@@ -6037,6 +6198,142 @@ warning 6002: The table/view 'nubev2.dbo.VIEWTOTALDUE' does not have a primary k
                 <ScalarProperty Name="FeeDate" ColumnName="FeeDate" />
                 <ScalarProperty Name="BankId" ColumnName="BankId" />
                 <ScalarProperty Name="FeeId" ColumnName="FeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MASTERBANKs">
+            <EntityTypeMapping TypeName="nube18092017Model.MASTERBANK">
+              <MappingFragment StoreEntitySet="MASTERBANK">
+                <ScalarProperty Name="HEADER_BANK_CODE" ColumnName="HEADER_BANK_CODE" />
+                <ScalarProperty Name="MERGED" ColumnName="MERGED" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="BANK_USERCODE" ColumnName="BANK_USERCODE" />
+                <ScalarProperty Name="BANK_NAME" ColumnName="BANK_NAME" />
+                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MASTERBANKBRANCHes">
+            <EntityTypeMapping TypeName="nube18092017Model.MASTERBANKBRANCH">
+              <MappingFragment StoreEntitySet="MASTERBANKBRANCH">
+                <ScalarProperty Name="MERGED" ColumnName="MERGED" />
+                <ScalarProperty Name="HEAD_QUARTERS" ColumnName="HEAD_QUARTERS" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="NUBE_BRANCH_CODE" ColumnName="NUBE_BRANCH_CODE" />
+                <ScalarProperty Name="BANKBRANCH_EMAIL" ColumnName="BANKBRANCH_EMAIL" />
+                <ScalarProperty Name="BANKBRANCH_PHONE2" ColumnName="BANKBRANCH_PHONE2" />
+                <ScalarProperty Name="BANKBRANCH_PHONE1" ColumnName="BANKBRANCH_PHONE1" />
+                <ScalarProperty Name="BANKBRANCH_ZIPCODE" ColumnName="BANKBRANCH_ZIPCODE" />
+                <ScalarProperty Name="BANKBRANCH_COUNTRY" ColumnName="BANKBRANCH_COUNTRY" />
+                <ScalarProperty Name="BANKBRANCH_STATE_CODE" ColumnName="BANKBRANCH_STATE_CODE" />
+                <ScalarProperty Name="BANKBRANCH_CITY_CODE" ColumnName="BANKBRANCH_CITY_CODE" />
+                <ScalarProperty Name="BANKBRANCH_ADDRESS3" ColumnName="BANKBRANCH_ADDRESS3" />
+                <ScalarProperty Name="BANKBRANCH_ADDRESS2" ColumnName="BANKBRANCH_ADDRESS2" />
+                <ScalarProperty Name="BANKBRANCH_ADDRESS1" ColumnName="BANKBRANCH_ADDRESS1" />
+                <ScalarProperty Name="BANKBRANCH_USERCODE" ColumnName="BANKBRANCH_USERCODE" />
+                <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
+                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
+                <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MASTERMEMBERs">
+            <EntityTypeMapping TypeName="nube18092017Model.MASTERMEMBER">
+              <MappingFragment StoreEntitySet="MASTERMEMBER">
+                <ScalarProperty Name="IsHistoryClean" ColumnName="IsHistoryClean" />
+                <ScalarProperty Name="BranchMemberCode" ColumnName="BranchMemberCode" />
+                <ScalarProperty Name="GE_ContractNo" ColumnName="GE_ContractNo" />
+                <ScalarProperty Name="GE_Insurance" ColumnName="GE_Insurance" />
+                <ScalarProperty Name="AI_MemberNo" ColumnName="AI_MemberNo" />
+                <ScalarProperty Name="AI_Insurance" ColumnName="AI_Insurance" />
+                <ScalarProperty Name="TotalPaid" ColumnName="TotalPaid" />
+                <ScalarProperty Name="IsBranchRegister" ColumnName="IsBranchRegister" />
+                <ScalarProperty Name="IsCancel" ColumnName="IsCancel" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="BankCode_ByBank" ColumnName="BankCode_ByBank" />
+                <ScalarProperty Name="NRIC_ByBank" ColumnName="NRIC_ByBank" />
+                <ScalarProperty Name="MemberName_ByBank" ColumnName="MemberName_ByBank" />
+                <ScalarProperty Name="Tdf_PaymentDate" ColumnName="Tdf_PaymentDate" />
+                <ScalarProperty Name="LevyPaymentDate" ColumnName="LevyPaymentDate" />
+                <ScalarProperty Name="TDF_AMOUNT" ColumnName="TDF_AMOUNT" />
+                <ScalarProperty Name="TDF" ColumnName="TDF" />
+                <ScalarProperty Name="LEVY_AMOUNT" ColumnName="LEVY_AMOUNT" />
+                <ScalarProperty Name="BatchAmt" ColumnName="BatchAmt" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="WAIVERREASON" ColumnName="WAIVERREASON" />
+                <ScalarProperty Name="WAIVERDATE" ColumnName="WAIVERDATE" />
+                <ScalarProperty Name="STRUCKOFF_DATE" ColumnName="STRUCKOFF_DATE" />
+                <ScalarProperty Name="STRUCKOFF_REMARKS" ColumnName="STRUCKOFF_REMARKS" />
+                <ScalarProperty Name="STRUCKOFF" ColumnName="STRUCKOFF" />
+                <ScalarProperty Name="DATEOFEMPLOYMENT_S" ColumnName="DATEOFEMPLOYMENT_S" />
+                <ScalarProperty Name="DATEOFBIRTH_S" ColumnName="DATEOFBIRTH_S" />
+                <ScalarProperty Name="BLACKLISTREASON" ColumnName="BLACKLISTREASON" />
+                <ScalarProperty Name="BLACKLISTED" ColumnName="BLACKLISTED" />
+                <ScalarProperty Name="LASTPAYMENT_DATE" ColumnName="LASTPAYMENT_DATE" />
+                <ScalarProperty Name="REGISTRATION_FEE" ColumnName="REGISTRATION_FEE" />
+                <ScalarProperty Name="ENTRY_TIME" ColumnName="ENTRY_TIME" />
+                <ScalarProperty Name="ENTRY_DATE" ColumnName="ENTRY_DATE" />
+                <ScalarProperty Name="USER_CODE" ColumnName="USER_CODE" />
+                <ScalarProperty Name="PAYMENT_MODE" ColumnName="PAYMENT_MODE" />
+                <ScalarProperty Name="RESIGNED" ColumnName="RESIGNED" />
+                <ScalarProperty Name="DUEINSURANCE" ColumnName="DUEINSURANCE" />
+                <ScalarProperty Name="DUESUBSCRIPTION" ColumnName="DUESUBSCRIPTION" />
+                <ScalarProperty Name="DUEBF" ColumnName="DUEBF" />
+                <ScalarProperty Name="CURRENT_YTDINSURANCE" ColumnName="CURRENT_YTDINSURANCE" />
+                <ScalarProperty Name="CURRENT_YTDSUBSCRIPTION" ColumnName="CURRENT_YTDSUBSCRIPTION" />
+                <ScalarProperty Name="CURRENT_YTDBF" ColumnName="CURRENT_YTDBF" />
+                <ScalarProperty Name="ACCBENEFIT" ColumnName="ACCBENEFIT" />
+                <ScalarProperty Name="ACCINSURANCE" ColumnName="ACCINSURANCE" />
+                <ScalarProperty Name="ACCSUBSCRIPTION" ColumnName="ACCSUBSCRIPTION" />
+                <ScalarProperty Name="ACCBF" ColumnName="ACCBF" />
+                <ScalarProperty Name="MONTHLYINSURANCE" ColumnName="MONTHLYINSURANCE" />
+                <ScalarProperty Name="MONTHLYSUBSCRIPTION" ColumnName="MONTHLYSUBSCRIPTION" />
+                <ScalarProperty Name="MONTHLYBF" ColumnName="MONTHLYBF" />
+                <ScalarProperty Name="HQFEE" ColumnName="HQFEE" />
+                <ScalarProperty Name="ENTRANCEFEE" ColumnName="ENTRANCEFEE" />
+                <ScalarProperty Name="TOTALMONTHSDUE" ColumnName="TOTALMONTHSDUE" />
+                <ScalarProperty Name="TOTALMONTHSPAID" ColumnName="TOTALMONTHSPAID" />
+                <ScalarProperty Name="TOTALMONTHCONTRIBUTE" ColumnName="TOTALMONTHCONTRIBUTE" />
+                <ScalarProperty Name="LEVY" ColumnName="LEVY" />
+                <ScalarProperty Name="PREVIOUS_STATUSCODE" ColumnName="PREVIOUS_STATUSCODE" />
+                <ScalarProperty Name="STATUS_CODE" ColumnName="STATUS_CODE" />
+                <ScalarProperty Name="HELDON" ColumnName="HELDON" />
+                <ScalarProperty Name="CONFIRMEDAT" ColumnName="CONFIRMEDAT" />
+                <ScalarProperty Name="SECONDED_MEMBERID" ColumnName="SECONDED_MEMBERID" />
+                <ScalarProperty Name="SECONDEDBY" ColumnName="SECONDEDBY" />
+                <ScalarProperty Name="PROPOSED_MEMBERID" ColumnName="PROPOSED_MEMBERID" />
+                <ScalarProperty Name="PROPOSEDBY" ColumnName="PROPOSEDBY" />
+                <ScalarProperty Name="REJOINED" ColumnName="REJOINED" />
+                <ScalarProperty Name="RACE_CODE" ColumnName="RACE_CODE" />
+                <ScalarProperty Name="SEX" ColumnName="SEX" />
+                <ScalarProperty Name="MEMBERTYPE_CODE" ColumnName="MEMBERTYPE_CODE" />
+                <ScalarProperty Name="DATEOFEMPLOYMENT" ColumnName="DATEOFEMPLOYMENT" />
+                <ScalarProperty Name="AGE_IN_YEARS" ColumnName="AGE_IN_YEARS" />
+                <ScalarProperty Name="DATEOFBIRTH" ColumnName="DATEOFBIRTH" />
+                <ScalarProperty Name="DATEOFJOINING" ColumnName="DATEOFJOINING" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="STATE_CODE" ColumnName="STATE_CODE" />
+                <ScalarProperty Name="CITY_CODE" ColumnName="CITY_CODE" />
+                <ScalarProperty Name="ADDRESS3" ColumnName="ADDRESS3" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="BRANCH_CODE" ColumnName="BRANCH_CODE" />
+                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
+                <ScalarProperty Name="ICNO_NEW" ColumnName="ICNO_NEW" />
+                <ScalarProperty Name="ICNO_OLD" ColumnName="ICNO_OLD" />
+                <ScalarProperty Name="BF_NO" ColumnName="BF_NO" />
+                <ScalarProperty Name="MEMBER_INITIAL" ColumnName="MEMBER_INITIAL" />
+                <ScalarProperty Name="MEMBER_TITLE" ColumnName="MEMBER_TITLE" />
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
+                <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

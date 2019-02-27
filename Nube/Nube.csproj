@@ -213,6 +213,9 @@
     <Compile Include="frmBackUpDB.xaml.cs">
       <DependentUpon>frmBackUpDB.xaml</DependentUpon>
     </Compile>
+    <Compile Include="frmHistoryAlter.xaml.cs">
+      <DependentUpon>frmHistoryAlter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="frmHomeMaster.xaml.cs">
       <DependentUpon>frmHomeMaster.xaml</DependentUpon>
     </Compile>
@@ -734,6 +737,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="frmBackUpDB.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="frmHistoryAlter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

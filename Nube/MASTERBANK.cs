@@ -17,6 +17,7 @@ namespace Nube
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MASTERBANK()
         {
+            this.MASTERBANKBRANCHes = new HashSet<MASTERBANKBRANCH>();
             this.MASTERMEMBERs = new HashSet<MASTERMEMBER>();
         }
     
@@ -27,6 +28,8 @@ namespace Nube
         public Nullable<decimal> MERGED { get; set; }
         public decimal HEADER_BANK_CODE { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MASTERMEMBER> MASTERMEMBERs { get; set; }
     }

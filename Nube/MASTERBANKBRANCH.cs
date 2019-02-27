@@ -39,6 +39,7 @@ namespace Nube
         public Nullable<decimal> HEAD_QUARTERS { get; set; }
         public Nullable<decimal> MERGED { get; set; }
     
+        public virtual MASTERBANK MASTERBANK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MASTERMEMBER> MASTERMEMBERs { get; set; }
     }
