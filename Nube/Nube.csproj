@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="AlterViewMaster.cs" />
     <Compile Include="AppLib.cs" />
+    <Compile Include="AppLog.cs" />
     <Compile Include="ArrearPostDetail.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>

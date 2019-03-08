@@ -56,7 +56,7 @@
                             <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="3">
                                 <Setter Property="Foreground" Value="Red"></Setter>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="6">
+                            <DataTrigger Binding="{Binding MEMBERSTATUSCODE}" Value="4">
                                 <Setter Property="Foreground" Value="Green"></Setter>
                             </DataTrigger>
                         </Style.Triggers>
