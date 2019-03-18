@@ -27,19 +27,27 @@ namespace Nube
         {
             InitializeComponent();
             this.DataContext = data;
-            this.gbxStatus.DataContext = mmStatus;            
+            this.gbxStatus.DataContext = mmStatus;			
         }
 
         public void Search(decimal MEMBER_ID)
         {
             txtMemberId.Text = MEMBER_ID.ToString();
-            var mm = db.MASTERMEMBERs.FirstOrDefault(x => x.MEMBER_ID == MEMBER_ID);
-            if (mm == null)
-            {
-                MessageBox.Show("Enter the Valid Member Id");
-                txtMemberId.Focusable = true;
-                mm = new MASTERMEMBER();
-            }
+			data = new MASTERMEMBER();
+			this.DataContext = data;
+
+			var mm = db.MASTERMEMBERs.FirstOrDefault(x => x.MEMBER_ID == MEMBER_ID);
+			if (mm == null)
+			{
+				MessageBox.Show("Enter the Valid Member Id");
+				txtMemberId.Focusable = true;
+				mm = new MASTERMEMBER();
+			}
+			else
+			{
+				mm.MemberMonthEndStatus = mm.MemberMonthEndStatus.OrderBy(x => x.StatusMonth).ToList();
+			}
+
             data = mm;
             this.DataContext = data;            
         }
@@ -57,15 +65,74 @@ namespace Nube
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             try
-            {
-                if (mmStatus.Id == 0)
-                {
-                    data.MemberMonthEndStatus.Add(mmStatus);
-                }
-                data.IsHistoryClean = false;
-                db.SaveChanges();
+            {               
+
+				var dtFrom = mmStatus.StatusMonth.Value;
+				var dtTo = mmStatus.LASTPAYMENTDATE.Value;
+				while (dtFrom <= dtTo)
+				{
+					var st = data.MemberMonthEndStatus.FirstOrDefault(x => x.StatusMonth == dtFrom);
+					if (st == null)
+					{
+						st = new MemberMonthEndStatu();
+
+						st.MEMBERTYPE_CODE = data.MEMBERTYPE_CODE;
+						st.BANK_CODE = data.BANK_CODE;
+						st.BRANCH_CODE = data.BRANCH_CODE;
+						st.NUBE_BRANCH_CODE = data.MASTERBANKBRANCH.NUBE_BRANCH_CODE;
+						st.StatusMonth = dtFrom;
+						data.MemberMonthEndStatus.Add(st);
+					}
+
+					st.TOTAL_MONTHS = mmStatus.TOTAL_MONTHS;
+					st.TOTALSUBCRP_AMOUNT = mmStatus.TOTALSUBCRP_AMOUNT;
+					st.TOTALBF_AMOUNT = mmStatus.TOTALBF_AMOUNT;
+					st.TOTALINSURANCE_AMOUNT = mmStatus.TOTALINSURANCE_AMOUNT;
+					if ((st.StatusMonth.Value.Year == 2005 && st.StatusMonth.Value.Month == 9) || (st.StatusMonth.Value.Year == data.DATEOFJOINING.Value.Year && st.StatusMonth.Value.Month == data.DATEOFJOINING.Value.Month))
+					{
+						st.LASTPAYMENTDATE = data.DATEOFJOINING.Value;
+
+						var cmon = data.DATEOFJOINING.Value.MonthDiff(st.StatusMonth.Value) + 1;
+						var pmon = st.TOTAL_MONTHS;
+						var dmon = cmon - pmon;
+
+
+						st.TOTALMONTHSCONTRIBUTION = cmon;
+						st.TOTALMONTHSPAID = pmon;
+						st.TOTALMONTHSDUE = dmon;
+
+						st.ACCSUBSCRIPTION = st.TOTALSUBCRP_AMOUNT;
+						st.ACCBF = st.TOTALBF_AMOUNT;
+						st.ACCINSURANCE = st.TOTALINSURANCE_AMOUNT;
+
+						try
+						{
+							st.SUBSCRIPTION_AMOUNT = st.ACCSUBSCRIPTION / st.TOTALMONTHSPAID;
+							st.BF_AMOUNT = st.ACCBF / st.TOTALMONTHSPAID;
+							st.INSURANCE_AMOUNT = st.ACCINSURANCE / st.TOTALMONTHSPAID;
+
+							st.SUBSCRIPTIONDUE = st.SUBSCRIPTION_AMOUNT * st.TOTALMONTHSDUE;
+							st.BFDUE = st.BF_AMOUNT * st.TOTALMONTHSDUE;
+							st.INSURANCEDUE= st.INSURANCE_AMOUNT * st.TOTALMONTHSDUE;							
+						}
+						catch (Exception ex) { }
+						
+
+					}
+					dtFrom = dtFrom.AddMonths(1);
+				}
+
+				data.IsHistoryClean = false;
+				db.SaveChanges();
+
 				MessageBox.Show("Saved");
-            }
+				try
+				{
+					var MEMBER_ID = Convert.ToDecimal(txtMemberId.Text);
+					Search(MEMBER_ID);
+				}
+				catch (Exception ex) { }
+			}
             catch(Exception ex) { }
             
         }
@@ -78,7 +145,15 @@ namespace Nube
                 data.MemberMonthEndStatus.Remove(mmStatus);
                 data.IsHistoryClean = false;
                 db.SaveChanges();
-            }
+				MessageBox.Show("Deleted");
+				try
+				{
+					var MEMBER_ID = Convert.ToDecimal(txtMemberId.Text);
+					Search(MEMBER_ID);
+				}
+				catch (Exception ex) { }
+
+			}
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
@@ -102,6 +177,7 @@ namespace Nube
             try
             {
                 mmStatus = dgrStatus.SelectedItem as MemberMonthEndStatu;
+				mmStatus.LASTPAYMENTDATE = mmStatus.StatusMonth;
                 this.gbxStatus.DataContext = mmStatus;
             }catch(Exception ex) { }
         }
@@ -122,6 +198,7 @@ namespace Nube
 
                 DateTime dtFrom = data.MemberMonthEndStatus.Min(x => x.StatusMonth.Value);
                 DateTime dtTo = data.MemberMonthEndStatus.Max(x => x.StatusMonth.Value);
+				DateTime dtLastPaid = data.DATEOFJOINING.Value;
                 DateTime? dtResign = null;
 
                 var resign = data.RESIGNATIONs.FirstOrDefault();                
@@ -156,7 +233,10 @@ namespace Nube
                 var st = data.MemberMonthEndStatus.FirstOrDefault(x => x.StatusMonth == dtFrom);
                 if (st == null)
                 {
-                    AppLog.WriteLog($"{dtFrom:MMMM yyyy} is missing in History");
+					var str = $"{dtFrom:MMMM yyyy} is missing in History";
+
+					AppLog.WriteLog(str);
+					MessageBox.Show(str);
                     return;
                 }
                 if (st.StatusMonth == new DateTime(2005, 9, 1))
@@ -174,7 +254,7 @@ namespace Nube
                     {
                         AppLog.WriteLog($"Contribute Month : {CMon}, Paid Month: {PMon}, Due Month: {DMon}");
                         AppLog.WriteLog($"Error: Contribute Month is mismatch. Actual Contribute Month is {tmpCMon}");
-                        hasError = true;
+                        //hasError = true;
                     }
                    
 
@@ -185,19 +265,19 @@ namespace Nube
                     DueBF = st.BFDUE??0;
                     DueSubs = st.SUBSCRIPTIONDUE??0;
                     DueIns = st.INSURANCEDUE??0;
-
+					
                     AppLog.WriteLog($"AccBF: {AccBF}, AccSubs: {AccSubs}, AccIns: {AccIns}, DueBF: {DueBF}, DueSubs: {DueSubs}, DueIns: {DueIns}");
 
                     if (AccBF != (PMon * st.BF_AMOUNT))
                     {
                         AppLog.WriteLog("AccBF is mismatch");
-                        hasError = true;
+                        //hasError = true;
                     }
 
                     if (DueBF != (DMon * st.BF_AMOUNT))
                     {
                         AppLog.WriteLog("DueBF is mismatch");
-                        hasError = true;
+                        //hasError = true;
                     }
 
 					if (hasError)
@@ -232,8 +312,8 @@ namespace Nube
                 ConBF = AccBF + DueBF;
                 ConSubs = AccSubs + DueSubs;
                 ConIns = AccIns + DueIns;
-
-                AppLog.WriteLog($"Contribute Month : {CMon}, Paid Month: {PMon}, Due Month: {DMon}");
+				dtLastPaid = st.LASTPAYMENTDATE.Value;
+				AppLog.WriteLog($"Contribute Month : {CMon}, Paid Month: {PMon}, Due Month: {DMon}");
                 int LastPaidDue = 0;
                 while (dtFrom < dtTo)
                 {
@@ -251,7 +331,10 @@ namespace Nube
                     st = data.MemberMonthEndStatus.FirstOrDefault(x => x.StatusMonth == dtFrom);
                     if (st == null)
                     {
-                        AppLog.WriteLog($"{dtFrom:MMMM yyyy} is missing in History");
+						var str = $"{dtFrom:MMMM yyyy} is missing in History";
+
+						AppLog.WriteLog(str);
+						MessageBox.Show(str);
                         return;
                     }
                     CMon = CMon + 1;
@@ -271,7 +354,7 @@ namespace Nube
                         CurSubs += Subs;
                         CurIns += Ins;
 
-                        st.LASTPAYMENTDATE = dtFrom;
+						dtLastPaid = dtFrom;
                         LastPaidDue = 0;
                     }
                     else
@@ -301,7 +384,7 @@ namespace Nube
                     st.BFDUE = ConBF-AccBF;
                     st.SUBSCRIPTIONDUE = ConSubs-AccSubs;
                     st.INSURANCEDUE = ConIns-AccIns;
-
+					st.LASTPAYMENTDATE = dtLastPaid;
                     st.STATUS_CODE = 0;
                     if (dtResign != null)
                     {
@@ -351,7 +434,13 @@ namespace Nube
 
                 db.SaveChanges();
                 MessageBox.Show("Done");
-            }
+				try
+				{
+					var MEMBER_ID = Convert.ToDecimal(txtMemberId.Text);
+					Search(MEMBER_ID);
+				}
+				catch (Exception ex) { }
+			}
             catch(Exception ex)
             {
                 AppLog.WriteLog(ex);
