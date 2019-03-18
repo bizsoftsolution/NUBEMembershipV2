@@ -64,6 +64,7 @@ namespace Nube
                 }
                 data.IsHistoryClean = false;
                 db.SaveChanges();
+				MessageBox.Show("Saved");
             }
             catch(Exception ex) { }
             
@@ -162,13 +163,13 @@ namespace Nube
                 {
                     bool hasError = false;
 
-                    PMon = Convert.ToInt32(st.TOTALMONTHSPAID.Value);
-                    DMon = Convert.ToInt32(st.TOTALMONTHSDUE.Value);
+                    PMon = Convert.ToInt32(st.TOTALMONTHSPAID??0);
+                    DMon = Convert.ToInt32(st.TOTALMONTHSDUE??0);
                     CMon = PMon + DMon;
 
                     var dt = data.DATEOFJOINING.Value;
                     dt = new DateTime(dt.Year, dt.Month, 1);
-                    var tmpCMon = dt.MonthDiff(dtFrom);
+                    var tmpCMon = dt.MonthDiff(dtFrom)+1;
                     if (CMon != tmpCMon)
                     {
                         AppLog.WriteLog($"Contribute Month : {CMon}, Paid Month: {PMon}, Due Month: {DMon}");
@@ -177,13 +178,13 @@ namespace Nube
                     }
                    
 
-                    AccBF = st.ACCBF.Value;
-                    AccSubs = st.ACCSUBSCRIPTION.Value;
-                    AccIns = st.ACCINSURANCE.Value;
+                    AccBF = st.ACCBF??0;
+                    AccSubs = st.ACCSUBSCRIPTION??0;
+                    AccIns = st.ACCINSURANCE??0;
 
-                    DueBF = st.BFDUE.Value;
-                    DueSubs = st.SUBSCRIPTIONDUE.Value;
-                    DueIns = st.INSURANCEDUE.Value;
+                    DueBF = st.BFDUE??0;
+                    DueSubs = st.SUBSCRIPTIONDUE??0;
+                    DueIns = st.INSURANCEDUE??0;
 
                     AppLog.WriteLog($"AccBF: {AccBF}, AccSubs: {AccSubs}, AccIns: {AccIns}, DueBF: {DueBF}, DueSubs: {DueSubs}, DueIns: {DueIns}");
 
@@ -193,36 +194,40 @@ namespace Nube
                         hasError = true;
                     }
 
-                    if (DueBF != (PMon * st.BF_AMOUNT))
+                    if (DueBF != (DMon * st.BF_AMOUNT))
                     {
                         AppLog.WriteLog("DueBF is mismatch");
                         hasError = true;
                     }
 
-                    if (hasError) return;
+					if (hasError)
+					{
+						MessageBox.Show("Error. for more details see log");
+						return;
+					}
                 }
                 else
                 {
                     CMon = 1;
-                    PMon = Convert.ToInt16(st.TOTAL_MONTHS.Value);
+                    PMon = Convert.ToInt16(st.TOTAL_MONTHS??0);
                 }
                 DMon = CMon - PMon;
 
-                BF = st.BF_AMOUNT.Value;
-                Subs = st.SUBSCRIPTION_AMOUNT.Value;
-                Ins = st.INSURANCE_AMOUNT.Value;
+                BF = st.BF_AMOUNT??0;
+                Subs = st.SUBSCRIPTION_AMOUNT??0;
+                Ins = st.INSURANCE_AMOUNT??0;
 
-                CurBF = st.CURRENT_YDTBF.Value;
-                CurSubs = st.CURRENT_YDTSUBSCRIPTION.Value;
-                CurIns = st.CURRENT_YDTINSURANCE.Value;
+                CurBF = st.CURRENT_YDTBF??0;
+                CurSubs = st.CURRENT_YDTSUBSCRIPTION??0;
+                CurIns = st.CURRENT_YDTINSURANCE??0;
 
-                AccBF = st.ACCBF.Value;
-                AccSubs = st.ACCSUBSCRIPTION.Value;
-                AccIns = st.ACCINSURANCE.Value;
+                AccBF = st.ACCBF??0;
+                AccSubs = st.ACCSUBSCRIPTION??0;
+                AccIns = st.ACCINSURANCE??0;
 
-                DueBF = st.BFDUE.Value;
-                DueSubs = st.SUBSCRIPTIONDUE.Value;
-                DueIns = st.INSURANCEDUE.Value;
+                DueBF = st.BFDUE??0;
+                DueSubs = st.SUBSCRIPTIONDUE??0;
+                DueIns = st.INSURANCEDUE??0;
 
                 ConBF = AccBF + DueBF;
                 ConSubs = AccSubs + DueSubs;
@@ -252,11 +257,11 @@ namespace Nube
                     CMon = CMon + 1;
                     if (st.TOTAL_MONTHS > 0)
                     {
-                        PMon = PMon + Convert.ToInt32(st.TOTAL_MONTHS.Value);
+                        PMon = PMon + Convert.ToInt32(st.TOTAL_MONTHS??0);
 
-                        BF = st.TOTALBF_AMOUNT.Value;
-                        Subs = st.TOTALSUBCRP_AMOUNT.Value;
-                        Ins = st.TOTALINSURANCE_AMOUNT.Value;
+                        BF = st.TOTALBF_AMOUNT??0;
+                        Subs = st.TOTALSUBCRP_AMOUNT??0;
+                        Ins = st.TOTALINSURANCE_AMOUNT??0;
 
                         AccBF += BF;
                         AccSubs += Subs;

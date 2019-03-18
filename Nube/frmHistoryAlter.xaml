@@ -87,7 +87,7 @@
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="STATUS_CODE"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="90" Binding="{Binding STATUS_CODE}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
+                        <!--<DataGridTextColumn Header="STATUS_CODE"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="90" Binding="{Binding STATUS_CODE}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />-->
                         <DataGridTextColumn Header="History"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="90" Binding="{Binding StatusMonth,StringFormat={}{0:MMM yyyy}}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}" />
                         <DataGridTextColumn Header="Subs"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="60" Binding="{Binding TOTALSUBCRP_AMOUNT, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
                         <DataGridTextColumn Header="BF"  ElementStyle="{StaticResource RightCell}" FontWeight="Bold" Width="60" Binding="{Binding TOTALBF_AMOUNT, Mode=OneWay}" IsReadOnly="True"  EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnEditingStyle}"/>
