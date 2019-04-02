@@ -12,22 +12,29 @@ namespace Nube
     using System;
     using System.Collections.Generic;
     
-    public partial class UserAccount
+    public partial class MonthlySubscriptionBank
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserAccount()
+        public MonthlySubscriptionBank()
         {
+            this.MonthlySubscriptionBankAttachments = new HashSet<MonthlySubscriptionBankAttachment>();
             this.MonthlySubscriptionMembers = new HashSet<MonthlySubscriptionMember>();
         }
     
-        public decimal UserId { get; set; }
-        public string UserCode { get; set; }
-        public string CompanyName { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public Nullable<int> UserType { get; set; }
+        public int Id { get; set; }
+        public int MonthlySubscriptionId { get; set; }
+        public decimal BankCode { get; set; }
+        public decimal MatchedAmount { get; set; }
+        public decimal NotMatchAmount { get; set; }
+        public decimal StruckOffAmount { get; set; }
+        public decimal ResignedAmount { get; set; }
+        public decimal TotalAmount { get; set; }
     
+        public virtual MonthlySubscription MonthlySubscription { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MonthlySubscriptionBankAttachment> MonthlySubscriptionBankAttachments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
+        public virtual MASTERBANK MASTERBANK { get; set; }
     }
 }

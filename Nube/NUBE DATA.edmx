@@ -135,19 +135,11 @@ warning 6002: The table/view 'nubev2_1.dbo.AI_Insurance' does not have a primary
           <Property Name="TableName" Type="varchar" MaxLength="50" />
           <Property Name="Remarks" Type="varchar" MaxLength="100" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2_1.dbo.FeesDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesDetails">
           <Key>
             <PropertyRef Name="DetailId" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="DetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FeeId" Type="int" Nullable="false" />
           <Property Name="MemberCode" Type="numeric" Precision="10" Scale="0" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
@@ -172,19 +164,11 @@ warning 6002: The table/view 'nubev2_1.dbo.FeesDetails' does not have a primary 
           <Property Name="TotalMonthsPaidIns" Type="int" />
           <Property Name="TotalMonthsPaid" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2_1.dbo.FeesDetailsNotMatch' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesDetailsNotMatch">
           <Key>
             <PropertyRef Name="DetailId" />
-            
-            
-            
-            
-            
-            
           </Key>
-          <Property Name="DetailId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="DetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FeeId" Type="int" Nullable="false" />
           <Property Name="MemberCode" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
@@ -209,14 +193,11 @@ warning 6002: The table/view 'nubev2_1.dbo.FeesDetailsNotMatch' does not have a 
           <Property Name="TotalMonthsPaidIns" Type="int" />
           <Property Name="TotalMonthsPaid" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'nubev2_1.dbo.FeesMaster' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FeesMaster">
           <Key>
             <PropertyRef Name="FeeId" />
-            
           </Key>
-          <Property Name="FeeId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BankId" Type="int" />
           <Property Name="FeeDate" Type="smalldatetime" Nullable="false" />
           <Property Name="XLFileName" Type="varchar" MaxLength="150" />
@@ -862,6 +843,69 @@ warning 6002: The table/view 'nubev2_1.dbo.GE_Insurance' does not have a primary
           <Property Name="BankCodeAF" Type="numeric" Precision="18" Scale="0" />
           <Property Name="BranchCodeAF" Type="numeric" Precision="18" Scale="0" />
           <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="MonthlySubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="date" Nullable="false" />
+          <Property Name="MatchedAmount" Type="money" Nullable="false" />
+          <Property Name="NotMatchAmount" Type="money" Nullable="false" />
+          <Property Name="StruckOffAmount" Type="money" Nullable="false" />
+          <Property Name="ResignedAmount" Type="money" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+          <Property Name="MonthEndClosed" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionBank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthlySubscriptionId" Type="int" Nullable="false" />
+          <Property Name="BankCode" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="MatchedAmount" Type="money" Nullable="false" />
+          <Property Name="NotMatchAmount" Type="money" Nullable="false" />
+          <Property Name="StruckOffAmount" Type="money" Nullable="false" />
+          <Property Name="ResignedAmount" Type="money" Nullable="false" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionBankAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthlySubscriptonBankId" Type="int" Nullable="false" />
+          <Property Name="MonthlySubscriptionFileTypeId" Type="int" Nullable="false" />
+          <Property Name="FilePath" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="FileContent" Type="image" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MonthlySubscriptionBankId" Type="int" Nullable="false" />
+          <Property Name="MemberCode" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="NRIC" Type="nvarchar" MaxLength="50" />
+          <Property Name="MemberName" Type="nvarchar" MaxLength="500" />
+          <Property Name="Amount" Type="money" Nullable="false" />
+          <Property Name="MonthlySubcriptionMemberStatusId" Type="int" Nullable="false" />
+          <Property Name="ApprovedBy" Type="numeric" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionMemberStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptonFileType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileType" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="NameTitleSetup">
           <Key>
@@ -1765,6 +1809,18 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="TOTALDUE" Type="int" />
           <Property Name="TOTALDUEPAY" Type="int" />
         </EntityType>
+        <Association Name="FK_FeesDetails_FeesMaster">
+          <End Role="FeesMaster" Type="Self.FeesMaster" Multiplicity="1" />
+          <End Role="FeesDetails" Type="Self.FeesDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeesMaster">
+              <PropertyRef Name="FeeId" />
+            </Principal>
+            <Dependent Role="FeesDetails">
+              <PropertyRef Name="FeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_FeesDetails_MASTERMEMBER">
           <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="1" />
           <End Role="FeesDetails" Type="Self.FeesDetails" Multiplicity="*" />
@@ -1774,6 +1830,18 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Principal>
             <Dependent Role="FeesDetails">
               <PropertyRef Name="MemberCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeesDetailsNotMatch_FeesMaster">
+          <End Role="FeesMaster" Type="Self.FeesMaster" Multiplicity="1" />
+          <End Role="FeesDetailsNotMatch" Type="Self.FeesDetailsNotMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeesMaster">
+              <PropertyRef Name="FeeId" />
+            </Principal>
+            <Dependent Role="FeesDetailsNotMatch">
+              <PropertyRef Name="FeeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1849,6 +1917,102 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MonthlySubscriptionBank_MASTERBANK">
+          <End Role="MASTERBANK" Type="Self.MASTERBANK" Multiplicity="1" />
+          <End Role="MonthlySubscriptionBank" Type="Self.MonthlySubscriptionBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBank">
+              <PropertyRef Name="BankCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank">
+          <End Role="MonthlySubscriptionBank" Type="Self.MonthlySubscriptionBank" Multiplicity="1" />
+          <End Role="MonthlySubscriptionBankAttachment" Type="Self.MonthlySubscriptionBankAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionBank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBankAttachment">
+              <PropertyRef Name="MonthlySubscriptonBankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType">
+          <End Role="MonthlySubscriptonFileType" Type="Self.MonthlySubscriptonFileType" Multiplicity="1" />
+          <End Role="MonthlySubscriptionBankAttachment" Type="Self.MonthlySubscriptionBankAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptonFileType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBankAttachment">
+              <PropertyRef Name="MonthlySubscriptionFileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_MASTERMEMBER">
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="0..1" />
+          <End Role="MonthlySubscriptionMember" Type="Self.MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="MemberCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_MonthlySubscriptionBank">
+          <End Role="MonthlySubscriptionBank" Type="Self.MonthlySubscriptionBank" Multiplicity="1" />
+          <End Role="MonthlySubscriptionMember" Type="Self.MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionBank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="MonthlySubscriptionBankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_MonthlySubscriptionMember">
+          <End Role="MonthlySubscriptionMemberStatus" Type="Self.MonthlySubscriptionMemberStatus" Multiplicity="1" />
+          <End Role="MonthlySubscriptionMember" Type="Self.MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionMemberStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="MonthlySubcriptionMemberStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+          <End Role="MonthlySubscriptionMember" Type="Self.MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptonBank_MonthlySubcription">
+          <End Role="MonthlySubscription" Type="Self.MonthlySubscription" Multiplicity="1" />
+          <End Role="MonthlySubscriptionBank" Type="Self.MonthlySubscriptionBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscription">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBank">
+              <PropertyRef Name="MonthlySubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RESIGNATION_MASTERMEMBER">
           <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="1" />
           <End Role="RESIGNATION" Type="Self.RESIGNATION" Multiplicity="*" />
@@ -1870,6 +2034,9 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <EntitySet Name="CountrySetup" EntityType="Self.CountrySetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="dtproperties" EntityType="Self.dtproperties" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventHistory" EntityType="Self.EventHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesDetailsNotMatch" EntityType="Self.FeesDetailsNotMatch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GuardianInsertBranch" EntityType="Self.GuardianInsertBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRCConfirmation" EntityType="Self.IRCConfirmation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginHistory" EntityType="Self.LoginHistory" Schema="dbo" store:Type="Tables" />
@@ -1894,6 +2061,12 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <EntitySet Name="MembershipAttachment" EntityType="Self.MembershipAttachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberStatusLog" EntityType="Self.MemberStatusLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MemberTransfer" EntityType="Self.MemberTransfer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySubscription" EntityType="Self.MonthlySubscription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySubscriptionBank" EntityType="Self.MonthlySubscriptionBank" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySubscriptionBankAttachment" EntityType="Self.MonthlySubscriptionBankAttachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySubscriptionMember" EntityType="Self.MonthlySubscriptionMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySubscriptionMemberStatus" EntityType="Self.MonthlySubscriptionMemberStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySubscriptonFileType" EntityType="Self.MonthlySubscriptonFileType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NameTitleSetup" EntityType="Self.NameTitleSetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NomineeInsertBranch" EntityType="Self.NomineeInsertBranch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RESIGNATION" EntityType="Self.RESIGNATION" Schema="dbo" store:Type="Tables" />
@@ -1934,72 +2107,6 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
     [AI_Insurance].[Takeover] AS [Takeover], 
     [AI_Insurance].[Coverage] AS [Coverage]
     FROM [dbo].[AI_Insurance] AS [AI_Insurance]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FeesDetails" EntityType="Self.FeesDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesDetails].[DetailId] AS [DetailId], 
-    [FeesDetails].[FeeId] AS [FeeId], 
-    [FeesDetails].[MemberCode] AS [MemberCode], 
-    [FeesDetails].[TotalAmount] AS [TotalAmount], 
-    [FeesDetails].[AmountBF] AS [AmountBF], 
-    [FeesDetails].[UnionContribution] AS [UnionContribution], 
-    [FeesDetails].[AmountIns] AS [AmountIns], 
-    [FeesDetails].[AmtSubs] AS [AmtSubs], 
-    [FeesDetails].[Dept] AS [Dept], 
-    [FeesDetails].[UpdatedStatus] AS [UpdatedStatus], 
-    [FeesDetails].[FeeYear] AS [FeeYear], 
-    [FeesDetails].[FeeMonth] AS [FeeMonth], 
-    [FeesDetails].[Reason] AS [Reason], 
-    [FeesDetails].[IsUnPaid] AS [IsUnPaid], 
-    [FeesDetails].[IsNotMatch] AS [IsNotMatch], 
-    [FeesDetails].[MemberId] AS [MemberId], 
-    [FeesDetails].[MemberName_Bank] AS [MemberName_Bank], 
-    [FeesDetails].[NRIC_Bank] AS [NRIC_Bank], 
-    [FeesDetails].[IsAccept_ByNube] AS [IsAccept_ByNube], 
-    [FeesDetails].[IsStruckOff] AS [IsStruckOff], 
-    [FeesDetails].[Status] AS [Status], 
-    [FeesDetails].[TotalMonthsPaidBF] AS [TotalMonthsPaidBF], 
-    [FeesDetails].[TotalMonthsPaidIns] AS [TotalMonthsPaidIns], 
-    [FeesDetails].[TotalMonthsPaid] AS [TotalMonthsPaid]
-    FROM [dbo].[FeesDetails] AS [FeesDetails]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FeesDetailsNotMatch" EntityType="Self.FeesDetailsNotMatch" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesDetailsNotMatch].[DetailId] AS [DetailId], 
-    [FeesDetailsNotMatch].[FeeId] AS [FeeId], 
-    [FeesDetailsNotMatch].[MemberCode] AS [MemberCode], 
-    [FeesDetailsNotMatch].[TotalAmount] AS [TotalAmount], 
-    [FeesDetailsNotMatch].[AmountBF] AS [AmountBF], 
-    [FeesDetailsNotMatch].[UnionContribution] AS [UnionContribution], 
-    [FeesDetailsNotMatch].[AmountIns] AS [AmountIns], 
-    [FeesDetailsNotMatch].[AmtSubs] AS [AmtSubs], 
-    [FeesDetailsNotMatch].[Dept] AS [Dept], 
-    [FeesDetailsNotMatch].[UpdatedStatus] AS [UpdatedStatus], 
-    [FeesDetailsNotMatch].[FeeYear] AS [FeeYear], 
-    [FeesDetailsNotMatch].[FeeMonth] AS [FeeMonth], 
-    [FeesDetailsNotMatch].[Reason] AS [Reason], 
-    [FeesDetailsNotMatch].[IsUnPaid] AS [IsUnPaid], 
-    [FeesDetailsNotMatch].[IsNotMatch] AS [IsNotMatch], 
-    [FeesDetailsNotMatch].[MemberId] AS [MemberId], 
-    [FeesDetailsNotMatch].[MemberName_Bank] AS [MemberName_Bank], 
-    [FeesDetailsNotMatch].[NRIC_Bank] AS [NRIC_Bank], 
-    [FeesDetailsNotMatch].[IsAccept_ByNube] AS [IsAccept_ByNube], 
-    [FeesDetailsNotMatch].[IsStruckOff] AS [IsStruckOff], 
-    [FeesDetailsNotMatch].[Status] AS [Status], 
-    [FeesDetailsNotMatch].[TotalMonthsPaidBF] AS [TotalMonthsPaidBF], 
-    [FeesDetailsNotMatch].[TotalMonthsPaidIns] AS [TotalMonthsPaidIns], 
-    [FeesDetailsNotMatch].[TotalMonthsPaid] AS [TotalMonthsPaid]
-    FROM [dbo].[FeesDetailsNotMatch] AS [FeesDetailsNotMatch]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="FeesMaster" EntityType="Self.FeesMaster" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [FeesMaster].[FeeId] AS [FeeId], 
-    [FeesMaster].[BankId] AS [BankId], 
-    [FeesMaster].[FeeDate] AS [FeeDate], 
-    [FeesMaster].[XLFileName] AS [XLFileName], 
-    [FeesMaster].[XLPassword] AS [XLPassword], 
-    [FeesMaster].[UpdatedStatus] AS [UpdatedStatus]
-    FROM [dbo].[FeesMaster] AS [FeesMaster]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="GE_Insurance" EntityType="Self.GE_Insurance" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2646,9 +2753,17 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
     [VIEWTOTALDUE].[TOTALDUEPAY] AS [TOTALDUEPAY]
     FROM [dbo].[VIEWTOTALDUE] AS [VIEWTOTALDUE]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_FeesDetails_FeesMaster" Association="Self.FK_FeesDetails_FeesMaster">
+            <End Role="FeesMaster" EntitySet="FeesMaster" />
+            <End Role="FeesDetails" EntitySet="FeesDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_FeesDetails_MASTERMEMBER" Association="Self.FK_FeesDetails_MASTERMEMBER">
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
             <End Role="FeesDetails" EntitySet="FeesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeesDetailsNotMatch_FeesMaster" Association="Self.FK_FeesDetailsNotMatch_FeesMaster">
+            <End Role="FeesMaster" EntitySet="FeesMaster" />
+            <End Role="FeesDetailsNotMatch" EntitySet="FeesDetailsNotMatch" />
           </AssociationSet>
           <AssociationSet Name="FK_MASTERBANKBRANCH_MASTERBANK" Association="Self.FK_MASTERBANKBRANCH_MASTERBANK">
             <End Role="MASTERBANK" EntitySet="MASTERBANK" />
@@ -2673,6 +2788,38 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <AssociationSet Name="FK_MemberMonthEndStatus_MASTERMEMBER" Association="Self.FK_MemberMonthEndStatus_MASTERMEMBER">
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
             <End Role="MemberMonthEndStatus" EntitySet="MemberMonthEndStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionBank_MASTERBANK" Association="Self.FK_MonthlySubscriptionBank_MASTERBANK">
+            <End Role="MASTERBANK" EntitySet="MASTERBANK" />
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBank" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank" Association="Self.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank">
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBank" />
+            <End Role="MonthlySubscriptionBankAttachment" EntitySet="MonthlySubscriptionBankAttachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType" Association="Self.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType">
+            <End Role="MonthlySubscriptonFileType" EntitySet="MonthlySubscriptonFileType" />
+            <End Role="MonthlySubscriptionBankAttachment" EntitySet="MonthlySubscriptionBankAttachment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_MASTERMEMBER" Association="Self.FK_MonthlySubscriptionMember_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_MonthlySubscriptionBank" Association="Self.FK_MonthlySubscriptionMember_MonthlySubscriptionBank">
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBank" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_MonthlySubscriptionMember" Association="Self.FK_MonthlySubscriptionMember_MonthlySubscriptionMember">
+            <End Role="MonthlySubscriptionMemberStatus" EntitySet="MonthlySubscriptionMemberStatus" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_UserAccount" Association="Self.FK_MonthlySubscriptionMember_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptonBank_MonthlySubcription" Association="Self.FK_MonthlySubscriptonBank_MonthlySubcription">
+            <End Role="MonthlySubscription" EntitySet="MonthlySubscription" />
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBank" />
           </AssociationSet>
           <AssociationSet Name="FK_RESIGNATION_MASTERMEMBER" Association="Self.FK_RESIGNATION_MASTERMEMBER">
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
@@ -2998,6 +3145,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserType" Type="Int32" />
+          <NavigationProperty Name="MonthlySubscriptionMembers" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_UserAccount" FromRole="UserAccount" ToRole="MonthlySubscriptionMember" />
         </EntityType>
         <EntityType Name="UserPrevilage">
           <Key>
@@ -3362,6 +3510,52 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <AssociationSet Name="FK_MASTERMEMBER_MASTERMEMBERTYPE" Association="nube18092017Model.FK_MASTERMEMBER_MASTERMEMBERTYPE">
             <End Role="MASTERMEMBERTYPE" EntitySet="MASTERMEMBERTYPEs" />
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+          </AssociationSet>
+          <EntitySet Name="MonthlySubscriptions" EntityType="nube18092017Model.MonthlySubscription" />
+          <EntitySet Name="MonthlySubscriptionBanks" EntityType="nube18092017Model.MonthlySubscriptionBank" />
+          <EntitySet Name="MonthlySubscriptionBankAttachments" EntityType="nube18092017Model.MonthlySubscriptionBankAttachment" />
+          <EntitySet Name="MonthlySubscriptionMembers" EntityType="nube18092017Model.MonthlySubscriptionMember" />
+          <EntitySet Name="MonthlySubscriptionMemberStatus" EntityType="nube18092017Model.MonthlySubscriptionMemberStatu" />
+          <EntitySet Name="MonthlySubscriptonFileTypes" EntityType="nube18092017Model.MonthlySubscriptonFileType" />
+          <AssociationSet Name="FK_FeesDetails_FeesMaster" Association="nube18092017Model.FK_FeesDetails_FeesMaster">
+            <End Role="FeesMaster" EntitySet="FeesMasters" />
+            <End Role="FeesDetail" EntitySet="FeesDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FeesDetailsNotMatch_FeesMaster" Association="nube18092017Model.FK_FeesDetailsNotMatch_FeesMaster">
+            <End Role="FeesMaster" EntitySet="FeesMasters" />
+            <End Role="FeesDetailsNotMatch" EntitySet="FeesDetailsNotMatches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_MASTERMEMBER" Association="nube18092017Model.FK_MonthlySubscriptionMember_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptonBank_MonthlySubcription" Association="nube18092017Model.FK_MonthlySubscriptonBank_MonthlySubcription">
+            <End Role="MonthlySubscription" EntitySet="MonthlySubscriptions" />
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBanks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank" Association="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank">
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBanks" />
+            <End Role="MonthlySubscriptionBankAttachment" EntitySet="MonthlySubscriptionBankAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_MonthlySubscriptionBank" Association="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionBank">
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBanks" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType" Association="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType">
+            <End Role="MonthlySubscriptonFileType" EntitySet="MonthlySubscriptonFileTypes" />
+            <End Role="MonthlySubscriptionBankAttachment" EntitySet="MonthlySubscriptionBankAttachments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_MonthlySubscriptionMember" Association="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionMember">
+            <End Role="MonthlySubscriptionMemberStatu" EntitySet="MonthlySubscriptionMemberStatus" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMember_UserAccount" Association="nube18092017Model.FK_MonthlySubscriptionMember_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="MonthlySubscriptionMember" EntitySet="MonthlySubscriptionMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionBank_MASTERBANK" Association="nube18092017Model.FK_MonthlySubscriptionBank_MASTERBANK">
+            <End Role="MASTERBANK" EntitySet="MASTERBANKs" />
+            <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBanks" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="TEMPFEE_STATUS">
@@ -4353,6 +4547,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="TotalMonthsPaidIns" Type="Int32" />
           <Property Name="TotalMonthsPaid" Type="Int32" />
           <NavigationProperty Name="MASTERMEMBER" Relationship="nube18092017Model.FK_FeesDetails_MASTERMEMBER" FromRole="FeesDetail" ToRole="MASTERMEMBER" />
+          <NavigationProperty Name="FeesMaster" Relationship="nube18092017Model.FK_FeesDetails_FeesMaster" FromRole="FeesDetail" ToRole="FeesMaster" />
         </EntityType>
         <EntityType Name="FeesDetailsNotMatch">
           <Key>
@@ -4382,6 +4577,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="TotalMonthsPaidBF" Type="Int32" />
           <Property Name="TotalMonthsPaidIns" Type="Int32" />
           <Property Name="TotalMonthsPaid" Type="Int32" />
+          <NavigationProperty Name="FeesMaster" Relationship="nube18092017Model.FK_FeesDetailsNotMatch_FeesMaster" FromRole="FeesDetailsNotMatch" ToRole="FeesMaster" />
         </EntityType>
         <EntityType Name="FeesMaster">
           <Key>
@@ -4393,6 +4589,8 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="XLFileName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="XLPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UpdatedStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FeesDetails" Relationship="nube18092017Model.FK_FeesDetails_FeesMaster" FromRole="FeesMaster" ToRole="FeesDetail" />
+          <NavigationProperty Name="FeesDetailsNotMatches" Relationship="nube18092017Model.FK_FeesDetailsNotMatch_FeesMaster" FromRole="FeesMaster" ToRole="FeesDetailsNotMatch" />
         </EntityType>
         <EntityType Name="MASTERBANK">
           <Key>
@@ -4406,6 +4604,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="HEADER_BANK_CODE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <NavigationProperty Name="MASTERBANKBRANCHes" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERBANKBRANCH" />
           <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERMEMBER" />
+          <NavigationProperty Name="MonthlySubscriptionBanks" Relationship="nube18092017Model.FK_MonthlySubscriptionBank_MASTERBANK" FromRole="MASTERBANK" ToRole="MonthlySubscriptionBank" />
         </EntityType>
         <EntityType Name="MASTERBANKBRANCH">
           <Key>
@@ -4537,6 +4736,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <NavigationProperty Name="MemberMonthEndStatus" Relationship="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MemberMonthEndStatu" />
           <NavigationProperty Name="RESIGNATIONs" Relationship="nube18092017Model.FK_RESIGNATION_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="RESIGNATION" />
           <NavigationProperty Name="MASTERMEMBERTYPE" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERMEMBERTYPE" FromRole="MASTERMEMBER" ToRole="MASTERMEMBERTYPE" />
+          <NavigationProperty Name="MonthlySubscriptionMembers" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MonthlySubscriptionMember" />
         </EntityType>
         <Association Name="FK_MASTERBANKBRANCH_MASTERBANK">
           <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
@@ -4631,6 +4831,202 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Principal>
             <Dependent Role="MASTERMEMBER">
               <PropertyRef Name="MEMBERTYPE_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MonthlySubscription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="MatchedAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="NotMatchAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="StruckOffAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ResignedAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MonthEndClosed" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="MonthlySubscriptionBanks" Relationship="nube18092017Model.FK_MonthlySubscriptonBank_MonthlySubcription" FromRole="MonthlySubscription" ToRole="MonthlySubscriptionBank" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionBank">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthlySubscriptionId" Type="Int32" Nullable="false" />
+          <Property Name="BankCode" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+          <Property Name="MatchedAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="NotMatchAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="StruckOffAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ResignedAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <NavigationProperty Name="MonthlySubscription" Relationship="nube18092017Model.FK_MonthlySubscriptonBank_MonthlySubcription" FromRole="MonthlySubscriptionBank" ToRole="MonthlySubscription" />
+          <NavigationProperty Name="MonthlySubscriptionBankAttachments" Relationship="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank" FromRole="MonthlySubscriptionBank" ToRole="MonthlySubscriptionBankAttachment" />
+          <NavigationProperty Name="MonthlySubscriptionMembers" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionBank" FromRole="MonthlySubscriptionBank" ToRole="MonthlySubscriptionMember" />
+          <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MonthlySubscriptionBank_MASTERBANK" FromRole="MonthlySubscriptionBank" ToRole="MASTERBANK" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionBankAttachment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthlySubscriptonBankId" Type="Int32" Nullable="false" />
+          <Property Name="MonthlySubscriptionFileTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FilePath" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FileContent" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="MonthlySubscriptionBank" Relationship="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank" FromRole="MonthlySubscriptionBankAttachment" ToRole="MonthlySubscriptionBank" />
+          <NavigationProperty Name="MonthlySubscriptonFileType" Relationship="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType" FromRole="MonthlySubscriptionBankAttachment" ToRole="MonthlySubscriptonFileType" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MonthlySubscriptionBankId" Type="Int32" Nullable="false" />
+          <Property Name="MemberCode" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="NRIC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MemberName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="MonthlySubcriptionMemberStatusId" Type="Int32" Nullable="false" />
+          <Property Name="ApprovedBy" Type="Decimal" Precision="18" Scale="0" />
+          <NavigationProperty Name="MASTERMEMBER" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MASTERMEMBER" FromRole="MonthlySubscriptionMember" ToRole="MASTERMEMBER" />
+          <NavigationProperty Name="MonthlySubscriptionBank" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionBank" FromRole="MonthlySubscriptionMember" ToRole="MonthlySubscriptionBank" />
+          <NavigationProperty Name="MonthlySubscriptionMemberStatu" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionMember" FromRole="MonthlySubscriptionMember" ToRole="MonthlySubscriptionMemberStatu" />
+          <NavigationProperty Name="UserAccount" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_UserAccount" FromRole="MonthlySubscriptionMember" ToRole="UserAccount" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionMemberStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MonthlySubscriptionMembers" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionMember" FromRole="MonthlySubscriptionMemberStatu" ToRole="MonthlySubscriptionMember" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptonFileType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MonthlySubscriptionBankAttachments" Relationship="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType" FromRole="MonthlySubscriptonFileType" ToRole="MonthlySubscriptionBankAttachment" />
+        </EntityType>
+        <Association Name="FK_FeesDetails_FeesMaster">
+          <End Type="nube18092017Model.FeesMaster" Role="FeesMaster" Multiplicity="1" />
+          <End Type="nube18092017Model.FeesDetail" Role="FeesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeesMaster">
+              <PropertyRef Name="FeeId" />
+            </Principal>
+            <Dependent Role="FeesDetail">
+              <PropertyRef Name="FeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FeesDetailsNotMatch_FeesMaster">
+          <End Type="nube18092017Model.FeesMaster" Role="FeesMaster" Multiplicity="1" />
+          <End Type="nube18092017Model.FeesDetailsNotMatch" Role="FeesDetailsNotMatch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FeesMaster">
+              <PropertyRef Name="FeeId" />
+            </Principal>
+            <Dependent Role="FeesDetailsNotMatch">
+              <PropertyRef Name="FeeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_MASTERMEMBER">
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MonthlySubscriptionMember" Role="MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="MemberCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptonBank_MonthlySubcription">
+          <End Type="nube18092017Model.MonthlySubscription" Role="MonthlySubscription" Multiplicity="1" />
+          <End Type="nube18092017Model.MonthlySubscriptionBank" Role="MonthlySubscriptionBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscription">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBank">
+              <PropertyRef Name="MonthlySubscriptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank">
+          <End Type="nube18092017Model.MonthlySubscriptionBank" Role="MonthlySubscriptionBank" Multiplicity="1" />
+          <End Type="nube18092017Model.MonthlySubscriptionBankAttachment" Role="MonthlySubscriptionBankAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionBank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBankAttachment">
+              <PropertyRef Name="MonthlySubscriptonBankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_MonthlySubscriptionBank">
+          <End Type="nube18092017Model.MonthlySubscriptionBank" Role="MonthlySubscriptionBank" Multiplicity="1" />
+          <End Type="nube18092017Model.MonthlySubscriptionMember" Role="MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionBank">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="MonthlySubscriptionBankId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType">
+          <End Type="nube18092017Model.MonthlySubscriptonFileType" Role="MonthlySubscriptonFileType" Multiplicity="1" />
+          <End Type="nube18092017Model.MonthlySubscriptionBankAttachment" Role="MonthlySubscriptionBankAttachment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptonFileType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBankAttachment">
+              <PropertyRef Name="MonthlySubscriptionFileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_MonthlySubscriptionMember">
+          <End Type="nube18092017Model.MonthlySubscriptionMemberStatu" Role="MonthlySubscriptionMemberStatu" Multiplicity="1" />
+          <End Type="nube18092017Model.MonthlySubscriptionMember" Role="MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionMemberStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="MonthlySubcriptionMemberStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMember_UserAccount">
+          <End Type="nube18092017Model.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MonthlySubscriptionMember" Role="MonthlySubscriptionMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMember">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionBank_MASTERBANK">
+          <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="1" />
+          <End Type="nube18092017Model.MonthlySubscriptionBank" Role="MonthlySubscriptionBank" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionBank">
+              <PropertyRef Name="BankCode" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6334,6 +6730,75 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
                 <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
                 <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
                 <ScalarProperty Name="MEMBER_CODE" ColumnName="MEMBER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySubscriptions">
+            <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscription">
+              <MappingFragment StoreEntitySet="MonthlySubscription">
+                <ScalarProperty Name="MonthEndClosed" ColumnName="MonthEndClosed" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="ResignedAmount" ColumnName="ResignedAmount" />
+                <ScalarProperty Name="StruckOffAmount" ColumnName="StruckOffAmount" />
+                <ScalarProperty Name="NotMatchAmount" ColumnName="NotMatchAmount" />
+                <ScalarProperty Name="MatchedAmount" ColumnName="MatchedAmount" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySubscriptionBanks">
+            <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscriptionBank">
+              <MappingFragment StoreEntitySet="MonthlySubscriptionBank">
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="ResignedAmount" ColumnName="ResignedAmount" />
+                <ScalarProperty Name="StruckOffAmount" ColumnName="StruckOffAmount" />
+                <ScalarProperty Name="NotMatchAmount" ColumnName="NotMatchAmount" />
+                <ScalarProperty Name="MatchedAmount" ColumnName="MatchedAmount" />
+                <ScalarProperty Name="BankCode" ColumnName="BankCode" />
+                <ScalarProperty Name="MonthlySubscriptionId" ColumnName="MonthlySubscriptionId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySubscriptionBankAttachments">
+            <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscriptionBankAttachment">
+              <MappingFragment StoreEntitySet="MonthlySubscriptionBankAttachment">
+                <ScalarProperty Name="FileContent" ColumnName="FileContent" />
+                <ScalarProperty Name="FilePath" ColumnName="FilePath" />
+                <ScalarProperty Name="MonthlySubscriptionFileTypeId" ColumnName="MonthlySubscriptionFileTypeId" />
+                <ScalarProperty Name="MonthlySubscriptonBankId" ColumnName="MonthlySubscriptonBankId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySubscriptionMembers">
+            <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscriptionMember">
+              <MappingFragment StoreEntitySet="MonthlySubscriptionMember">
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="MonthlySubcriptionMemberStatusId" ColumnName="MonthlySubcriptionMemberStatusId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="MemberName" ColumnName="MemberName" />
+                <ScalarProperty Name="NRIC" ColumnName="NRIC" />
+                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
+                <ScalarProperty Name="MonthlySubscriptionBankId" ColumnName="MonthlySubscriptionBankId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySubscriptionMemberStatus">
+            <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscriptionMemberStatu">
+              <MappingFragment StoreEntitySet="MonthlySubscriptionMemberStatus">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySubscriptonFileTypes">
+            <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscriptonFileType">
+              <MappingFragment StoreEntitySet="MonthlySubscriptonFileType">
+                <ScalarProperty Name="FileType" ColumnName="FileType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -1,0 +1,53 @@
+﻿<metro:MetroWindow x:Class="Nube.Transaction.frmMonthlySubscription"
+                   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.Transaction"
+        mc:Ignorable="d"
+        Title="Monthly Subscription" Height=" 650" Width="1100" WindowState="Maximized" FontSize="12">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Grid.RowSpan="2">
+            <StackPanel Orientation="Vertical" Background="LightGray" >
+                <Calendar Name="cdrMonthlySubscription" Margin="0 20 0 20 " HorizontalAlignment="Center" SelectionMode="SingleDate" VerticalAlignment="Center" DisplayDateStart="01/01/2019" Height="300"  DisplayMode="Year" SelectedDatesChanged="CdrMonthlySubscription_SelectedDatesChanged"  DisplayModeChanged="CdrMonthlySubscription_DisplayModeChanged" />
+                <StackPanel Orientation="Vertical" Margin="10" Name="stpFileSelect">
+                    <ComboBox Name="cbxBank" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Bank" Margin="0 10 0 10 " />
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Name="cbxFileType" Width="140" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="File From" />
+                        <Button Name="btnBrowse" Click="BtnBrowse_Click"  Width="130" Margin="10 25 0 10" > File Browse</Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="0">
+            <DataGrid Name="dgvBank" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Bank Name" Width="250" Binding="{Binding BANK_NAME}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="No. of Members" Width="250" Binding="{Binding NoOfMember}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total Amount" Width="250" Binding="{Binding TotalAmount}" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <DataGrid Name="dgvMember">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Member Name" Width="250" Binding="{Binding BankName}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="NRIC" Width="150" Binding="{Binding NRIC}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Amount" Width="150" Binding="{Binding Amount}" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>

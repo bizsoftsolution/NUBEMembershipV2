@@ -12,25 +12,18 @@ namespace Nube
     using System;
     using System.Collections.Generic;
     
-    public partial class FeesMaster
+    public partial class MonthlySubscriptonFileType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public FeesMaster()
+        public MonthlySubscriptonFileType()
         {
-            this.FeesDetails = new HashSet<FeesDetail>();
-            this.FeesDetailsNotMatches = new HashSet<FeesDetailsNotMatch>();
+            this.MonthlySubscriptionBankAttachments = new HashSet<MonthlySubscriptionBankAttachment>();
         }
     
-        public int FeeId { get; set; }
-        public Nullable<int> BankId { get; set; }
-        public System.DateTime FeeDate { get; set; }
-        public string XLFileName { get; set; }
-        public string XLPassword { get; set; }
-        public string UpdatedStatus { get; set; }
+        public int Id { get; set; }
+        public string FileType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FeesDetail> FeesDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
+        public virtual ICollection<MonthlySubscriptionBankAttachment> MonthlySubscriptionBankAttachments { get; set; }
     }
 }

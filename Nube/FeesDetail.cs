@@ -40,5 +40,6 @@ namespace Nube
         public Nullable<int> TotalMonthsPaid { get; set; }
     
         public virtual MASTERMEMBER MASTERMEMBER { get; set; }
+        public virtual FeesMaster FeesMaster { get; set; }
     }
 }

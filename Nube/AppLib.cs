@@ -18,6 +18,8 @@ namespace Nube
     public static class AppLib
     {
         public enum MemberStatus { Active = 1, Defaulter = 2, StruckOff = 3, Resigned = 4 };
+        public enum MonthlySubscriptionFileType { FromBank=1,FromNUBE=2};
+        public enum MonthlySubscriptionMemberStatus  { Active = 1, Defaulter = 2, StruckOff = 3, Resigned = 4, SundryCreditor = 5};
         public static string sProjectName = "";
         public static int iUserCode = 0;
         public static int iUsertypeId = 0;

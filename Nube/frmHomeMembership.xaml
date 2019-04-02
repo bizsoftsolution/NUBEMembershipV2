@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube"
         mc:Ignorable="d"
-        Title="NUBE MEMBERSHIP" x:Name="MembershipHome" Height="600" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" >
+        Title="NUBE MEMBERSHIP" x:Name="MembershipHome" Height="750" Width="800" Icon="/Nube;component/Image/Logo.png" WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" WindowState="Maximized" >
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,42 +20,43 @@
     </metro:MetroWindow.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="580"/>
-            <RowDefinition Height="20*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Column="0" Grid.Row="1">
-            <Rectangle Fill="{DynamicResource PrimaryHueMidBrush}" Height="580" Width="250" Stroke="Black" VerticalAlignment="Top" StrokeThickness="0" Grid.RowSpan="2"/>
-            <Image x:Name="image" HorizontalAlignment="Center" Height="99"  VerticalAlignment="Top" Width="105" Source="/Nube;component/Image/Logo.png" Margin="69,25,76,0"/>
-            <Label x:Name="lblFoot" Content="MEMBERSHIP PORTAL" HorizontalAlignment="Center" VerticalAlignment="Top" Height="40" Width="240" Background="{DynamicResource PrimaryHueLightBrush}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18.667" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}" Margin="5,130,5,0"/>
-            <Button x:Name="btnMaster" Content="Master Setup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,174,0,0" Click="btnMaster_Click"/>
-            <Button x:Name="btnMemberRegistration" Content="Member Registration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,218,0,0" Click="btnMemberRegistration_Click" Tag="Member Registration" />
-            <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,524,0,0" Click="btnHome_Click" />
-            <Button x:Name="btnFeeEntry" Content="Member Approval" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,261,0,0" Click="btnFeeEntry_Click" Tag="Fees Entry" />
-            <Button x:Name="btnResingation" Content="Resignation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,304,0,0" Click="btnResingation_Click" Tag="Resignation" />
-            <Button x:Name="btnMemberQuery" Content="Member Query" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,348,0,0" Click="btnMemberQuery_Click" Tag="Member Query" />
-            <Button x:Name="btnReport" Content="Reports" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,480,0,0" Click="btnReport_Click" />
 
-            <materialDesign:PopupBox x:Name="btnPopup" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Rectangle Fill="{DynamicResource PrimaryHueMidBrush}"  Stroke="Black" StrokeThickness="0" />
+            <StackPanel Orientation="Vertical">
+                <Image x:Name="image" HorizontalAlignment="Center" Height="99"  VerticalAlignment="Top" Width="105" Source="/Nube;component/Image/Logo.png" Margin="10"/>
+                <Label x:Name="lblFoot" Content="MEMBERSHIP PORTAL"  Background="{DynamicResource PrimaryHueLightBrush}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18.667" FontWeight="Bold" Foreground="{DynamicResource PrimaryHueDarkBrush}" />
+                <Button x:Name="btnMaster" Content="Master Setup" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnMaster_Click"/>
+                <Button x:Name="btnMemberRegistration" Content="Member Registration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnMemberRegistration_Click" Tag="Member Registration" />
+                <Button x:Name="btnFeeEntry" Content="Member Approval" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnFeeEntry_Click" Tag="Fees Entry" />
+                <Button x:Name="btnResingation" Content="Resignation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnResingation_Click" Tag="Resignation" />
+                <Button x:Name="btnMemberQuery" Content="Member Query" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnMemberQuery_Click" Tag="Member Query" />
+                <Button x:Name="btnMonthlySubscription" Content="Monthly Subscription" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnMonthlySubscription_Click" />
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnManualPayment" Content="Payment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="190" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5 5 0 5" />
+                    <materialDesign:PopupBox x:Name="btnPopup" Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                               Foreground="{DynamicResource PrimaryHueDarkBrush}"   Background="Beige"
                                          PlacementMode="RightAndAlignMiddles"
                                          ToolTipService.Placement="Right"
-                                         ToolTip="Payment Entry For Fees, Arrear, LEVY  &amp; TDF" Margin="190,388,0,144" Width="50" Height="Auto">
-                <StackPanel>
-                    <Button x:Name="btnFeeCheck" Background="White" ToolTip="FeeEntry" Tag="FeeEntry" Click="btnFeeCheck_Click" >Fee Entry</Button>
-                    <Button x:Name="btnArrearEntry" Background="White" ToolTip="ArrearEntry" Tag="ArrearEntry" Click="btnArrearEntry_Click" >Arrear Entry</Button>
-                    <Button x:Name="btnLevy" Background="White" ToolTip="Levy" Tag="LEVY" Click="btnLevy_Click" >Levy</Button>
-                    <Button x:Name="btnTDF" Background="White" ToolTip="TDF" Tag="TDF" Click="btnTDF_Click" >TDF</Button>
-                    <Button x:Name="btnPreApr16" Background="White" ToolTip="Pre-Apr16" Tag="Pre Arrear 16" Click="btnPreApr16_Click">Pre-Apr16</Button>
-                    <Button x:Name="btnPostApr16" Background="White" ToolTip="Post-Apr16" Tag="Post Arrear 16" Click="btnPostApr16_Click">Post-Apr16</Button>
+                                         ToolTip="Payment Entry For Fees, Arrear, LEVY  &amp; TDF" Margin="5" Width="32" Height="32" VerticalAlignment="Center">
+                        <StackPanel>
+                            <Button x:Name="btnFeeCheck" Background="White" ToolTip="FeeEntry" Tag="FeeEntry" Click="btnFeeCheck_Click" >Fee Entry</Button>
+                            <Button x:Name="btnArrearEntry" Background="White" ToolTip="ArrearEntry" Tag="ArrearEntry" Click="btnArrearEntry_Click" >Arrear Entry</Button>
+                            <Button x:Name="btnLevy" Background="White" ToolTip="Levy" Tag="LEVY" Click="btnLevy_Click" >Levy</Button>
+                            <Button x:Name="btnTDF" Background="White" ToolTip="TDF" Tag="TDF" Click="btnTDF_Click" >TDF</Button>
+                            <Button x:Name="btnPreApr16" Background="White" ToolTip="Pre-Apr16" Tag="Pre Arrear 16" Click="btnPreApr16_Click">Pre-Apr16</Button>
+                            <Button x:Name="btnPostApr16" Background="White" ToolTip="Post-Apr16" Tag="Post Arrear 16" Click="btnPostApr16_Click">Post-Apr16</Button>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
                 </StackPanel>
-            </materialDesign:PopupBox>
-            <Button x:Name="btnManualPayment" Content="Payment" HorizontalAlignment="Left" VerticalAlignment="Top" Width="180" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,392,0,0" />
-            <Button x:Name="btnTransfer" Content="Member Transfer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="10,436,0,0" Click="btnTransfer_Click" Tag="Member Transfer" />
+                
+                <Button x:Name="btnTransfer" Content="Member Transfer" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnTransfer_Click" Tag="Member Transfer" />
+                <Button x:Name="btnReport" Content="Reports" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnReport_Click" />
+                <Button x:Name="btnHome" Content="Home" HorizontalAlignment="Left" VerticalAlignment="Top" Width="230" Height="40"  Style="{DynamicResource MaterialDesignRaisedLightButton}" Foreground="{DynamicResource PrimaryHueDarkBrush}" FontSize="14.667" FontWeight="Bold" Margin="5" Click="btnHome_Click" />
+            </StackPanel>
         </Grid>
     </Grid>
 </metro:MetroWindow>

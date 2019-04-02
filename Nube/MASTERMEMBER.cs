@@ -20,6 +20,7 @@ namespace Nube
             this.FeesDetails = new HashSet<FeesDetail>();
             this.MemberMonthEndStatus = new HashSet<MemberMonthEndStatu>();
             this.RESIGNATIONs = new HashSet<RESIGNATION>();
+            this.MonthlySubscriptionMembers = new HashSet<MonthlySubscriptionMember>();
         }
     
         public decimal MEMBER_CODE { get; set; }
@@ -127,5 +128,7 @@ namespace Nube
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RESIGNATION> RESIGNATIONs { get; set; }
         public virtual MASTERMEMBERTYPE MASTERMEMBERTYPE { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
     }
 }

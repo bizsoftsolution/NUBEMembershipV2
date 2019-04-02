@@ -299,5 +299,10 @@ namespace Nube
 
         #endregion
 
+        private void btnMonthlySubscription_Click(object sender, RoutedEventArgs e)
+        {
+            frmMonthlySubscription frm = new frmMonthlySubscription();
+            frm.ShowDialog();
+        }
     }
 }
