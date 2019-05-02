@@ -77,7 +77,7 @@ namespace Nube.Transaction
                 if (bValidation == false)
                 {
                     MASTERMEMBER mm = (from mas in db.MASTERMEMBERs where mas.MEMBER_CODE == dMember_Code select mas).FirstOrDefault();
-                    var OldData = new JSonHelper().ConvertObjectToJSon(mm);
+                    //var OldData = new JSonHelper().ConvertObjectToJSon(mm);
 
                     if (mm != null)
                     {
@@ -85,8 +85,8 @@ namespace Nube.Transaction
                         mm.BRANCH_CODE = Convert.ToDecimal(cmbBranchCode.SelectedValue);
                         db.SaveChanges();
 
-                        var NewData = new JSonHelper().ConvertObjectToJSon(mm);
-                        AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
+                        //var NewData = new JSonHelper().ConvertObjectToJSon(mm);
+                        //AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERMEMBER");
 
                         MemberTransfer mt = new MemberTransfer();
                         mt.EntryDate = DateTime.Now.Date;
@@ -101,7 +101,7 @@ namespace Nube.Transaction
                         db.SaveChanges();
 
                         var NewData1 = new JSonHelper().ConvertObjectToJSon(mt);
-                        AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData1, "MEMBERTRANSFER");
+                        //AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData1, "MEMBERTRANSFER");
 
 
                         MessageBox.Show(txtMemberName.Text + " Member Has Tranfered Sucessfully");
