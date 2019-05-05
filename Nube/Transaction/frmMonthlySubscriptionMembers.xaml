@@ -25,16 +25,27 @@
         <Grid Grid.Row="0" >
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
-                    <ComboBox Name="cbxBank" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Bank" Margin="5 0" Width="450" />
+                    <ComboBox Name="cbxBank" Foreground="Black" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Bank" Margin="5 0" Width="450" />
                     <CheckBox VerticalAlignment="Bottom" IsChecked="True" Name="ckbFromMonthlySubscription" >From Monthly Subscripion</CheckBox>
                 </StackPanel>
                 <ComboBox Name="cbxMemberStatus" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Member Status" Margin="5 0" Width="450" />
                 <ComboBox Name="cbxApprovalStatus" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Approval Status" Margin="5 0" Width="450" />
-                <ComboBox Name="cbxMemberName" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Member Name" Margin="5 0" Width="450" />
-                <ComboBox Name="cbxNRIC" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="NRIC" Margin="5 0" Width="450" />
+                <!--<ComboBox Name="cbxMemberName" Visibility="Collapsed" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Member Name" Margin="5 0" Width="450" />
+                <ComboBox Name="cbxNRIC" Visibility="Collapsed" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="NRIC" Margin="5 0" Width="450" />-->
                 <StackPanel Orientation="Horizontal" Margin="0 5">
-                    <TextBlock Margin="5 0">Amount Range</TextBlock>
-                    <TextBlock Margin="5 0">:</TextBlock>
+                    <TextBlock Margin="5 0" Width="100" VerticalAlignment="Bottom">Name</TextBlock>
+                    <TextBlock Margin="5 0" VerticalAlignment="Bottom">:</TextBlock>
+                    <TextBox Name="txtMemberName" Width="500" Margin="5 0"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Margin="5 0" Width="100" VerticalAlignment="Bottom">NRIC</TextBlock>
+                    <TextBlock Margin="5 0" VerticalAlignment="Bottom">:</TextBlock>
+                    <TextBox Name="txtNRIC" Width="500" Margin="5 0"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Margin="5 0" Width="100" VerticalAlignment="Bottom">Amount Range</TextBlock>
+                    <TextBlock Margin="5 0" VerticalAlignment="Bottom">:</TextBlock>
                     <TextBox Name="txtMinAmount" Width="50" Margin="5 0"></TextBox>
                     <TextBlock Margin="5 0">-</TextBlock>
                     <TextBox Name="txtMaxAmount" Width="50" Margin="5 0"></TextBox>
@@ -73,7 +84,7 @@
                     <DataGridTextColumn Header="Member Name" Width="*" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
                     <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Status" Width="120" Binding="{Binding Status}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Status" Width="120" Binding="{Binding MonthlySubscriptionMemberStatu.Status}" IsReadOnly="True"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

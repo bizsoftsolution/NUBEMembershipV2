@@ -22,29 +22,29 @@ namespace Nube.Transaction
     public partial class frmMonthlySubscriptionMembers : MetroWindow
     {
         nubebfsEntity db = new nubebfsEntity();
-        public int MonthlySubscriptionId=0;
+        int MonthlySubscriptionId=0;
         List<MonthlySubscriptionMember> lstMSMembers = new List<MonthlySubscriptionMember>();
-        public frmMonthlySubscriptionMembers()
+        public frmMonthlySubscriptionMembers(int monthlySubscriptionId)
         {
             InitializeComponent();
-
+            MonthlySubscriptionId = monthlySubscriptionId;
             cbxBank.ItemsSource = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
             cbxBank.DisplayMemberPath = "BANK_NAME";
             cbxBank.SelectedValuePath = "BANK_CODE";
 
             cbxMemberStatus.ItemsSource = db.MonthlySubscriptionMemberStatus.OrderBy(x => x.Status).ToList();
-            cbxBank.DisplayMemberPath = "Status";
-            cbxBank.SelectedValuePath = "Id";
+            cbxMemberStatus.DisplayMemberPath = "Status";
+            cbxMemberStatus.SelectedValuePath = "Id";
 
             cbxApprovalStatus.ItemsSource = db.MonthlySubscriptionMatchingTypes.OrderBy(x => x.Name).ToList();
             cbxApprovalStatus.DisplayMemberPath = "Name";
             cbxApprovalStatus.SelectedValuePath = "Id";
 
-            cbxMemberStatus.ItemsSource = db.MonthlySubscriptionMembers.Select(x => x.MemberName).Distinct().OrderBy(x=> x).ToList();
-            cbxNRIC.ItemsSource = db.MonthlySubscriptionMembers.Select(x => x.NRIC).Distinct().OrderBy(x => x).ToList();           
+            //cbxMemberName.ItemsSource = db.MonthlySubscriptionMembers.Select(x => x.MemberName).Distinct().OrderBy(x => x).ToList();
+            //cbxNRIC.ItemsSource = db.MonthlySubscriptionMembers.Select(x => x.NRIC).Distinct().OrderBy(x => x).ToList();
         }
 
-        void Search()
+        public void Search()
         {
             lstMSMembers = new List<MonthlySubscriptionMember>();
 
@@ -96,13 +96,13 @@ namespace Nube.Transaction
 
                     }
                 }
-                if (!string.IsNullOrWhiteSpace(cbxMemberName.Text))
+                if (!string.IsNullOrWhiteSpace(txtMemberName.Text))
                 {
-                    lst = lst.Where(x => x.MemberName.ToLower().Contains(cbxMemberName.Text.ToLower()));
+                    lst = lst.Where(x => x.MemberName.ToLower().Contains(txtMemberName.Text.ToLower()));
                 }
-                if (!string.IsNullOrWhiteSpace(cbxNRIC.Text))
+                if (!string.IsNullOrWhiteSpace(txtNRIC.Text))
                 {
-                    lst = lst.Where(x => x.NRIC.ToLower().Contains(cbxNRIC.Text.ToLower()));
+                    lst = lst.Where(x => x.NRIC.ToLower().Contains(txtNRIC.Text.ToLower()));
                 }
                 if (!string.IsNullOrWhiteSpace(txtMinAmount.Text))
                 {
@@ -168,6 +168,7 @@ namespace Nube.Transaction
                 {
                     msMember.MonthlySubcriptionMemberStatusId = (int)mm.STATUS_CODE.Value;
                     msMember.MemberCode = mm.MEMBER_CODE;
+                    db.SaveChanges();
                     try
                     {
                         var msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched);
@@ -200,7 +201,11 @@ namespace Nube.Transaction
                         }
                         else
                         {
-                            if (msmmr != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                            if (msmmr != null)
+                            {
+                                msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                                db.SaveChanges();
+                            }
                         }
 
 
@@ -258,13 +263,14 @@ namespace Nube.Transaction
                         else
                         {
                             if (msMember != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
-                        }
+                        }                        
 
                     }
                     catch(Exception ex)
                     {
 
-                    }                    
+                    }
+                    
                 }
             }
             catch (Exception ex)
@@ -293,8 +299,8 @@ namespace Nube.Transaction
             ckbFromMonthlySubscription.IsChecked = true;
             cbxMemberStatus.Text = "";
             cbxApprovalStatus.Text = "";
-            cbxMemberName.Text = "";
-            cbxNRIC.Text = "";
+            txtMemberName.Text = "";
+            txtNRIC.Text = "";
             txtMinAmount.Text = "";
             txtMaxAmount.Text = "";
         }
@@ -306,12 +312,14 @@ namespace Nube.Transaction
                 pbrStatus.Minimum = 0;
                 pbrStatus.Maximum = lstMSMembers.Count();
                 pbrStatus.Value = 0;
-                foreach (var msMember in lstMSMembers)
+                foreach (var mm in lstMSMembers)
                 {
-                    MemberScan(msMember);
+                    var msMember = db.MonthlySubscriptionMembers.FirstOrDefault(x => x.Id == mm.Id);
+                    if(msMember!=null) MemberScan(msMember);
                     pbrStatus.Value++;
                     DoEvents();
                 }
+                
                 MessageBox.Show("Scaning Done");
                 Search();
             }
