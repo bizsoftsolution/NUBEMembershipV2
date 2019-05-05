@@ -32,11 +32,21 @@
                 <ComboBox Name="cbxApprovalStatus" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Approval Status" Margin="5 0" Width="450" />
                 <ComboBox Name="cbxMemberName" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Member Name" Margin="5 0" Width="450" />
                 <ComboBox Name="cbxNRIC" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="NRIC" Margin="5 0" Width="450" />
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Margin="5 0">Amount Range</TextBlock>
+                    <TextBlock Margin="5 0">:</TextBlock>
+                    <TextBox Name="txtMinAmount" Width="50" Margin="5 0"></TextBox>
+                    <TextBlock Margin="5 0">-</TextBlock>
+                    <TextBox Name="txtMaxAmount" Width="50" Margin="5 0"></TextBox>
+                    <Button Margin="5 0" Name="btnSearch" Click="BtnSearch_Click">Search</Button>
+                    <Button Margin="5 0" Name="btnClear" Click="BtnClear_Click">Clear</Button>
+                    <Button Margin="5 0" Name="btnScan" Click="BtnScan_Click">Subscription Members Scaning</Button>
+                </StackPanel>
             </StackPanel>
 
         </Grid>
         <Grid Grid.Row="1" >
-
+            <ProgressBar Name="pbrStatus" />
         </Grid>
         <Grid Grid.Row="2">
             <DataGrid Name="dgvMember" AutoGenerateColumns="False" LoadingRow="DgvMember_LoadingRow" HeadersVisibility="All" GridLinesVisibility="All" >
@@ -63,9 +73,6 @@
                     <DataGridTextColumn Header="Member Name" Width="*" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
                     <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="BF" Width="70" Binding="{Binding BF,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Subs" Width="70" Binding="{Binding Subs,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Ins" Width="70" Binding="{Binding Ins,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Status" Width="120" Binding="{Binding Status}" IsReadOnly="True"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
