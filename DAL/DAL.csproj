@@ -236,6 +236,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <None Include="DeleteQuery.qry" />
     <None Include="NUBE.edmx.diagram">
       <DependentUpon>NUBE.edmx</DependentUpon>
     </None>

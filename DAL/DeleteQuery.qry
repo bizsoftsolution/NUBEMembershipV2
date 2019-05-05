@@ -1,0 +1,8 @@
+﻿delete from MonthlySubscription
+delete from MonthlySubscriptionBank
+delete from MonthlySubscriptionBankAttachment
+delete from MonthlySubscriptionMatchingType
+delete from MonthlySubscriptionMember
+delete from MonthlySubscriptionMemberMatchingResult
+delete from MonthlySubscriptionMemberStatus
+delete from MonthlySubscriptonFileType
