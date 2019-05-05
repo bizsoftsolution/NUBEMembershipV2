@@ -301,8 +301,15 @@ namespace Nube
 
         private void btnMonthlySubscription_Click(object sender, RoutedEventArgs e)
         {
-            frmMonthlySubscription frm = new frmMonthlySubscription();
-            frm.ShowDialog();
+            try
+            {
+                frmMonthlySubscription frm = new frmMonthlySubscription();
+                frm.ShowDialog();
+            }
+            catch(Exception ex)
+            {
+
+            }            
         }
     }
 }

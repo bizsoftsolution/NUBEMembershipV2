@@ -389,7 +389,13 @@
     <Compile Include="MonthlySubscriptionBankAttachment.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="MonthlySubscriptionMatchingType.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="MonthlySubscriptionMember.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MonthlySubscriptionMemberMatchingResult.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
     <Compile Include="MonthlySubscriptionMemberStatu.cs">
@@ -684,6 +690,9 @@
     </Compile>
     <Compile Include="Transaction\frmMonthlySubscription.xaml.cs">
       <DependentUpon>frmMonthlySubscription.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmMonthlySubscriptionMembers.xaml.cs">
+      <DependentUpon>frmMonthlySubscriptionMembers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Transaction\frmResingation.xaml.cs">
       <DependentUpon>frmResingation.xaml</DependentUpon>
@@ -1031,6 +1040,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Transaction\frmMonthlySubscription.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transaction\frmMonthlySubscriptionMembers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

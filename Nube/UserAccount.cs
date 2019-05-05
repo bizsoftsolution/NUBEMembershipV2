@@ -17,7 +17,7 @@ namespace Nube
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserAccount()
         {
-            this.MonthlySubscriptionMembers = new HashSet<MonthlySubscriptionMember>();
+            this.MonthlySubscriptionMemberMatchingResults = new HashSet<MonthlySubscriptionMemberMatchingResult>();
         }
     
         public decimal UserId { get; set; }
@@ -28,6 +28,6 @@ namespace Nube
         public Nullable<int> UserType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
+        public virtual ICollection<MonthlySubscriptionMemberMatchingResult> MonthlySubscriptionMemberMatchingResults { get; set; }
     }
 }

@@ -10,9 +10,15 @@
         xmlns:local="clr-namespace:Nube.Transaction"
         mc:Ignorable="d"
         Title="Monthly Subscription" Height=" 650" Width="1100" WindowState="Maximized" FontSize="12">
+    <metro:MetroWindow.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="RightCell">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </metro:MetroWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="350"/>
+            <RowDefinition Height="370"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -22,32 +28,127 @@
         <Grid Grid.Column="0" Grid.RowSpan="2">
             <StackPanel Orientation="Vertical" Background="LightGray" >
                 <Calendar Name="cdrMonthlySubscription" Margin="0 20 0 20 " HorizontalAlignment="Center" SelectionMode="SingleDate" VerticalAlignment="Center" DisplayDateStart="01/01/2019" Height="300"  DisplayMode="Year" SelectedDatesChanged="CdrMonthlySubscription_SelectedDatesChanged"  DisplayModeChanged="CdrMonthlySubscription_DisplayModeChanged" />
-                <StackPanel Orientation="Vertical" Margin="10" Name="stpFileSelect">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock Width="100">Paid Members </TextBlock>
+                    <TextBlock Margin="5 0">:</TextBlock>
+                    <TextBlock Name="lblPaidMembers"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock Width="100">Paid Amount</TextBlock>
+                    <TextBlock Margin="5 0">:</TextBlock>
+                    <TextBlock Name="lblPaidAmount"></TextBlock>
+                </StackPanel>
+                <Button IsEnabled="False" Margin="10" VerticalAlignment="Bottom">Month End Closed</Button>
+                <StackPanel Orientation="Vertical" Margin="10 30 10 0" Name="stpFileSelect">
                     <ComboBox Name="cbxBank" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Bank" Margin="0 10 0 10 " />
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Name="cbxFileType" Width="140" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="File From" />
-                        <Button Name="btnBrowse" Click="BtnBrowse_Click"  Width="130" Margin="10 25 0 10" > File Browse</Button>
+                        <Button Name="btnBrowse" Click="BtnBrowse_Click"  Width="130" Margin="10 25 0 10" >File Browse</Button>
                     </StackPanel>
                 </StackPanel>
+                
             </StackPanel>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="0">
-            <DataGrid Name="dgvBank" AutoGenerateColumns="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Bank Name" Width="250" Binding="{Binding BANK_NAME}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="No. of Members" Width="250" Binding="{Binding NoOfMember}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Total Amount" Width="250" Binding="{Binding TotalAmount}" ></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="60*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" >
+                <GroupBox Header="Member Status" Margin="10">
+                    <DataGrid Name="dgvMemberStatus" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberStatus_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberStatus_MouseDoubleClick" GridLinesVisibility="All">
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                                <Style.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}" IsReadOnly="True" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Count" Width="70" Binding="{Binding NoOfMember}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Amount" Width="100" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <GroupBox Header="Approval Status" Margin="10">
+                    <DataGrid Name="dgvMemberMatching" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberMatching_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberMatching_MouseDoubleClick" GridLinesVisibility="All">
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                                <Style.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}" IsReadOnly="True" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Count" Width="70" Binding="{Binding NoOfMember}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Approved" Width="70" Binding="{Binding Approved,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Pending" Width="70" Binding="{Binding Pending,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <DataGrid Name="dgvMember">
+            <DataGrid Name="dgvBank" Margin="10" AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                        <Style.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Member Name" Width="250" Binding="{Binding BankName}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="NRIC" Width="150" Binding="{Binding NRIC}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Amount" Width="150" Binding="{Binding Amount}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BANK_NAME}" IsReadOnly="True" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Members" Width="70" Binding="{Binding NoOfMember}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Total Amount" Width="90" Binding="{Binding TotalAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Active" Width="90" Binding="{Binding ActiveAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Defaulter" Width="90" Binding="{Binding DefaulterAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="StruckOff" Width="90" Binding="{Binding StruckOffAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Resigned" Width="90" Binding="{Binding ResignedAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Sundry Cr" Width="90" Binding="{Binding SundryCreditorAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
+        
     </Grid>
 </metro:MetroWindow>

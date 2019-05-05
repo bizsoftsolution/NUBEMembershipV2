@@ -1,0 +1,74 @@
+﻿<metro:MetroWindow x:Class="Nube.Transaction.frmMonthlySubscriptionMembers"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.Transaction"
+        mc:Ignorable="d"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1"
+        Title="Members" Height=" 650" Width="1100" WindowState="Maximized" FontSize="12">
+    <metro:MetroWindow.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="RightCell">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </metro:MetroWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="245"/>
+            <RowDefinition Height="55"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <ComboBox Name="cbxBank" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Bank" Margin="5 0" Width="450" />
+                    <CheckBox VerticalAlignment="Bottom" IsChecked="True" Name="ckbFromMonthlySubscription" >From Monthly Subscripion</CheckBox>
+                </StackPanel>
+                <ComboBox Name="cbxMemberStatus" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Member Status" Margin="5 0" Width="450" />
+                <ComboBox Name="cbxApprovalStatus" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Approval Status" Margin="5 0" Width="450" />
+                <ComboBox Name="cbxMemberName" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Member Name" Margin="5 0" Width="450" />
+                <ComboBox Name="cbxNRIC" IsEditable="True" HorizontalAlignment="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="NRIC" Margin="5 0" Width="450" />
+            </StackPanel>
+
+        </Grid>
+        <Grid Grid.Row="1" >
+
+        </Grid>
+        <Grid Grid.Row="2">
+            <DataGrid Name="dgvMember" AutoGenerateColumns="False" LoadingRow="DgvMember_LoadingRow" HeadersVisibility="All" GridLinesVisibility="All" >
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                        <Style.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Member Name" Width="*" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="BF" Width="70" Binding="{Binding BF,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Subs" Width="70" Binding="{Binding Subs,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Ins" Width="70" Binding="{Binding Ins,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Status" Width="120" Binding="{Binding Status}" IsReadOnly="True"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>
