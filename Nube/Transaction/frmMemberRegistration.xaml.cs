@@ -228,6 +228,8 @@ namespace Nube.Transaction
                             mm.ENTRANCEFEE = Convert.ToDecimal("0" + txtEntranceFee.Text);
                             mm.ACCBENEFIT = Convert.ToDecimal("0" + txtAccBenefit.Text);
                             mm.MONTHLYSUBSCRIPTION = Convert.ToDecimal("0" + txtMonthlySub.Text);
+                            mm.HQFEE = Convert.ToDecimal("0" + txtBuildingFund.Text);
+                            mm.BatchAmt = Convert.ToDouble("0" + txtBadgeAmt.Text);
                             mm.TOTALMONTHSPAID = Convert.ToDecimal("0" + txtTotalMonthPaidSubs.Text);
                             mm.ACCSUBSCRIPTION = Convert.ToDecimal("0"+txtAccSub.Text);
                             mm.MONTHLYBF = Convert.ToDecimal("0" + txtMonthlyBF.Text);
@@ -3355,7 +3357,7 @@ namespace Nube.Transaction
                         ms.TOTALMOTHSDUE = 0;
                         ms.LASTPAYMENT_DATE = DateTime.Today;
                         ms.MEMBERSTATUS = "ACTIVE";
-                        ms.MEMBERSTATUSCODE = 1;
+                        ms.MEMBERSTATUSCODE = 1;                        
                         db.MemberStatusLogs.Add(ms);
                         db.SaveChanges();
 
