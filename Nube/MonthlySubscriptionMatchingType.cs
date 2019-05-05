@@ -12,25 +12,17 @@ namespace Nube
     using System;
     using System.Collections.Generic;
     
-    public partial class MonthlySubscriptionMember
+    public partial class MonthlySubscriptionMatchingType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public MonthlySubscriptionMember()
+        public MonthlySubscriptionMatchingType()
         {
             this.MonthlySubscriptionMemberMatchingResults = new HashSet<MonthlySubscriptionMemberMatchingResult>();
         }
     
-        public long Id { get; set; }
-        public int MonthlySubscriptionBankId { get; set; }
-        public Nullable<decimal> MemberCode { get; set; }
-        public string NRIC { get; set; }
-        public string MemberName { get; set; }
-        public decimal Amount { get; set; }
-        public int MonthlySubcriptionMemberStatusId { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual MASTERMEMBER MASTERMEMBER { get; set; }
-        public virtual MonthlySubscriptionBank MonthlySubscriptionBank { get; set; }
-        public virtual MonthlySubscriptionMemberStatu MonthlySubscriptionMemberStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySubscriptionMemberMatchingResult> MonthlySubscriptionMemberMatchingResults { get; set; }
     }

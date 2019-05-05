@@ -20,6 +20,7 @@ namespace Nube
         public enum MemberStatus { Active = 1, Defaulter = 2, StruckOff = 3, Resigned = 4 };
         public enum MonthlySubscriptionFileType { FromBank=1,FromNUBE=2};
         public enum MonthlySubscriptionMemberStatus  { Active = 1, Defaulter = 2, StruckOff = 3, Resigned = 4, SundryCreditor = 5};
+        public enum MonthlySubscriptionMatchingType { NRICMatched=1, NRICNotMatched=2, MismatchedMemberName=3, MismatchedBank=4, MismatchedPreviousSubscription=5, StruckOffMembers=6, ResignedMembers=7 };
         public static string sProjectName = "";
         public static int iUserCode = 0;
         public static int iUsertypeId = 0;

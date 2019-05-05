@@ -33,8 +33,8 @@ namespace Nube
         public virtual MonthlySubscription MonthlySubscription { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySubscriptionBankAttachment> MonthlySubscriptionBankAttachments { get; set; }
+        public virtual MASTERBANK MASTERBANK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
-        public virtual MASTERBANK MASTERBANK { get; set; }
     }
 }

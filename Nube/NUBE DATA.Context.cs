@@ -93,9 +93,11 @@ namespace Nube
         public virtual DbSet<MonthlySubscription> MonthlySubscriptions { get; set; }
         public virtual DbSet<MonthlySubscriptionBank> MonthlySubscriptionBanks { get; set; }
         public virtual DbSet<MonthlySubscriptionBankAttachment> MonthlySubscriptionBankAttachments { get; set; }
-        public virtual DbSet<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
         public virtual DbSet<MonthlySubscriptionMemberStatu> MonthlySubscriptionMemberStatus { get; set; }
         public virtual DbSet<MonthlySubscriptonFileType> MonthlySubscriptonFileTypes { get; set; }
+        public virtual DbSet<MonthlySubscriptionMatchingType> MonthlySubscriptionMatchingTypes { get; set; }
+        public virtual DbSet<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
+        public virtual DbSet<MonthlySubscriptionMemberMatchingResult> MonthlySubscriptionMemberMatchingResults { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

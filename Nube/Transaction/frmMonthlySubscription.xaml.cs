@@ -63,17 +63,70 @@ namespace Nube.Transaction
             }
             if (ms != null)
             {
-                dgvBank.ItemsSource = ms.MonthlySubscriptionBanks.Select(x => new
+                try
                 {
-                    x.MASTERBANK.BANK_NAME,
-                    NoOfMember = x.MonthlySubscriptionMembers.Count(),
-                    TotalAmount =x.MonthlySubscriptionMembers.Sum(y=> y.Amount),
-                    ActiveAmount = x.MonthlySubscriptionMembers.Where(y=> y.MASTERMEMBER?.STATUS_CODE==(int)AppLib.MonthlySubscriptionMemberStatus.Active ).Sum(z=> z.Amount)                    
-                }).ToList();
+                    var lstBank = ms.MonthlySubscriptionBanks.Select(x => new
+                    {
+                        x.Id,
+                        x.MASTERBANK.BANK_NAME,
+                        NoOfMember = x.MonthlySubscriptionMembers.Count(),
+                        TotalAmount = x.MonthlySubscriptionMembers.Sum(y => y.Amount),
+                        ActiveAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.Active).Sum(z => z.Amount),
+                        DefaulterAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.Defaulter).Sum(z => z.Amount),
+                        StruckOffAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.StruckOff).Sum(z => z.Amount),
+                        ResignedAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.Resigned).Sum(z => z.Amount),
+                        SundryCreditorAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor).Sum(z => z.Amount)
+                    }).ToList();
+                    dgvBank.ItemsSource = lstBank;
+                    lblPaidMembers.Text = ms.MonthlySubscriptionBanks.Sum(x => x.MonthlySubscriptionMembers.Count()).ToString();
+                    lblPaidAmount.Text = ms.MonthlySubscriptionBanks.Sum(x => x.MonthlySubscriptionMembers.Sum(y => y.Amount)).ToString("N2");
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+                try
+                {
+                    
+                    var lstMemberStatus = db.MonthlySubscriptionMemberStatus.ToList().Select(x => new
+                    {
+                        Description= x.Status,
+                        NoOfMember = x.MonthlySubscriptionMembers.Count(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == ms.Id),
+                        Amount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == ms.Id).Sum(z=> z.Amount),
+                    }).ToList();
+
+
+                    dgvMemberStatus.ItemsSource = lstMemberStatus;
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+                try
+                {
+
+                    var lstMemberMatching = db.MonthlySubscriptionMatchingTypes.ToList().Select(x => new
+                    {
+                        Description=x.Name,
+                        NoOfMember = x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMember?.MonthlySubscriptionBank?.MonthlySubscriptionId == ms.Id),
+                        Amount = x.MonthlySubscriptionMemberMatchingResults.Where(y => y.MonthlySubscriptionMember.MonthlySubscriptionBank.MonthlySubscriptionId == ms.Id).Sum(z => z.MonthlySubscriptionMember.Amount),
+                    }).ToList();
+                    dgvMemberMatching.ItemsSource = lstMemberMatching;
+                }
+                catch (Exception ex)
+                {
+
+                }                               
             }
             else
             {
                 dgvBank.ItemsSource = null;
+                dgvMemberStatus.ItemsSource = null;
+                dgvMemberMatching.ItemsSource= null;
+                lblPaidAmount.Text = "";
+                lblPaidMembers.Text = "";
             }
             
         }
@@ -120,6 +173,11 @@ namespace Nube.Transaction
                             msBank = new MonthlySubscriptionBank() {BankCode=bank.BANK_CODE };
                             ms.MonthlySubscriptionBanks.Add(msBank);
                         }
+                        else
+                        {
+                            MessageBox.Show($"{cbxBank.Text} is already done.\r\n delete old entry and retry If you need.");
+                            return;
+                        }
 
                         var msAttachment = msBank.MonthlySubscriptionBankAttachments.FirstOrDefault(x => x.MonthlySubscriptionFileTypeId == fileType.Id);
                         if (msAttachment == null)
@@ -164,21 +222,17 @@ namespace Nube.Transaction
                                             var msMember = msBank.MonthlySubscriptionMembers.FirstOrDefault(x => x.NRIC == NRIC);
                                             if (msMember == null)
                                             {
-                                                msMember = new MonthlySubscriptionMember() { NRIC = NRIC,MonthlySubcriptionMemberStatusId=(int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor };
+                                                msMember = new MonthlySubscriptionMember() { NRIC = NRIC,MonthlySubcriptionMemberStatusId=(int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor};
                                                 msBank.MonthlySubscriptionMembers.Add(msMember);
                                             }
 
                                             msMember.MemberName = MemberName;
-                                            msMember.Amount = Convert.ToDecimal(Amount);
-
-
+                                            msMember.Amount = Convert.ToDecimal(Amount);                                            
                                         }
                                     }
-
                                 }
                             }
                         }
-
                         db.SaveChanges();
                         MessageBox.Show("Saved");
                     }
@@ -191,6 +245,56 @@ namespace Nube.Transaction
         {
 
         }
-        
+
+        private void DgvBank_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                dynamic d = dgvBank.SelectedItem;
+                frmMonthlySubscriptionMembers f = new frmMonthlySubscriptionMembers();
+                f.LoadDataByBank(d.Id);
+                f.ShowDialog();
+            }
+            catch(Exception ex) { }
+            
+        }
+
+        private void DgvBank_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            try
+            {
+                e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            }
+            catch(Exception ex) { }
+            
+        }
+
+        private void dgvMemberStatus_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            try
+            {
+                e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void dgvMemberStatus_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void dgvMemberMatching_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            try
+            {
+                e.Row.Header = (e.Row.GetIndex() + 1).ToString();
+            }
+            catch (Exception ex) { }
+        }
+
+        private void dgvMemberMatching_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

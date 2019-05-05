@@ -79,19 +79,23 @@
         <EntityTypeShape EntityType="nube18092017Model.MonthlySubscription" Width="1.5" PointX="16.5" PointY="47.375" />
         <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionBank" Width="1.5" PointX="18.75" PointY="47.25" />
         <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionBankAttachment" Width="1.5" PointX="21" PointY="47.625" />
-        <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionMember" Width="1.5" PointX="21" PointY="25.25" />
         <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionMemberStatu" Width="1.5" PointX="18.75" PointY="51.125" />
         <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptonFileType" Width="1.5" PointX="18.75" PointY="54" />
         <AssociationConnector Association="nube18092017Model.FK_FeesDetails_FeesMaster" />
         <AssociationConnector Association="nube18092017Model.FK_FeesDetailsNotMatch_FeesMaster" />
-        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMember_MASTERMEMBER" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptonBank_MonthlySubcription" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptionBank" />
-        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionBank" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionBankAttachment_MonthlySubscriptonFileType" />
-        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionMember" />
-        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMember_UserAccount" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionBank_MASTERBANK" />
+        <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionMatchingType" Width="1.5" PointX="21" PointY="30.25" />
+        <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionMember" Width="1.5" PointX="21" PointY="36" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMember_MASTERMEMBER" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionBank" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMember_MonthlySubscriptionMember" />
+        <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionMemberMatchingResult" Width="1.5" PointX="23.25" PointY="26.625" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_MonthlySubscriptionMatchingType" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_MonthlySubscriptionMember" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_UserAccount" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
