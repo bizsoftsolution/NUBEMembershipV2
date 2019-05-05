@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Nube.Transaction
 {
@@ -21,12 +22,107 @@ namespace Nube.Transaction
     public partial class frmMonthlySubscriptionMembers : MetroWindow
     {
         nubebfsEntity db = new nubebfsEntity();
+        public int MonthlySubscriptionId=0;
         List<MonthlySubscriptionMember> lstMSMembers = new List<MonthlySubscriptionMember>();
         public frmMonthlySubscriptionMembers()
         {
             InitializeComponent();
+
+            cbxBank.ItemsSource = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
+            cbxBank.DisplayMemberPath = "BANK_NAME";
+            cbxBank.SelectedValuePath = "BANK_CODE";
+
+            cbxMemberStatus.ItemsSource = db.MonthlySubscriptionMemberStatus.OrderBy(x => x.Status).ToList();
+            cbxBank.DisplayMemberPath = "Status";
+            cbxBank.SelectedValuePath = "Id";
+
+            cbxApprovalStatus.ItemsSource = db.MonthlySubscriptionMatchingTypes.OrderBy(x => x.Name).ToList();
+            cbxApprovalStatus.DisplayMemberPath = "Name";
+            cbxApprovalStatus.SelectedValuePath = "Id";
+
+            cbxMemberStatus.ItemsSource = db.MonthlySubscriptionMembers.Select(x => x.MemberName).Distinct().OrderBy(x=> x).ToList();
+            cbxNRIC.ItemsSource = db.MonthlySubscriptionMembers.Select(x => x.NRIC).Distinct().OrderBy(x => x).ToList();           
         }
 
+        void Search()
+        {
+            lstMSMembers = new List<MonthlySubscriptionMember>();
+
+            try
+            {
+                var lst = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscriptionId == MonthlySubscriptionId);
+                if (!string.IsNullOrWhiteSpace(cbxBank.Text))
+                {
+                    try
+                    {
+                        decimal BankCode = (decimal)cbxBank.SelectedValue;
+                        if(ckbFromMonthlySubscription.IsChecked==true)
+                        {
+                            lst = lst.Where(x => x.MonthlySubscriptionBank.BankCode == BankCode);
+                        }
+                        else
+                        {
+                            lst = lst.Where(x => x.MASTERMEMBER.BANK_CODE== BankCode);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(cbxMemberStatus.Text))
+                {
+                    try
+                    {
+                        int Id = (int)cbxMemberStatus.SelectedValue;
+                        lst = lst.Where(x => x.MonthlySubcriptionMemberStatusId == Id);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(cbxApprovalStatus.Text))
+                {
+                    try
+                    {
+                        int Id = (int)cbxApprovalStatus.SelectedValue;
+                        lst = lst.Where(x => x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMatchingTypeId == Id) > 0);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(cbxMemberName.Text))
+                {
+                    lst = lst.Where(x => x.MemberName.ToLower().Contains(cbxMemberName.Text.ToLower()));
+                }
+                if (!string.IsNullOrWhiteSpace(cbxNRIC.Text))
+                {
+                    lst = lst.Where(x => x.NRIC.ToLower().Contains(cbxNRIC.Text.ToLower()));
+                }
+                if (!string.IsNullOrWhiteSpace(txtMinAmount.Text))
+                {
+                    lst = lst.Where(x => x.Amount > Convert.ToDecimal(txtMinAmount.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtMaxAmount.Text))
+                {
+                    lst = lst.Where(x => x.Amount < Convert.ToDecimal(txtMaxAmount.Text));
+                }
+                lst = lst.OrderBy(x => x.MonthlySubcriptionMemberStatusId).OrderBy(x => x.MemberName);
+                lstMSMembers = lst.ToList();
+            }
+            catch(Exception ex)
+            {
+
+            }
+
+            dgvMember.ItemsSource = lstMSMembers;
+        }
         public void LoadDataByBank(int  MonthlySubscriptionBankId )
         {
             var data = db.MonthlySubscriptionBanks.FirstOrDefault(x => x.Id == MonthlySubscriptionBankId);
@@ -186,5 +282,46 @@ namespace Nube.Transaction
             catch (Exception ex) { }
         }
 
+        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            Search();
+        }
+
+        private void BtnClear_Click(object sender, RoutedEventArgs e)
+        {
+            cbxBank.Text = "";
+            ckbFromMonthlySubscription.IsChecked = true;
+            cbxMemberStatus.Text = "";
+            cbxApprovalStatus.Text = "";
+            cbxMemberName.Text = "";
+            cbxNRIC.Text = "";
+            txtMinAmount.Text = "";
+            txtMaxAmount.Text = "";
+        }
+
+        private void BtnScan_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                pbrStatus.Minimum = 0;
+                pbrStatus.Maximum = lstMSMembers.Count();
+                pbrStatus.Value = 0;
+                foreach (var msMember in lstMSMembers)
+                {
+                    MemberScan(msMember);
+                    pbrStatus.Value++;
+                    DoEvents();
+                }
+                MessageBox.Show("Scaning Done");
+                Search();
+            }
+            catch(Exception ex) { }
+            
+        }
+        public static void DoEvents()
+        {
+            Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
+                                                  new Action(delegate { }));
+        }
     }
 }
