@@ -123,160 +123,159 @@ namespace Nube.Transaction
 
             dgvMember.ItemsSource = lstMSMembers;
         }
-        public void LoadDataByBank(int  MonthlySubscriptionBankId )
-        {
-            var data = db.MonthlySubscriptionBanks.FirstOrDefault(x => x.Id == MonthlySubscriptionBankId);
-            
-            if (data != null)
-            {
-                lstMSMembers = data.MonthlySubscriptionMembers.ToList();
-                var lst = lstMSMembers.Select(x => new { x.MemberName, x.NRIC, x.Amount,BF =3, Ins=7,Subs=x.Amount-10,x.MonthlySubscriptionMemberStatu.Status,x.MonthlySubcriptionMemberStatusId }).ToList().OrderBy(x=> x.MonthlySubcriptionMemberStatusId).OrderBy(x=> x.MemberName).ToList();
-                dgvMember.ItemsSource = lst;                
-            }
-            this.Title = $"Members : {data.MASTERBANK.BANK_NAME} - {data.MonthlySubscription.date:MMMM yyyy} ";
-        }
-
-
-        void MemberScan(MonthlySubscriptionMember msMember)
+       
+        void MemberStatusUpdate(MonthlySubscriptionMember msMember)
         {
             try
             {
-                var mm = db.MASTERMEMBERs.Select(x => new { x.MEMBER_CODE, x.STATUS_CODE, x.BANK_CODE, x.MASTERBANK.BANK_NAME, x.MEMBER_NAME, x.ICNO_NEW, x.ICNO_OLD }).FirstOrDefault(x => x.ICNO_OLD == msMember.NRIC || x.ICNO_NEW == msMember.NRIC);
+                var mm = db.MASTERMEMBERs.Where(x=> x.ICNO_OLD == msMember.NRIC || x.ICNO_NEW == msMember.NRIC || x.NRIC_ByBank == msMember.NRIC).OrderByDescending(x=> x.MEMBER_CODE).Select(x => new { x.MEMBER_CODE, x.STATUS_CODE}).FirstOrDefault();
                 if (mm == null)
                 {
-                    msMember.MonthlySubcriptionMemberStatusId = (int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor;
-                    try
-                    {                        
-                        var msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched);
-                        if (msmmr == null)
-                        {
-                            msmmr = new MonthlySubscriptionMemberMatchingResult()
-                            {
-                                MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched,
-                                Description = $""
-                            };
-                            msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
-                        }
-                        db.MonthlySubscriptionMemberMatchingResults.RemoveRange(db.MonthlySubscriptionMemberMatchingResults.Where(x => x.MonthlySubscriptionMemberId == msMember.Id && x.MonthlySubscriptionMatchingTypeId != (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched));
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }                    
+                    msMember.MonthlySubcriptionMemberStatusId = (int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor;                                
                 }
                 else
                 {
                     msMember.MonthlySubcriptionMemberStatusId = (int)mm.STATUS_CODE.Value;
                     msMember.MemberCode = mm.MEMBER_CODE;
-                    db.SaveChanges();
-                    try
-                    {
-                        var msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched);
-                        if (msmmr != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
-
-                        msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICMatched);
-                        if (msmmr == null)
-                        {
-                            msmmr = new MonthlySubscriptionMemberMatchingResult()
-                            {
-                                MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.NRICMatched,
-                                Description = $"",
-                                ApprovedBy = AppLib.iUserCode
-                            };
-                            msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
-                        }
-
-                        msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.MismatchedMemberName);
-                        if (msMember.MemberName.ToLower() != mm.MEMBER_NAME.ToLower())
-                        {
-                            if (msmmr == null)
-                            {
-                                msmmr = new MonthlySubscriptionMemberMatchingResult()
-                                {
-                                    MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.MismatchedMemberName,
-                                };
-                                msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
-                            }
-                            msmmr.Description = $"From Bank : {msMember.MemberName}\r\nFrom NUBE : {mm.MEMBER_NAME}";
-                        }
-                        else
-                        {
-                            if (msmmr != null)
-                            {
-                                msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
-                                db.SaveChanges();
-                            }
-                        }
-
-
-                        msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.MismatchedBank);
-                        if (msMember.MonthlySubscriptionBank.BankCode != mm.BANK_CODE)
-                        {
-                            if (msmmr == null)
-                            {
-                                msmmr = new MonthlySubscriptionMemberMatchingResult()
-                                {
-                                    MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.MismatchedBank,
-                                };
-                                msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
-                            }                            
-                            msmmr.Description = $"From Bank : {msMember.MonthlySubscriptionBank.MASTERBANK.BANK_NAME}\r\nFrom NUBE : {mm.BANK_NAME}";
-                        }
-                        else
-                        {
-                            if (msMember != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
-                        }
-
-
-                        msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.StruckOffMembers);
-                        if (msMember.MonthlySubcriptionMemberStatusId == (int) AppLib.MonthlySubscriptionMemberStatus.StruckOff)
-                        {
-                            if (msmmr == null)
-                            {
-                                msmmr = new MonthlySubscriptionMemberMatchingResult()
-                                {
-                                    MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.StruckOffMembers,
-                                };
-                                msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
-                            }
-                            
-                            msmmr.Description = $"";
-                        }
-                        else
-                        {
-                            if (msMember != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
-                        }
-
-                        msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.ResignedMembers);
-                        if (msMember.MonthlySubcriptionMemberStatusId == (int)AppLib.MonthlySubscriptionMemberStatus.StruckOff)
-                        {
-                            if (msmmr == null)
-                            {
-                                msmmr = new MonthlySubscriptionMemberMatchingResult()
-                                {
-                                    MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.ResignedMembers,
-                                };
-                                msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
-                            }
-                            msmmr.Description = $"";
-                        }
-                        else
-                        {
-                            if (msMember != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
-                        }                        
-
-                    }
-                    catch(Exception ex)
-                    {
-
-                    }
-                    
-                }
+                                                           
+                }                
             }
             catch (Exception ex)
             {
 
             }
+        }
+
+        void ApprovalStatusUpdate(MonthlySubscriptionMember msMember)
+        {
+            var mm = db.MASTERMEMBERs.Select(x => new { x.MEMBER_CODE, x.STATUS_CODE, x.BANK_CODE, x.MASTERBANK.BANK_NAME, x.MEMBER_NAME, x.ICNO_NEW, x.ICNO_OLD, x.NRIC_ByBank }).OrderByDescending(x => x.MEMBER_CODE).FirstOrDefault(x => x.ICNO_OLD == msMember.NRIC || x.ICNO_NEW == msMember.NRIC || x.NRIC_ByBank == msMember.NRIC);
+
+            if (mm == null)
+            {
+                try
+                {
+                    var msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched);
+                    if (msmmr == null)
+                    {
+                        msmmr = new MonthlySubscriptionMemberMatchingResult()
+                        {
+                            MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched,
+                            Description = $""
+                        };
+                        msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                    }
+                    db.MonthlySubscriptionMemberMatchingResults.RemoveRange(db.MonthlySubscriptionMemberMatchingResults.Where(x => x.MonthlySubscriptionMemberId == msMember.Id && x.MonthlySubscriptionMatchingTypeId != (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched));
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            else
+            {
+                try
+                {
+                    var msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICNotMatched);
+                    if (msmmr != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+
+                    msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICMatched);
+                    if (msmmr == null)
+                    {
+                        msmmr = new MonthlySubscriptionMemberMatchingResult()
+                        {
+                            MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.NRICMatched,
+                            Description = $"",
+                            ApprovedBy = AppLib.iUserCode
+                        };
+                        msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                    }
+
+                    msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.MismatchedMemberName);
+                    if (msMember.MemberName.ToLower() != mm.MEMBER_NAME.ToLower())
+                    {
+                        if (msmmr == null)
+                        {
+                            msmmr = new MonthlySubscriptionMemberMatchingResult()
+                            {
+                                MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.MismatchedMemberName,
+                            };
+                            msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                        }
+                        msmmr.Description = $"From Bank : {msMember.MemberName}\r\nFrom NUBE : {mm.MEMBER_NAME}";
+                    }
+                    else
+                    {
+                        if (msmmr != null)
+                        {
+                            msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                            db.SaveChanges();
+                        }
+                    }
+
+
+                    msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.MismatchedBank);
+                    if (msMember.MonthlySubscriptionBank.BankCode != mm.BANK_CODE)
+                    {
+                        if (msmmr == null)
+                        {
+                            msmmr = new MonthlySubscriptionMemberMatchingResult()
+                            {
+                                MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.MismatchedBank,
+                            };
+                            msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                        }
+                        msmmr.Description = $"From Bank : {msMember.MonthlySubscriptionBank.MASTERBANK.BANK_NAME}\r\nFrom NUBE : {mm.BANK_NAME}";
+                    }
+                    else
+                    {
+                        if (msMember != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                    }
+
+
+                    msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.StruckOffMembers);
+                    if (msMember.MonthlySubcriptionMemberStatusId == (int)AppLib.MonthlySubscriptionMemberStatus.StruckOff)
+                    {
+                        if (msmmr == null)
+                        {
+                            msmmr = new MonthlySubscriptionMemberMatchingResult()
+                            {
+                                MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.StruckOffMembers,
+                            };
+                            msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                        }
+
+                        msmmr.Description = $"";
+                    }
+                    else
+                    {
+                        if (msMember != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                    }
+
+                    msmmr = msMember.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.MonthlySubscriptionMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.ResignedMembers);
+                    if (msMember.MonthlySubcriptionMemberStatusId == (int)AppLib.MonthlySubscriptionMemberStatus.StruckOff)
+                    {
+                        if (msmmr == null)
+                        {
+                            msmmr = new MonthlySubscriptionMemberMatchingResult()
+                            {
+                                MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.ResignedMembers,
+                            };
+                            msMember.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                        }
+                        msmmr.Description = $"";
+                    }
+                    else
+                    {
+                        if (msMember != null) msMember.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            
         }
 
         private void DgvMember_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -305,7 +304,7 @@ namespace Nube.Transaction
             txtMaxAmount.Text = "";
         }
 
-        private void BtnScan_Click(object sender, RoutedEventArgs e)
+        private void btnMemberStatusScan_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -315,11 +314,11 @@ namespace Nube.Transaction
                 foreach (var mm in lstMSMembers)
                 {
                     var msMember = db.MonthlySubscriptionMembers.FirstOrDefault(x => x.Id == mm.Id);
-                    if(msMember!=null) MemberScan(msMember);
+                    if(msMember!=null) MemberStatusUpdate(msMember);
                     pbrStatus.Value++;
                     DoEvents();
                 }
-                
+                db.SaveChanges();
                 MessageBox.Show("Scaning Done");
                 Search();
             }
@@ -330,6 +329,27 @@ namespace Nube.Transaction
         {
             Application.Current.Dispatcher.Invoke(DispatcherPriority.Background,
                                                   new Action(delegate { }));
+        }
+
+        private void btnApprovalStatusScan_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                pbrStatus.Minimum = 0;
+                pbrStatus.Maximum = lstMSMembers.Count();
+                pbrStatus.Value = 0;
+                foreach (var mm in lstMSMembers)
+                {
+                    var msMember = db.MonthlySubscriptionMembers.FirstOrDefault(x => x.Id == mm.Id);
+                    if (msMember != null) ApprovalStatusUpdate(msMember);
+                    pbrStatus.Value++;
+                    DoEvents();
+                }
+                db.SaveChanges();
+                MessageBox.Show("Scaning Done");
+                Search();
+            }
+            catch (Exception ex) { }
         }
     }
 }

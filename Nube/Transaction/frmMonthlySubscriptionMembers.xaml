@@ -51,7 +51,8 @@
                     <TextBox Name="txtMaxAmount" Width="50" Margin="5 0"></TextBox>
                     <Button Margin="5 0" Name="btnSearch" Click="BtnSearch_Click">Search</Button>
                     <Button Margin="5 0" Name="btnClear" Click="BtnClear_Click">Clear</Button>
-                    <Button Margin="5 0" Name="btnScan" Click="BtnScan_Click">Subscription Members Scaning</Button>
+                    <Button Margin="5 0" x:Name="btnMemberStatusScan" Click="btnMemberStatusScan_Click" Content="Members Status Scanning"/>
+                    <Button Margin="5 0" x:Name="btnApprovalStatusScan" Click="btnApprovalStatusScan_Click" Content="Approval Status Scanning"/>
                 </StackPanel>
             </StackPanel>
 
