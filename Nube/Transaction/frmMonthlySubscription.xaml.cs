@@ -235,6 +235,7 @@ namespace Nube.Transaction
                         }
                         db.SaveChanges();
                         MessageBox.Show("Saved");
+                        LoadMonthlySubsciption(cdrMonthlySubscription.SelectedDate.Value);
                     }
                 }
                 
