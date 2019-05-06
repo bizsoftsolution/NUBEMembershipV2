@@ -83,6 +83,8 @@
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Member Name" Width="*" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Member Id" Width="120" Binding="{Binding MASTERMEMBER.MEMBER_ID}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Bank" Width="120" Binding="{Binding MASTERMEMBER.MASTERBANK.BANK_USERCODE}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Status" Width="120" Binding="{Binding MonthlySubscriptionMemberStatu.Status}" IsReadOnly="True"></DataGridTextColumn>
