@@ -111,14 +111,20 @@ namespace Nube.Transaction
                 try
                 {
                     
-                    var lstMemberStatus = db.MonthlySubscriptionMemberStatus.ToList().Select(x => new
+                    var lstMemberStatus = db.MonthlySubscriptionMemberStatus.ToList().Select(x => new Model.MonthlySubsMemberStatus()
                     {
                         Description= x.Status,
                         NoOfMember = x.MonthlySubscriptionMembers.Count(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == dataMS.Id),
                         Amount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == dataMS.Id).Sum(z=> z.Amount),
                     }).ToList();
 
-
+                    var mStatus = new Model.MonthlySubsMemberStatus()
+                    {
+                        Description = "Total",
+                        NoOfMember = lstMemberStatus.Sum(x => x.NoOfMember),
+                        Amount = lstMemberStatus.Sum(x => x.Amount),
+                    };
+                    lstMemberStatus.Add(mStatus);
                     dgvMemberStatus.ItemsSource = lstMemberStatus;
 
                 }
@@ -129,12 +135,22 @@ namespace Nube.Transaction
                 try
                 {
 
-                    var lstMemberMatching = db.MonthlySubscriptionMatchingTypes.ToList().Select(x => new
+                    var lstMemberMatching = db.MonthlySubscriptionMatchingTypes.ToList().Select(x => new Model.MonthlySubsApprovalStatus()
                     {
                         Description=x.Name,
                         NoOfMember = x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMember?.MonthlySubscriptionBank?.MonthlySubscriptionId == dataMS.Id),
-                        Amount = x.MonthlySubscriptionMemberMatchingResults.Where(y => y.MonthlySubscriptionMember.MonthlySubscriptionBank.MonthlySubscriptionId == dataMS.Id).Sum(z => z.MonthlySubscriptionMember.Amount),
+                        Approved = x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMember?.MonthlySubscriptionBank?.MonthlySubscriptionId == dataMS.Id && y.ApprovedBy!=null),
+                        Pending = x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMember?.MonthlySubscriptionBank?.MonthlySubscriptionId == dataMS.Id && y.ApprovedBy == null),                        
                     }).ToList();
+
+                    var aStatus = new Model.MonthlySubsApprovalStatus()
+                    {
+                        Description = "Total",
+                        NoOfMember = lstMemberMatching.Sum(x=> x.NoOfMember),
+                        Approved = lstMemberMatching.Sum(x => x.Approved),
+                        Pending = lstMemberMatching.Sum(x => x.Pending),
+                    };
+                    lstMemberMatching.Add(aStatus);
                     dgvMemberMatching.ItemsSource = lstMemberMatching;
                 }
                 catch (Exception ex)
@@ -310,7 +326,18 @@ namespace Nube.Transaction
 
         private void dgvMemberStatus_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            try
+            {
+                Model.MonthlySubsMemberStatus d = dgvMemberStatus.SelectedItem as Model.MonthlySubsMemberStatus;
+                if (d != null)
+                {
+                    frmMonthlySubscriptionMembers f = new frmMonthlySubscriptionMembers(dataMS.Id);
+                    f.cbxMemberStatus.Text = d.Description != "Total" ?d.Description : "";
+                    f.Search();
+                    f.ShowDialog();                    
+                }
+            }
+            catch (Exception ex) { }
         }
 
         private void dgvMemberMatching_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -324,7 +351,18 @@ namespace Nube.Transaction
 
         private void dgvMemberMatching_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            try
+            {
+                Model.MonthlySubsApprovalStatus d = dgvMemberMatching.SelectedItem as Model.MonthlySubsApprovalStatus;
+                if (d != null)
+                {
+                    frmMonthlySubscriptionMembers f = new frmMonthlySubscriptionMembers(dataMS.Id);
+                    f.cbxApprovalStatus.Text = d.Description != "Total" ? d.Description : "";
+                    f.Search();
+                    f.ShowDialog();
+                }
+            }
+            catch (Exception ex) { }
         }
     }
 }

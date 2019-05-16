@@ -208,7 +208,7 @@ namespace Nube.Transaction
 
 
                         msmmr = getMonthlySubscriptionMemberMatchingResult(msMember, AppLib.MonthlySubscriptionMatchingType.NRICOldMatched);
-                        if (msMember.NRIC == mm.ICNO_OLD)
+                        if (msMember.NRIC != mm.ICNO_NEW && msMember.NRIC == mm.ICNO_OLD)
                         {
                             if (msmmr == null)
                             {
@@ -229,7 +229,7 @@ namespace Nube.Transaction
                         db.SaveChanges();
 
                         msmmr = getMonthlySubscriptionMemberMatchingResult(msMember, AppLib.MonthlySubscriptionMatchingType.NRICByBankMatched);
-                        if (msMember.NRIC == mm.NRIC_ByBank)
+                        if (msMember.NRIC != mm.ICNO_NEW && msMember.NRIC != mm.ICNO_OLD && msMember.NRIC == mm.NRIC_ByBank)
                         {
                             if (msmmr == null)
                             {

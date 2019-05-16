@@ -56,7 +56,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" >
                 <GroupBox Header="Member Status" Margin="10">
-                    <DataGrid Name="dgvMemberStatus" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberStatus_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberStatus_MouseDoubleClick" GridLinesVisibility="All">
+                    <DataGrid Name="dgvMemberStatus" CanUserAddRows="False" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberStatus_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberStatus_MouseDoubleClick" GridLinesVisibility="All">
                         <DataGrid.RowHeaderStyle>
                             <Style TargetType="{x:Type DataGridRowHeader}">
                                 <Setter Property="Foreground" Value="White" />
@@ -86,7 +86,7 @@
             </Grid>
             <Grid Grid.Column="1">
                 <GroupBox Header="Approval Status" Margin="10">
-                    <DataGrid Name="dgvMemberMatching" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberMatching_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberMatching_MouseDoubleClick" GridLinesVisibility="All">
+                    <DataGrid Name="dgvMemberMatching" CanUserAddRows="False" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberMatching_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberMatching_MouseDoubleClick" GridLinesVisibility="All">
                         <DataGrid.RowHeaderStyle>
                             <Style TargetType="{x:Type DataGridRowHeader}">
                                 <Setter Property="Foreground" Value="White" />
@@ -109,8 +109,8 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}" IsReadOnly="True" ></DataGridTextColumn>
                             <DataGridTextColumn Header="Count" Width="70" Binding="{Binding NoOfMember}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Approved" Width="70" Binding="{Binding Approved,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Pending" Width="70" Binding="{Binding Pending,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Approved" Width="70" Binding="{Binding Approved}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Pending" Width="70" Binding="{Binding Pending}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </GroupBox>

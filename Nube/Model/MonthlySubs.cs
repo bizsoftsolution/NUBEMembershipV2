@@ -37,7 +37,22 @@ namespace Nube.Model
         public DateTime SelecctedDate
         {
             get { return selectedDate; }
-            set { selectedDate = value; }
+            set
+            {
+                if (selectedDate != value)
+                {
+                    selectedDate = value;
+                    //MonthlySubscription = db.MonthlySubscriptions.Where(x=>)
+                }
+            }
+        }
+
+        private MonthlySubscription monthly;
+
+        public MonthlySubscription MonthlySubscription
+        {
+            get { return monthly; }
+            set { monthly = value; }
         }
 
     }

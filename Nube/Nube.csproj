@@ -380,7 +380,9 @@
       <DependentUpon>Message.resx</DependentUpon>
     </Compile>
     <Compile Include="Model\MonthlySubs.cs" />
+    <Compile Include="Model\MonthlySubsApprovalStatus.cs" />
     <Compile Include="Model\MonthlySubsBank.cs" />
+    <Compile Include="Model\MonthlySubsMemberStatus.cs" />
     <Compile Include="Model\UserPrevilage.cs" />
     <Compile Include="MonthlySubscription.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
