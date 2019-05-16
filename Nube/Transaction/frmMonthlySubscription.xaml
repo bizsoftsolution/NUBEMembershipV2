@@ -117,7 +117,7 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <DataGrid Name="dgvBank" Margin="10" AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
+            <DataGrid Name="dgvBank" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
                 <DataGrid.RowHeaderStyle>
                     <Style TargetType="{x:Type DataGridRowHeader}">
                         <Setter Property="Foreground" Value="White" />
@@ -138,7 +138,7 @@
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BANK_NAME}" IsReadOnly="True" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
                     <DataGridTextColumn Header="# Members" Width="70" Binding="{Binding NoOfMember}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Total Amount" Width="90" Binding="{Binding TotalAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Active" Width="90" Binding="{Binding ActiveAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>

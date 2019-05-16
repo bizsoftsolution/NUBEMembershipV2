@@ -429,5 +429,17 @@ namespace Nube.Transaction
 
             }
         }
+
+        private void DgvMember_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var mm = dgvMember.SelectedItem as MonthlySubscriptionMember;
+            if (mm != null && mm?.MASTERMEMBER!=null)
+            {
+                frmMemberRegistration f = new frmMemberRegistration(mm.MASTERMEMBER.MEMBER_CODE);
+                f.ShowDialog();
+            }
+            
+            
+        }
     }
 }

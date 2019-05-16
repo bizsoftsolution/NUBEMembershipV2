@@ -25,10 +25,16 @@ namespace Nube.Transaction
     public partial class frmMonthlySubscription : MetroWindow
     {
         nubebfsEntity db = new nubebfsEntity();
-        MonthlySubscription data = new MonthlySubscription();
+        MonthlySubscription dataMS = new MonthlySubscription();
+
+        Model.MonthlySubs data = new Model.MonthlySubs();
+
         public frmMonthlySubscription()
         {
             InitializeComponent();
+
+            data = new Model.MonthlySubs();
+            this.DataContext = data;
 
             cbxBank.ItemsSource = db.MASTERBANKs.OrderBy(x => x.BANK_NAME).ToList();
             cbxBank.DisplayMemberPath = "BANK_NAME";
@@ -43,17 +49,19 @@ namespace Nube.Transaction
         {
             if (cdrMonthlySubscription.DisplayMode == CalendarMode.Month)
             {
-                var dt = cdrMonthlySubscription.DisplayDate;
-                cdrMonthlySubscription.SelectedDate = dt;                
+
+                data = new Model.MonthlySubs(cdrMonthlySubscription.DisplayDate);
+                this.DataContext = data;
+                cdrMonthlySubscription.SelectedDate = data.SelecctedDate;
                 cdrMonthlySubscription.DisplayMode = CalendarMode.Year;
-                LoadMonthlySubsciption(dt);                
+                LoadMonthlySubsciption(data.SelecctedDate);                
             }
         }
         void LoadMonthlySubsciption(DateTime dt)
         {
             this.Title = $"Monthly Subscription [ {dt.ToString("MMMM - yyyy")} ]";
-            data = db.MonthlySubscriptions.FirstOrDefault(x => x.date == dt);
-            if (data?.MonthEndClosed == true)
+            dataMS = db.MonthlySubscriptions.FirstOrDefault(x => x.date == dt);
+            if (dataMS?.MonthEndClosed == true)
             {
                 stpFileSelect.Visibility = Visibility.Collapsed;
             }
@@ -61,14 +69,14 @@ namespace Nube.Transaction
             {
                 stpFileSelect.Visibility = Visibility.Visible;
             }
-            if (data != null)
+            if (dataMS != null)
             {
                 try
                 {
-                    var lstBank = data.MonthlySubscriptionBanks.Select(x => new
-                    {
-                        x.Id,
-                        x.MASTERBANK.BANK_NAME,
+                    var lstBank = dataMS.MonthlySubscriptionBanks.Select(x => new
+                    Model.MonthlySubsBank{
+                        Id = x.Id,
+                        BankName = x.MASTERBANK.BANK_NAME,
                         NoOfMember = x.MonthlySubscriptionMembers.Count(),
                         TotalAmount = x.MonthlySubscriptionMembers.Sum(y => y.Amount),
                         ActiveAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.Active).Sum(z => z.Amount),
@@ -77,9 +85,23 @@ namespace Nube.Transaction
                         ResignedAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.Resigned).Sum(z => z.Amount),
                         SundryCreditorAmount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionMemberStatu?.Id == (int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor).Sum(z => z.Amount)
                     }).ToList();
+
+                    var b = new Model.MonthlySubsBank
+                            {
+                                BankName = "Total",
+                                NoOfMember = lstBank.Sum(x => x.NoOfMember),
+                                TotalAmount = lstBank.Sum(x => x.TotalAmount),
+                                ActiveAmount = lstBank.Sum(x => x.ActiveAmount),
+                                DefaulterAmount = lstBank.Sum(x => x.DefaulterAmount),
+                                StruckOffAmount = lstBank.Sum(x => x.StruckOffAmount),
+                                ResignedAmount = lstBank.Sum(x => x.ResignedAmount),
+                                SundryCreditorAmount = lstBank.Sum(x => x.SundryCreditorAmount)
+                            };
+                    lstBank.Add(b);
+
                     dgvBank.ItemsSource = lstBank;
-                    lblPaidMembers.Text = data.MonthlySubscriptionBanks.Sum(x => x.MonthlySubscriptionMembers.Count()).ToString();
-                    lblPaidAmount.Text = data.MonthlySubscriptionBanks.Sum(x => x.MonthlySubscriptionMembers.Sum(y => y.Amount)).ToString("N2");
+                    lblPaidMembers.Text = dataMS.MonthlySubscriptionBanks.Sum(x => x.MonthlySubscriptionMembers.Count()).ToString();
+                    lblPaidAmount.Text = dataMS.MonthlySubscriptionBanks.Sum(x => x.MonthlySubscriptionMembers.Sum(y => y.Amount)).ToString("N2");
 
                 }
                 catch (Exception ex)
@@ -92,8 +114,8 @@ namespace Nube.Transaction
                     var lstMemberStatus = db.MonthlySubscriptionMemberStatus.ToList().Select(x => new
                     {
                         Description= x.Status,
-                        NoOfMember = x.MonthlySubscriptionMembers.Count(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == data.Id),
-                        Amount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == data.Id).Sum(z=> z.Amount),
+                        NoOfMember = x.MonthlySubscriptionMembers.Count(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == dataMS.Id),
+                        Amount = x.MonthlySubscriptionMembers.Where(y => y.MonthlySubscriptionBank.MonthlySubscriptionId == dataMS.Id).Sum(z=> z.Amount),
                     }).ToList();
 
 
@@ -110,8 +132,8 @@ namespace Nube.Transaction
                     var lstMemberMatching = db.MonthlySubscriptionMatchingTypes.ToList().Select(x => new
                     {
                         Description=x.Name,
-                        NoOfMember = x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMember?.MonthlySubscriptionBank?.MonthlySubscriptionId == data.Id),
-                        Amount = x.MonthlySubscriptionMemberMatchingResults.Where(y => y.MonthlySubscriptionMember.MonthlySubscriptionBank.MonthlySubscriptionId == data.Id).Sum(z => z.MonthlySubscriptionMember.Amount),
+                        NoOfMember = x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMember?.MonthlySubscriptionBank?.MonthlySubscriptionId == dataMS.Id),
+                        Amount = x.MonthlySubscriptionMemberMatchingResults.Where(y => y.MonthlySubscriptionMember.MonthlySubscriptionBank.MonthlySubscriptionId == dataMS.Id).Sum(z => z.MonthlySubscriptionMember.Amount),
                     }).ToList();
                     dgvMemberMatching.ItemsSource = lstMemberMatching;
                 }
@@ -251,13 +273,13 @@ namespace Nube.Transaction
         {
             try
             {
-                dynamic d = dgvBank.SelectedItem;
-                if (data != null)
+                Model.MonthlySubsBank d = dgvBank.SelectedItem as Model.MonthlySubsBank;
+                if (dataMS != null)
                 {
-                    if (data.Id != 0)
+                    if (dataMS.Id != 0)
                     {
-                        frmMonthlySubscriptionMembers f = new frmMonthlySubscriptionMembers(data.Id);
-                        f.cbxBank.Text = d.BANK_NAME;                        
+                        frmMonthlySubscriptionMembers f = new frmMonthlySubscriptionMembers(dataMS.Id);
+                        f.cbxBank.Text = d.BankName;                        
                         f.Search();
                         f.ShowDialog();
                     }

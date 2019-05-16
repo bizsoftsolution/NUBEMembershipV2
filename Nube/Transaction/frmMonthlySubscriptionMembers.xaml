@@ -61,7 +61,7 @@
             <ProgressBar Name="pbrStatus" />
         </Grid>
         <Grid Grid.Row="2">
-            <DataGrid Name="dgvMember" AutoGenerateColumns="False" LoadingRow="DgvMember_LoadingRow" HeadersVisibility="All" GridLinesVisibility="All" >
+            <DataGrid Name="dgvMember" AutoGenerateColumns="False" LoadingRow="DgvMember_LoadingRow" HeadersVisibility="All" GridLinesVisibility="All" MouseDoubleClick="DgvMember_MouseDoubleClick" >
                 <DataGrid.RowHeaderStyle>
                     <Style TargetType="{x:Type DataGridRowHeader}">
                         <Setter Property="Foreground" Value="White" />
