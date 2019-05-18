@@ -88,6 +88,15 @@
                     <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                     <DataGridTextColumn Header="Status" Width="120" Binding="{Binding MonthlySubscriptionMemberStatu.Status}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Action" Width="80">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Click="OnDelete" Tag="{Binding MEMBER_ID}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" >
+                                    <materialDesign:PackIcon Kind="History" Width="26" Foreground="{DynamicResource PrimaryHueLightBrush}"  />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
