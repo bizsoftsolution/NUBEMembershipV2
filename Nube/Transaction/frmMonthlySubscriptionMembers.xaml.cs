@@ -23,7 +23,7 @@ namespace Nube.Transaction
     {
         nubebfsEntity db = new nubebfsEntity();
         int MonthlySubscriptionId=0;
-        List<MonthlySubscriptionMember> lstMSMembers = new List<MonthlySubscriptionMember>();
+        List<Model.MonthlySubsMember> lstMSMembers = new List<Model.MonthlySubsMember>();
         public frmMonthlySubscriptionMembers(int monthlySubscriptionId)
         {
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace Nube.Transaction
 
         public void Search()
         {
-            lstMSMembers = new List<MonthlySubscriptionMember>();
+            lstMSMembers = new List<Model.MonthlySubsMember>();
 
             try
             {
@@ -114,7 +114,19 @@ namespace Nube.Transaction
                     lst = lst.Where(x => x.Amount < Convert.ToDecimal(txtMaxAmount.Text));
                 }
                 lst = lst.OrderBy(x => x.MonthlySubcriptionMemberStatusId).OrderBy(x => x.MemberName);
-                lstMSMembers = lst.ToList();
+                lstMSMembers = lst.Select(x=> new Model.MonthlySubsMember() {
+                    Id=x.Id,
+                    MemberName=x.MemberName,
+                    NRIC=x.NRIC,
+                    Amount=x.Amount,
+                    BankUserCode = x.MonthlySubscriptionBank.MASTERBANK.BANK_USERCODE,
+                    MemberStatusId = x.MonthlySubcriptionMemberStatusId,
+                    MemberStatus = x.MonthlySubscriptionMemberStatu.Status,
+                    MemberId = x.MASTERMEMBER==null?null:x.MASTERMEMBER.MEMBER_ID,                    
+                    Membercode = x.MASTERMEMBER == null ? null :(decimal?) x.MASTERMEMBER.MEMBER_CODE,
+                    IsApproved = x.MonthlySubscriptionMemberMatchingResults.Count(y=> y.UserAccount==null)==0?0:1
+                }).ToList();
+
             }
             catch(Exception ex)
             {
@@ -432,13 +444,49 @@ namespace Nube.Transaction
 
         private void DgvMember_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var mm = dgvMember.SelectedItem as MonthlySubscriptionMember;
-            if (mm != null && mm?.MASTERMEMBER!=null)
+            var mm = dgvMember.SelectedItem as Model.MonthlySubsMember;
+            if (mm != null && mm?.Membercode != null)
             {
-                frmMemberRegistration f = new frmMemberRegistration(mm.MASTERMEMBER.MEMBER_CODE);
+                frmMemberRegistration f = new frmMemberRegistration(mm.Membercode.Value);
                 f.ShowDialog();
             }
+        }
+
+        private void btnDetail_Click(object sender, RoutedEventArgs e)
+        {
+            var mm = dgvMember.SelectedItem as Model.MonthlySubsMember;
+            if (mm != null && mm?.Membercode != null)
+            {
+                frmMemberRegistration f = new frmMemberRegistration(mm.Membercode.Value);
+                f.ShowDialog();
+            }
+        }
+
+        private void btnHistory_Click(object sender, RoutedEventArgs e)
+        {
+            var mm = dgvMember.SelectedItem as Model.MonthlySubsMember;
+            if (mm != null && mm?.Membercode != null)
+            {
+                try
+                {
+                    frmHistoryAlter frm = new frmHistoryAlter();
+                    frm.Search(Convert.ToDecimal(mm.MemberId));
+                    frm.ShowDialog();
+                }
+                catch (Exception ex) { }
+            }
             
+        }
+
+        private void btnApproval_Click(object sender, RoutedEventArgs e)
+        {
+            var mm = dgvMember.SelectedItem as Model.MonthlySubsMember;
+            if (mm != null && mm?.Membercode != null)
+            {
+                frmMonthlySubscriptionMemberApproval f = new frmMonthlySubscriptionMemberApproval(mm.Id);
+                f.ShowDialog();
+                Search();
+            }
             
         }
     }

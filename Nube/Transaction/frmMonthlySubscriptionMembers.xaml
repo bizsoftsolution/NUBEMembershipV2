@@ -81,19 +81,58 @@
                         <Setter Property="Padding" Value="5 0"/>
                     </Style>
                 </DataGrid.ColumnHeaderStyle>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding MemberStatusId}" Value="1">
+                                <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MemberStatusId}" Value="2">
+                                <Setter Property="Foreground" Value="Brown"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MemberStatusId}" Value="3">
+                                <Setter Property="Foreground" Value="Red"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MemberStatusId}" Value="4">
+                                <Setter Property="Foreground" Value="Green"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding MemberStatusId}" Value="5">
+                                <Setter Property="Foreground" Value="Black"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsApproved}" Value="0">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsApproved}" Value="1">
+                                <Setter Property="Background" Value="LightCoral"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Member Name" Width="350" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Member Id" Width="80" Binding="{Binding MASTERMEMBER.MEMBER_ID}" IsReadOnly="True"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Bank" Width="60" Binding="{Binding MASTERMEMBER.MASTERBANK.BANK_USERCODE}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Member Id" Width="80" Binding="{Binding MemberId}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Bank" Width="60" Binding="{Binding BankUserCode}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
                     <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Status" Width="120" Binding="{Binding MonthlySubscriptionMemberStatu.Status}" IsReadOnly="True"></DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Action" Width="80">
+                    <DataGridTextColumn Header="Status" Width="120" Binding="{Binding MemberStatus}" IsReadOnly="True"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Action" Width="310">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Click="OnDelete" Tag="{Binding MEMBER_ID}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="60" >
-                                    <materialDesign:PackIcon Kind="History" Width="26" Foreground="{DynamicResource PrimaryHueLightBrush}"  />
-                                </Button>
+                                <StackPanel Orientation="Horizontal">
+                                    
+                                    <Button Click="btnDetail_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
+                                        <TextBlock>Detail</TextBlock>
+                                    </Button>
+
+                                    <Button Click="btnHistory_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
+                                        <TextBlock>History</TextBlock>
+                                    </Button>
+
+                                    <Button Click="btnApproval_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" >
+                                        <TextBlock>Approval</TextBlock>
+                                    </Button>
+                                    
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

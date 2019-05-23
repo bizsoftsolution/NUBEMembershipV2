@@ -382,6 +382,8 @@
     <Compile Include="Model\MonthlySubs.cs" />
     <Compile Include="Model\MonthlySubsApprovalStatus.cs" />
     <Compile Include="Model\MonthlySubsBank.cs" />
+    <Compile Include="Model\MonthlySubsMember.cs" />
+    <Compile Include="Model\MonthlySubsMemberApproval.cs" />
     <Compile Include="Model\MonthlySubsMemberStatus.cs" />
     <Compile Include="Model\UserPrevilage.cs" />
     <Compile Include="MonthlySubscription.cs">
@@ -694,6 +696,9 @@
     </Compile>
     <Compile Include="Transaction\frmMonthlySubscription.xaml.cs">
       <DependentUpon>frmMonthlySubscription.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmMonthlySubscriptionMemberApproval.xaml.cs">
+      <DependentUpon>frmMonthlySubscriptionMemberApproval.xaml</DependentUpon>
     </Compile>
     <Compile Include="Transaction\frmMonthlySubscriptionMembers.xaml.cs">
       <DependentUpon>frmMonthlySubscriptionMembers.xaml</DependentUpon>
@@ -1044,6 +1049,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Transaction\frmMonthlySubscription.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Transaction\frmMonthlySubscriptionMemberApproval.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
