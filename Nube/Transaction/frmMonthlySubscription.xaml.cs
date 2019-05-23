@@ -54,11 +54,12 @@ namespace Nube.Transaction
                 this.DataContext = data;
                 cdrMonthlySubscription.SelectedDate = data.SelecctedDate;
                 cdrMonthlySubscription.DisplayMode = CalendarMode.Year;
-                LoadMonthlySubsciption(data.SelecctedDate);                
+                LoadMonthlySubsciption(data.SelecctedDate);
             }
         }
         void LoadMonthlySubsciption(DateTime dt)
         {
+            db = new nubebfsEntity();
             this.Title = $"Monthly Subscription [ {dt.ToString("MMMM - yyyy")} ]";
             dataMS = db.MonthlySubscriptions.FirstOrDefault(x => x.date == dt);
             if (dataMS?.MonthEndClosed == true)
@@ -298,6 +299,7 @@ namespace Nube.Transaction
                         f.cbxBank.Text = d.BankName;                        
                         f.Search();
                         f.ShowDialog();
+                        LoadMonthlySubsciption(data.SelecctedDate);
                     }
                 }
             }
@@ -334,7 +336,8 @@ namespace Nube.Transaction
                     frmMonthlySubscriptionMembers f = new frmMonthlySubscriptionMembers(dataMS.Id);
                     f.cbxMemberStatus.Text = d.Description != "Total" ?d.Description : "";
                     f.Search();
-                    f.ShowDialog();                    
+                    f.ShowDialog();
+                    LoadMonthlySubsciption(data.SelecctedDate);
                 }
             }
             catch (Exception ex) { }
@@ -360,6 +363,7 @@ namespace Nube.Transaction
                     f.cbxApprovalStatus.Text = d.Description != "Total" ? d.Description : "";
                     f.Search();
                     f.ShowDialog();
+                    LoadMonthlySubsciption(data.SelecctedDate);
                 }
             }
             catch (Exception ex) { }
