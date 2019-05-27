@@ -179,7 +179,8 @@ namespace Nube.Transaction
                 var mm = db.MASTERMEMBERs.Where(x=> x.ICNO_OLD == msMember.NRIC || x.ICNO_NEW == msMember.NRIC || x.NRIC_ByBank == msMember.NRIC).OrderByDescending(x=> x.MEMBER_CODE).Select(x => new { x.MEMBER_CODE, x.STATUS_CODE}).FirstOrDefault();
                 if (mm == null)
                 {
-                    msMember.MonthlySubcriptionMemberStatusId = (int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor;                                
+                    msMember.MonthlySubcriptionMemberStatusId = (int)AppLib.MonthlySubscriptionMemberStatus.SundryCreditor;
+                    msMember.MemberCode = null;
                 }
                 else
                 {
@@ -443,7 +444,7 @@ namespace Nube.Transaction
                 }
                 db.SaveChanges();
                 MessageBox.Show("Scaning Done");
-                Search();
+                //Search();
             }
             catch(Exception ex) { }
             
