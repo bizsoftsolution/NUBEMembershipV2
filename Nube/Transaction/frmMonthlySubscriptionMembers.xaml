@@ -61,83 +61,162 @@
             <ProgressBar Name="pbrStatus" />
         </Grid>
         <Grid Grid.Row="2">
-            <DataGrid Name="dgvMember" CanUserAddRows="False" AutoGenerateColumns="False" LoadingRow="DgvMember_LoadingRow" HeadersVisibility="All" GridLinesVisibility="All" MouseDoubleClick="DgvMember_MouseDoubleClick" >
-                <DataGrid.RowHeaderStyle>
-                    <Style TargetType="{x:Type DataGridRowHeader}">
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="Background" Value="SlateGray"/>
-                        <Setter Property="Padding" Value="5 0"/>
-                        <Style.Resources>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
+            <TabControl>
+                <TabItem Header="Paid Members">
+                    <DataGrid Name="dgvMember" CanUserAddRows="False" AutoGenerateColumns="False" LoadingRow="DgvMember_LoadingRow" HeadersVisibility="All" GridLinesVisibility="All" MouseDoubleClick="DgvMember_MouseDoubleClick" >
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                                <Style.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </Style.Resources>
                             </Style>
-                        </Style.Resources>
-                    </Style>
-                </DataGrid.RowHeaderStyle>
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="Background" Value="SlateGray"/>
-                        <Setter Property="Padding" Value="5 0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding MemberStatusId}" Value="1">
-                                <Setter Property="Foreground" Value="DarkBlue"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MemberStatusId}" Value="2">
-                                <Setter Property="Foreground" Value="Brown"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MemberStatusId}" Value="3">
-                                <Setter Property="Foreground" Value="Red"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MemberStatusId}" Value="4">
-                                <Setter Property="Foreground" Value="Green"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding MemberStatusId}" Value="5">
-                                <Setter Property="Foreground" Value="Black"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsApproved}" Value="0">
-                                <Setter Property="Background" Value="White"></Setter>
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsApproved}" Value="1">
-                                <Setter Property="Background" Value="LightCoral"></Setter>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Member Name" Width="350" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Member Id" Width="80" Binding="{Binding MemberId}" IsReadOnly="True"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Bank" Width="60" Binding="{Binding BankUserCode}" IsReadOnly="True"></DataGridTextColumn>
-                    <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Status" Width="120" Binding="{Binding MemberStatus}" IsReadOnly="True"></DataGridTextColumn>
-                    <DataGridTemplateColumn Header="Action" Width="310">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    
-                                    <Button Click="btnDetail_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
-                                        <TextBlock>Detail</TextBlock>
-                                    </Button>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="1">
+                                        <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="2">
+                                        <Setter Property="Foreground" Value="Brown"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="3">
+                                        <Setter Property="Foreground" Value="Red"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="4">
+                                        <Setter Property="Foreground" Value="Green"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="5">
+                                        <Setter Property="Foreground" Value="Black"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsApproved}" Value="0">
+                                        <Setter Property="Background" Value="White"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsApproved}" Value="1">
+                                        <Setter Property="Background" Value="LightCoral"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Member Name" Width="350" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Member Id" Width="80" Binding="{Binding MemberId}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Bank" Width="60" Binding="{Binding BankUserCode}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Amount" Width="70" Binding="{Binding Amount,StringFormat={}{0:N2}}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Due" Width="120" Binding="{Binding DueMonth}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Status" Width="120" Binding="{Binding MemberStatus}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Action" Width="310">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
 
-                                    <Button Click="btnHistory_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
-                                        <TextBlock>History</TextBlock>
-                                    </Button>
+                                            <Button Click="btnDetail_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
+                                                <TextBlock>Detail</TextBlock>
+                                            </Button>
 
-                                    <Button Click="btnApproval_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" >
-                                        <TextBlock>Approval</TextBlock>
-                                    </Button>
-                                    
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                                            <Button Click="btnHistory_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
+                                                <TextBlock>History</TextBlock>
+                                            </Button>
+
+                                            <Button Click="btnApproval_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" >
+                                                <TextBlock>Approval</TextBlock>
+                                            </Button>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Unpaid Members">
+                    <DataGrid Name="dgvUnPaidMember" CanUserAddRows="False" AutoGenerateColumns="False" LoadingRow="dgvUnPaidMember_LoadingRow" HeadersVisibility="All" GridLinesVisibility="All" MouseDoubleClick="dgvUnPaidMember_MouseDoubleClick" >
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                                <Style.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="1">
+                                        <Setter Property="Foreground" Value="DarkBlue"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="2">
+                                        <Setter Property="Foreground" Value="Brown"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="3">
+                                        <Setter Property="Foreground" Value="Red"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding MemberStatusId}" Value="4">
+                                        <Setter Property="Foreground" Value="Green"></Setter>
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding IsPaid}" Value="True">
+                                        <Setter Property="Background" Value="White"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsPaid}" Value="False">
+                                        <Setter Property="Background" Value="LightCoral"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Member Name" Width="350" Binding="{Binding MemberName}" IsReadOnly="True" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Member Id" Width="80" Binding="{Binding MemberId}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Bank" Width="60" Binding="{Binding BankUserCode}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="NRIC" Width="120" Binding="{Binding NRIC}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Last Paid" Width="120" Binding="{Binding LastPaid,StringFormat={}{0:MMMM yyyy}}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Status" Width="120" Binding="{Binding Status}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Action" Width="310">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+
+                                            <Button Click="btnDetailUnPaid_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
+                                                <TextBlock>Detail</TextBlock>
+                                            </Button>
+
+                                            <Button Click="btnHistoryUnPaid_Click" Tag="{Binding Membercode}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="90" Margin="0 0 5 0" >
+                                                <TextBlock>History</TextBlock>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+            
+            
         </Grid>
     </Grid>
 </metro:MetroWindow>

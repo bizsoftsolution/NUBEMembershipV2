@@ -385,6 +385,7 @@
     <Compile Include="Model\MonthlySubsMember.cs" />
     <Compile Include="Model\MonthlySubsMemberApproval.cs" />
     <Compile Include="Model\MonthlySubsMemberStatus.cs" />
+    <Compile Include="Model\MonthSubsUnPaidMember.cs" />
     <Compile Include="Model\UserPrevilage.cs" />
     <Compile Include="MonthlySubscription.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>

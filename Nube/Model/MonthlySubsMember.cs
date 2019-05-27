@@ -90,6 +90,14 @@ namespace Nube.Model
             set { isApproved = value; }
         }
 
+        private decimal? dueMonth;
+
+        public decimal? DueMonth
+        {
+            get { return dueMonth; }
+            set { dueMonth = value; }
+        }
+
 
     }
 }
