@@ -40,5 +40,14 @@ namespace Nube.Model
             set { approvalBy = value; }
         }
 
+
+        private int monthlySubsMatchingTypeId;
+
+        public int MonthlySubsMatchingTypeId
+        {
+            get { return monthlySubsMatchingTypeId; }
+            set { monthlySubsMatchingTypeId = value; }
+        }
+
     }
 }

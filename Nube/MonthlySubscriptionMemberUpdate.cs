@@ -12,17 +12,18 @@ namespace Nube
     using System;
     using System.Collections.Generic;
     
-    public partial class MonthlySubscriptionMemberMatchingResult
+    public partial class MonthlySubscriptionMemberUpdate
     {
-        public long Id { get; set; }
-        public long MonthlySubscriptionMemberId { get; set; }
-        public int MonthlySubscriptionMatchingTypeId { get; set; }
-        public string Description { get; set; }
-        public Nullable<decimal> ApprovedBy { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public int Id { get; set; }
+        public Nullable<decimal> MemberCode { get; set; }
+        public Nullable<decimal> UpdateBy { get; set; }
+        public Nullable<System.DateTime> UpdateAt { get; set; }
+        public Nullable<int> MonthlySubscriptionMatchingTypeId { get; set; }
+        public string OldValue { get; set; }
+        public string NewValue { get; set; }
     
+        public virtual MASTERMEMBER MASTERMEMBER { get; set; }
         public virtual MonthlySubscriptionMatchingType MonthlySubscriptionMatchingType { get; set; }
-        public virtual MonthlySubscriptionMember MonthlySubscriptionMember { get; set; }
         public virtual UserAccount UserAccount { get; set; }
     }
 }

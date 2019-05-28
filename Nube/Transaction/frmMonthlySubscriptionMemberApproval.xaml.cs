@@ -36,13 +36,38 @@ namespace Nube.Transaction
                                         Id = x.Id,
                                         Description = x.MonthlySubscriptionMatchingType.Name + "\r\n" + x.Description,
                                         IsApproved = x.UserAccount == null ? false : true,
-                                        ApprovalBy = x.UserAccount == null ? "" : x.UserAccount.UserName
+                                        ApprovalBy = x.UserAccount == null ? "" : x.UserAccount.UserName,
+                                        MonthlySubsMatchingTypeId= x.MonthlySubscriptionMatchingTypeId
                                     }).ToList();
             dgvMemberMatching.ItemsSource = lst;
+            HideUpdateBox();
+        }
+        void HideUpdateBox()
+        {
+            grdMismatchName.Visibility = Visibility.Collapsed;
         }
         private void dgvMemberMatching_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
 
+                HideUpdateBox();
+                var mm = dgvMemberMatching.SelectedItem as Model.MonthlySubsMemberApproval;
+                if (mm != null)
+                {
+                    if(mm.MonthlySubsMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.MismatchedMemberName)
+                    {
+                        grdMismatchName.Visibility = Visibility.Visible;
+                        var d = db.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.Id == mm.Id);
+                        txtNameFromBank.Text = d.MonthlySubscriptionMember.MemberName;
+                        txtNameFromNUBE.Text = d.MonthlySubscriptionMember.MASTERMEMBER.MEMBER_NAME;
+                    }                    
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private void dgvMemberMatching_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -91,6 +116,42 @@ namespace Nube.Transaction
 
             }
             
+        }
+
+        private void BtnUpdateMemberName_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if(MessageBox.Show("Do you want to update member name?","Member Update", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    var mm = dgvMemberMatching.SelectedItem as Model.MonthlySubsMemberApproval;
+                    if (mm != null)
+                    {
+                        if (mm.MonthlySubsMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.MismatchedMemberName)
+                        {
+                            var d = db.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.Id == mm.Id);
+                            MonthlySubscriptionMemberUpdate data = new MonthlySubscriptionMemberUpdate()
+                            {
+                                MemberCode = d.MonthlySubscriptionMember.MemberCode,
+                                MonthlySubscriptionMatchingTypeId = d.MonthlySubscriptionMatchingTypeId,
+                                OldValue = txtNameFromNUBE.Text,
+                                NewValue = txtNameFromBank.Text,
+                                UpdateBy = AppLib.iUserCode,
+                                UpdateAt = DateTime.Now
+                            };
+                            db.MonthlySubscriptionMemberUpdates.Add(data);
+                            db.MonthlySubscriptionMemberMatchingResults.Remove(d);
+                            db.SaveChanges();
+                            LoadData();
+                            MessageBox.Show("Updated");
+                        }
+                    }
+                }                
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Not Updated");
+            }
         }
     }
 }

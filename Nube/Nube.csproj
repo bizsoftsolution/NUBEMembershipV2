@@ -408,6 +408,9 @@
     <Compile Include="MonthlySubscriptionMemberStatu.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>
+    <Compile Include="MonthlySubscriptionMemberUpdate.cs">
+      <DependentUpon>NUBE DATA.tt</DependentUpon>
+    </Compile>
     <Compile Include="MonthlySubscriptonFileType.cs">
       <DependentUpon>NUBE DATA.tt</DependentUpon>
     </Compile>

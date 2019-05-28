@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         GlowBrush="{DynamicResource AccentColorBrush}"
         BorderThickness="1"
-        Title="Monthly Subscription Member Approval" Height="450" Width="800">
+        Title="Monthly Subscription Member Approval" Height="500" Width="800">
     <metro:MetroWindow.Resources>
         <Style TargetType="{x:Type TextBlock}" x:Key="RightCell">
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -17,51 +17,75 @@
         </Style>
     </metro:MetroWindow.Resources>
     <Grid>
-        <DataGrid Name="dgvMemberMatching" CanUserAddRows="False" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberMatching_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberMatching_MouseDoubleClick" GridLinesVisibility="All">
-            <DataGrid.RowHeaderStyle>
-                <Style TargetType="{x:Type DataGridRowHeader}">
-                    <Setter Property="Foreground" Value="White" />
-                    <Setter Property="Background" Value="SlateGray"/>
-                    <Setter Property="Padding" Value="5 0"/>
-                    <Style.Resources>
-                        <Style TargetType="StackPanel">
-                            <Setter Property="HorizontalAlignment" Value="Center" />
-                        </Style>
-                    </Style.Resources>
-                </Style>
-            </DataGrid.RowHeaderStyle>
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding IsApproved}" Value="true">
-                            <Setter Property="Background" Value="White"></Setter>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsApproved}" Value="false">
-                            <Setter Property="Background" Value="LightCoral"></Setter>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>
-            <DataGrid.ColumnHeaderStyle>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Foreground" Value="White" />
-                    <Setter Property="Background" Value="SlateGray"/>
-                    <Setter Property="Padding" Value="5 0"/>
-                </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="" Width="50">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding IsApproved}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Margin="0 0 5 0" > </CheckBox>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}" IsReadOnly="True" ></DataGridTextColumn>
-                <DataGridTextColumn Header="Approval By" Width="150" Binding="{Binding ApprovalBy}" IsReadOnly="True" ></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <DataGrid Name="dgvMemberMatching" CanUserAddRows="False" Margin="10" AutoGenerateColumns="False" LoadingRow="dgvMemberMatching_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="dgvMemberMatching_MouseDoubleClick" GridLinesVisibility="All">
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                        <Style.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsApproved}" Value="true">
+                                <Setter Property="Background" Value="White"></Setter>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsApproved}" Value="false">
+                                <Setter Property="Background" Value="LightCoral"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="" Width="50">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox IsChecked="{Binding IsApproved}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Margin="0 0 5 0" ></CheckBox>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Description" Width="*" Binding="{Binding Description}" IsReadOnly="True" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Approval By" Width="150" Binding="{Binding ApprovalBy}" IsReadOnly="True" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid Visibility="Collapsed" Name="grdMismatchName" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel>
+                    <TextBlock Margin="10 25 0 0" FontSize="12" FontWeight="Bold" >Name from NUBE</TextBlock>
+                    <TextBlock Margin="10 30 0 0" FontSize="12" FontWeight="Bold" >Name from Bank</TextBlock>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox Height="35" Margin="0 10 10 5" FontSize="12" FontWeight="Bold" Foreground="Red" Name="txtNameFromNUBE" />
+                    <TextBox Height="35" Margin="0 5 10 5" FontSize="12" FontWeight="Bold" Foreground="Blue" Name="txtNameFromBank" />
+                </StackPanel>
+                <Button Grid.Column="2 " Margin="10" Height="35" Content="Update" VerticalAlignment="Bottom" FontSize="12" FontWeight="Bold" Name="btnUpdateMemberName" Click="BtnUpdateMemberName_Click" />
+            </Grid>
+        </Grid>
     </Grid>
 </metro:MetroWindow>

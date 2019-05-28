@@ -908,6 +908,7 @@ warning 6002: The table/view 'nubev2_1.dbo.GE_Insurance' does not have a primary
           <Property Name="MonthlySubscriptionMatchingTypeId" Type="int" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
           <Property Name="ApprovedBy" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="MonthlySubscriptionMemberStatus">
           <Key>
@@ -915,6 +916,18 @@ warning 6002: The table/view 'nubev2_1.dbo.GE_Insurance' does not have a primary
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MonthlySubscriptionMemberUpdate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemberCode" Type="numeric" Precision="10" Scale="0" />
+          <Property Name="UpdateBy" Type="numeric" Precision="18" Scale="0" />
+          <Property Name="UpdateAt" Type="datetime" />
+          <Property Name="MonthlySubscriptionMatchingTypeId" Type="int" />
+          <Property Name="OldValue" Type="nvarchar(max)" />
+          <Property Name="NewValue" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="MonthlySubscriptonFileType">
           <Key>
@@ -2041,6 +2054,42 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER">
+          <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="0..1" />
+          <End Role="MonthlySubscriptionMemberUpdate" Type="Self.MonthlySubscriptionMemberUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMemberUpdate">
+              <PropertyRef Name="MemberCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType">
+          <End Role="MonthlySubscriptionMatchingType" Type="Self.MonthlySubscriptionMatchingType" Multiplicity="0..1" />
+          <End Role="MonthlySubscriptionMemberUpdate" Type="Self.MonthlySubscriptionMemberUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionMatchingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMemberUpdate">
+              <PropertyRef Name="MonthlySubscriptionMatchingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMemberUpdate_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="0..1" />
+          <End Role="MonthlySubscriptionMemberUpdate" Type="Self.MonthlySubscriptionMemberUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMemberUpdate">
+              <PropertyRef Name="UpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MonthlySubscriptonBank_MonthlySubcription">
           <End Role="MonthlySubscription" Type="Self.MonthlySubscription" Multiplicity="1" />
           <End Role="MonthlySubscriptionBank" Type="Self.MonthlySubscriptionBank" Multiplicity="*" />
@@ -2108,6 +2157,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <EntitySet Name="MonthlySubscriptionMember" EntityType="Self.MonthlySubscriptionMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthlySubscriptionMemberMatchingResult" EntityType="Self.MonthlySubscriptionMemberMatchingResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthlySubscriptionMemberStatus" EntityType="Self.MonthlySubscriptionMemberStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MonthlySubscriptionMemberUpdate" EntityType="Self.MonthlySubscriptionMemberUpdate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MonthlySubscriptonFileType" EntityType="Self.MonthlySubscriptonFileType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NameTitleSetup" EntityType="Self.NameTitleSetup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NomineeInsertBranch" EntityType="Self.NomineeInsertBranch" Schema="dbo" store:Type="Tables" />
@@ -2867,6 +2917,18 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="MonthlySubscriptionMemberMatchingResult" EntitySet="MonthlySubscriptionMemberMatchingResult" />
           </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER" Association="Self.FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
+            <End Role="MonthlySubscriptionMemberUpdate" EntitySet="MonthlySubscriptionMemberUpdate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType" Association="Self.FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType">
+            <End Role="MonthlySubscriptionMatchingType" EntitySet="MonthlySubscriptionMatchingType" />
+            <End Role="MonthlySubscriptionMemberUpdate" EntitySet="MonthlySubscriptionMemberUpdate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMemberUpdate_UserAccount" Association="Self.FK_MonthlySubscriptionMemberUpdate_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="MonthlySubscriptionMemberUpdate" EntitySet="MonthlySubscriptionMemberUpdate" />
+          </AssociationSet>
           <AssociationSet Name="FK_MonthlySubscriptonBank_MonthlySubcription" Association="Self.FK_MonthlySubscriptonBank_MonthlySubcription">
             <End Role="MonthlySubscription" EntitySet="MonthlySubscription" />
             <End Role="MonthlySubscriptionBank" EntitySet="MonthlySubscriptionBank" />
@@ -3196,6 +3258,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserType" Type="Int32" />
           <NavigationProperty Name="MonthlySubscriptionMemberMatchingResults" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_UserAccount" FromRole="UserAccount" ToRole="MonthlySubscriptionMemberMatchingResult" />
+          <NavigationProperty Name="MonthlySubscriptionMemberUpdates" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_UserAccount" FromRole="UserAccount" ToRole="MonthlySubscriptionMemberUpdate" />
         </EntityType>
         <EntityType Name="UserPrevilage">
           <Key>
@@ -3617,7 +3680,20 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             <End Role="UserAccount" EntitySet="UserAccounts" />
             <End Role="MonthlySubscriptionMemberMatchingResult" EntitySet="MonthlySubscriptionMemberMatchingResults" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="MonthlySubscriptionMemberUpdates" EntityType="nube18092017Model.MonthlySubscriptionMemberUpdate" />
+          <AssociationSet Name="FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER" Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER">
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+            <End Role="MonthlySubscriptionMemberUpdate" EntitySet="MonthlySubscriptionMemberUpdates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType" Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType">
+            <End Role="MonthlySubscriptionMatchingType" EntitySet="MonthlySubscriptionMatchingTypes" />
+            <End Role="MonthlySubscriptionMemberUpdate" EntitySet="MonthlySubscriptionMemberUpdates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MonthlySubscriptionMemberUpdate_UserAccount" Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="MonthlySubscriptionMemberUpdate" EntitySet="MonthlySubscriptionMemberUpdates" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="TEMPFEE_STATUS">
           <Key>
             <PropertyRef Name="Id" />
@@ -4797,6 +4873,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <NavigationProperty Name="RESIGNATIONs" Relationship="nube18092017Model.FK_RESIGNATION_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="RESIGNATION" />
           <NavigationProperty Name="MASTERMEMBERTYPE" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERMEMBERTYPE" FromRole="MASTERMEMBER" ToRole="MASTERMEMBERTYPE" />
           <NavigationProperty Name="MonthlySubscriptionMembers" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MonthlySubscriptionMember" />
+          <NavigationProperty Name="MonthlySubscriptionMemberUpdates" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MonthlySubscriptionMemberUpdate" />
         </EntityType>
         <Association Name="FK_MASTERBANKBRANCH_MASTERBANK">
           <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
@@ -5032,6 +5109,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="MonthlySubscriptionMemberMatchingResults" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_MonthlySubscriptionMatchingType" FromRole="MonthlySubscriptionMatchingType" ToRole="MonthlySubscriptionMemberMatchingResult" />
+          <NavigationProperty Name="MonthlySubscriptionMemberUpdates" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType" FromRole="MonthlySubscriptionMatchingType" ToRole="MonthlySubscriptionMemberUpdate" />
         </EntityType>
         <EntityType Name="MonthlySubscriptionMember">
           <Key>
@@ -5094,6 +5172,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="MonthlySubscriptionMatchingTypeId" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ApprovedBy" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
           <NavigationProperty Name="MonthlySubscriptionMatchingType" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_MonthlySubscriptionMatchingType" FromRole="MonthlySubscriptionMemberMatchingResult" ToRole="MonthlySubscriptionMatchingType" />
           <NavigationProperty Name="MonthlySubscriptionMember" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_MonthlySubscriptionMember" FromRole="MonthlySubscriptionMemberMatchingResult" ToRole="MonthlySubscriptionMember" />
           <NavigationProperty Name="UserAccount" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_UserAccount" FromRole="MonthlySubscriptionMemberMatchingResult" ToRole="UserAccount" />
@@ -5134,7 +5213,58 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="MonthlySubscriptionMemberUpdate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemberCode" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="UpdateBy" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="UpdateAt" Type="DateTime" Precision="3" />
+          <Property Name="MonthlySubscriptionMatchingTypeId" Type="Int32" />
+          <Property Name="OldValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="MASTERMEMBER" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER" FromRole="MonthlySubscriptionMemberUpdate" ToRole="MASTERMEMBER" />
+          <NavigationProperty Name="MonthlySubscriptionMatchingType" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType" FromRole="MonthlySubscriptionMemberUpdate" ToRole="MonthlySubscriptionMatchingType" />
+          <NavigationProperty Name="UserAccount" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_UserAccount" FromRole="MonthlySubscriptionMemberUpdate" ToRole="UserAccount" />
+        </EntityType>
+        <Association Name="FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER">
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MonthlySubscriptionMemberUpdate" Role="MonthlySubscriptionMemberUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERMEMBER">
+              <PropertyRef Name="MEMBER_CODE" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMemberUpdate">
+              <PropertyRef Name="MemberCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType">
+          <End Type="nube18092017Model.MonthlySubscriptionMatchingType" Role="MonthlySubscriptionMatchingType" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MonthlySubscriptionMemberUpdate" Role="MonthlySubscriptionMemberUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MonthlySubscriptionMatchingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMemberUpdate">
+              <PropertyRef Name="MonthlySubscriptionMatchingTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MonthlySubscriptionMemberUpdate_UserAccount">
+          <End Type="nube18092017Model.UserAccount" Role="UserAccount" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MonthlySubscriptionMemberUpdate" Role="MonthlySubscriptionMemberUpdate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MonthlySubscriptionMemberUpdate">
+              <PropertyRef Name="UpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -6916,10 +7046,24 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <EntitySetMapping Name="MonthlySubscriptionMemberMatchingResults">
             <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscriptionMemberMatchingResult">
               <MappingFragment StoreEntitySet="MonthlySubscriptionMemberMatchingResult">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="MonthlySubscriptionMatchingTypeId" ColumnName="MonthlySubscriptionMatchingTypeId" />
                 <ScalarProperty Name="MonthlySubscriptionMemberId" ColumnName="MonthlySubscriptionMemberId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MonthlySubscriptionMemberUpdates">
+            <EntityTypeMapping TypeName="nube18092017Model.MonthlySubscriptionMemberUpdate">
+              <MappingFragment StoreEntitySet="MonthlySubscriptionMemberUpdate">
+                <ScalarProperty Name="NewValue" ColumnName="NewValue" />
+                <ScalarProperty Name="OldValue" ColumnName="OldValue" />
+                <ScalarProperty Name="MonthlySubscriptionMatchingTypeId" ColumnName="MonthlySubscriptionMatchingTypeId" />
+                <ScalarProperty Name="UpdateAt" ColumnName="UpdateAt" />
+                <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
+                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

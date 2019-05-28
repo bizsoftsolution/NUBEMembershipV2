@@ -98,6 +98,7 @@ namespace Nube
         public virtual DbSet<MonthlySubscriptionMatchingType> MonthlySubscriptionMatchingTypes { get; set; }
         public virtual DbSet<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
         public virtual DbSet<MonthlySubscriptionMemberMatchingResult> MonthlySubscriptionMemberMatchingResults { get; set; }
+        public virtual DbSet<MonthlySubscriptionMemberUpdate> MonthlySubscriptionMemberUpdates { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

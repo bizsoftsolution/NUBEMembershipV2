@@ -18,6 +18,7 @@ namespace Nube
         public UserAccount()
         {
             this.MonthlySubscriptionMemberMatchingResults = new HashSet<MonthlySubscriptionMemberMatchingResult>();
+            this.MonthlySubscriptionMemberUpdates = new HashSet<MonthlySubscriptionMemberUpdate>();
         }
     
         public decimal UserId { get; set; }
@@ -29,5 +30,7 @@ namespace Nube
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySubscriptionMemberMatchingResult> MonthlySubscriptionMemberMatchingResults { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MonthlySubscriptionMemberUpdate> MonthlySubscriptionMemberUpdates { get; set; }
     }
 }

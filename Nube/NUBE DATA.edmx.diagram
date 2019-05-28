@@ -96,6 +96,10 @@
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_MonthlySubscriptionMatchingType" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_MonthlySubscriptionMember" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberMatchingResult_UserAccount" />
+        <EntityTypeShape EntityType="nube18092017Model.MonthlySubscriptionMemberUpdate" Width="1.5" PointX="23.25" PointY="30.625" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType" />
+        <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_UserAccount" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
