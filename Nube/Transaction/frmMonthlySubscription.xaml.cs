@@ -258,7 +258,7 @@ namespace Nube.Transaction
                                             var NRIC = dataTable.Rows[i]["NRIC"].ToString();
                                             var MemberName = dataTable.Rows[i]["MemberName"].ToString();
                                             var Amount = dataTable.Rows[i]["Amount"].ToString();
-
+                                            if (String.IsNullOrWhiteSpace(NRIC)) continue;
                                             var msMember = msBank.MonthlySubscriptionMembers.FirstOrDefault(x => x.NRIC == NRIC);
                                             if (msMember == null)
                                             {
