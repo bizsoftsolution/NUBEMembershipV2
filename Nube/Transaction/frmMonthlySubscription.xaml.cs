@@ -153,6 +153,7 @@ namespace Nube.Transaction
                     };
                     lstMemberMatching.Add(aStatus);
                     dgvMemberMatching.ItemsSource = lstMemberMatching;
+                    btnMonthEndClose.IsEnabled = lstMemberMatching.Sum(x => x.Pending) == 0 && lstMemberMatching.Sum(x => x.NoOfMember)!=0;
                 }
                 catch (Exception ex)
                 {
@@ -367,6 +368,12 @@ namespace Nube.Transaction
                 }
             }
             catch (Exception ex) { }
+        }
+
+        private void BtnMonthEndClose_Click(object sender, RoutedEventArgs e)
+        {            
+            frmMonthEndClosed frm = new frmMonthEndClosed(data);
+            frm.ShowDialog();            
         }
     }
 }

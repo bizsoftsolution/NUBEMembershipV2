@@ -38,7 +38,7 @@
                     <TextBlock Margin="5 0">:</TextBlock>
                     <TextBlock Name="lblPaidAmount"></TextBlock>
                 </StackPanel>
-                <Button IsEnabled="False" Margin="10" VerticalAlignment="Bottom">Month End Closed</Button>
+                <Button IsEnabled="False" Margin="10" VerticalAlignment="Bottom" Name="btnMonthEndClose" Click="BtnMonthEndClose_Click">Month End Closed</Button>
                 <StackPanel Orientation="Vertical" Margin="10 30 10 0" Name="stpFileSelect">
                     <ComboBox Name="cbxBank" IsEditable="True" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Bank" Margin="0 10 0 10 " />
                     <StackPanel Orientation="Horizontal">

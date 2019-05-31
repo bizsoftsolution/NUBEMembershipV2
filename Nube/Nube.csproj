@@ -379,6 +379,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Message.resx</DependentUpon>
     </Compile>
+    <Compile Include="Model\MonthEndClosed.cs" />
     <Compile Include="Model\MonthlySubs.cs" />
     <Compile Include="Model\MonthlySubsApprovalStatus.cs" />
     <Compile Include="Model\MonthlySubsBank.cs" />
@@ -697,6 +698,9 @@
     </Compile>
     <Compile Include="Transaction\frmMemberRegistration.xaml.cs">
       <DependentUpon>frmMemberRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction\frmMonthEndClosed.xaml.cs">
+      <DependentUpon>frmMonthEndClosed.xaml</DependentUpon>
     </Compile>
     <Compile Include="Transaction\frmMonthlySubscription.xaml.cs">
       <DependentUpon>frmMonthlySubscription.xaml</DependentUpon>
@@ -1051,6 +1055,10 @@
     <Page Include="Transaction\frmMemberRegistration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Transaction\frmMonthEndClosed.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Transaction\frmMonthlySubscription.xaml">
       <SubType>Designer</SubType>

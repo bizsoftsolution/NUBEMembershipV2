@@ -45,6 +45,7 @@ namespace Nube.Transaction
         void HideUpdateBox()
         {
             grdMismatchName.Visibility = Visibility.Collapsed;
+            grdNRIC.Visibility = Visibility.Collapsed;
         }
         private void dgvMemberMatching_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -61,7 +62,15 @@ namespace Nube.Transaction
                         var d = db.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.Id == mm.Id);
                         txtNameFromBank.Text = d.MonthlySubscriptionMember.MemberName;
                         txtNameFromNUBE.Text = d.MonthlySubscriptionMember.MASTERMEMBER.MEMBER_NAME;
-                    }                    
+                    }
+
+                    if (mm.MonthlySubsMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICByBankMatched)
+                    {
+                        grdNRIC.Visibility = Visibility.Visible;
+                        var d = db.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.Id == mm.Id);
+                        txtNRICNEw.Text = d.MonthlySubscriptionMember.MASTERMEMBER.ICNO_NEW;
+                        txtNRICBank.Text = d.MonthlySubscriptionMember.NRIC;
+                    }
                 }
             }
             catch(Exception ex)
@@ -149,6 +158,42 @@ namespace Nube.Transaction
                 }                
             }
             catch(Exception ex)
+            {
+                MessageBox.Show("Not Updated");
+            }
+        }
+
+        private void BtnUpdateNRIC_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MessageBox.Show("Do you want to update NRIC?", "Member Update", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    var mm = dgvMemberMatching.SelectedItem as Model.MonthlySubsMemberApproval;
+                    if (mm != null)
+                    {
+                        if (mm.MonthlySubsMatchingTypeId == (int)AppLib.MonthlySubscriptionMatchingType.NRICByBankMatched)
+                        {
+                            var d = db.MonthlySubscriptionMemberMatchingResults.FirstOrDefault(x => x.Id == mm.Id);
+                            MonthlySubscriptionMemberUpdate data = new MonthlySubscriptionMemberUpdate()
+                            {
+                                MemberCode = d.MonthlySubscriptionMember.MemberCode,
+                                MonthlySubscriptionMatchingTypeId = d.MonthlySubscriptionMatchingTypeId,
+                                OldValue = txtNRICNEw.Text,
+                                NewValue = txtNRICBank.Text,
+                                UpdateBy = AppLib.iUserCode,
+                                UpdateAt = DateTime.Now
+                            };
+                            db.MonthlySubscriptionMemberUpdates.Add(data);
+                            db.MonthlySubscriptionMemberMatchingResults.Remove(d);
+                            db.SaveChanges();
+                            LoadData();
+                            MessageBox.Show("Updated");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("Not Updated");
             }

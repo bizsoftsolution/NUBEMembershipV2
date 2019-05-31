@@ -1,0 +1,69 @@
+﻿<metro:MetroWindow x:Class="Nube.Transaction.frmMonthEndClosed"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nube.Transaction"
+        mc:Ignorable="d"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        GlowBrush="{DynamicResource AccentColorBrush}"
+        BorderThickness="1"
+        Title="Monthly Subscription" Height=" 650" Width="1100" WindowState="Maximized" FontSize="12" Loaded="MetroWindow_Loaded">
+    <metro:MetroWindow.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="RightCell">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="TextAlignment" Value="Right"/>
+        </Style>
+    </metro:MetroWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock FontWeight="Bold" FontSize="16" Foreground="Blue" Margin="5">User Id</TextBlock>
+                <TextBox Name="txtUserId" FontWeight="Bold" FontSize="16" Foreground="Blue" Margin="5" Width="150"/>
+                <TextBlock FontWeight="Bold" FontSize="16" Foreground="Blue" Margin="5">Password</TextBlock>
+                <PasswordBox Name="txtPassword" FontWeight="Bold" FontSize="16" Foreground="Blue" Margin="5" Width="150"  />
+                <Button FontWeight="Bold" FontSize="16" Margin="5" Width="180" Name="btnMonthEndClose" Click="BtnMonthEndClose_Click" >Month End Close</Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <DataGrid Name="dgvBank" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
+                <DataGrid.RowHeaderStyle>
+                    <Style TargetType="{x:Type DataGridRowHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                        <Style.Resources>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </DataGrid.RowHeaderStyle>
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Background" Value="SlateGray"/>
+                        <Setter Property="Padding" Value="5 0"/>
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Paid(A)" Width="70" Binding="{Binding PaidA}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Paid(D)" Width="70" Binding="{Binding PaidD}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Paid" Width="70" Binding="{Binding Paid}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Unpaid(A)" Width="80" Binding="{Binding UnpaidA}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Unpaid(D)" Width="80" Binding="{Binding UnpaidD}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Unpaid" Width="70" Binding="{Binding Unpaid}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Total" Width="70" Binding="{Binding Total}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="# Closed" Width="90" Binding="{Binding Closed}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                    <DataGridTextColumn Header="Status" Width="100" Binding="{Binding Status}" IsReadOnly="True" ></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</metro:MetroWindow>
