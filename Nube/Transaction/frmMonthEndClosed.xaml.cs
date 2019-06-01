@@ -74,162 +74,196 @@ namespace Nube.Transaction
 
         void MonthEndClosed()
         {
-            var lstMemberMonthEndPrevious = db.MemberMonthEndStatus.Where(x => x.StatusMonth == dtMonthEndPrevious).ToList();
-            var lstMemberMonthEnd = db.MemberMonthEndStatus.Where(x => x.StatusMonth == dtMonthEnd).ToList();
-            foreach (var mce in lstMonthEndClosed)
+            try
             {
-                var lstMember = lstMasterMember.Where(x => x.BANK_CODE == mce.BankCode).ToList();
-                foreach(var mm in lstMember)
+                var lstMemberMonthEndPrevious = db.MemberMonthEndStatus.Where(x => x.StatusMonth == dtMonthEndPrevious).ToList();
+                var lstMemberMonthEnd = db.MemberMonthEndStatus.Where(x => x.StatusMonth == dtMonthEnd).ToList();
+                foreach (var mce in lstMonthEndClosed)
                 {
-                    var mmME_Pre = lstMemberMonthEndPrevious.FirstOrDefault(x => x.MEMBER_CODE == mm.MEMBER_CODE);
-                    var mmME = lstMemberMonthEnd.FirstOrDefault(x => x.MEMBER_CODE == mm.MEMBER_CODE);
-                    var mmPaid = lstPaidMember.FirstOrDefault(x => x.MemberCode == mm.MEMBER_CODE);
-                    
-
-                    if (mmME_Pre == null)
+                    var lstMember = lstMasterMember.Where(x => x.BANK_CODE == mce.BankCode).ToList();
+                    foreach (var mm in lstMember)
                     {
-                        if (mm.DATEOFJOINING?.Year == dtMonthEnd.Year && mm.DATEOFJOINING?.Month == dtMonthEnd.Month)
-                        {
-                            mmME_Pre = new MemberMonthEndStatu() {
+                        var mmME_Pre = lstMemberMonthEndPrevious.FirstOrDefault(x => x.MEMBER_CODE == mm.MEMBER_CODE);
+                        var mmME = lstMemberMonthEnd.FirstOrDefault(x => x.MEMBER_CODE == mm.MEMBER_CODE);
+                        var mmPaid = lstPaidMember.FirstOrDefault(x => x.MemberCode == mm.MEMBER_CODE);
 
-                            };
+
+                        if (mmME_Pre == null)
+                        {
+                            if (mm.DATEOFJOINING?.Year == dtMonthEnd.Year && mm.DATEOFJOINING?.Month == dtMonthEnd.Month)
+                            {
+                                mmME_Pre = new MemberMonthEndStatu()
+                                {
+                                    LASTPAYMENTDATE=dtMonthEnd
+                                };
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Member Id[{mm.MEMBER_ID}] is not found on Previous month history.");
+                                return;
+                            }
+                        }
+                        if (mmME == null)
+                        {
+                            mmME = new MemberMonthEndStatu();
+                            mmME.StatusMonth = dtMonthEnd;
+                            mmME.MEMBER_CODE = mm.MEMBER_CODE;
+
+                            db.MemberMonthEndStatus.Add(mmME);
+                        }
+
+                        decimal BF = 3;
+                        decimal Ins = 7;
+                        decimal Subs = mmPaid == null ? mmME_Pre.SUBSCRIPTION_AMOUNT ?? 0 : mmPaid.Amount - (BF + Ins);
+
+                        mmME.MEMBERTYPE_CODE = mm.MEMBERTYPE_CODE;
+                        mmME.BANK_CODE = mm.BANK_CODE;
+                        mmME.BRANCH_CODE = mm.BRANCH_CODE;
+                        mmME.NUBE_BRANCH_CODE = mm.MASTERBANKBRANCH.NUBE_BRANCH_CODE;
+
+                        mmME.SUBSCRIPTION_AMOUNT = Subs;
+                        mmME.BF_AMOUNT = BF;
+                        mmME.INSURANCE_AMOUNT = Ins;
+                        mmME.ENTRYMODE = "S";
+                        mmME.TOTALMONTHSCONTRIBUTION = mmME_Pre.TOTALMONTHSCONTRIBUTION + 1;
+
+                        if (mmPaid == null)
+                        {
+                            mmME.ACCSUBSCRIPTION = mmME_Pre.ACCSUBSCRIPTION;
+                            mmME.ACCBF = mmME_Pre.ACCBF;
+                            mmME.ACCINSURANCE = mmME_Pre.ACCINSURANCE;
+
+                            mmME.SUBSCRIPTIONDUE = mmME_Pre.SUBSCRIPTIONDUE + Subs;
+                            mmME.BFDUE = mmME_Pre.BFDUE + BF;
+                            mmME.INSURANCEDUE = mmME_Pre.INSURANCEDUE + Ins;
+
+                            if (dtMonthEnd.Month == 4)
+                            {
+                                mmME.CURRENT_YDTSUBSCRIPTION = 0;
+                                mmME.CURRENT_YDTBF = 0;
+                                mmME.CURRENT_YDTINSURANCE = 0;
+                            }
+                            else
+                            {
+                                mmME.CURRENT_YDTSUBSCRIPTION = mmME_Pre.CURRENT_YDTSUBSCRIPTION;
+                                mmME.CURRENT_YDTBF = mmME_Pre.CURRENT_YDTBF;
+                                mmME.CURRENT_YDTINSURANCE = mmME_Pre.CURRENT_YDTINSURANCE;
+                            }
+
+
+                            mmME.TOTALSUBCRP_AMOUNT = 0;
+                            mmME.TOTALBF_AMOUNT = 0;
+                            mmME.TOTALINSURANCE_AMOUNT = 0;
+
+                            mmME.TOTAL_MONTHS = 0;
+
+                            mmME.TOTALMONTHSPAID = mmME_Pre.TOTALMONTHSPAID;
+                            mmME.TOTALMONTHSDUE = mmME_Pre.TOTALMONTHSDUE + 1;
+
+                            mmME.LASTPAYMENTDATE = mmME_Pre.LASTPAYMENTDATE;
                         }
                         else
                         {
-                            MessageBox.Show($"Member Id[{mm.MEMBER_ID}] is not found on Previous month history.");
-                            return;
+                            mmME.ACCSUBSCRIPTION = mmME_Pre.ACCSUBSCRIPTION + Subs;
+                            mmME.ACCBF = mmME_Pre.ACCBF + BF;
+                            mmME.ACCINSURANCE = mmME_Pre.ACCINSURANCE + Ins;
+
+                            mmME.SUBSCRIPTIONDUE = mmME_Pre.SUBSCRIPTIONDUE;
+                            mmME.BFDUE = mmME_Pre.BFDUE;
+                            mmME.INSURANCEDUE = mmME_Pre.INSURANCEDUE;
+
+                            if (dtMonthEnd.Month == 4)
+                            {
+                                mmME.CURRENT_YDTSUBSCRIPTION = Subs;
+                                mmME.CURRENT_YDTBF = BF;
+                                mmME.CURRENT_YDTINSURANCE = Ins;
+                            }
+                            else
+                            {
+                                mmME.CURRENT_YDTSUBSCRIPTION = mmME_Pre.CURRENT_YDTSUBSCRIPTION + Subs;
+                                mmME.CURRENT_YDTBF = mmME_Pre.CURRENT_YDTBF + BF;
+                                mmME.CURRENT_YDTINSURANCE = mmME_Pre.CURRENT_YDTINSURANCE + Ins;
+                            }
+
+
+
+                            mmME.TOTALSUBCRP_AMOUNT = Subs;
+                            mmME.TOTALBF_AMOUNT = BF;
+                            mmME.TOTALINSURANCE_AMOUNT = Ins;
+
+                            mmME.TOTAL_MONTHS = 1;
+
+                            mmME.TOTALMONTHSPAID = mmME_Pre.TOTALMONTHSPAID + 1;
+                            mmME.TOTALMONTHSDUE = mmME_Pre.TOTALMONTHSDUE;
+
+
+                            mmME.LASTPAYMENTDATE = dtMonthEnd;
                         }
-                    }
-                    if (mmME == null)
-                    {
-                        mmME = new MemberMonthEndStatu();
-                        mmME.StatusMonth = dtMonthEnd;
-                        mmME.MEMBER_CODE = mm.MEMBER_CODE;
 
-                        db.MemberMonthEndStatus.Add(mmME);
-                    }
 
-                    decimal BF = 3;
-                    decimal Ins = 7;
-                    decimal Subs = mmPaid == null ? mmME_Pre.SUBSCRIPTION_AMOUNT??0 : mmPaid.Amount - (BF + Ins);
+                        var mmResign = db.RESIGNATIONs.FirstOrDefault(x => x.MEMBER_CODE == mm.MEMBER_CODE);
 
-                    mmME.MEMBERTYPE_CODE = mm.MEMBERTYPE_CODE;
-                    mmME.BANK_CODE = mm.BANK_CODE;
-                    mmME.BRANCH_CODE = mm.BRANCH_CODE;
-                    mmME.NUBE_BRANCH_CODE = mm.MASTERBANKBRANCH.NUBE_BRANCH_CODE;
-
-                    mmME.SUBSCRIPTION_AMOUNT = Subs;
-                    mmME.BF_AMOUNT = BF;
-                    mmME.INSURANCE_AMOUNT = Ins;
-                    mmME.ENTRYMODE = "S";
-                    mmME.TOTALMONTHSCONTRIBUTION = mmME_Pre.TOTALMONTHSCONTRIBUTION + 1;
-
-                    if (mmPaid == null)
-                    {
-                        mmME.ACCSUBSCRIPTION = mmME_Pre.ACCSUBSCRIPTION;
-                        mmME.ACCBF = mmME_Pre.ACCBF;
-                        mmME.ACCINSURANCE = mmME_Pre.ACCINSURANCE;
-
-                        mmME.SUBSCRIPTIONDUE = mmME_Pre.SUBSCRIPTIONDUE+Subs;
-                        mmME.BFDUE = mmME_Pre.BFDUE+BF;
-                        mmME.INSURANCEDUE = mmME_Pre.INSURANCEDUE+Ins;
-
-                        if (dtMonthEnd.Month == 4)
+                        if (mmResign != null)
                         {
-                            mmME.CURRENT_YDTSUBSCRIPTION = 0;
-                            mmME.CURRENT_YDTBF = 0;
-                            mmME.CURRENT_YDTINSURANCE = 0;
+                            mmME.RESIGNED = 1;
+                            mmME.STATUS_CODE = (decimal)AppLib.MemberStatus.Resigned;
+                        }
+                        else if (mmME.LASTPAYMENTDATE.Value.MonthDiff(dtMonthEnd) >= 12)
+                        {
+                            mmME.STRUCKOFF = 1;
+                            mmME.STATUS_CODE = (decimal)AppLib.MemberStatus.StruckOff;
+                        }
+                        else if (mmME.TOTALMONTHSDUE > 3)
+                        {
+                            mmME.STATUS_CODE = (decimal)AppLib.MemberStatus.Defaulter;
                         }
                         else
                         {
-                            mmME.CURRENT_YDTSUBSCRIPTION = mmME_Pre.CURRENT_YDTSUBSCRIPTION;
-                            mmME.CURRENT_YDTBF = mmME_Pre.CURRENT_YDTBF;
-                            mmME.CURRENT_YDTINSURANCE = mmME_Pre.CURRENT_YDTINSURANCE;
+                            mmME.STATUS_CODE = (decimal)AppLib.MemberStatus.Active;
                         }
 
+                        mmME.USER_CODE = AppLib.iUserCode;
 
-                        mmME.TOTALSUBCRP_AMOUNT = 0;
-                        mmME.TOTALBF_AMOUNT = 0;
-                        mmME.TOTALINSURANCE_AMOUNT = 0;
+                        mmME.ENTRY_DATE = DateTime.Now;
 
-                        mmME.TOTAL_MONTHS = 0;
 
-                        mmME.TOTALMONTHSPAID = mmME_Pre.TOTALMONTHSPAID;
-                        mmME.TOTALMONTHSDUE = mmME_Pre.TOTALMONTHSDUE + 1;
-                        
-                        mmME.LASTPAYMENTDATE = mmME_Pre.LASTPAYMENTDATE;
+                        mm.ACCSUBSCRIPTION = mmME.ACCSUBSCRIPTION;
+                        mm.ACCBF = mmME.ACCBF;
+                        mm.ACCINSURANCE = mmME.ACCINSURANCE;
+
+                        mm.DUESUBSCRIPTION = mmME.SUBSCRIPTIONDUE;
+                        mm.DUEBF = mmME.BFDUE;
+                        mm.DUEINSURANCE = mmME.INSURANCEDUE;
+
+                        mm.CURRENT_YTDSUBSCRIPTION = mmME.CURRENT_YDTSUBSCRIPTION;
+                        mm.CURRENT_YTDBF = mmME.CURRENT_YDTBF;
+                        mm.CURRENT_YTDINSURANCE = mmME.CURRENT_YDTINSURANCE;
+
+                        mm.TOTALMONTHCONTRIBUTE = mmME.TOTALMONTHSCONTRIBUTION;
+                        mm.TOTALMONTHSPAID = mmME.TOTALMONTHSPAID;
+                        mm.TOTALMONTHSDUE = mmME.TOTALMONTHSDUE;
+
+                        mm.MONTHLYSUBSCRIPTION = mmME.SUBSCRIPTION_AMOUNT;
+                        mm.MONTHLYBF = mmME.BF_AMOUNT;
+                        mm.MONTHLYINSURANCE = mmME.INSURANCE_AMOUNT;
+
+                        mm.LASTPAYMENT_DATE = mmME.LASTPAYMENTDATE;
+                        mm.STATUS_CODE = mmME.STATUS_CODE;
+
+
+                        mce.Closed += 1;
+                        updateBankTotal();
+                        System.Windows.Forms.Application.DoEvents();
                     }
-                    else
-                    {
-                        mmME.ACCSUBSCRIPTION = mmME_Pre.ACCSUBSCRIPTION + Subs;
-                        mmME.ACCBF = mmME_Pre.ACCBF+BF;
-                        mmME.ACCINSURANCE = mmME_Pre.ACCINSURANCE + Ins;
-
-                        mmME.SUBSCRIPTIONDUE = mmME_Pre.SUBSCRIPTIONDUE;
-                        mmME.BFDUE = mmME_Pre.BFDUE;
-                        mmME.INSURANCEDUE = mmME_Pre.INSURANCEDUE;
-
-                        if (dtMonthEnd.Month == 4)
-                        {
-                            mmME.CURRENT_YDTSUBSCRIPTION =  Subs;
-                            mmME.CURRENT_YDTBF = BF;
-                            mmME.CURRENT_YDTINSURANCE = Ins;
-                        }
-                        else
-                        {
-                            mmME.CURRENT_YDTSUBSCRIPTION = mmME_Pre.CURRENT_YDTSUBSCRIPTION + Subs;
-                            mmME.CURRENT_YDTBF = mmME_Pre.CURRENT_YDTBF + BF;
-                            mmME.CURRENT_YDTINSURANCE = mmME_Pre.CURRENT_YDTINSURANCE + Ins;
-                        }
-
-                        
-
-                        mmME.TOTALSUBCRP_AMOUNT = Subs;
-                        mmME.TOTALBF_AMOUNT = BF;
-                        mmME.TOTALINSURANCE_AMOUNT = Ins;
-
-                        mmME.TOTAL_MONTHS = 1;
-
-                        mmME.TOTALMONTHSPAID = mmME_Pre.TOTALMONTHSPAID+1;
-                        mmME.TOTALMONTHSDUE = mmME_Pre.TOTALMONTHSDUE;
-
-
-                        mmME.LASTPAYMENTDATE = dtMonthEnd;
-                    }
-
-
-                    var mmResign = db.RESIGNATIONs.FirstOrDefault(x => x.MEMBER_CODE == mm.MEMBER_CODE);
-
-                    if (mmResign != null)
-                    {
-                        mmME.RESIGNED = 1;                        
-                        mmME.STATUS_CODE =(decimal) AppLib.MemberStatus.Resigned;
-                    }
-                    else if(mmME.LASTPAYMENTDATE.Value.MonthDiff(dtMonthEnd)>=12)
-                    {
-                        mmME.STRUCKOFF = 1;
-                        mmME.STATUS_CODE = (decimal)AppLib.MemberStatus.StruckOff;
-                    }
-                    else if (mmME.TOTALMONTHSDUE > 3)
-                    {
-                        mmME.STATUS_CODE = (decimal)AppLib.MemberStatus.Defaulter;
-                    }
-                    else
-                    {
-                        mmME.STATUS_CODE = (decimal)AppLib.MemberStatus.Active;
-                    }
-
-                    mmME.USER_CODE = AppLib.iUserCode;
-
-                    mmME.ENTRY_DATE = DateTime.Now;
-
-                    mce.Closed += 1;
-                    updateBankTotal();
-                    System.Windows.Forms.Application.DoEvents();
+                    db.SaveChanges();
                 }
-                db.SaveChanges();
+                MessageBox.Show("Month End Closed");
             }
-            MessageBox.Show("Month End Closed");
+            catch(Exception ex)
+            {
+                MessageBox.Show("Month End not Closed");
+            }
+            
         }
         void loadData()
         {
