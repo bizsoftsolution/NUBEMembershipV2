@@ -81,8 +81,8 @@ namespace Nube.Transaction
 
                     if (mm != null)
                     {
-                        mm.BANK_CODE = Convert.ToDecimal(cmbBankCode.SelectedValue);
-                        mm.BRANCH_CODE = Convert.ToDecimal(cmbBranchCode.SelectedValue);
+                        mm.BANK_CODE = Convert.ToDecimal(cmbBankName.SelectedValue);
+                        mm.BRANCH_CODE = Convert.ToDecimal(cmbBranchName.SelectedValue);
                         db.SaveChanges();
 
                         //var NewData = new JSonHelper().ConvertObjectToJSon(mm);
