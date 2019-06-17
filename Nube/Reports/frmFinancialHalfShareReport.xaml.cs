@@ -55,28 +55,35 @@ namespace Nube.Reports
                         FEEDATE = new DateTime(FEEDATE.Year, FEEDATE.Month, 1);
                         progressBar1.Value = 5;
                         System.Windows.Forms.Application.DoEvents();
-                        string str=string.Format("DECLARE @FEEDATE DATETIME='{0:dd/MMM/yyyy}' \r" +
-								" SELECT NUBEBANCHNAME [NUBEBANCHNAME],ROUND(SUM(TOTALAMOUNT),2)TOTAL,ROUND(SUM(AMOUNTBF),2)BF,ROUND(SUM(AmtIns),2)AmtIns, \r" +
-                                " ROUND(SUM(AMTSUBS),2)SUBS, ROUND((ROUND(SUM(AMTSUBS),2) / 2),2)[HALFSHARE], \r" +
-                                " ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2)[FUND], ROUND(ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) - ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2),2)[TOTALAMOUNT] \r" +
-                                " FROM( \r" +
-                                " SELECT DISTINCT T.FEEID, T.DETAILID, T.MEMBERCODE, \r" +
-                                " CASE WHEN ISNULL(NB.NUBE_BRANCH_NAME, '') <> '' THEN ISNULL(NB.NUBE_BRANCH_NAME, '') ELSE ISNULL(ST.NUBEBRANCH_NAME, '') END \r" +
-								" NUBEBANCHNAME,T.FEEDATE, ISNULL(T.STATUS, '')STATUS, TOTALAMOUNT, AMTSUBS, AMOUNTBF,AmtIns \r" +
-                                " FROM(SELECT FM.FEEID, FD.DETAILID, FD.MEMBERCODE, FM.FEEDATE, FD.STATUS, \r" +
-								" SUM(FD.TOTALAMOUNT)TOTALAMOUNT, SUM(FD.AMOUNTBF)AMOUNTBF,SUM(ISNULL(FD.UNIONCONTRIBUTION, 0)) AmtIns, (SUM(FD.AMTSUBS))AMTSUBS \r" +
-                                " FROM FEESDETAILS FD(NOLOCK) \r" +
-                                " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID \r" +
-                                " WHERE FM.FEEDATE=@FEEDATE AND FD.ISNOTMATCH = 0 \r" +
-                                " GROUP BY FM.FEEID, FD.DETAILID, FD.MEMBERCODE, FM.FEEDATE, FD.STATUS \r" +
-                                " ) T \r" +
-                                " LEFT JOIN NUBESTATUS..STATUS{0:MMyyyy} MM(NOLOCK) ON MM.MEMBER_CODE = T.MEMBERCODE \r" +
-                                " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = BRANCH_CODE \r" +
-                                " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE \r" +
-                                " LEFT JOIN MEMBERSTATUSLOG ST(NOLOCK) ON ST.MEMBER_CODE = T.MEMBERCODE \r" +
-                                " )T \r" +
-                                " GROUP BY NUBEBANCHNAME \r" + 
-                                " ORDER BY NUBEBANCHNAME", FEEDATE);
+                        //                string str=string.Format("DECLARE @FEEDATE DATETIME='{0:dd/MMM/yyyy}' \r" +
+                        //" SELECT NUBEBANCHNAME [NUBEBANCHNAME],ROUND(SUM(TOTALAMOUNT),2)TOTAL,ROUND(SUM(AMOUNTBF),2)BF,ROUND(SUM(AmtIns),2)AmtIns, \r" +
+                        //                        " ROUND(SUM(AMTSUBS),2)SUBS, ROUND((ROUND(SUM(AMTSUBS),2) / 2),2)[HALFSHARE], \r" +
+                        //                        " ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2)[FUND], ROUND(ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) - ROUND((ROUND((ROUND(SUM(AMTSUBS),2) / 2),2) * 0.1),2),2)[TOTALAMOUNT] \r" +
+                        //                        " FROM( \r" +
+                        //                        " SELECT DISTINCT T.FEEID, T.DETAILID, T.MEMBERCODE, \r" +
+                        //                        " CASE WHEN ISNULL(NB.NUBE_BRANCH_NAME, '') <> '' THEN ISNULL(NB.NUBE_BRANCH_NAME, '') ELSE ISNULL(ST.NUBEBRANCH_NAME, '') END \r" +
+                        //" NUBEBANCHNAME,T.FEEDATE, ISNULL(T.STATUS, '')STATUS, TOTALAMOUNT, AMTSUBS, AMOUNTBF,AmtIns \r" +
+                        //                        " FROM(SELECT FM.FEEID, FD.DETAILID, FD.MEMBERCODE, FM.FEEDATE, FD.STATUS, \r" +
+                        //" SUM(FD.TOTALAMOUNT)TOTALAMOUNT, SUM(FD.AMOUNTBF)AMOUNTBF,SUM(ISNULL(FD.UNIONCONTRIBUTION, 0)) AmtIns, (SUM(FD.AMTSUBS))AMTSUBS \r" +
+                        //                        " FROM FEESDETAILS FD(NOLOCK) \r" +
+                        //                        " LEFT JOIN FEESMASTER FM(NOLOCK) ON FM.FEEID = FD.FEEID \r" +
+                        //                        " WHERE FM.FEEDATE=@FEEDATE AND FD.ISNOTMATCH = 0 \r" +
+                        //                        " GROUP BY FM.FEEID, FD.DETAILID, FD.MEMBERCODE, FM.FEEDATE, FD.STATUS \r" +
+                        //                        " ) T \r" +
+                        //                        " LEFT JOIN NUBESTATUS..STATUS{0:MMyyyy} MM(NOLOCK) ON MM.MEMBER_CODE = T.MEMBERCODE \r" +
+                        //                        " LEFT JOIN MASTERBANKBRANCH BB(NOLOCK) ON BB.BANKBRANCH_CODE = BRANCH_CODE \r" +
+                        //                        " LEFT JOIN MASTERNUBEBRANCH NB(NOLOCK) ON NB.NUBE_BRANCH_CODE = BB.NUBE_BRANCH_CODE \r" +
+                        //                        " LEFT JOIN MEMBERSTATUSLOG ST(NOLOCK) ON ST.MEMBER_CODE = T.MEMBERCODE \r" +
+                        //                        " )T \r" +
+                        //                        " GROUP BY NUBEBANCHNAME \r" + 
+                        //                        " ORDER BY NUBEBANCHNAME", FEEDATE);
+
+                        string str = $"DECLARE @HSDate DATETIME='{FEEDATE:yyyy/MM/dd}' " +
+                                     " select NUBEBANCHNAME, TotalSubs+TotalBF + TotalIns as Total, TotalBF as BF, TotalIns as AmtIns,TotalSubs As Subs, TotalSubs / 2 as HalfShare,(TotalSubs / 2) / 10 as Fund, (TotalSubs / 2) - (TotalSubs / 2) / 10 as TotalAmount from(select nb.NUBE_BRANCH_NAME as NUBEBANCHNAME, sum(mmes.TOTALSUBCRP_AMOUNT) as TotalSubs, sum(mmes.TOTALBF_AMOUNT) as TotalBF, sum(mmes.TotalInsurance_Amount) as TotalIns   from MemberMonthEndStatus mmes " +
+                                     " left join MasterBankBranch mbb on mmes.BRANCH_CODE = mbb.BANKBRANCH_CODE " +
+                                     " left join MASTERNUBEBRANCH nb on nb.NUBE_BRANCH_CODE = mbb.NUBE_BRANCH_CODE " +
+                                     " where year(mmes.StatusMonth) = year(@HSDate) and month(mmes.statusMonth) = MONTH(@HSDate) and STATUS_CODE in (1, 2) " +
+                                     " group by nb.nube_branch_name) HS";
                         cmd = new SqlCommand(str, con);
                         //cmd.CommandType = CommandType.StoredProcedure;
                         //cmd.Parameters.Add(new SqlParameter("@FEEDATE", FEEDATE));
