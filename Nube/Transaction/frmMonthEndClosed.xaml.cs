@@ -36,6 +36,7 @@ namespace Nube.Transaction
             dtMonthEndPrevious = d.SelecctedDate.AddMonths(-1);
             dtMonthEndNext = d.SelecctedDate.AddMonths(1);
             dgvBank.ItemsSource = lstMonthEndClosed;
+            db.Database.CommandTimeout = 180;
         }
 
         private void BtnMonthEndClose_Click(object sender, RoutedEventArgs e)
