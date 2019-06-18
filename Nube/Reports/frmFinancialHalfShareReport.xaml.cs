@@ -164,7 +164,7 @@ namespace Nube.Reports
                             }
                         }
 
-                        for (int i = 0; i < dt.Rows.Count - 1; i++)
+                        for (int i = 0; i < dt.Rows.Count ; i++)
                         {
                             for (int j = 0; j < dt.Columns.Count; j++)
                             {
