@@ -803,6 +803,7 @@ namespace Nube.Transaction
                         dTotlMonthsPaid = dTotlMonthsPaid + Convert.ToDecimal(dr["TOTALMONTHSPAID"]);
                         dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TOTALMONTHSPAIDINS"]);
                     }
+                    dTotlMonthsPaidUC = db.MemberMonthEndStatus.Where(x => x.MEMBER_CODE == dMember_Code && x.TOTALINSURANCE_AMOUNT > 0).Sum(x => x.TOTAL_MONTHS) ?? 0;
                     //var ArPost = (from ap in db.ArrearPostDetails where ap.MemberCode == dMember_Code && ap.UpdatedStatus == "Not Updated" select ap).ToList();
                     //DataTable dtArrearPost = AppLib.LINQResultToDataTable(ArPost);
                     //foreach (DataRow dr in dtArrearPost.Rows)
@@ -911,10 +912,10 @@ namespace Nube.Transaction
 
                         try
                         {
-                            using (SqlConnection cn = new SqlConnection(AppLib.connstatus))
+                            using (SqlConnection cn = new SqlConnection(AppLib.connStr))
                             {
                                 cn.Open();
-                                var cmd = new SqlCommand(string.Format("select * from status052017 where member_code={0}", dMember_Code), cn);
+                                var cmd = new SqlCommand(string.Format("select * from MemberMonthEndStatus where StatusMonth = '2017/05/01' and member_code={0}", dMember_Code), cn);
                                 var dr = cmd.ExecuteReader();
                                 if (dr.Read())
                                 {

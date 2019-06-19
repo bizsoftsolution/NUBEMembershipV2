@@ -1535,6 +1535,7 @@ namespace Nube.Transaction
                     dTotlMonthsPaidUC = dTotlMonthsPaidUC + Convert.ToDecimal(dr["TotalMonthsPaidIns"]);
                 }
 
+                dTotlMonthsPaidUC = db.MemberMonthEndStatus.Where(x => x.MEMBER_CODE == dMember_Code && x.TOTALINSURANCE_AMOUNT>0).Sum(x => x.TOTAL_MONTHS)??0;
                 if (qry != null)
                 {
                     cmbMemberType.SelectedValue = (qry.MEMBERTYPE_CODE != null ? qry.MEMBERTYPE_CODE : 0);
