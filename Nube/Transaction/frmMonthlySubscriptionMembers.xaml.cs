@@ -363,16 +363,24 @@ namespace Nube.Transaction
                         msmmr = getMonthlySubscriptionMemberMatchingResult(msMember, AppLib.MonthlySubscriptionMatchingType.MismatchedBank);
                         if (msMember.MonthlySubscriptionBank.BankCode != mm.BANK_CODE)
                         {
-                            if (msmmr == null)
+                            var mb = db.MASTERBANKs.FirstOrDefault(x => x.BANK_CODE == mm.BANK_CODE);
+                            if(mb.HEADER_BANK_CODE!=mm.BANK_CODE)
                             {
-                                msmmr = new MonthlySubscriptionMemberMatchingResult()
+                                if (msmmr == null)
                                 {
-                                    MonthlySubscriptionMemberId = msMember.Id,
-                                    MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.MismatchedBank,
-                                };
-                                db.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                                    msmmr = new MonthlySubscriptionMemberMatchingResult()
+                                    {
+                                        MonthlySubscriptionMemberId = msMember.Id,
+                                        MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.MismatchedBank,
+                                    };
+                                    db.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                                }
+                                msmmr.Description = $"From Bank : {msMember.MonthlySubscriptionBank.MASTERBANK.BANK_NAME}\r\nFrom NUBE : {mm.BANK_NAME}";
                             }
-                            msmmr.Description = $"From Bank : {msMember.MonthlySubscriptionBank.MASTERBANK.BANK_NAME}\r\nFrom NUBE : {mm.BANK_NAME}";
+                            else if (msmmr != null)
+                            {
+                                db.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                            }                            
                         }
                         else if (msmmr != null)
                         {
@@ -380,6 +388,51 @@ namespace Nube.Transaction
                         }
 
                         db.SaveChanges();
+
+
+                        var dt = MonthlySubsDate.AddMonths(-1);
+                        var msMemberPre = db.MonthlySubscriptionMembers.FirstOrDefault(x => x.NRIC == msMember.NRIC && x.MonthlySubscriptionBank.MonthlySubscription.date == dt);
+
+                        msmmr = getMonthlySubscriptionMemberMatchingResult(msMember, AppLib.MonthlySubscriptionMatchingType.PreviousSubscriptionUnpaid);
+                        if (msMemberPre == null)
+                        {
+                            if (msmmr == null)
+                            {
+                                msmmr = new MonthlySubscriptionMemberMatchingResult()
+                                {
+                                    MonthlySubscriptionMemberId = msMember.Id,
+                                    MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.PreviousSubscriptionUnpaid,
+                                };
+                                db.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                            }
+                            msmmr.Description = $"";
+                        }
+                        else if(msmmr != null)
+                        {
+                            db.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                        }
+
+
+                        msmmr = getMonthlySubscriptionMemberMatchingResult(msMember, AppLib.MonthlySubscriptionMatchingType.MismatchedPreviousSubscription);
+                        if (msMemberPre?.Amount != null && msMember.Amount!=msMemberPre.Amount)
+                        {
+                            if (msmmr == null)
+                            {
+                                msmmr = new MonthlySubscriptionMemberMatchingResult()
+                                {
+                                    MonthlySubscriptionMemberId = msMember.Id,
+                                    MonthlySubscriptionMatchingTypeId = (int)AppLib.MonthlySubscriptionMatchingType.MismatchedPreviousSubscription,
+                                };
+                                db.MonthlySubscriptionMemberMatchingResults.Add(msmmr);
+                            }
+                            msmmr.Description = $"Previous Subscription: {msMemberPre.Amount}\r\nCurrent Subscription : {msMember.Amount}";
+                        }
+                        else if (msmmr != null)
+                        {
+                            db.MonthlySubscriptionMemberMatchingResults.Remove(msmmr);
+                        }
+
+
 
                     }
                     catch (Exception ex)
