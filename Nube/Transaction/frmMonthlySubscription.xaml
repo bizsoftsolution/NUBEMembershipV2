@@ -117,37 +117,73 @@
             </Grid>
         </Grid>
         <Grid Grid.Column="1" Grid.Row="1">
-            <DataGrid Name="dgvBank" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
-                <DataGrid.RowHeaderStyle>
-                    <Style TargetType="{x:Type DataGridRowHeader}">
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="Background" Value="SlateGray"/>
-                        <Setter Property="Padding" Value="5 0"/>
-                        <Style.Resources>
-                            <Style TargetType="StackPanel">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
+            <TabControl>
+                <TabItem Header="Subscription By Bank">
+                    <DataGrid Name="dgvBank" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                                <Style.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </Style.Resources>
                             </Style>
-                        </Style.Resources>
-                    </Style>
-                </DataGrid.RowHeaderStyle>
-                <DataGrid.ColumnHeaderStyle>
-                    <Style TargetType="{x:Type DataGridColumnHeader}">
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="Background" Value="SlateGray"/>
-                        <Setter Property="Padding" Value="5 0"/>
-                    </Style>
-                </DataGrid.ColumnHeaderStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="# Members" Width="70" Binding="{Binding NoOfMember}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Total Amount" Width="90" Binding="{Binding TotalAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Active" Width="90" Binding="{Binding ActiveAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Defaulter" Width="90" Binding="{Binding DefaulterAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="StruckOff" Width="90" Binding="{Binding StruckOffAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Resigned" Width="90" Binding="{Binding ResignedAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                    <DataGridTextColumn Header="Sundry Cr" Width="90" Binding="{Binding SundryCreditorAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="# Members" Width="70" Binding="{Binding NoOfMember}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Total Amount" Width="90" Binding="{Binding TotalAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Active" Width="90" Binding="{Binding ActiveAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Defaulter" Width="90" Binding="{Binding DefaulterAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="StruckOff" Width="90" Binding="{Binding StruckOffAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Resigned" Width="90" Binding="{Binding ResignedAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Sundry Cr" Width="90" Binding="{Binding SundryCreditorAmount,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Variation by Bank">
+                    <DataGrid Name="dgvBankVar" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
+                        <DataGrid.RowHeaderStyle>
+                            <Style TargetType="{x:Type DataGridRowHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                                <Style.Resources>
+                                    <Style TargetType="StackPanel">
+                                        <Setter Property="HorizontalAlignment" Value="Center" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </DataGrid.RowHeaderStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="{x:Type DataGridColumnHeader}">
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Background" Value="SlateGray"/>
+                                <Setter Property="Padding" Value="5 0"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="# Current" Width="90" Binding="{Binding NoOfMemberCurrent,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="# Previous" Width="70" Binding="{Binding NoOfMemberPrevious}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Different" Width="90" Binding="{Binding Different,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Unpaid" Width="90" Binding="{Binding Unpaid,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Paid" Width="90" Binding="{Binding NewPaid,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
+            
         </Grid>
         
     </Grid>

@@ -364,7 +364,7 @@ namespace Nube.Transaction
                         if (msMember.MonthlySubscriptionBank.BankCode != mm.BANK_CODE)
                         {
                             var mb = db.MASTERBANKs.FirstOrDefault(x => x.BANK_CODE == mm.BANK_CODE);
-                            if(mb.HEADER_BANK_CODE!=mm.BANK_CODE)
+                            if(msMember.MonthlySubscriptionBank.BankCode!=mb.HEADER_BANK_CODE)
                             {
                                 if (msmmr == null)
                                 {

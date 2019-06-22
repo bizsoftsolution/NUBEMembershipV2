@@ -154,7 +154,53 @@ namespace Nube.Transaction
                     lstMemberMatching.Add(aStatus);
                     dgvMemberMatching.ItemsSource = lstMemberMatching;
                     btnMonthEndClose.IsEnabled = lstMemberMatching.Sum(x => x.Pending) == 0 && lstMemberMatching.Sum(x => x.NoOfMember)!=0;
-                }
+
+
+                    var lstBankCurrent = dataMS.MonthlySubscriptionBanks.Select(x => new
+                                Model.MonthlySubsBank
+                                {
+                                    Id = x.Id,
+                                    BankName = x.MASTERBANK.BANK_NAME,
+                                    NoOfMember = x.MonthlySubscriptionMembers.Count(),
+                                });
+
+                    var dtPre = dataMS.date.AddMonths(-1);
+                    var lstBankPrevious = db.MonthlySubscriptionBanks.Where(x=> x.MonthlySubscription.date==dtPre).Select(x => new
+                               Model.MonthlySubsBank
+                    {
+                        Id = x.Id,
+                        BankName = x.MASTERBANK.BANK_NAME,
+                        NoOfMember = x.MonthlySubscriptionMembers.Count(),
+                    });
+
+                    List<Model.VariationByBank> variationByBanks = new List<Model.VariationByBank>();
+                    Model.VariationByBank vb;
+                    foreach (var d in lstBankCurrent)
+                    {
+                        var dPre = lstBankPrevious.FirstOrDefault(x => x.BankName == d.BankName);
+                        var bIdPre = dPre?.Id ?? 0;
+                        var lstNRIC_Current = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == d.Id).Select(x => x.NRIC).ToList();
+                        var lstNRIC_Previous = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == bIdPre).Select(x => x.NRIC).ToList();
+
+                        vb = new Model.VariationByBank();
+                        vb.BankName = d.BankName;
+                        vb.NoOfMemberCurrent = d.NoOfMember;
+                        vb.NoOfMemberPrevious = dPre?.NoOfMember ?? 0;
+                        vb.Different = vb.NoOfMemberCurrent - vb.NoOfMemberPrevious;
+                        vb.NewPaid = lstNRIC_Current.Except(lstNRIC_Previous).Count();// getNotContainCount( lstNRIC_Previous, lstNRIC_Current);
+                        vb.Unpaid = lstNRIC_Previous.Except(lstNRIC_Current).Count();// getNotContainCount(lstNRIC_Current, lstNRIC_Previous);
+                        if(vb.Different!=0 || vb.Unpaid!= 0 || vb.NewPaid!=0) variationByBanks.Add(vb);
+                    }
+                    vb = new Model.VariationByBank();
+                    vb.BankName = "Total";
+                    vb.NoOfMemberCurrent = variationByBanks.Sum(x=> x.NoOfMemberCurrent);
+                    vb.NoOfMemberPrevious = variationByBanks.Sum(x => x.NoOfMemberPrevious);
+                    vb.Different = variationByBanks.Sum(x => x.Different);
+                    vb.Unpaid = variationByBanks.Sum(x => x.Unpaid);
+                    vb.NewPaid = variationByBanks.Sum(x => x.NewPaid);
+                    variationByBanks.Add(vb);
+                    dgvBankVar.ItemsSource = variationByBanks;
+                    }
                 catch (Exception ex)
                 {
 
@@ -165,11 +211,29 @@ namespace Nube.Transaction
                 dgvBank.ItemsSource = null;
                 dgvMemberStatus.ItemsSource = null;
                 dgvMemberMatching.ItemsSource= null;
+                dgvBankVar.ItemsSource = null;
                 lblPaidAmount.Text = "";
                 lblPaidMembers.Text = "";
             }
             
         }
+
+        int getNotContainCount(List<string> lstStr1,List<string> lstStr2)
+        {
+            int rv = 0;
+            try
+            {
+                foreach(var str in lstStr1)
+                {
+                    if (!lstStr2.Contains(str)) rv++;
+                }
+            }catch(Exception ex)
+            {
+
+            }
+            return rv;
+        }
+
         private void BtnBrowse_Click(object sender, RoutedEventArgs e)
         {
             try

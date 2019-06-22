@@ -215,8 +215,6 @@
                     </DataGrid>
                 </TabItem>
             </TabControl>
-            
-            
         </Grid>
     </Grid>
 </metro:MetroWindow>
