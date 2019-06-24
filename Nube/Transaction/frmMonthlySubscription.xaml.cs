@@ -178,23 +178,27 @@ namespace Nube.Transaction
                     foreach (var d in lstBankCurrent)
                     {
                         var dPre = lstBankPrevious.FirstOrDefault(x => x.BankName == d.BankName);
-                        var bIdPre = dPre?.Id ?? 0;
-                        var lstNRIC_Current = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == d.Id).Select(x => x.NRIC).ToList();
-                        var lstNRIC_Previous = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == bIdPre).Select(x => x.NRIC).ToList();
+
+                        vb = new Model.VariationByBank();                        
+                        vb.MSBankIdPrevious= dPre?.Id ?? 0;
+                        vb.MSBankIdCureent = d.Id;
+
+                        var lstNRIC_Current = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == vb.MSBankIdCureent).Select(x => x.NRIC).ToList();
+                        var lstNRIC_Previous = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == vb.MSBankIdPrevious).Select(x => x.NRIC).ToList();
 
                         var lstNewPaidNRIC = lstNRIC_Current.Except(lstNRIC_Previous);
                         var lstUnpaidNRIC = lstNRIC_Previous.Except(lstNRIC_Current);
 
 
-                        vb = new Model.VariationByBank();
+                        
                         vb.BankName = d.BankName;
                         vb.NoOfMemberCurrent = d.NoOfMember;
                         vb.NoOfMemberPrevious = dPre?.NoOfMember ?? 0;
                         vb.Different = vb.NoOfMemberCurrent - vb.NoOfMemberPrevious;
                         vb.NewPaid = lstNewPaidNRIC.Count();// getNotContainCount( lstNRIC_Previous, lstNRIC_Current);
                         vb.Unpaid = lstUnpaidNRIC.Count();// getNotContainCount(lstNRIC_Current, lstNRIC_Previous);
-                        vb.NewPaidNRIC =  string.Join("\r\n", lstNewPaidNRIC);
-                        vb.UnpaidNRIC = string.Join("\r\n", lstUnpaidNRIC);
+                        vb.NewPaidNRIC =  string.Join(",", lstNewPaidNRIC);
+                        vb.UnpaidNRIC = string.Join(",", lstUnpaidNRIC);
                         if(vb.Different!=0 || vb.Unpaid!= 0 || vb.NewPaid!=0) variationByBanks.Add(vb);
                     }
                     vb = new Model.VariationByBank();
@@ -444,6 +448,13 @@ namespace Nube.Transaction
         {            
             frmMonthEndClosed frm = new frmMonthEndClosed(data);
             frm.ShowDialog();            
+        }
+
+        private void BtnPrintPreview_Click(object sender, RoutedEventArgs e)
+        {
+            var lst = dgvBankVar.ItemsSource as List<Model.VariationByBank>;
+            Reports.frmMSVariationReport frm = new Reports.frmMSVariationReport(lst, data.SelecctedDate.AddMonths(-1), data.SelecctedDate);
+            frm.ShowDialog();
         }
     }
 }

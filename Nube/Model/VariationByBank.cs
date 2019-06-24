@@ -8,8 +8,23 @@ namespace Nube.Model
 {
     public class VariationByBank
     {
-        private string bankName;
+        private int msBankIdCurrent;
 
+        public int MSBankIdCureent
+        {
+            get { return msBankIdCurrent; }
+            set { msBankIdCurrent = value; }
+        }
+
+        private int msBankIdPrevious;
+
+        public int MSBankIdPrevious
+        {
+            get { return msBankIdPrevious; }
+            set { msBankIdPrevious = value; }
+        }
+        
+        private string bankName;
         public string BankName
         {
             get { return bankName; }
@@ -74,6 +89,54 @@ namespace Nube.Model
             set { newPaidNRIC = value; }
         }
 
+
+        private int sno;
+
+        public int SNo
+        {
+            get { return sno; }
+            set { sno = value; }
+        }
+
+        private string nric;
+
+        public string NRIC
+        {
+            get { return nric; }
+            set { nric = value; }
+        }
+
+        private string memberName;
+
+        public string Membername
+        {
+            get { return memberName; }
+            set { memberName = value; }
+        }
+
+        private decimal amount;
+
+        public decimal Amount
+        {
+            get { return amount; }
+            set { amount = value; }
+        }
+
+        private string varStatus;
+
+        public string VarStatus
+        {
+            get { return varStatus; }
+            set { varStatus = value; }
+        }
+
+        private string msStatus;
+
+        public string MSStatus
+        {
+            get { return msStatus; }
+            set { msStatus = value; }
+        }
 
     }
 }

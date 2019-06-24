@@ -152,37 +152,42 @@
                     </DataGrid>
                 </TabItem>
                 <TabItem Header="Variation by Bank">
-                    <DataGrid Name="dgvBankVar" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
-                        <DataGrid.RowHeaderStyle>
-                            <Style TargetType="{x:Type DataGridRowHeader}">
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="Background" Value="SlateGray"/>
-                                <Setter Property="Padding" Value="5 0"/>
-                                <Style.Resources>
-                                    <Style TargetType="StackPanel">
-                                        <Setter Property="HorizontalAlignment" Value="Center" />
-                                    </Style>
-                                </Style.Resources>
-                            </Style>
-                        </DataGrid.RowHeaderStyle>
-                        <DataGrid.ColumnHeaderStyle>
-                            <Style TargetType="{x:Type DataGridColumnHeader}">
-                                <Setter Property="Foreground" Value="White" />
-                                <Setter Property="Background" Value="SlateGray"/>
-                                <Setter Property="Padding" Value="5 0"/>
-                            </Style>
-                        </DataGrid.ColumnHeaderStyle>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="# Current" Width="90" Binding="{Binding NoOfMemberCurrent}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="# Previous" Width="70" Binding="{Binding NoOfMemberPrevious}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Different" Width="90" Binding="{Binding Different}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Unpaid" Width="90" Binding="{Binding Unpaid}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Paid" Width="90" Binding="{Binding NewPaid}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="NRIC Unpaid" Width="120" Binding="{Binding UnpaidNRIC}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="NRIC paid" Width="120" Binding="{Binding NewPaidNRIC}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Button HorizontalAlignment="Right" Margin="0 0 10 0" Width="120" Name="btnPrintPreview" Click="BtnPrintPreview_Click">Print Preview</Button>
+                        <DataGrid Grid.Row="1" Name="dgvBankVar" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
+                            <DataGrid.RowHeaderStyle>
+                                <Style TargetType="{x:Type DataGridRowHeader}">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Background" Value="SlateGray"/>
+                                    <Setter Property="Padding" Value="5 0"/>
+                                    <Style.Resources>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                        </Style>
+                                    </Style.Resources>
+                                </Style>
+                            </DataGrid.RowHeaderStyle>
+                            <DataGrid.ColumnHeaderStyle>
+                                <Style TargetType="{x:Type DataGridColumnHeader}">
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="Background" Value="SlateGray"/>
+                                    <Setter Property="Padding" Value="5 0"/>
+                                </Style>
+                            </DataGrid.ColumnHeaderStyle>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
+                                <DataGridTextColumn Header="# Current" Width="90" Binding="{Binding NoOfMemberCurrent}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                                <DataGridTextColumn Header="# Previous" Width="70" Binding="{Binding NoOfMemberPrevious}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                                <DataGridTextColumn Header="Different" Width="90" Binding="{Binding Different}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                                <DataGridTextColumn Header="Unpaid" Width="90" Binding="{Binding Unpaid}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                                <DataGridTextColumn Header="Paid" Width="90" Binding="{Binding NewPaid}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </TabItem>
             </TabControl>
             
