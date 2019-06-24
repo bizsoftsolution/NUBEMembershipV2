@@ -89,7 +89,7 @@ namespace Nube.Reports
                 rptViewer.LocalReport.ReportEmbeddedResource = "Nube.Reports.rptMSVariationReport.rdlc";
 
                 List<ReportParameter> reportParameters = new List<ReportParameter>();
-                reportParameters.Add(new ReportParameter("Title", "NUBE Monthly Subscription - Variation Report"));
+                reportParameters.Add(new ReportParameter("Title", $"NUBE Monthly Subscription {dtCurrent:MMM yyyy} - Variation Report"));
                 reportParameters.Add(new ReportParameter("dtPrevious", $"{dtPrevious:MMM yyyy}"));
                 reportParameters.Add(new ReportParameter("dtCurrent", $"{dtCurrent:MMM yyyy}"));
 
