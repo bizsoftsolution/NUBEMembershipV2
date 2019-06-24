@@ -57,5 +57,23 @@ namespace Nube.Model
             set { newPaid = value; }
         }
 
+        private string unpaidNRIC;
+
+        public string UnpaidNRIC
+        {
+            get { return unpaidNRIC; }
+            set { unpaidNRIC = value; }
+        }
+
+
+        private string newPaidNRIC;
+
+        public string NewPaidNRIC
+        {
+            get { return newPaidNRIC; }
+            set { newPaidNRIC = value; }
+        }
+
+
     }
 }

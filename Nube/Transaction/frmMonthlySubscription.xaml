@@ -174,11 +174,13 @@
                         </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Bank Name" Width="*" Binding="{Binding BankName}" IsReadOnly="True" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="# Current" Width="90" Binding="{Binding NoOfMemberCurrent,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="# Current" Width="90" Binding="{Binding NoOfMemberCurrent}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                             <DataGridTextColumn Header="# Previous" Width="70" Binding="{Binding NoOfMemberPrevious}" IsReadOnly="True" ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Different" Width="90" Binding="{Binding Different,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Unpaid" Width="90" Binding="{Binding Unpaid,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
-                            <DataGridTextColumn Header="Paid" Width="90" Binding="{Binding NewPaid,StringFormat={}{0:N2}}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Different" Width="90" Binding="{Binding Different}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Unpaid" Width="90" Binding="{Binding Unpaid}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="Paid" Width="90" Binding="{Binding NewPaid}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="NRIC Unpaid" Width="120" Binding="{Binding UnpaidNRIC}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
+                            <DataGridTextColumn Header="NRIC paid" Width="120" Binding="{Binding NewPaidNRIC}" IsReadOnly="True"  ElementStyle="{StaticResource RightCell}" ></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </TabItem>

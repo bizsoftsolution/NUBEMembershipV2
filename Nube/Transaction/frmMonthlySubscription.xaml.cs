@@ -182,13 +182,19 @@ namespace Nube.Transaction
                         var lstNRIC_Current = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == d.Id).Select(x => x.NRIC).ToList();
                         var lstNRIC_Previous = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == bIdPre).Select(x => x.NRIC).ToList();
 
+                        var lstNewPaidNRIC = lstNRIC_Current.Except(lstNRIC_Previous);
+                        var lstUnpaidNRIC = lstNRIC_Previous.Except(lstNRIC_Current);
+
+
                         vb = new Model.VariationByBank();
                         vb.BankName = d.BankName;
                         vb.NoOfMemberCurrent = d.NoOfMember;
                         vb.NoOfMemberPrevious = dPre?.NoOfMember ?? 0;
                         vb.Different = vb.NoOfMemberCurrent - vb.NoOfMemberPrevious;
-                        vb.NewPaid = lstNRIC_Current.Except(lstNRIC_Previous).Count();// getNotContainCount( lstNRIC_Previous, lstNRIC_Current);
-                        vb.Unpaid = lstNRIC_Previous.Except(lstNRIC_Current).Count();// getNotContainCount(lstNRIC_Current, lstNRIC_Previous);
+                        vb.NewPaid = lstNewPaidNRIC.Count();// getNotContainCount( lstNRIC_Previous, lstNRIC_Current);
+                        vb.Unpaid = lstUnpaidNRIC.Count();// getNotContainCount(lstNRIC_Current, lstNRIC_Previous);
+                        vb.NewPaidNRIC =  string.Join("\r\n", lstNewPaidNRIC);
+                        vb.UnpaidNRIC = string.Join("\r\n", lstUnpaidNRIC);
                         if(vb.Different!=0 || vb.Unpaid!= 0 || vb.NewPaid!=0) variationByBanks.Add(vb);
                     }
                     vb = new Model.VariationByBank();
