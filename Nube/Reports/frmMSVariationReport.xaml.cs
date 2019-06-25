@@ -70,10 +70,14 @@ namespace Nube.Reports
                         data.NewPaid = d.NewPaid;
                         data.SNo = i++;
                         data.NRIC = nric;
-                        data.VarStatus = "Previous Subscription Unpaid - Current Subscription Paid";
+                        
                         var dPre = db.MonthlySubscriptionMembers.FirstOrDefault(x => x.MonthlySubscriptionBankId == d.MSBankIdCureent && x.NRIC == nric);
+                        
                         if (dPre != null)
                         {
+                            var doj = dPre.MASTERMEMBER?.DATEOFJOINING??DateTime.Now;
+
+                            data.VarStatus = doj.Year==dtPrevious.Year && doj.Month==dtPrevious.Month?$"New Join on {dtPrevious:MMM yyyy}" : "Previous Subscription Unpaid - Current Subscription Paid";
                             data.Membername = dPre.MemberName;
                             data.Amount = dPre.Amount;
                             data.MSStatus = dPre.MonthlySubscriptionMemberStatu.Status;
