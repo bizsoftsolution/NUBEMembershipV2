@@ -51,6 +51,112 @@ namespace Nube.Transaction
 
         public void Search()
         {
+            if (tcMember.SelectedIndex == 0)
+            {
+                MS_PaidList();
+            }
+            else
+            {
+                MS_UnpaidList();
+            }
+        }
+        public void MS_PaidList()
+        {
+            lstMSMembers = new List<Model.MonthlySubsMember>();            
+            dgvMember.ItemsSource = lstMSMembers;            
+            try
+            {
+                var lstPaidMember = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscriptionId == MonthlySubscriptionId);
+                
+                if (!string.IsNullOrWhiteSpace(cbxBank.Text))
+                {
+                    try
+                    {
+                        decimal BankCode = (decimal)cbxBank.SelectedValue;
+                        if(ckbFromMonthlySubscription.IsChecked==true)
+                        {
+                            lstPaidMember = lstPaidMember.Where(x => x.MonthlySubscriptionBank.BankCode == BankCode);                            
+                        }
+                        else
+                        {
+                            lstPaidMember = lstPaidMember.Where(x => x.MASTERMEMBER.BANK_CODE== BankCode);                            
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(cbxMemberStatus.Text))
+                {
+                    try
+                    {
+                        int Id = (int)cbxMemberStatus.SelectedValue;
+                        lstPaidMember = lstPaidMember.Where(x => x.MonthlySubcriptionMemberStatusId == Id);                        
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+                if (!string.IsNullOrWhiteSpace(cbxApprovalStatus.Text))
+                {
+                    try
+                    {
+                        int Id = (int)cbxApprovalStatus.SelectedValue;
+                        lstPaidMember = lstPaidMember.Where(x => x.MonthlySubscriptionMemberMatchingResults.Count(y => y.MonthlySubscriptionMatchingTypeId == Id) > 0);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+                if (!string.IsNullOrWhiteSpace(txtMemberName.Text))
+                {
+                    lstPaidMember = lstPaidMember.Where(x => x.MemberName.ToLower().Contains(txtMemberName.Text.ToLower()));                    
+                }
+                if (!string.IsNullOrWhiteSpace(txtNRIC.Text))
+                {
+                    lstPaidMember = lstPaidMember.Where(x => x.NRIC.ToLower().Contains(txtNRIC.Text.ToLower()));                    
+                }
+                if (!string.IsNullOrWhiteSpace(txtMinAmount.Text))
+                {
+                    lstPaidMember = lstPaidMember.Where(x => x.Amount > Convert.ToDecimal(txtMinAmount.Text));
+                }
+
+                if (!string.IsNullOrWhiteSpace(txtMaxAmount.Text))
+                {
+                    lstPaidMember = lstPaidMember.Where(x => x.Amount < Convert.ToDecimal(txtMaxAmount.Text));
+                }
+
+                lstPaidMember = lstPaidMember.OrderBy(x => x.MonthlySubcriptionMemberStatusId).OrderBy(x => x.MemberName);
+                
+                
+                lstMSMembers = lstPaidMember.Select(x=> new Model.MonthlySubsMember() {
+                    Id=x.Id,
+                    MemberName=x.MemberName,
+                    NRIC=x.NRIC,
+                    Amount=x.Amount,
+                    BankUserCode = x.MonthlySubscriptionBank.MASTERBANK.BANK_USERCODE,
+                    MemberStatusId = x.MonthlySubcriptionMemberStatusId,
+                    MemberStatus = x.MonthlySubscriptionMemberStatu.Status,
+                    MemberId = x.MASTERMEMBER==null?null:x.MASTERMEMBER.MEMBER_ID,                    
+                    Membercode = x.MASTERMEMBER == null ? null :(decimal?) x.MASTERMEMBER.MEMBER_CODE,
+                    IsApproved = x.MonthlySubscriptionMemberMatchingResults.Count(y=> y.UserAccount==null)==0?0:1,
+                    DueMonth = x.MASTERMEMBER==null?null:x.MASTERMEMBER.TOTALMONTHSDUE
+                }).ToList();
+                dgvMember.ItemsSource = lstMSMembers;                
+            }
+            catch(Exception ex)
+            {
+
+            }            
+        }
+
+        public void MS_UnpaidList()
+        {
             lstMSMembers = new List<Model.MonthlySubsMember>();
             lstUnPaidMembers = new List<Model.MonthSubsUnPaidMember>();
             dgvMember.ItemsSource = lstMSMembers;
@@ -67,14 +173,14 @@ namespace Nube.Transaction
                     try
                     {
                         decimal BankCode = (decimal)cbxBank.SelectedValue;
-                        if(ckbFromMonthlySubscription.IsChecked==true)
+                        if (ckbFromMonthlySubscription.IsChecked == true)
                         {
                             lstPaidMember = lstPaidMember.Where(x => x.MonthlySubscriptionBank.BankCode == BankCode);
                             lstUnpaidember = lstUnpaidember.Where(x => x.BANK_CODE == BankCode);
                         }
                         else
                         {
-                            lstPaidMember = lstPaidMember.Where(x => x.MASTERMEMBER.BANK_CODE== BankCode);
+                            lstPaidMember = lstPaidMember.Where(x => x.MASTERMEMBER.BANK_CODE == BankCode);
                             lstUnpaidember = lstUnpaidember.Where(x => x.MASTERMEMBER.BANK_CODE == BankCode);
                         }
                     }
@@ -131,26 +237,13 @@ namespace Nube.Transaction
                 }
 
                 lstPaidMember = lstPaidMember.OrderBy(x => x.MonthlySubcriptionMemberStatusId).OrderBy(x => x.MemberName);
-                
-                
-                lstMSMembers = lstPaidMember.Select(x=> new Model.MonthlySubsMember() {
-                    Id=x.Id,
-                    MemberName=x.MemberName,
-                    NRIC=x.NRIC,
-                    Amount=x.Amount,
-                    BankUserCode = x.MonthlySubscriptionBank.MASTERBANK.BANK_USERCODE,
-                    MemberStatusId = x.MonthlySubcriptionMemberStatusId,
-                    MemberStatus = x.MonthlySubscriptionMemberStatu.Status,
-                    MemberId = x.MASTERMEMBER==null?null:x.MASTERMEMBER.MEMBER_ID,                    
-                    Membercode = x.MASTERMEMBER == null ? null :(decimal?) x.MASTERMEMBER.MEMBER_CODE,
-                    IsApproved = x.MonthlySubscriptionMemberMatchingResults.Count(y=> y.UserAccount==null)==0?0:1,
-                    DueMonth = x.MASTERMEMBER==null?null:x.MASTERMEMBER.TOTALMONTHSDUE
-                }).ToList();
-                dgvMember.ItemsSource = lstMSMembers;
 
-                var lstMemberCode = lstMSMembers.Select(x => x.Membercode).ToList();
-                var lst = lstUnpaidember.Select(x=> new { x.MASTERMEMBER, x.TOTAL_MONTHS,x.LASTPAYMENTDATE}).ToList();
-                lstUnPaidMembers = lst.Where(x=> x.MASTERMEMBER!=null).Select(x => new Model.MonthSubsUnPaidMember() {
+
+                var lstMemberCode = lstPaidMember.Select(x => x.MASTERMEMBER == null ? null : (decimal?)x.MASTERMEMBER.MEMBER_CODE).ToList();
+                
+                var lst = lstUnpaidember.Select(x => new { x.MASTERMEMBER, x.TOTAL_MONTHS, x.LASTPAYMENTDATE }).ToList();
+                lstUnPaidMembers = lst.Where(x => x.MASTERMEMBER != null).Select(x => new Model.MonthSubsUnPaidMember()
+                {
                     MemberCode = x.MASTERMEMBER.MEMBER_CODE,
                     MemberId = x.MASTERMEMBER.MEMBER_ID.Value,
                     MemberName = x.MASTERMEMBER.MEMBER_NAME,
@@ -161,17 +254,17 @@ namespace Nube.Transaction
                     Status = x.MASTERMEMBER.MASTERSTATU.STATUS_NAME,
                     MemberStatusId = x.MASTERMEMBER.STATUS_CODE.Value
                 }).ToList();
-                lstUnPaidMembers = lstUnPaidMembers.Where(x => !lstMemberCode.Contains(x.MemberCode)).OrderByDescending(x => x.LastPaid).ToList();                
+                lstUnPaidMembers = lstUnPaidMembers.Where(x => !lstMemberCode.Contains(x.MemberCode)).OrderByDescending(x => x.LastPaid).ToList();
                 dgvUnPaidMember.ItemsSource = lstUnPaidMembers;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
 
-            
+
         }
-       
+
         void MemberStatusUpdate(MonthlySubscriptionMember msMember)
         {
             try
@@ -622,6 +715,11 @@ namespace Nube.Transaction
                 }
                 catch (Exception ex) { }
             }
+        }
+
+        private void TcMember_Selected(object sender, RoutedEventArgs e)
+        {
+            Search();
         }
     }
 }

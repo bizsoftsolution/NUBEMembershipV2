@@ -79,7 +79,7 @@ namespace Nube.Reports
                         //                        " ORDER BY NUBEBANCHNAME", FEEDATE);
 
                         string str = $"DECLARE @HSDate DATETIME='{FEEDATE:yyyy/MM/dd}' " +
-                                     " select NUBEBANCHNAME, TotalSubs+TotalBF + TotalIns as Total, TotalBF as BF, TotalIns as AmtIns,TotalSubs As Subs, TotalSubs / 2 as HalfShare,(TotalSubs / 2) / 10 as Fund, (TotalSubs / 2) - (TotalSubs / 2) / 10 as TotalAmount from(select nb.NUBE_BRANCH_NAME as NUBEBANCHNAME, sum(mmes.TOTALSUBCRP_AMOUNT) as TotalSubs, sum(mmes.TOTALBF_AMOUNT) as TotalBF, sum(mmes.TotalInsurance_Amount) as TotalIns   from MemberMonthEndStatus mmes " +
+                                     " select NUBEBANCHNAME, TotalSubs+TotalBF + TotalIns as Total, TotalBF as BF, TotalIns as AmtIns,TotalSubs As Subs, round(TotalSubs / 2,2) as HalfShare,round((round(TotalSubs / 2,2)) / 10,2) as Fund, round(TotalSubs / 2,2) - round((round(TotalSubs / 2,2)) / 10,2) as TotalAmount from(select nb.NUBE_BRANCH_NAME as NUBEBANCHNAME, sum(mmes.TOTALSUBCRP_AMOUNT) as TotalSubs, sum(mmes.TOTALBF_AMOUNT) as TotalBF, sum(mmes.TotalInsurance_Amount) as TotalIns   from MemberMonthEndStatus mmes " +
                                      " left join MasterBankBranch mbb on mmes.BRANCH_CODE = mbb.BANKBRANCH_CODE " +
                                      " left join MASTERNUBEBRANCH nb on nb.NUBE_BRANCH_CODE = mbb.NUBE_BRANCH_CODE " +
                                      " where year(mmes.StatusMonth) = year(@HSDate) and month(mmes.statusMonth) = MONTH(@HSDate) and STATUS_CODE in (1, 2) " +
