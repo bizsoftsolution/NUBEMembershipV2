@@ -139,6 +139,22 @@ namespace Nube.Model
             set { amount = value; }
         }
 
+        private decimal amountPrevious;
+
+        public decimal AmountPrevious
+        {
+            get { return amountPrevious; }
+            set { amountPrevious = value; }
+        }
+
+        private decimal amountDifferent;
+
+        public decimal AmountDifferent
+        {
+            get { return amountDifferent; }
+            set { amountDifferent = value; }
+        }
+
         private string varStatus;
 
         public string VarStatus

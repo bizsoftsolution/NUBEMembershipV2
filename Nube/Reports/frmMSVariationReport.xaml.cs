@@ -29,11 +29,10 @@ namespace Nube.Reports
             {                
                 List<Model.VariationByBank> lst = new List<Model.VariationByBank>();
                 Model.VariationByBank data = new Model.VariationByBank();
-                int i = 1;
+                
                 foreach (var d in variationByBanks)
                 {
-                    if (d.BankName.ToLower() == "total") continue;
-                    i = 1;
+                    if (d.BankName.ToLower() == "total") continue;                    
                     foreach (var nric in d.UnpaidNRIC.Split(','))
                     {
                         data = new Model.VariationByBank();                        
@@ -44,22 +43,23 @@ namespace Nube.Reports
                         data.TotalAmountCurrent = d.TotalAmountCurrent;
                         data.Different = d.Different;
                         data.Unpaid = d.Unpaid;
-                        data.NewPaid = d.NewPaid;
-                        data.SNo = i++;
+                        data.NewPaid = d.NewPaid;                        
                         data.NRIC = nric;
-                        data.VarStatus = "Previous Subscription Paid - Current Subscription Unpaid";
+                        
 
                         var dPre = db.MonthlySubscriptionMembers.FirstOrDefault(x => x.MonthlySubscriptionBankId == d.MSBankIdPrevious && x.NRIC == nric);
                         if (dPre != null)
                         {
+                            data.VarStatus = dPre.MASTERMEMBER?.RESIGNED==1?"Resigned Members": "Previous Subscription Paid - Current Subscription Unpaid";
                             data.Membername = dPre.MemberName;
-                            data.Amount = dPre.Amount;
+                            data.Amount = 0;
+                            data.AmountPrevious = dPre.Amount;
+                            data.AmountDifferent = data.Amount - data.AmountPrevious;
                             data.MSStatus = dPre.MonthlySubscriptionMemberStatu.Status;
                             lst.Add(data);
                         }
                     }
-
-                    i = 1;
+                    
                     foreach (var nric in d.NewPaidNRIC.Split(','))
                     {
                         data = new Model.VariationByBank();                        
@@ -71,8 +71,7 @@ namespace Nube.Reports
                         data.TotalAmountCurrent = d.TotalAmountCurrent;
                         data.Different = d.Different;
                         data.Unpaid = d.Unpaid;
-                        data.NewPaid = d.NewPaid;
-                        data.SNo = i++;
+                        data.NewPaid = d.NewPaid;                        
                         data.NRIC = nric;
                         
                         var dPre = db.MonthlySubscriptionMembers.FirstOrDefault(x => x.MonthlySubscriptionBankId == d.MSBankIdCureent && x.NRIC == nric);
@@ -84,10 +83,46 @@ namespace Nube.Reports
                             data.VarStatus = doj.Year==dtPrevious.Year && doj.Month==dtPrevious.Month?$"New Join on {dtPrevious:MMM yyyy}" : "Previous Subscription Unpaid - Current Subscription Paid";
                             data.Membername = dPre.MemberName;
                             data.Amount = dPre.Amount;
+                            data.AmountPrevious = 0;
+                            data.AmountDifferent = data.Amount - data.AmountPrevious;
                             data.MSStatus = dPre.MonthlySubscriptionMemberStatu.Status;
                             lst.Add(data);
                         }
                     }
+
+                    try
+                    {
+                        var lstPrevious = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == d.MSBankIdPrevious);
+                        var lstCurrent = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBankId == d.MSBankIdCureent);
+
+                        var lstMismatch = lstPrevious.Join(lstCurrent, x => x.NRIC, x => x.NRIC, (x, y) => new { NRIC = x.NRIC, MemberName = x.MemberName, AmountPrevious = x.Amount, AmountCurrent = y.Amount }).Where(x => x.AmountPrevious != x.AmountCurrent).ToList();
+                        foreach (var mm in lstMismatch)
+                        {
+                            data = new Model.VariationByBank();
+
+                            data.BankName = d.BankName;
+                            data.NoOfMemberCurrent = d.NoOfMemberCurrent;
+                            data.NoOfMemberPrevious = d.NoOfMemberPrevious;
+                            data.TotalAmountPrevious = d.TotalAmountPrevious;
+                            data.TotalAmountCurrent = d.TotalAmountCurrent;
+                            data.Different = d.Different;
+                            data.Unpaid = d.Unpaid;
+                            data.NewPaid = d.NewPaid;
+                            data.NRIC = mm.NRIC;
+                            data.VarStatus = mm.AmountCurrent<mm.AmountPrevious ? $"Subscription Decrement" : "Subscription Increment";
+                            data.Membername = mm.MemberName;
+                            data.Amount = mm.AmountCurrent;
+                            data.AmountPrevious = mm.AmountPrevious;
+                            data.AmountDifferent = data.Amount - data.AmountPrevious;                            
+                            lst.Add(data);
+                        }
+
+
+
+                    }
+                    catch (Exception ex) { }
+                    
+
                 }
 
 
