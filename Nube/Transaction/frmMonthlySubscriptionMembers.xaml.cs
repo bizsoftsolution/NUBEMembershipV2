@@ -87,7 +87,6 @@ namespace Nube.Transaction
 
                     }
                 }
-
                 if (!string.IsNullOrWhiteSpace(cbxMemberStatus.Text))
                 {
                     try
@@ -100,7 +99,6 @@ namespace Nube.Transaction
 
                     }
                 }
-
                 if (!string.IsNullOrWhiteSpace(cbxApprovalStatus.Text))
                 {
                     try

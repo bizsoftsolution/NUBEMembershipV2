@@ -47,6 +47,23 @@ namespace Nube.Model
             set { noOfMemberCurrent = value; }
         }
 
+        private decimal totalAmountPrevious;
+
+        public decimal TotalAmountPrevious
+        {
+            get { return totalAmountPrevious; }
+            set { totalAmountPrevious = value; }
+        }
+
+        private decimal totalAmountCurrent;
+
+        public decimal TotalAmountCurrent
+        {
+            get { return totalAmountCurrent; }
+            set { totalAmountCurrent = value; }
+        }
+
+
         private int different;
 
         public int Different
@@ -120,6 +137,22 @@ namespace Nube.Model
         {
             get { return amount; }
             set { amount = value; }
+        }
+
+        private decimal amountPrevious;
+
+        public decimal AmountPrevious
+        {
+            get { return amountPrevious; }
+            set { amountPrevious = value; }
+        }
+
+        private decimal amountDifferent;
+
+        public decimal AmountDifferent
+        {
+            get { return amountDifferent; }
+            set { amountDifferent = value; }
         }
 
         private string varStatus;
