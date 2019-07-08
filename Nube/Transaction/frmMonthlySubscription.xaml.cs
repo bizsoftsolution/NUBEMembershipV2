@@ -162,6 +162,7 @@ namespace Nube.Transaction
                                     Id = x.Id,
                                     BankName = x.MASTERBANK.BANK_NAME,
                                     NoOfMember = x.MonthlySubscriptionMembers.Count(),
+                                    TotalAmount =x.MonthlySubscriptionMembers.Sum(y=> y.Amount)
                                 });
 
                     var dtPre = dataMS.date.AddMonths(-1);
@@ -171,6 +172,7 @@ namespace Nube.Transaction
                         Id = x.Id,
                         BankName = x.MASTERBANK.BANK_NAME,
                         NoOfMember = x.MonthlySubscriptionMembers.Count(),
+                        TotalAmount = x.MonthlySubscriptionMembers.Sum(y => y.Amount)
                     });
 
                     List<Model.VariationByBank> variationByBanks = new List<Model.VariationByBank>();
@@ -194,6 +196,8 @@ namespace Nube.Transaction
                         vb.BankName = d.BankName;
                         vb.NoOfMemberCurrent = d.NoOfMember;
                         vb.NoOfMemberPrevious = dPre?.NoOfMember ?? 0;
+                        vb.TotalAmountCurrent = d.TotalAmount;
+                        vb.TotalAmountPrevious = dPre?.TotalAmount ?? 0;
                         vb.Different = vb.NoOfMemberCurrent - vb.NoOfMemberPrevious;
                         vb.NewPaid = lstNewPaidNRIC.Count();// getNotContainCount( lstNRIC_Previous, lstNRIC_Current);
                         vb.Unpaid = lstUnpaidNRIC.Count();// getNotContainCount(lstNRIC_Current, lstNRIC_Previous);

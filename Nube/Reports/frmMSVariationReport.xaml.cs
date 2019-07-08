@@ -40,6 +40,8 @@ namespace Nube.Reports
                         data.BankName = d.BankName;
                         data.NoOfMemberCurrent = d.NoOfMemberCurrent;
                         data.NoOfMemberPrevious = d.NoOfMemberPrevious;
+                        data.TotalAmountPrevious = d.TotalAmountPrevious;
+                        data.TotalAmountCurrent = d.TotalAmountCurrent;
                         data.Different = d.Different;
                         data.Unpaid = d.Unpaid;
                         data.NewPaid = d.NewPaid;
@@ -65,6 +67,8 @@ namespace Nube.Reports
                         data.BankName = d.BankName;
                         data.NoOfMemberCurrent = d.NoOfMemberCurrent;
                         data.NoOfMemberPrevious = d.NoOfMemberPrevious;
+                        data.TotalAmountPrevious = d.TotalAmountPrevious;
+                        data.TotalAmountCurrent = d.TotalAmountCurrent;
                         data.Different = d.Different;
                         data.Unpaid = d.Unpaid;
                         data.NewPaid = d.NewPaid;
