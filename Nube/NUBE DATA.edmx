@@ -1886,6 +1886,18 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_MASTERBANKBRANCH_MASTERNUBEBRANCH">
+          <End Role="MASTERNUBEBRANCH" Type="Self.MASTERNUBEBRANCH" Multiplicity="0..1" />
+          <End Role="MASTERBANKBRANCH" Type="Self.MASTERBANKBRANCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERNUBEBRANCH">
+              <PropertyRef Name="NUBE_BRANCH_CODE" />
+            </Principal>
+            <Dependent Role="MASTERBANKBRANCH">
+              <PropertyRef Name="NUBE_BRANCH_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_MASTERMEMBER_MASTERBANK">
           <End Role="MASTERBANK" Type="Self.MASTERBANK" Multiplicity="0..1" />
           <End Role="MASTERMEMBER" Type="Self.MASTERMEMBER" Multiplicity="*" />
@@ -2861,6 +2873,10 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             <End Role="MASTERBANK" EntitySet="MASTERBANK" />
             <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCH" />
           </AssociationSet>
+          <AssociationSet Name="FK_MASTERBANKBRANCH_MASTERNUBEBRANCH" Association="Self.FK_MASTERBANKBRANCH_MASTERNUBEBRANCH">
+            <End Role="MASTERNUBEBRANCH" EntitySet="MASTERNUBEBRANCH" />
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCH" />
+          </AssociationSet>
           <AssociationSet Name="FK_MASTERMEMBER_MASTERBANK" Association="Self.FK_MASTERMEMBER_MASTERBANK">
             <End Role="MASTERBANK" EntitySet="MASTERBANK" />
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBER" />
@@ -3155,6 +3171,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="NUBE_BRANCH_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="NUBE_BRANCH_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
+          <NavigationProperty Name="MASTERBANKBRANCHes" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERNUBEBRANCH" FromRole="MASTERNUBEBRANCH" ToRole="MASTERBANKBRANCH" />
         </EntityType>
         <EntityType Name="MASTERRACE">
           <Key>
@@ -3590,18 +3607,9 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <EntitySet Name="FeesDetailsNotMatches" EntityType="nube18092017Model.FeesDetailsNotMatch" />
           <EntitySet Name="FeesMasters" EntityType="nube18092017Model.FeesMaster" />
           <EntitySet Name="MASTERBANKs" EntityType="nube18092017Model.MASTERBANK" />
-          <EntitySet Name="MASTERBANKBRANCHes" EntityType="nube18092017Model.MASTERBANKBRANCH" />
           <EntitySet Name="MASTERMEMBERs" EntityType="nube18092017Model.MASTERMEMBER" />
-          <AssociationSet Name="FK_MASTERBANKBRANCH_MASTERBANK" Association="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK">
-            <End Role="MASTERBANK" EntitySet="MASTERBANKs" />
-            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
-          </AssociationSet>
           <AssociationSet Name="FK_MASTERMEMBER_MASTERBANK" Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANK">
             <End Role="MASTERBANK" EntitySet="MASTERBANKs" />
-            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MASTERMEMBER_MASTERBANKBRANCH" Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH">
-            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
             <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
           </AssociationSet>
           <AssociationSet Name="FK_FeesDetails_MASTERMEMBER" Association="nube18092017Model.FK_FeesDetails_MASTERMEMBER">
@@ -3692,6 +3700,19 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <AssociationSet Name="FK_MonthlySubscriptionMemberUpdate_UserAccount" Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_UserAccount">
             <End Role="UserAccount" EntitySet="UserAccounts" />
             <End Role="MonthlySubscriptionMemberUpdate" EntitySet="MonthlySubscriptionMemberUpdates" />
+          </AssociationSet>
+          <EntitySet Name="MASTERBANKBRANCHes" EntityType="nube18092017Model.MASTERBANKBRANCH" />
+          <AssociationSet Name="FK_MASTERBANKBRANCH_MASTERBANK" Association="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK">
+            <End Role="MASTERBANK" EntitySet="MASTERBANKs" />
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERMEMBER_MASTERBANKBRANCH" Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH">
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
+            <End Role="MASTERMEMBER" EntitySet="MASTERMEMBERs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MASTERBANKBRANCH_MASTERNUBEBRANCH" Association="nube18092017Model.FK_MASTERBANKBRANCH_MASTERNUBEBRANCH">
+            <End Role="MASTERNUBEBRANCH" EntitySet="MASTERNUBEBRANCHes" />
+            <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="TEMPFEE_STATUS">
@@ -4738,34 +4759,9 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
           <Property Name="HEADER_BANK_CODE" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <NavigationProperty Name="MASTERBANKBRANCHes" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERBANKBRANCH" />
           <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERMEMBER" />
           <NavigationProperty Name="MonthlySubscriptionBanks" Relationship="nube18092017Model.FK_MonthlySubscriptionBank_MASTERBANK" FromRole="MASTERBANK" ToRole="MonthlySubscriptionBank" />
-        </EntityType>
-        <EntityType Name="MASTERBANKBRANCH">
-          <Key>
-            <PropertyRef Name="BANKBRANCH_CODE" />
-          </Key>
-          <Property Name="BANKBRANCH_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BANK_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="BANKBRANCH_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ADDRESS3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_CITY_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="BANKBRANCH_STATE_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="BANKBRANCH_COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_PHONE1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_PHONE2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="BANKBRANCH_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="NUBE_BRANCH_CODE" Type="Decimal" Precision="10" Scale="0" />
-          <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="HEAD_QUARTERS" Type="Decimal" Precision="1" Scale="0" />
-          <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
-          <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" FromRole="MASTERBANKBRANCH" ToRole="MASTERBANK" />
-          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERBANKBRANCH" ToRole="MASTERMEMBER" />
+          <NavigationProperty Name="MASTERBANKBRANCHes" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" FromRole="MASTERBANK" ToRole="MASTERBANKBRANCH" />
         </EntityType>
         <EntityType Name="MASTERMEMBER">
           <Key>
@@ -4866,7 +4862,6 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="BranchMemberCode" Type="Int32" />
           <Property Name="IsHistoryClean" Type="Boolean" />
           <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" FromRole="MASTERMEMBER" ToRole="MASTERBANK" />
-          <NavigationProperty Name="MASTERBANKBRANCH" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERMEMBER" ToRole="MASTERBANKBRANCH" />
           <NavigationProperty Name="FeesDetails" Relationship="nube18092017Model.FK_FeesDetails_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="FeesDetail" />
           <NavigationProperty Name="MASTERSTATU" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERSTATUS" FromRole="MASTERMEMBER" ToRole="MASTERSTATU" />
           <NavigationProperty Name="MemberMonthEndStatus" Relationship="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MemberMonthEndStatu" />
@@ -4874,19 +4869,8 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <NavigationProperty Name="MASTERMEMBERTYPE" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERMEMBERTYPE" FromRole="MASTERMEMBER" ToRole="MASTERMEMBERTYPE" />
           <NavigationProperty Name="MonthlySubscriptionMembers" Relationship="nube18092017Model.FK_MonthlySubscriptionMember_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MonthlySubscriptionMember" />
           <NavigationProperty Name="MonthlySubscriptionMemberUpdates" Relationship="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER" FromRole="MASTERMEMBER" ToRole="MonthlySubscriptionMemberUpdate" />
+          <NavigationProperty Name="MASTERBANKBRANCH" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERMEMBER" ToRole="MASTERBANKBRANCH" />
         </EntityType>
-        <Association Name="FK_MASTERBANKBRANCH_MASTERBANK">
-          <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
-          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MASTERBANK">
-              <PropertyRef Name="BANK_CODE" />
-            </Principal>
-            <Dependent Role="MASTERBANKBRANCH">
-              <PropertyRef Name="BANK_CODE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_MASTERMEMBER_MASTERBANK">
           <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
           <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
@@ -4896,18 +4880,6 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Principal>
             <Dependent Role="MASTERMEMBER">
               <PropertyRef Name="BANK_CODE" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MASTERMEMBER_MASTERBANKBRANCH">
-          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="0..1" />
-          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MASTERBANKBRANCH">
-              <PropertyRef Name="BANKBRANCH_CODE" />
-            </Principal>
-            <Dependent Role="MASTERMEMBER">
-              <PropertyRef Name="BRANCH_CODE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -5261,6 +5233,68 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Principal>
             <Dependent Role="MonthlySubscriptionMemberUpdate">
               <PropertyRef Name="UpdateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="MASTERBANKBRANCH">
+          <Key>
+            <PropertyRef Name="BANKBRANCH_CODE" />
+          </Key>
+          <Property Name="BANKBRANCH_CODE" Type="Decimal" Nullable="false" Precision="10" Scale="0" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BANK_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="BANKBRANCH_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_USERCODE" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ADDRESS1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ADDRESS2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ADDRESS3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_CITY_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="BANKBRANCH_STATE_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="BANKBRANCH_COUNTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_ZIPCODE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_PHONE1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_PHONE2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BANKBRANCH_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NUBE_BRANCH_CODE" Type="Decimal" Precision="10" Scale="0" />
+          <Property Name="DELETED" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="HEAD_QUARTERS" Type="Decimal" Precision="1" Scale="0" />
+          <Property Name="MERGED" Type="Decimal" Precision="1" Scale="0" />
+          <NavigationProperty Name="MASTERBANK" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" FromRole="MASTERBANKBRANCH" ToRole="MASTERBANK" />
+          <NavigationProperty Name="MASTERMEMBERs" Relationship="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" FromRole="MASTERBANKBRANCH" ToRole="MASTERMEMBER" />
+          <NavigationProperty Name="MASTERNUBEBRANCH" Relationship="nube18092017Model.FK_MASTERBANKBRANCH_MASTERNUBEBRANCH" FromRole="MASTERBANKBRANCH" ToRole="MASTERNUBEBRANCH" />
+        </EntityType>
+        <Association Name="FK_MASTERBANKBRANCH_MASTERBANK">
+          <End Type="nube18092017Model.MASTERBANK" Role="MASTERBANK" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANK">
+              <PropertyRef Name="BANK_CODE" />
+            </Principal>
+            <Dependent Role="MASTERBANKBRANCH">
+              <PropertyRef Name="BANK_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERMEMBER_MASTERBANKBRANCH">
+          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERMEMBER" Role="MASTERMEMBER" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERBANKBRANCH">
+              <PropertyRef Name="BANKBRANCH_CODE" />
+            </Principal>
+            <Dependent Role="MASTERMEMBER">
+              <PropertyRef Name="BRANCH_CODE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MASTERBANKBRANCH_MASTERNUBEBRANCH">
+          <End Type="nube18092017Model.MASTERNUBEBRANCH" Role="MASTERNUBEBRANCH" Multiplicity="0..1" />
+          <End Type="nube18092017Model.MASTERBANKBRANCH" Role="MASTERBANKBRANCH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MASTERNUBEBRANCH">
+              <PropertyRef Name="NUBE_BRANCH_CODE" />
+            </Principal>
+            <Dependent Role="MASTERBANKBRANCH">
+              <PropertyRef Name="NUBE_BRANCH_CODE" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -6843,30 +6877,6 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="MASTERBANKBRANCHes">
-            <EntityTypeMapping TypeName="nube18092017Model.MASTERBANKBRANCH">
-              <MappingFragment StoreEntitySet="MASTERBANKBRANCH">
-                <ScalarProperty Name="MERGED" ColumnName="MERGED" />
-                <ScalarProperty Name="HEAD_QUARTERS" ColumnName="HEAD_QUARTERS" />
-                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
-                <ScalarProperty Name="NUBE_BRANCH_CODE" ColumnName="NUBE_BRANCH_CODE" />
-                <ScalarProperty Name="BANKBRANCH_EMAIL" ColumnName="BANKBRANCH_EMAIL" />
-                <ScalarProperty Name="BANKBRANCH_PHONE2" ColumnName="BANKBRANCH_PHONE2" />
-                <ScalarProperty Name="BANKBRANCH_PHONE1" ColumnName="BANKBRANCH_PHONE1" />
-                <ScalarProperty Name="BANKBRANCH_ZIPCODE" ColumnName="BANKBRANCH_ZIPCODE" />
-                <ScalarProperty Name="BANKBRANCH_COUNTRY" ColumnName="BANKBRANCH_COUNTRY" />
-                <ScalarProperty Name="BANKBRANCH_STATE_CODE" ColumnName="BANKBRANCH_STATE_CODE" />
-                <ScalarProperty Name="BANKBRANCH_CITY_CODE" ColumnName="BANKBRANCH_CITY_CODE" />
-                <ScalarProperty Name="BANKBRANCH_ADDRESS3" ColumnName="BANKBRANCH_ADDRESS3" />
-                <ScalarProperty Name="BANKBRANCH_ADDRESS2" ColumnName="BANKBRANCH_ADDRESS2" />
-                <ScalarProperty Name="BANKBRANCH_ADDRESS1" ColumnName="BANKBRANCH_ADDRESS1" />
-                <ScalarProperty Name="BANKBRANCH_USERCODE" ColumnName="BANKBRANCH_USERCODE" />
-                <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
-                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
-                <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MASTERMEMBERs">
             <EntityTypeMapping TypeName="nube18092017Model.MASTERMEMBER">
               <MappingFragment StoreEntitySet="MASTERMEMBER">
@@ -7065,6 +7075,30 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
                 <ScalarProperty Name="UpdateBy" ColumnName="UpdateBy" />
                 <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MASTERBANKBRANCHes">
+            <EntityTypeMapping TypeName="nube18092017Model.MASTERBANKBRANCH">
+              <MappingFragment StoreEntitySet="MASTERBANKBRANCH">
+                <ScalarProperty Name="MERGED" ColumnName="MERGED" />
+                <ScalarProperty Name="HEAD_QUARTERS" ColumnName="HEAD_QUARTERS" />
+                <ScalarProperty Name="DELETED" ColumnName="DELETED" />
+                <ScalarProperty Name="NUBE_BRANCH_CODE" ColumnName="NUBE_BRANCH_CODE" />
+                <ScalarProperty Name="BANKBRANCH_EMAIL" ColumnName="BANKBRANCH_EMAIL" />
+                <ScalarProperty Name="BANKBRANCH_PHONE2" ColumnName="BANKBRANCH_PHONE2" />
+                <ScalarProperty Name="BANKBRANCH_PHONE1" ColumnName="BANKBRANCH_PHONE1" />
+                <ScalarProperty Name="BANKBRANCH_ZIPCODE" ColumnName="BANKBRANCH_ZIPCODE" />
+                <ScalarProperty Name="BANKBRANCH_COUNTRY" ColumnName="BANKBRANCH_COUNTRY" />
+                <ScalarProperty Name="BANKBRANCH_STATE_CODE" ColumnName="BANKBRANCH_STATE_CODE" />
+                <ScalarProperty Name="BANKBRANCH_CITY_CODE" ColumnName="BANKBRANCH_CITY_CODE" />
+                <ScalarProperty Name="BANKBRANCH_ADDRESS3" ColumnName="BANKBRANCH_ADDRESS3" />
+                <ScalarProperty Name="BANKBRANCH_ADDRESS2" ColumnName="BANKBRANCH_ADDRESS2" />
+                <ScalarProperty Name="BANKBRANCH_ADDRESS1" ColumnName="BANKBRANCH_ADDRESS1" />
+                <ScalarProperty Name="BANKBRANCH_USERCODE" ColumnName="BANKBRANCH_USERCODE" />
+                <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
+                <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
+                <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

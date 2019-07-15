@@ -88,7 +88,6 @@ namespace Nube
         public virtual DbSet<FeesDetailsNotMatch> FeesDetailsNotMatches { get; set; }
         public virtual DbSet<FeesMaster> FeesMasters { get; set; }
         public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
-        public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
         public virtual DbSet<MASTERMEMBER> MASTERMEMBERs { get; set; }
         public virtual DbSet<MonthlySubscription> MonthlySubscriptions { get; set; }
         public virtual DbSet<MonthlySubscriptionBank> MonthlySubscriptionBanks { get; set; }
@@ -99,6 +98,7 @@ namespace Nube
         public virtual DbSet<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
         public virtual DbSet<MonthlySubscriptionMemberMatchingResult> MonthlySubscriptionMemberMatchingResults { get; set; }
         public virtual DbSet<MonthlySubscriptionMemberUpdate> MonthlySubscriptionMemberUpdates { get; set; }
+        public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

@@ -456,9 +456,17 @@ namespace Nube.Transaction
 
         private void BtnPrintPreview_Click(object sender, RoutedEventArgs e)
         {
-            var lst = dgvBankVar.ItemsSource as List<Model.VariationByBank>;
-            Reports.frmMSVariationReport frm = new Reports.frmMSVariationReport(lst, data.SelecctedDate.AddMonths(-1), data.SelecctedDate);
-            frm.ShowDialog();
+            if (cbxLast6MonthsVariation.IsChecked == true)
+            {
+                frmMSVariationLast6MonthsReport frm = new frmMSVariationLast6MonthsReport(data.SelecctedDate,cbxDisplaySubs.IsChecked,rbtBank.IsChecked,rbtBankBranch.IsChecked,rbtNUBEBrnach.IsChecked);
+                frm.ShowDialog();
+            }
+            else
+            {
+                var lst = dgvBankVar.ItemsSource as List<Model.VariationByBank>;
+                Reports.frmMSVariationReport frm = new Reports.frmMSVariationReport(lst, data.SelecctedDate.AddMonths(-1), data.SelecctedDate);
+                frm.ShowDialog();
+            }            
         }
     }
 }

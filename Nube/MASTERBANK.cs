@@ -17,9 +17,9 @@ namespace Nube
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public MASTERBANK()
         {
-            this.MASTERBANKBRANCHes = new HashSet<MASTERBANKBRANCH>();
             this.MASTERMEMBERs = new HashSet<MASTERMEMBER>();
             this.MonthlySubscriptionBanks = new HashSet<MonthlySubscriptionBank>();
+            this.MASTERBANKBRANCHes = new HashSet<MASTERBANKBRANCH>();
         }
     
         public decimal BANK_CODE { get; set; }
@@ -30,10 +30,10 @@ namespace Nube
         public decimal HEADER_BANK_CODE { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MASTERMEMBER> MASTERMEMBERs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySubscriptionBank> MonthlySubscriptionBanks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
     }
 }

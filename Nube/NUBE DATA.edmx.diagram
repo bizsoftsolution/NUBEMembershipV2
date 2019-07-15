@@ -66,11 +66,8 @@
         <EntityTypeShape EntityType="nube18092017Model.FeesDetailsNotMatch" Width="1.5" PointX="15.375" PointY="21.75" />
         <EntityTypeShape EntityType="nube18092017Model.FeesMaster" Width="1.5" PointX="27.375" PointY="0.75" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERBANK" Width="1.5" PointX="0.75" PointY="32.375" />
-        <EntityTypeShape EntityType="nube18092017Model.MASTERBANKBRANCH" Width="1.5" PointX="4" PointY="36.5" />
         <EntityTypeShape EntityType="nube18092017Model.MASTERMEMBER" Width="1.5" PointX="6.25" PointY="22.5" />
-        <AssociationConnector Association="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" />
         <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANK" />
-        <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" />
         <AssociationConnector Association="nube18092017Model.FK_FeesDetails_MASTERMEMBER" />
         <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERSTATUS" />
         <AssociationConnector Association="nube18092017Model.FK_MemberMonthEndStatus_MASTERMEMBER" />
@@ -100,6 +97,10 @@
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MASTERMEMBER" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_MonthlySubscriptionMatchingType" />
         <AssociationConnector Association="nube18092017Model.FK_MonthlySubscriptionMemberUpdate_UserAccount" />
+        <EntityTypeShape EntityType="nube18092017Model.MASTERBANKBRANCH" Width="1.5" PointX="3" PointY="31.375" />
+        <AssociationConnector Association="nube18092017Model.FK_MASTERBANKBRANCH_MASTERBANK" />
+        <AssociationConnector Association="nube18092017Model.FK_MASTERMEMBER_MASTERBANKBRANCH" />
+        <AssociationConnector Association="nube18092017Model.FK_MASTERBANKBRANCH_MASTERNUBEBRANCH" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

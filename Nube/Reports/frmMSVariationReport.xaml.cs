@@ -143,9 +143,7 @@ namespace Nube.Reports
             catch (Exception ex)
             {
 
-            }
-            
-
+            }           
         }
     }
 }

@@ -14,9 +14,18 @@ namespace Nube
     
     public partial class MASTERNUBEBRANCH
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MASTERNUBEBRANCH()
+        {
+            this.MASTERBANKBRANCHes = new HashSet<MASTERBANKBRANCH>();
+        }
+    
         public decimal NUBE_BRANCH_CODE { get; set; }
         public string NUBE_BRANCH_USERCODE { get; set; }
         public string NUBE_BRANCH_NAME { get; set; }
         public Nullable<decimal> DELETED { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
     }
 }

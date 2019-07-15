@@ -120,7 +120,6 @@ namespace Nube
         public Nullable<bool> IsHistoryClean { get; set; }
     
         public virtual MASTERBANK MASTERBANK { get; set; }
-        public virtual MASTERBANKBRANCH MASTERBANKBRANCH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeesDetail> FeesDetails { get; set; }
         public virtual MASTERSTATU MASTERSTATU { get; set; }
@@ -133,5 +132,6 @@ namespace Nube
         public virtual ICollection<MonthlySubscriptionMember> MonthlySubscriptionMembers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MonthlySubscriptionMemberUpdate> MonthlySubscriptionMemberUpdates { get; set; }
+        public virtual MASTERBANKBRANCH MASTERBANKBRANCH { get; set; }
     }
 }

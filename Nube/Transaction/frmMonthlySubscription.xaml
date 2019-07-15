@@ -157,7 +157,17 @@
                             <RowDefinition Height="25"/>
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Button HorizontalAlignment="Right" Margin="0 0 10 0" Width="120" Name="btnPrintPreview" Click="BtnPrintPreview_Click">Print Preview</Button>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <TextBlock Margin="0 5 10 0" >Group By</TextBlock>
+                            <RadioButton Margin="0 5 10 0" x:Name="rbtBank" IsChecked="True" >Bank</RadioButton>
+                            <RadioButton Margin="0 5 10 0" x:Name="rbtBankBranch" >Bank Branch</RadioButton>
+                            <RadioButton Margin="0 5 10 0" x:Name="rbtNUBEBrnach" >NUBE Branch</RadioButton>
+                            <CheckBox Margin="0 5 10 0" Name="cbxDisplaySubs">Display Subscription</CheckBox>
+                            <CheckBox Margin="0 5 10 0" Name="cbxLast6MonthsVariation">Last 6 Months Variation</CheckBox>
+                            <Button Margin="0 0 10 0" Width="120" Name="btnPrintPreview" Click="BtnPrintPreview_Click">Print</Button>
+                        </StackPanel>
+                        
                         <DataGrid Grid.Row="1" Name="dgvBankVar" Margin="10" CanUserAddRows="False"  AutoGenerateColumns="False" LoadingRow="DgvBank_LoadingRow" HeadersVisibility="All"  MouseDoubleClick="DgvBank_MouseDoubleClick" GridLinesVisibility="All">
                             <DataGrid.RowHeaderStyle>
                                 <Style TargetType="{x:Type DataGridRowHeader}">

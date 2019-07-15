@@ -42,5 +42,6 @@ namespace Nube
         public virtual MASTERBANK MASTERBANK { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MASTERMEMBER> MASTERMEMBERs { get; set; }
+        public virtual MASTERNUBEBRANCH MASTERNUBEBRANCH { get; set; }
     }
 }
