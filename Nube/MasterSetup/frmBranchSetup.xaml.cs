@@ -109,7 +109,7 @@ namespace Nube.MasterSetup
                             var s = cmbBankName.Text.ToString();
                             MASTERBANKBRANCH mb = db.MASTERBANKBRANCHes.Where(x => x.BANKBRANCH_CODE == id).FirstOrDefault();
 
-                            var OldData = new JSonHelper().ConvertObjectToJSon(mb);
+                            //var OldData = new JSonHelper().ConvertObjectToJSon(mb);
 
                             mb.BANK_CODE = Convert.ToDecimal(cmbBankName.SelectedValue);
                             mb.BANKBRANCH_NAME = txtBranchName.Text;
@@ -130,8 +130,8 @@ namespace Nube.MasterSetup
                             db.SaveChanges();
                             AppLib.lstMASTERBANKBRANCH = db.MASTERBANKBRANCHes.OrderBy(x => x.BANKBRANCH_NAME).ToList();
 
-                            var NewData = new JSonHelper().ConvertObjectToJSon(mb);
-                            AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERBANKBRANCH");
+                            //var NewData = new JSonHelper().ConvertObjectToJSon(mb);
+                            //AppLib.EventHistory(this.Tag.ToString(), 1, OldData, NewData, "MASTERBANKBRANCH");
 
                             MessageBox.Show("Saved Successfully", "Saved");
                             ClearForm();
