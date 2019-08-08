@@ -51,6 +51,7 @@ namespace Nube
             {
                 e.ToString();
             }
+            if (ex.InnerException != null) SendErrorToText(ex.InnerException);
         }
     }
 }
