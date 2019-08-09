@@ -452,8 +452,8 @@ namespace Nube.Transaction
                         db.MASTERMEMBERs.Add(mstmm);
                         db.SaveChanges();
 
-                        var NewData = new JSonHelper().ConvertObjectToJSon(mstmm);
-                        AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERMEMBER");
+                        //var NewData = new JSonHelper().ConvertObjectToJSon(mstmm);
+                        //AppLib.EventHistory(this.Tag.ToString(), 0, "", NewData, "MASTERMEMBER");
 
                         //dMember_Code = Convert.ToDecimal(db.MASTERMEMBERs.Max(x => x.MEMBER_CODE));
                         dMember_Code = mstmm.MEMBER_CODE;
