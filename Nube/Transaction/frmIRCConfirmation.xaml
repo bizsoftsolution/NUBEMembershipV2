@@ -10,8 +10,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nube.Transaction"
         mc:Ignorable="d"
-        Title="IRC Confirmation" Height="1007" Width="1200" WindowState="Maximized">
-    <Grid>
+        Title="IRC Confirmation" Height="1007" Width="1200" WindowState="Maximized" FontWeight="Bold">
+    <Grid  >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="280"/>
             <ColumnDefinition Width="*"/>
@@ -67,8 +67,8 @@
                 </StackPanel>
                 <TextBox x:Name="txtRemarks"  FontWeight="Bold" HorizontalAlignment="Left" Height="100"  TextWrapping="Wrap" AcceptsReturn="True" materialDesign:HintAssist.Hint="Remarks" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Top" Width="250" Margin="10 10 0 0" />
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 20 0 0" >
-                    <DatePicker x:Name="dtpFileSubmit" Visibility="Visible"  FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="File Submitted" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Width="150" FontSize="14" Margin="10 0 0 0 "  />
-                    <Button Name="btnIRCSubmit" Width="100" Margin="20,0,0,20" Click="btnIRCSubmit_Click">Submit</Button>
+                    <DatePicker x:Name="dtpFileSubmit" Visibility="Visible"  FontWeight="Bold" HorizontalAlignment="Left" materialDesign:HintAssist.Hint="File Submitted" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"   Width="150" FontSize="14" Margin="0 0 0 0 "  />
+                    <Button Name="btnIRCSubmit" Width="80" Margin="20,0,0,0" Click="btnIRCSubmit_Click">Submit</Button>
                 </StackPanel>
                 
             </StackPanel>
@@ -78,7 +78,7 @@
             <Grid Margin="0 0 0 0" Background="White">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="250"/>
+                    <RowDefinition Height="270"/>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
@@ -169,11 +169,18 @@
                                     <CheckBox Name="cbxTransferTo" VerticalAlignment="Bottom">She/he promoted and transfer to new place </CheckBox>
                                     <TextBox Margin="10,0,0,0" Name="txtIRCTransferTo" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                 </StackPanel>
-                                <StackPanel Margin="0,0,0,0"  Orientation="Horizontal">
-                                    <CheckBox Name="cbxContact" VerticalAlignment="Bottom">Contact</CheckBox>
-                                    <TextBox Margin="10,0,0,0" Name="txtIRCContact" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
-                                    <TextBlock Margin="10,0,0,0" VerticalAlignment="Bottom">Mobile No</TextBlock>
-                                    <TextBox Margin="10,0,0,0" Name="txtIRCContactMobileNo" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                <StackPanel Margin="0,0,0,0"  Orientation="Horizontal" Margin="0 5">
+                                    <CheckBox Name="cbxContact" VerticalAlignment="Top" Margin="0 5">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+                                         <TextBlock Margin="0,0,0,0" VerticalAlignment="Center">Contact</TextBlock>
+                                            <TextBox Margin="10,0,0,10"  VerticalAlignment="Center" Name="txtIRCContact" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint=""></TextBox>
+                                        <TextBlock Margin="10,0,0,0" VerticalAlignment="Center">Mobile No</TextBlock>
+                                            <TextBox Margin="10,0,0,10"  VerticalAlignment="Center" Name="txtIRCContactMobileNo" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                            <TextBlock  Margin="10 0 0 0" VerticalAlignment="Center">Fax :</TextBlock>
+                                            <TextBox Name="txtIRCContactFax" Margin="10,0,0,10" VerticalAlignment="Center" Width="150"  Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
+                                        </StackPanel>
+                                    </CheckBox>
+                                    
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

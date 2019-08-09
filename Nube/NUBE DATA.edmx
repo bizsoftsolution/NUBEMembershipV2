@@ -300,6 +300,7 @@ warning 6002: The table/view 'nubev2_1.dbo.GE_Insurance' does not have a primary
           <Property Name="IRCTransferTo" Type="nvarchar" MaxLength="250" />
           <Property Name="IRCContact" Type="nvarchar" MaxLength="250" />
           <Property Name="IRCContactMobileNo" Type="nvarchar" MaxLength="250" />
+          <Property Name="IRCContactFax" Type="nvarchar" MaxLength="250" />
           <Property Name="BranchCommitteeVerification1" Type="bit" />
           <Property Name="BranchCommitteeVerification2" Type="bit" />
           <Property Name="BranchCommitteeName" Type="nvarchar" MaxLength="250" />
@@ -5303,6 +5304,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="IRCTransferTo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IRCContact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="IRCContactMobileNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCContactFax" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="BranchCommitteeVerification1" Type="Boolean" />
           <Property Name="BranchCommitteeVerification2" Type="Boolean" />
           <Property Name="BranchCommitteeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
@@ -7091,6 +7093,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
                 <ScalarProperty Name="BranchCommitteeName" ColumnName="BranchCommitteeName" />
                 <ScalarProperty Name="BranchCommitteeVerification2" ColumnName="BranchCommitteeVerification2" />
                 <ScalarProperty Name="BranchCommitteeVerification1" ColumnName="BranchCommitteeVerification1" />
+                <ScalarProperty Name="IRCContactFax" ColumnName="IRCContactFax" />
                 <ScalarProperty Name="IRCContactMobileNo" ColumnName="IRCContactMobileNo" />
                 <ScalarProperty Name="IRCContact" ColumnName="IRCContact" />
                 <ScalarProperty Name="IRCTransferTo" ColumnName="IRCTransferTo" />

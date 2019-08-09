@@ -46,6 +46,7 @@ namespace Nube
         public string IRCTransferTo { get; set; }
         public string IRCContact { get; set; }
         public string IRCContactMobileNo { get; set; }
+        public string IRCContactFax { get; set; }
         public Nullable<bool> BranchCommitteeVerification1 { get; set; }
         public Nullable<bool> BranchCommitteeVerification2 { get; set; }
         public string BranchCommitteeName { get; set; }

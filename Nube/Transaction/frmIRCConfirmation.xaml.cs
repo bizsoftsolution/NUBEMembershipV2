@@ -63,6 +63,7 @@ namespace Nube.Transaction
                 cbxContact.IsEnabled = true;
                 txtIRCContact.IsEnabled = true;
                 txtIRCContactMobileNo.IsEnabled = true;
+                txtIRCContactFax.IsEnabled = true;
 
 
                 cbxBranchCommitteeVerification1.IsEnabled = false;
@@ -101,6 +102,7 @@ namespace Nube.Transaction
                 cbxContact.IsEnabled = false;
                 txtIRCContact.IsEnabled = false;
                 txtIRCContactMobileNo.IsEnabled = false;
+                txtIRCContactFax.IsEnabled = false;
 
                 cbxBranchCommitteeVerification1.IsEnabled = true;
                 cbxBranchCommitteeVerification2.IsEnabled = true;
@@ -315,6 +317,7 @@ namespace Nube.Transaction
                 txtIRCTransferTo.Text = d.IRCTransferTo;
                 txtIRCContact.Text = d.IRCContact;
                 txtIRCContactMobileNo.Text = d.IRCContactMobileNo;
+                txtIRCContactFax.Text = d.IRCContactFax;
                 dtpGrade.SelectedDate = d.GradeWEF;
                 dtpBranchCommitteeDate.SelectedDate = d.BranchCommitteeDate;
 				dtpFileSubmit.SelectedDate = d.SubmittedAt;
@@ -378,6 +381,7 @@ namespace Nube.Transaction
             txtIRCTransferTo.Text = "";
             txtIRCContact.Text = "";
             txtIRCContactMobileNo.Text = "";
+            txtIRCContactFax.Text = "";
             cmbRegReason.Text = "PROMOTED";
 
             dtpDOB.Text = "";
@@ -442,6 +446,7 @@ namespace Nube.Transaction
                     IRC.IRCTransferTo = txtIRCTransferTo.Text;
                     IRC.IRCContact = txtIRCContact.Text;
                     IRC.IRCContactMobileNo = txtIRCContactMobileNo.Text;
+                    IRC.IRCContactFax = txtIRCContactFax.Text;
                     IRC.GradeWEF = dtpGrade.SelectedDate;
                     IRC.NameOfPerson = cbxNameOfPerson.IsChecked;
                     IRC.WasPromoted = cbxPromotedTo.IsChecked;
