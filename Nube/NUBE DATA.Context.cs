@@ -81,7 +81,6 @@ namespace Nube
         public virtual DbSet<Tran_Start> Tran_Start { get; set; }
         public virtual DbSet<ViewMasterMember> ViewMasterMembers { get; set; }
         public virtual DbSet<ViewResign> ViewResigns { get; set; }
-        public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
         public virtual DbSet<MemberMonthEndStatu> MemberMonthEndStatus { get; set; }
         public virtual DbSet<RESIGNATION> RESIGNATIONs { get; set; }
         public virtual DbSet<FeesDetail> FeesDetails { get; set; }
@@ -99,6 +98,7 @@ namespace Nube
         public virtual DbSet<MonthlySubscriptionMemberMatchingResult> MonthlySubscriptionMemberMatchingResults { get; set; }
         public virtual DbSet<MonthlySubscriptionMemberUpdate> MonthlySubscriptionMemberUpdates { get; set; }
         public virtual DbSet<MASTERBANKBRANCH> MASTERBANKBRANCHes { get; set; }
+        public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIP_Result> SPMEMBERSHIP()
         {

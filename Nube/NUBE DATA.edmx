@@ -291,7 +291,15 @@ warning 6002: The table/view 'nubev2_1.dbo.GE_Insurance' does not have a primary
           <Property Name="Attached" Type="bit" />
           <Property Name="HereByConfirm" Type="bit" />
           <Property Name="FilledBy" Type="bit" />
+          <Property Name="TransferTo" Type="bit" />
+          <Property Name="IsContact" Type="bit" />
           <Property Name="NameforFilledBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="IRCJobFunction" Type="nvarchar" MaxLength="250" />
+          <Property Name="IRCFilledByPosition" Type="nvarchar" MaxLength="250" />
+          <Property Name="IRCFilledByContact" Type="nvarchar" MaxLength="250" />
+          <Property Name="IRCTransferTo" Type="nvarchar" MaxLength="250" />
+          <Property Name="IRCContact" Type="nvarchar" MaxLength="250" />
+          <Property Name="IRCContactMobileNo" Type="nvarchar" MaxLength="250" />
           <Property Name="BranchCommitteeVerification1" Type="bit" />
           <Property Name="BranchCommitteeVerification2" Type="bit" />
           <Property Name="BranchCommitteeName" Type="nvarchar" MaxLength="250" />
@@ -3600,7 +3608,6 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <EntitySet Name="Tran_Start" EntityType="nube18092017Model.Tran_Start" />
           <EntitySet Name="ViewMasterMembers" EntityType="nube18092017Model.ViewMasterMember" />
           <EntitySet Name="ViewResigns" EntityType="nube18092017Model.ViewResign" />
-          <EntitySet Name="IRCConfirmations" EntityType="nube18092017Model.IRCConfirmation" />
           <EntitySet Name="MemberMonthEndStatus" EntityType="nube18092017Model.MemberMonthEndStatu" />
           <EntitySet Name="RESIGNATIONs" EntityType="nube18092017Model.RESIGNATION" />
           <EntitySet Name="FeesDetails" EntityType="nube18092017Model.FeesDetail" />
@@ -3714,6 +3721,7 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             <End Role="MASTERNUBEBRANCH" EntitySet="MASTERNUBEBRANCHes" />
             <End Role="MASTERBANKBRANCH" EntitySet="MASTERBANKBRANCHes" />
           </AssociationSet>
+          <EntitySet Name="IRCConfirmations" EntityType="nube18092017Model.IRCConfirmation" />
           </EntityContainer>
         <EntityType Name="TEMPFEE_STATUS">
           <Key>
@@ -4562,45 +4570,6 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
           <Property Name="InsuranceAmount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="UnionContribution" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
-        <EntityType Name="IRCConfirmation">
-          <Key>
-            <PropertyRef Name="MemberCode" />
-          </Key>
-          <Property Name="MemberCode" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
-          <Property Name="ResignMemberNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ResignMemberName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ResignMemberICNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ResignMemberBankName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ResignMemberBranchName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ResignReason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IRCMembershipNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IRCName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IRCPosition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IRCBank" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IRCBankAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IRCTelephoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IRCMobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IRCFaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PromotedTo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="GradeWEF" Type="DateTime" Precision="0" />
-          <Property Name="NameOfPerson" Type="Boolean" />
-          <Property Name="WasPromoted" Type="Boolean" />
-          <Property Name="BeforePromotion" Type="Boolean" />
-          <Property Name="Attached" Type="Boolean" />
-          <Property Name="HereByConfirm" Type="Boolean" />
-          <Property Name="FilledBy" Type="Boolean" />
-          <Property Name="BranchCommitteeVerification1" Type="Boolean" />
-          <Property Name="BranchCommitteeVerification2" Type="Boolean" />
-          <Property Name="BranchCommitteeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="BranchCommitteeZone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="BranchCommitteeDate" Type="DateTime" Precision="0" />
-          <Property Name="Remarks" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
-          <Property Name="NameforFilledBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SubmittedAt" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="MemberMonthEndStatu">
           <Key>
             <PropertyRef Name="Id" />
@@ -5298,6 +5267,53 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="IRCConfirmation">
+          <Key>
+            <PropertyRef Name="MemberCode" />
+          </Key>
+          <Property Name="MemberCode" Type="Decimal" Nullable="false" Precision="10" Scale="0" />
+          <Property Name="ResignMemberNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResignMemberName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ResignMemberICNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ResignMemberBankName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ResignMemberBranchName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ResignReason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IRCMembershipNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IRCName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCPosition" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IRCBank" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCBankAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IRCTelephoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IRCMobileNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IRCFaxNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PromotedTo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="GradeWEF" Type="DateTime" Precision="0" />
+          <Property Name="NameOfPerson" Type="Boolean" />
+          <Property Name="WasPromoted" Type="Boolean" />
+          <Property Name="BeforePromotion" Type="Boolean" />
+          <Property Name="Attached" Type="Boolean" />
+          <Property Name="HereByConfirm" Type="Boolean" />
+          <Property Name="FilledBy" Type="Boolean" />
+          <Property Name="TransferTo" Type="Boolean" />
+          <Property Name="IsContact" Type="Boolean" />
+          <Property Name="NameforFilledBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IRCJobFunction" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCFilledByPosition" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCFilledByContact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCTransferTo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCContact" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IRCContactMobileNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCommitteeVerification1" Type="Boolean" />
+          <Property Name="BranchCommitteeVerification2" Type="Boolean" />
+          <Property Name="BranchCommitteeName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCommitteeZone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCommitteeDate" Type="DateTime" Precision="0" />
+          <Property Name="Remarks" Type="String" MaxLength="2500" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedAt" Type="DateTime" Precision="3" />
+          <Property Name="SubmittedAt" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -6679,46 +6695,6 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="IRCConfirmations">
-            <EntityTypeMapping TypeName="nube18092017Model.IRCConfirmation">
-              <MappingFragment StoreEntitySet="IRCConfirmation">
-                <ScalarProperty Name="SubmittedAt" ColumnName="SubmittedAt" />
-                <ScalarProperty Name="NameforFilledBy" ColumnName="NameforFilledBy" />
-                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="BranchCommitteeDate" ColumnName="BranchCommitteeDate" />
-                <ScalarProperty Name="BranchCommitteeZone" ColumnName="BranchCommitteeZone" />
-                <ScalarProperty Name="BranchCommitteeName" ColumnName="BranchCommitteeName" />
-                <ScalarProperty Name="BranchCommitteeVerification2" ColumnName="BranchCommitteeVerification2" />
-                <ScalarProperty Name="BranchCommitteeVerification1" ColumnName="BranchCommitteeVerification1" />
-                <ScalarProperty Name="FilledBy" ColumnName="FilledBy" />
-                <ScalarProperty Name="HereByConfirm" ColumnName="HereByConfirm" />
-                <ScalarProperty Name="Attached" ColumnName="Attached" />
-                <ScalarProperty Name="BeforePromotion" ColumnName="BeforePromotion" />
-                <ScalarProperty Name="WasPromoted" ColumnName="WasPromoted" />
-                <ScalarProperty Name="NameOfPerson" ColumnName="NameOfPerson" />
-                <ScalarProperty Name="GradeWEF" ColumnName="GradeWEF" />
-                <ScalarProperty Name="PromotedTo" ColumnName="PromotedTo" />
-                <ScalarProperty Name="IRCFaxNo" ColumnName="IRCFaxNo" />
-                <ScalarProperty Name="IRCMobileNo" ColumnName="IRCMobileNo" />
-                <ScalarProperty Name="IRCTelephoneNo" ColumnName="IRCTelephoneNo" />
-                <ScalarProperty Name="IRCBankAddress" ColumnName="IRCBankAddress" />
-                <ScalarProperty Name="IRCBank" ColumnName="IRCBank" />
-                <ScalarProperty Name="IRCPosition" ColumnName="IRCPosition" />
-                <ScalarProperty Name="IRCName" ColumnName="IRCName" />
-                <ScalarProperty Name="IRCMembershipNo" ColumnName="IRCMembershipNo" />
-                <ScalarProperty Name="ResignReason" ColumnName="ResignReason" />
-                <ScalarProperty Name="ResignMemberBranchName" ColumnName="ResignMemberBranchName" />
-                <ScalarProperty Name="ResignMemberBankName" ColumnName="ResignMemberBankName" />
-                <ScalarProperty Name="ResignMemberICNo" ColumnName="ResignMemberICNo" />
-                <ScalarProperty Name="ResignMemberName" ColumnName="ResignMemberName" />
-                <ScalarProperty Name="ResignMemberNo" ColumnName="ResignMemberNo" />
-                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="MemberMonthEndStatus">
             <EntityTypeMapping TypeName="nube18092017Model.MemberMonthEndStatu">
               <MappingFragment StoreEntitySet="MemberMonthEndStatus">
@@ -7099,6 +7075,54 @@ warning 6002: The table/view 'nubev2_1.dbo.VIEWTOTALDUE' does not have a primary
                 <ScalarProperty Name="BANKBRANCH_NAME" ColumnName="BANKBRANCH_NAME" />
                 <ScalarProperty Name="BANK_CODE" ColumnName="BANK_CODE" />
                 <ScalarProperty Name="BANKBRANCH_CODE" ColumnName="BANKBRANCH_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IRCConfirmations">
+            <EntityTypeMapping TypeName="nube18092017Model.IRCConfirmation">
+              <MappingFragment StoreEntitySet="IRCConfirmation">
+                <ScalarProperty Name="SubmittedAt" ColumnName="SubmittedAt" />
+                <ScalarProperty Name="UpdatedAt" ColumnName="UpdatedAt" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="BranchCommitteeDate" ColumnName="BranchCommitteeDate" />
+                <ScalarProperty Name="BranchCommitteeZone" ColumnName="BranchCommitteeZone" />
+                <ScalarProperty Name="BranchCommitteeName" ColumnName="BranchCommitteeName" />
+                <ScalarProperty Name="BranchCommitteeVerification2" ColumnName="BranchCommitteeVerification2" />
+                <ScalarProperty Name="BranchCommitteeVerification1" ColumnName="BranchCommitteeVerification1" />
+                <ScalarProperty Name="IRCContactMobileNo" ColumnName="IRCContactMobileNo" />
+                <ScalarProperty Name="IRCContact" ColumnName="IRCContact" />
+                <ScalarProperty Name="IRCTransferTo" ColumnName="IRCTransferTo" />
+                <ScalarProperty Name="IRCFilledByContact" ColumnName="IRCFilledByContact" />
+                <ScalarProperty Name="IRCFilledByPosition" ColumnName="IRCFilledByPosition" />
+                <ScalarProperty Name="IRCJobFunction" ColumnName="IRCJobFunction" />
+                <ScalarProperty Name="NameforFilledBy" ColumnName="NameforFilledBy" />
+                <ScalarProperty Name="IsContact" ColumnName="IsContact" />
+                <ScalarProperty Name="TransferTo" ColumnName="TransferTo" />
+                <ScalarProperty Name="FilledBy" ColumnName="FilledBy" />
+                <ScalarProperty Name="HereByConfirm" ColumnName="HereByConfirm" />
+                <ScalarProperty Name="Attached" ColumnName="Attached" />
+                <ScalarProperty Name="BeforePromotion" ColumnName="BeforePromotion" />
+                <ScalarProperty Name="WasPromoted" ColumnName="WasPromoted" />
+                <ScalarProperty Name="NameOfPerson" ColumnName="NameOfPerson" />
+                <ScalarProperty Name="GradeWEF" ColumnName="GradeWEF" />
+                <ScalarProperty Name="PromotedTo" ColumnName="PromotedTo" />
+                <ScalarProperty Name="IRCFaxNo" ColumnName="IRCFaxNo" />
+                <ScalarProperty Name="IRCMobileNo" ColumnName="IRCMobileNo" />
+                <ScalarProperty Name="IRCTelephoneNo" ColumnName="IRCTelephoneNo" />
+                <ScalarProperty Name="IRCBankAddress" ColumnName="IRCBankAddress" />
+                <ScalarProperty Name="IRCBank" ColumnName="IRCBank" />
+                <ScalarProperty Name="IRCPosition" ColumnName="IRCPosition" />
+                <ScalarProperty Name="IRCName" ColumnName="IRCName" />
+                <ScalarProperty Name="IRCMembershipNo" ColumnName="IRCMembershipNo" />
+                <ScalarProperty Name="ResignReason" ColumnName="ResignReason" />
+                <ScalarProperty Name="ResignMemberBranchName" ColumnName="ResignMemberBranchName" />
+                <ScalarProperty Name="ResignMemberBankName" ColumnName="ResignMemberBankName" />
+                <ScalarProperty Name="ResignMemberICNo" ColumnName="ResignMemberICNo" />
+                <ScalarProperty Name="ResignMemberName" ColumnName="ResignMemberName" />
+                <ScalarProperty Name="ResignMemberNo" ColumnName="ResignMemberNo" />
+                <ScalarProperty Name="MemberCode" ColumnName="MemberCode" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

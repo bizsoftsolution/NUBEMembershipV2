@@ -199,20 +199,23 @@ namespace Nube
                         db.SaveChanges();
 
                         progressBar1.Value = 10;
+                        this.Hide();
                         System.Windows.Forms.Application.DoEvents();
-                        if (ut.UserType1 == "IRC Confirmation")
+                        if (ut.UserType1 == "IRC Confirmation" || ut.UserType1 == "IRC Branch Committee")
                         {
                             Transaction.frmIRCConfirmation frm = new Transaction.frmIRCConfirmation();
-                            frm.Show();
+                            frm.ShowDialog();
+                            txtUserId.Text = "";
+                            txtPassword.Password = "";
+                            this.Show();
                         }
                         else
-                        {
+                        {                            
                             frmMain frm = new frmMain();
                             frm.Show();
-                        }
-                        bIsClose = true;
-                        this.Close();
-                        BgWorker.RunWorkerAsync();
+                            bIsClose = true;
+                            BgWorker.RunWorkerAsync();
+                        }                        
                     }
                 }
                 else

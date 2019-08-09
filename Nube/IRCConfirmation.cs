@@ -37,6 +37,15 @@ namespace Nube
         public Nullable<bool> Attached { get; set; }
         public Nullable<bool> HereByConfirm { get; set; }
         public Nullable<bool> FilledBy { get; set; }
+        public Nullable<bool> TransferTo { get; set; }
+        public Nullable<bool> IsContact { get; set; }
+        public string NameforFilledBy { get; set; }
+        public string IRCJobFunction { get; set; }
+        public string IRCFilledByPosition { get; set; }
+        public string IRCFilledByContact { get; set; }
+        public string IRCTransferTo { get; set; }
+        public string IRCContact { get; set; }
+        public string IRCContactMobileNo { get; set; }
         public Nullable<bool> BranchCommitteeVerification1 { get; set; }
         public Nullable<bool> BranchCommitteeVerification2 { get; set; }
         public string BranchCommitteeName { get; set; }
@@ -46,7 +55,6 @@ namespace Nube
         public string Status { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<System.DateTime> UpdatedAt { get; set; }
-        public string NameforFilledBy { get; set; }
         public Nullable<System.DateTime> SubmittedAt { get; set; }
     }
 }

@@ -22,11 +22,93 @@ namespace Nube.Transaction
     {
         nubebfsEntity db = new nubebfsEntity();
 
+        enum IRC{
+            Confirmation = 7,
+            BranchCommittee = 8
+        }
+
         public frmIRCConfirmation()
         {
             InitializeComponent();
             FormLoad();
+            if(AppLib.iUsertypeId == (int)IRC.Confirmation)
+            {
+                txtIRCMemberNo.IsEnabled = true;
+                txtIRCName.IsEnabled = true;
+                rbtChariman.IsEnabled = true;
+                rbtSecretary.IsEnabled = true;
+                rbtCommitteMember.IsEnabled = true;
+                txtIRCBankName.IsEnabled = true;
+                txtIRCBankAddress.IsEnabled = true;
+                txtIRCTelephoneNo.IsEnabled = true;
+                txtIRCMobileNo.IsEnabled = true;
+                txtIRCFax.IsEnabled = true;
+                
+
+                cbxNameOfPerson.IsEnabled = true;
+                txtIRCResignMemberName.IsEnabled = true;
+                cbxPromotedTo.IsEnabled = true;
+                cmbRegReason.IsEnabled = true;
+                txtIRCPromotedTo.IsEnabled = true;
+                cbxBeforePromotion.IsEnabled = true;
+                cbxAttached.IsEnabled = true;
+                txtIRCJobFunction.IsEnabled = true;
+                cbxHereByConfirm.IsEnabled = true;
+                cbxFilledBy.IsEnabled = true;
+                txtIRCFilledBy.IsEnabled = true;
+                txtIRCFilledByPosition.IsEnabled = true;
+                txtIRCFilledByContact.IsEnabled = true;
+                cbxTransferTo.IsEnabled = true;
+                txtIRCTransferTo.IsEnabled = true;
+                cbxContact.IsEnabled = true;
+                txtIRCContact.IsEnabled = true;
+                txtIRCContactMobileNo.IsEnabled = true;
+
+
+                cbxBranchCommitteeVerification1.IsEnabled = false;
+                cbxBranchCommitteeVerification2.IsEnabled = false;
+                txtBranchCommitteeName.IsEnabled = false;
+                txtBranchCommitteeZone.IsEnabled = false;
+            }
+            else
+            {
+                txtIRCMemberNo.IsEnabled = false;
+                txtIRCName.IsEnabled = false;
+                rbtChariman.IsEnabled = false;
+                rbtSecretary.IsEnabled = false;
+                rbtCommitteMember.IsEnabled = false;
+                txtIRCBankName.IsEnabled = false;
+                txtIRCBankAddress.IsEnabled = false;
+                txtIRCTelephoneNo.IsEnabled = false;
+                txtIRCMobileNo.IsEnabled = false;
+                txtIRCFax.IsEnabled = false;
+
+                cbxNameOfPerson.IsEnabled = false;
+                txtIRCResignMemberName.IsEnabled = false;
+                cbxPromotedTo.IsEnabled = false;
+                cmbRegReason.IsEnabled = false;
+                txtIRCPromotedTo.IsEnabled = false;
+                cbxBeforePromotion.IsEnabled = false;
+                cbxAttached.IsEnabled = false;
+                txtIRCJobFunction.IsEnabled = false;
+                cbxHereByConfirm.IsEnabled = false;
+                cbxFilledBy.IsEnabled = false;
+                txtIRCFilledBy.IsEnabled = false;
+                txtIRCFilledByPosition.IsEnabled = false;
+                txtIRCFilledByContact.IsEnabled = false;
+                cbxTransferTo.IsEnabled = false;
+                txtIRCTransferTo.IsEnabled = false;
+                cbxContact.IsEnabled = false;
+                txtIRCContact.IsEnabled = false;
+                txtIRCContactMobileNo.IsEnabled = false;
+
+                cbxBranchCommitteeVerification1.IsEnabled = true;
+                cbxBranchCommitteeVerification2.IsEnabled = true;
+                txtBranchCommitteeName.IsEnabled = true;
+                txtBranchCommitteeZone.IsEnabled = true;
+            }
         }
+
         void FormLoad()
         {
             try
@@ -74,9 +156,9 @@ namespace Nube.Transaction
         {
             try
             {
-                
+                if (string.IsNullOrWhiteSpace(txtMemberNo.Text)) return;
                 var id = Convert.ToDecimal("0" + txtMemberNo.Text);
-                var mm = db.ViewMasterMembers.FirstOrDefault(x => x.MEMBER_ID == id);
+                var mm = db.ViewMasterMembers.FirstOrDefault(x => x.MEMBER_ID == id || x.ICNO_NEW==txtMemberNo.Text || x.ICNO_OLD == txtMemberNo.Text || x.NRIC_BYBANK == txtMemberNo.Text);
                 ClearIRC();
                 if (mm != null)                
                 {
@@ -147,6 +229,7 @@ namespace Nube.Transaction
             cbxFilledBy.Content = string.Format("The {0} position has been filled by", rMemberType);
             cbxBranchCommitteeVerification1.Content = String.Format("I have verified the above and confirm that the declaration by the IRC is correct. The {0} position has been filled by another {0} And;",rMemberType);
             cbxBranchCommitteeVerification2.Content = String.Format("The promoted member is no longer doing {0} job functions", rMemberType);
+            cbxTransferTo.Content = string.Format("{0} promoted and transfer to new place",SheOrHe);
         }
 
         private void txtMemberName_TextChanged(object sender, TextChangedEventArgs e)
@@ -226,6 +309,12 @@ namespace Nube.Transaction
                 txtBranchCommitteeZone.Text = d.BranchCommitteeZone;
                 txtRemarks.Text = d.Remarks;
 				txtIRCFilledBy.Text = d.NameforFilledBy;
+                txtIRCJobFunction.Text = d.IRCJobFunction;
+                txtIRCFilledByPosition.Text = d.IRCFilledByPosition;
+                txtIRCFilledByContact.Text = d.IRCFilledByContact;
+                txtIRCTransferTo.Text = d.IRCTransferTo;
+                txtIRCContact.Text = d.IRCContact;
+                txtIRCContactMobileNo.Text = d.IRCContactMobileNo;
                 dtpGrade.SelectedDate = d.GradeWEF;
                 dtpBranchCommitteeDate.SelectedDate = d.BranchCommitteeDate;
 				dtpFileSubmit.SelectedDate = d.SubmittedAt;
@@ -235,6 +324,8 @@ namespace Nube.Transaction
                 cbxAttached.IsChecked = d.Attached;
                 cbxHereByConfirm.IsChecked = d.HereByConfirm;
                 cbxFilledBy.IsChecked = d.FilledBy;
+                cbxTransferTo.IsChecked = d.TransferTo;
+                cbxContact.IsChecked = d.IsContact;
                 cbxBranchCommitteeVerification1.IsChecked = d.BranchCommitteeVerification1;
                 cbxBranchCommitteeVerification2.IsChecked = d.BranchCommitteeVerification2;
                 cmbRegReason.Text = d.ResignReason;
@@ -281,7 +372,12 @@ namespace Nube.Transaction
             txtBranchCommitteeZone.Text = "";
             txtRemarks.Text = "";
 			txtIRCFilledBy.Text = "";
-
+            txtIRCJobFunction.Text = "";
+            txtIRCFilledByPosition.Text = "";
+            txtIRCFilledByContact.Text = "";
+            txtIRCTransferTo.Text = "";
+            txtIRCContact.Text = "";
+            txtIRCContactMobileNo.Text = "";
             cmbRegReason.Text = "PROMOTED";
 
             dtpDOB.Text = "";
@@ -303,6 +399,8 @@ namespace Nube.Transaction
             cbxFilledBy.IsChecked = false;
             cbxBranchCommitteeVerification1.IsChecked = false;
             cbxBranchCommitteeVerification2.IsChecked = false;
+            cbxTransferTo.IsChecked = false;
+            cbxContact.IsChecked = false;
             rbtChariman.IsChecked = false;
             rbtSecretary.IsChecked = false;
             rbtCommitteMember.IsChecked = false;
@@ -338,6 +436,12 @@ namespace Nube.Transaction
                     IRC.IRCTelephoneNo = txtIRCTelephoneNo.Text;
                     IRC.IRCMobileNo = txtIRCMobileNo.Text;
                     IRC.IRCFaxNo = txtIRCFax.Text;
+                    IRC.IRCJobFunction = txtIRCJobFunction.Text;
+                    IRC.IRCFilledByPosition = txtIRCFilledByPosition.Text;
+                    IRC.IRCFilledByContact = txtIRCFilledByContact.Text;
+                    IRC.IRCTransferTo = txtIRCTransferTo.Text;
+                    IRC.IRCContact = txtIRCContact.Text;
+                    IRC.IRCContactMobileNo = txtIRCContactMobileNo.Text;
                     IRC.GradeWEF = dtpGrade.SelectedDate;
                     IRC.NameOfPerson = cbxNameOfPerson.IsChecked;
                     IRC.WasPromoted = cbxPromotedTo.IsChecked;
@@ -345,6 +449,8 @@ namespace Nube.Transaction
                     IRC.Attached = cbxAttached.IsChecked;
                     IRC.HereByConfirm = cbxHereByConfirm.IsChecked;
                     IRC.FilledBy = cbxFilledBy.IsChecked;
+                    IRC.TransferTo = cbxTransferTo.IsChecked;
+                    IRC.IsContact = cbxContact.IsChecked;
 					IRC.NameforFilledBy = txtIRCFilledBy.Text;
                     IRC.BranchCommitteeVerification1 = cbxBranchCommitteeVerification1.IsChecked;
                     IRC.BranchCommitteeVerification2 = cbxBranchCommitteeVerification2.IsChecked;
@@ -356,6 +462,8 @@ namespace Nube.Transaction
                     IRC.Status = cbxNameOfPerson.IsChecked == true
                               && cbxPromotedTo.IsChecked == true
                               && cbxHereByConfirm.IsChecked == true
+                              && cbxTransferTo.IsChecked == true
+                              && cbxContact.IsChecked==true
                               && !string.IsNullOrWhiteSpace(txtIRCMemberNo.Text) == true
                               && (rbtChariman.IsChecked == true || rbtSecretary.IsChecked == true || rbtCommitteMember.IsChecked == true)
                               && (  
