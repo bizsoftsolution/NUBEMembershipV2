@@ -169,7 +169,7 @@
                                     <CheckBox Name="cbxTransferTo" VerticalAlignment="Bottom">She/he promoted and transfer to new place </CheckBox>
                                     <TextBox Margin="10,0,0,0" Name="txtIRCTransferTo" Width="200" Style="{StaticResource MaterialDesignFloatingHintTextBox}"></TextBox>
                                 </StackPanel>
-                                <StackPanel Margin="0,0,0,0"  Orientation="Horizontal" Margin="0 5">
+                                <StackPanel Orientation="Horizontal" Margin="0 5">
                                     <CheckBox Name="cbxContact" VerticalAlignment="Top" Margin="0 5">
                                         <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                                          <TextBlock Margin="0,0,0,0" VerticalAlignment="Center">Contact</TextBlock>
