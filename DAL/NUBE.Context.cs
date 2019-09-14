@@ -51,7 +51,6 @@ namespace DAL
         public virtual DbSet<dtproperty> dtproperties { get; set; }
         public virtual DbSet<EventHistory> EventHistories { get; set; }
         public virtual DbSet<EVENTHSTRY> EVENTHSTRies { get; set; }
-        public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
         public virtual DbSet<LoginHistory> LoginHistories { get; set; }
         public virtual DbSet<MASTERMEMBERNEW> MASTERMEMBERNEWs { get; set; }
         public virtual DbSet<MasterMemberStatu> MasterMemberStatus { get; set; }
@@ -79,6 +78,7 @@ namespace DAL
         public virtual DbSet<TVMASTERMEMBER> TVMASTERMEMBERs { get; set; }
         public virtual DbSet<MASTERBANK> MASTERBANKs { get; set; }
         public virtual DbSet<MemberInsertBranch> MemberInsertBranches { get; set; }
+        public virtual DbSet<IRCConfirmation> IRCConfirmations { get; set; }
     
         public virtual ObjectResult<SPMEMBERSHIPTOLIST_Result> SPMEMBERSHIPTOLIST(Nullable<int> aPPROVEDSTATE)
         {

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f2c7774752ed4303acd88b9ef5371558" Name="Diagram1" ZoomLevel="52">
+      <Diagram DiagramId="f2c7774752ed4303acd88b9ef5371558" Name="Diagram1" ZoomLevel="88">
         <EntityTypeShape EntityType="nubev2Model.MASTERBANKBRANCH" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubev2Model.MASTERCITY" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="nubev2Model.MASTERGUARDIAN" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
@@ -29,7 +29,6 @@
         <EntityTypeShape EntityType="nubev2Model.dtproperty" Width="1.5" PointX="15.75" PointY="13.75" />
         <EntityTypeShape EntityType="nubev2Model.EventHistory" Width="1.5" PointX="17.75" PointY="0.75" />
         <EntityTypeShape EntityType="nubev2Model.EVENTHSTRY" Width="1.5" PointX="17.75" PointY="4.75" />
-        <EntityTypeShape EntityType="nubev2Model.IRCConfirmation" Width="1.5" PointX="17.75" PointY="7.75" />
         <EntityTypeShape EntityType="nubev2Model.LoginHistory" Width="1.5" PointX="17.75" PointY="13.75" />
         <EntityTypeShape EntityType="nubev2Model.MASTERMEMBERNEW" Width="1.5" PointX="15.75" PointY="17.75" />
         <EntityTypeShape EntityType="nubev2Model.MasterMemberStatu" Width="1.5" PointX="17.75" PointY="16.75" />
@@ -59,6 +58,9 @@
         <AssociationConnector Association="nubev2Model.FK_MASTERMEMBER_MASTERBANK" />
         <AssociationConnector Association="nubev2Model.FK_MASTERMEMBER_MASTERBANKBRANCH" />
         <EntityTypeShape EntityType="nubev2Model.MemberInsertBranch" Width="1.5" PointX="0.75" PointY="25.75" />
+        <EntityTypeShape EntityType="nubev2Model.IRCConfirmation" Width="1.5" PointX="20.375" PointY="25.75" />
+        <AssociationConnector Association="nubev2Model.FK_FeesDetails_MASTERMEMBER" />
+        <AssociationConnector Association="nubev2Model.FK_RESIGNATION_MASTERMEMBER" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

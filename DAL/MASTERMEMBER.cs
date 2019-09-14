@@ -14,6 +14,13 @@ namespace DAL
     
     public partial class MASTERMEMBER
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public MASTERMEMBER()
+        {
+            this.FeesDetails = new HashSet<FeesDetail>();
+            this.RESIGNATIONs = new HashSet<RESIGNATION>();
+        }
+    
         public decimal MEMBER_CODE { get; set; }
         public string MEMBER_NAME { get; set; }
         public Nullable<decimal> MEMBER_ID { get; set; }
@@ -99,8 +106,21 @@ namespace DAL
         public bool GE_Insurance { get; set; }
         public string GE_ContractNo { get; set; }
         public Nullable<int> BranchMemberCode { get; set; }
+        public Nullable<decimal> TOTALMONTHCONTRIBUTE { get; set; }
+        public Nullable<decimal> TOTALMONTHSDUE { get; set; }
+        public Nullable<decimal> MONTHLYINSURANCE { get; set; }
+        public Nullable<decimal> ACCINSURANCE { get; set; }
+        public Nullable<decimal> CURRENT_YTDINSURANCE { get; set; }
+        public Nullable<decimal> DUEBF { get; set; }
+        public Nullable<decimal> DUESUBSCRIPTION { get; set; }
+        public Nullable<decimal> DUEINSURANCE { get; set; }
+        public Nullable<bool> IsHistoryClean { get; set; }
     
         public virtual MASTERBANK MASTERBANK { get; set; }
         public virtual MASTERBANKBRANCH MASTERBANKBRANCH { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FeesDetail> FeesDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RESIGNATION> RESIGNATIONs { get; set; }
     }
 }
