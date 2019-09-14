@@ -46,19 +46,20 @@ namespace Nube.Transaction
                 // DateTime lastSubsDT = db.MonthlySubscriptions.Select(x => x.date).Max();
                 DateTime lastSubsDT = this.dtReport;
                 DateTime dt = lastSubsDT.AddYears(-1);
+                DateTime dtDOJ = lastSubsDT.AddMonths(-4);
                 List<Model.VariationReport> lst = new List<Model.VariationReport>();
                 Model.VariationReport data = new Model.VariationReport();
-                var lstMembers = db.MASTERMEMBERs.Where(x => x.LASTPAYMENT_DATE >= dt).ToList();
+                var lstMembers = db.MASTERMEMBERs.Where(x => x.LASTPAYMENT_DATE >= dt && x.DATEOFJOINING<dtDOJ && x.RESIGNED!=1).ToList();
 
-                DateTime dtMon1 = lastSubsDT.AddMonths(-5);
-                DateTime dtMon2 = lastSubsDT.AddMonths(-4);
+                //DateTime dtMon1 = lastSubsDT.AddMonths(-5);
+                //DateTime dtMon2 = lastSubsDT.AddMonths(-4);
                 DateTime dtMon3 = lastSubsDT.AddMonths(-3);
                 DateTime dtMon4 = lastSubsDT.AddMonths(-2);
                 DateTime dtMon5 = lastSubsDT.AddMonths(-1);
                 DateTime dtMon6 = lastSubsDT;
 
-                var lstMon1 = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscription.date == dtMon1).Select(x=> new {x.MemberCode,x.Amount }).ToList();
-                var lstMon2 = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscription.date == dtMon2).Select(x => new { x.MemberCode, x.Amount }).ToList();
+                //var lstMon1 = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscription.date == dtMon1).Select(x=> new {x.MemberCode,x.Amount }).ToList();
+                //var lstMon2 = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscription.date == dtMon2).Select(x => new { x.MemberCode, x.Amount }).ToList();
                 var lstMon3 = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscription.date == dtMon3).Select(x => new { x.MemberCode, x.Amount }).ToList();
                 var lstMon4 = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscription.date == dtMon4).Select(x => new { x.MemberCode, x.Amount }).ToList();
                 var lstMon5 = db.MonthlySubscriptionMembers.Where(x => x.MonthlySubscriptionBank.MonthlySubscription.date == dtMon5).Select(x => new { x.MemberCode, x.Amount }).ToList();
@@ -70,20 +71,23 @@ namespace Nube.Transaction
                     try
                     {
                         var Subs = Math.Round((decimal)((d.Salary ?? 0) / 100), 2);
-                        var Subs1 = lstMon1.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
-                        var Subs2 = lstMon2.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
+                        //var Subs1 = lstMon1.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
+                        //var Subs2 = lstMon2.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
                         var Subs3 = lstMon3.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
                         var Subs4 = lstMon4.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
                         var Subs5 = lstMon5.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
                         var Subs6 = lstMon6.FirstOrDefault(x => x.MemberCode == d.MEMBER_CODE)?.Amount ?? 0;
 
-                        if (Subs != Subs1 || Subs != Subs2 || Subs != Subs3 || Subs != Subs4 || Subs != Subs5 || Subs != Subs6)
+                        if (
+                            //Subs != Subs1 || 
+                            //Subs != Subs2 || 
+                            Subs != Subs3 || Subs != Subs4 || Subs != Subs5 || Subs != Subs6)
                         {
                             data = new Model.VariationReport();
                             data.MemberCode = d.MEMBER_CODE;
                             data.MemberId = d.MEMBER_ID ?? 0;
                             data.MemberName = d.MEMBER_NAME;
-                            data.MemberStatus = d.MASTERSTATU?.STATUS_NAME;
+                            data.MemberStatus = d.MASTERMEMBERTYPE?.MEMBERTYPE_NAME.Substring(0,1);
 
                             data.DOJ = d.DATEOFJOINING;
                             data.DOL = d.LASTPAYMENT_DATE;
@@ -91,14 +95,14 @@ namespace Nube.Transaction
                             data.DueMonth = (int)(d.TOTALMONTHSDUE ?? 0);
 
                             data.Subs = Subs;
-                            data.Subs1 = Subs1;
-                            data.Subs2 = Subs2;
+                            //data.Subs1 = Subs1;
+                            //data.Subs2 = Subs2;
                             data.Subs3 = Subs3;
                             data.Subs4 = Subs4;
                             data.Subs5 = Subs5;
                             data.Subs6 = Subs6;
-                            data.mm1 = SubsDescription(Subs, Subs1, dtMon1, data.DOJ, data.DOR);
-                            data.mm2 = SubsDescription(Subs, Subs2, dtMon2, data.DOJ, data.DOR);
+                            //data.mm1 = SubsDescription(Subs, Subs1, dtMon1, data.DOJ, data.DOR);
+                            //data.mm2 = SubsDescription(Subs, Subs2, dtMon2, data.DOJ, data.DOR);
                             data.mm3 = SubsDescription(Subs, Subs3, dtMon3, data.DOJ, data.DOR);
                             data.mm4 = SubsDescription(Subs, Subs4, dtMon4, data.DOJ, data.DOR);
                             data.mm5 = SubsDescription(Subs, Subs5, dtMon5, data.DOJ, data.DOR);
@@ -116,7 +120,13 @@ namespace Nube.Transaction
                                 data.GroupName = $"{d.MASTERBANKBRANCH?.MASTERNUBEBRANCH?.NUBE_BRANCH_NAME}";
                             }
                             
-                            lst.Add(data);
+                            if(!( 
+                                
+                                (data.mm3 == "*" || data.mm3 == "-") &&
+                                (data.mm4 == "*" || data.mm4 == "-") &&
+                                (data.mm5 == "*" || data.mm5 == "-") &&
+                                (data.mm6 == "*" || data.mm6 == "-") 
+                                )) lst.Add(data);
                         }
                     }
                     catch(Exception ex)
@@ -155,28 +165,43 @@ namespace Nube.Transaction
         string SubsDescription(decimal Subs,decimal Subs1,DateTime SubsDT,DateTime? DOJ,DateTime? DOR )
         {
             if (Subs1 != 0)
-            {                
-                if (this.DisplaySubs==true)
+            {
+                //if (this.DisplaySubs==true)
+                //{
+                //    return Subs1 - Subs == 0 ? $"{Subs1:N2}" : $"{Subs1:N2}\n({(Subs1 - Subs):+0.00; -#0.00})";
+                //}
+                //else
+                //{
+                //    return Subs1 - Subs == 0 ? "-" : $"{(Subs1 - Subs):+0.00; -0.00}";                    
+                //}
+                var diff = Subs1 - Subs;
+                if (diff == 0) {
+                    return "-";
+                }                 
+                else 
                 {
-                    return Subs1 - Subs == 0 ? $"{Subs1:N2}" : $"{Subs1:N2}\n({(Subs1 - Subs):+0.00; -#0.00})";
+                    if (diff > 0 && (SubsDT.Month==1 || SubsDT.Month==7 ))
+                    {
+                        if(diff ==  (Subs * (5/100)))
+                        {
+                            return "Inc(5%)";
+                        }
+                    }  
+                    return $"{Math.Abs(diff):0.00}"; 
                 }
-                else
-                {
-                    return Subs1 - Subs == 0 ? "-" : $"{(Subs1 - Subs):+0.00; -0.00}";
-                }                
             }
-            else if (SubsDT.Year == DOJ?.Year && SubsDT.Month == DOJ?.Month)
-            {
-                return "N";
-            }
-            else if (SubsDT.Year == DOR?.Year && SubsDT.Month == DOR?.Month)
-            {
-                return "R";
-            }
-            else if(SubsDT<DOJ || SubsDT>DOR)
-            {
-                return "";
-            }
+            //else if (SubsDT.Year == DOJ?.Year && SubsDT.Month == DOJ?.Month)
+            //{
+            //    return "N";
+            //}
+            //else if (SubsDT.Year == DOR?.Year && SubsDT.Month == DOR?.Month)
+            //{
+            //    return "R";
+            //}
+            //else if(SubsDT<DOJ || SubsDT>DOR)
+            //{
+            //    return "";
+            //}
             else
             {
                 return "*";
